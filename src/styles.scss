@@ -79,8 +79,16 @@ body {
   max-width: calc(100% / 3);
 }
 
+.h-\[45vh\] {
+  height: 45vh;
+}
+
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .flex {

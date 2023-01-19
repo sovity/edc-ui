@@ -13,7 +13,7 @@
         [attr.src]="appConfigService.config.brandLogoSrc"
         [style]="appConfigService.config.brandLogoStyle"/>
     </mat-toolbar>
-    <mat-nav-list class="custom-nav-list">
+    <mat-nav-list class="overflow-auto h-[45vh]">
       <a *ngFor="let route of routes" [routerLink]="[route.path]">
         <mat-list-item
           *ngIf="
