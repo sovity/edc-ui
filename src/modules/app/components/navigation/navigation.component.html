@@ -11,9 +11,9 @@
         width="70%"
         alt="Logo"
         [attr.src]="appConfigService.config.brandLogoSrc"
-        [style]="appConfigService.config.brandLogoStyle" />
+        [style]="appConfigService.config.brandLogoStyle"/>
     </mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list class="custom-nav-list">
       <a *ngFor="let route of routes" [routerLink]="[route.path]">
         <mat-list-item
           *ngIf="
@@ -31,7 +31,7 @@
       *ngIf="'sovity-zammad-integration' | isActiveFeature"
       id="contact-form"
       class="align-to-bottom">
-      <b>Do you have feedback or need help?</b>
+      <strong>Do you have feedback or need help?</strong>
       <p><em>Select &nbsp;<kbd>SAML</kbd>&nbsp; login on following page</em></p>
       <a
         href="https://sovity.zammad.com/#customer_ticket_new"
