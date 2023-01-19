@@ -79,10 +79,6 @@ body {
   max-width: calc(100% / 3);
 }
 
-.h-\[45vh\] {
-  height: 45vh;
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
@@ -147,6 +143,15 @@ body {
 // See https://tailwindcss.com/docs/flex-grow
 .grow {
   flex-grow: 1;
+}
+
+// See https://tailwindcss.com/docs/flex-shrink
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.shrink {
+  flex-shrink: 1;
 }
 
 // See https://tailwindcss.com/docs/align-items
