@@ -1,0 +1,32 @@
+name: Trivy License Scans
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Use node.js
+        uses: actions/setup-node@v3
+      - run: npm i
+      - name: Run license scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'rootfs'
+          scan-ref: '.'
+          trivy-config: ".github/license_scan_config.yml"
+          exit-code: 1
+      - name: Run vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          security-checks: vuln, config
+          exit-code: 1
