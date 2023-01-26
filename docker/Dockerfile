@@ -14,7 +14,7 @@ COPY ./ /app/
 RUN npm run ng build --no-progress --configuration=production
 
 # Stage 3: Serve app with nginx
-FROM nginx:1.23.2-alpine
+FROM nginx:1.23.3-alpine
 
 RUN apk update && apk add jq esh
 
@@ -32,6 +32,6 @@ HEALTHCHECK --interval=2s --timeout=5s --retries=10 \
 # (1) Apply NGINX_BIND and NGINX_PORT to nginx.conf
 # (2) Create app-config.json from EDC_UI_* ENV Vars
 CMD esh -o /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.esh \
- && jq -n 'env' | jq 'with_entries( select(.key | startswith("EDC_UI_") ) )' > /usr/share/nginx/html/assets/config/app-config.json \
+ && jq -n 'env | with_entries( select(.key | startswith("EDC_UI_") ) )' > /usr/share/nginx/html/assets/config/app-config.json \
  && nginx -g "daemon off;"
 
