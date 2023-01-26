@@ -13,11 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: 'package-lock.json'
+      - name: Use node.js
+        uses: actions/setup-node@v3
       - run: npm ci
       - name: Run license scanner
         uses: aquasecurity/trivy-action@master
