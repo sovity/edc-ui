@@ -29,4 +29,5 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
           security-checks: vuln, config
+          severity: CRITICAL
           exit-code: 1
