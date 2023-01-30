@@ -8,12 +8,13 @@ jobs:
     needs: [secret_scan, license_scan]
     runs-on: ubuntu-latest
 
-  - name: Checkout repo
-    uses: actions/checkout@v2
+
     permissions:
       pull-requests: write
       contents: write
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
       - uses: fastify/github-action-merge-dependabot@v3
 
