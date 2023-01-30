@@ -1,19 +1,28 @@
 <div class="flex flex-row gap-[16px]" style="margin: 24px">
   <div class="grow flex flex-col gap-[16px]">
-    <mat-card>
-      <mat-card-title>Incoming Data</mat-card-title>
-      <mat-card-subtitle
-        >Transfer Processes and Contract Agreements
-      </mat-card-subtitle>
-      <div class="flex flex-row justify-evenly">
-        <edc-demo-dashboard-donut-chart
-          class="w-1/2"
-          [data]="data.transfersChart"></edc-demo-dashboard-donut-chart>
-        <edc-demo-dashboard-donut-chart
-          class="w-1/2"
-          [data]="data.contractAgreementChart"></edc-demo-dashboard-donut-chart>
-      </div>
-    </mat-card>
+    <div class="flex flex-row gap-[16px]">
+      <mat-card style="width: calc(50% - 8px)">
+        <mat-card-title>Transfer Processes</mat-card-title>
+        <mat-card-subtitle>Incoming Data</mat-card-subtitle>
+        <div class="flex flex-row justify-center items-center">
+          <edc-demo-dashboard-donut-chart
+            style="margin-bottom: 24px"
+            [data]="data.transfersChart"></edc-demo-dashboard-donut-chart>
+        </div>
+      </mat-card>
+
+      <mat-card style="width: calc(50% - 8px)">
+        <mat-card-title>Contract Agreements</mat-card-title>
+        <mat-card-subtitle>Incoming Data</mat-card-subtitle>
+        <div class="flex flex-row justify-evenly">
+          <edc-demo-dashboard-donut-chart
+            style="margin-bottom: 24px"
+            [data]="
+              data.contractAgreementChart
+            "></edc-demo-dashboard-donut-chart>
+        </div>
+      </mat-card>
+    </div>
 
     <div class="flex flex-row flex-wrap justify-between gap-[16px]">
       <edc-demo-dashboard-kpi-card
