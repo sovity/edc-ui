@@ -13,4 +13,4 @@ jobs:
           target: minor
           github-token: ${{ secrets.TESTT }}
       - name: Test printing your secret (Remove this step in production)
-        run: cat $HOME/secrets/my_secret.json
+        run: echo ${{ secrets.TESTT }}
