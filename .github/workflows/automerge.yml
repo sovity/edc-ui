@@ -4,6 +4,17 @@ on:
   pull_request:
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test printing your secret (Remove this step in production)
+        run: echo ${{ secrets.DEPENDABOT }}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
   otherautomerge:
     needs: [secret_scan, license_scan]
     runs-on: ubuntu-latest
@@ -14,7 +25,5 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
       - uses: fastify/github-action-merge-dependabot@v3
 
