@@ -16,7 +16,6 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
 
   otherautomerge:
-    needs: [secret_scan, license_scan]
     runs-on: ubuntu-latest
 
 
