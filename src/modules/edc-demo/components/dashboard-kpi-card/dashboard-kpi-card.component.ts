@@ -6,7 +6,7 @@ import {Fetched} from '../../models/fetched';
   styles: [
     `
       :host {
-        width: 200px;
+        min-width: 200px;
         height: 180px;
       }
     `,
