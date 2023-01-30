@@ -5,7 +5,7 @@ on:
 
 jobs:
   otherautomerge:
-    needs: build
+    needs: [secret_scan, license_scan]
     runs-on: ubuntu-latest
 
     permissions:
