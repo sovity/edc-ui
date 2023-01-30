@@ -12,9 +12,9 @@ import {EdcUiFeature} from './config/edc-ui-feature';
 
 export const routes: Routes = [
   {
-    path: 'about',
+    path: 'dashboard',
     component: DashboardComponent,
-    data: {title: 'About', icon: 'data_usage'},
+    data: {title: 'Dashboard', icon: 'data_usage'},
   },
   {
     path: 'catalog-browser',
@@ -57,7 +57,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'about',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
 ];
