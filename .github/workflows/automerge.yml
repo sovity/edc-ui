@@ -8,6 +8,8 @@ jobs:
     needs: [secret_scan, license_scan]
     runs-on: ubuntu-latest
 
+  - name: Checkout repo
+    uses: actions/checkout@v2
     permissions:
       pull-requests: write
       contents: write
