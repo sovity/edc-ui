@@ -4,18 +4,14 @@ on:
   pull_request:
 
 jobs:
-  auto-merge:
+  automerge:
+    needs: build
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Test printing your secret (Remove this step in production)
-        run: echo ${{ secrets.DEPENDABOT }}
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - uses: ahmadnassri/action-dependabot-auto-merge@v2
-        with:
-          target: major
-          github-token: ${{ secrets.DEPENDABOT }}
+      - uses: fastify/github-action-merge-dependabot@v3
 
