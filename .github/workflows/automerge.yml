@@ -14,3 +14,7 @@ jobs:
           github-token: ${{ secrets.TESTT }}
       - name: Test printing your secret (Remove this step in production)
         run: echo ${{ secrets.TESTT }}
+      - name: Dump GitHub context
+       env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+       run: echo "$GITHUB_CONTEXT"
