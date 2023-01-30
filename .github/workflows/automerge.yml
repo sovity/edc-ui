@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
-          target: minor
+          target: major
           github-token: ${{ secrets.TESTT }}
       - name: Test printing your secret (Remove this step in production)
         run: echo ${{ secrets.TOKEN }}
