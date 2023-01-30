@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test printing your secret (Remove this step in production)
-        run: echo ${{ secrets.TEST }}
+        run: echo ${{ env.TEST }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -17,4 +17,4 @@ jobs:
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
           target: major
-          github-token: ${{ secrets.TEST }}
+          github-token: ${{ env.TEST }}
