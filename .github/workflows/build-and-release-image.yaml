@@ -35,9 +35,16 @@ jobs:
           echo "Start storing"
           touch test.txt
           ls
-          touch $HOME/src/assets/.version
+          echo "--------------"
+          touch src/testSRC.txt
+          ls src/
+          echo "--------------"
+          touch src/assets/testASSET.txt
+          ls src/assets/
+          echo "--------------"
+          touch $HOME/src/assets/version.txt
           ls /src/assets
-          git log -1 > $HOME/src/assets/.version
+          git log -1 > $HOME/src/assets/version.txt
           git log -1
           echo "${{github.sha}}"
           echo "${{github.event.pull_request.head.sha}}"
