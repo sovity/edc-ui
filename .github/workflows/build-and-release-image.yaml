@@ -39,7 +39,7 @@ jobs:
           git log -1
           echo "github SHA is: "
           echo "${{github.sha}}"
-          "echo "github SHA of PR is: "
+          echo "github SHA of PR is: "
           echo "${{github.event.pull_request.head.sha}}"
           echo ".version is: "
           cat src/assets/.version
