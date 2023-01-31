@@ -9,14 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-  otherautomerge:
+  automerge:
     runs-on: ubuntu-latest
-
-
     permissions:
       pull-requests: write
       contents: write
-
     steps:
       - uses: fastify/github-action-merge-dependabot@v3
         with:
