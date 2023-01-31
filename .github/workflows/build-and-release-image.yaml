@@ -40,6 +40,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Store latest commit's author, message and SHA
+        run: |
+          echo "git log -1 >/src/assets/.version"
+          echo "git log -1"
+          echo "${{github.sha}}"
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
