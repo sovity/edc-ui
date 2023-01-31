@@ -16,7 +16,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    options: --user root
     permissions:
       contents: read
       packages: write
@@ -34,9 +33,9 @@ jobs:
       - name: Store latest commit's author, message and SHA
         run: |
           echo "Start storing"
-          touch /src/assets/.version
+          touch $HOME/src/assets/.version
           ls /src/assets
-          git log -1 >/src/assets/.version
+          git log -1 > $HOME/src/assets/.version
           git log -1
           echo "${{github.sha}}"
           echo "${{github.event.pull_request.head.sha}}"
