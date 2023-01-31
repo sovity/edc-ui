@@ -2,7 +2,17 @@ name: Build and Release Image
 
 
 on:
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      imageName:
+        description: 'Name of the image, that will be available as package'
+        required: true
+        type: string
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
 
 
 env:
@@ -30,18 +40,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Store latest commit's author, message and SHA
+      - name: Store last commit's author, message and SHA
         run: |
           touch src/assets/.version
-          echo "Saving local commit in .version"
+          echo "Saving local commit details in src/assets/.version"
           git log -1 > src/assets/.version
-          echo "Latest local commit is: "
-          git log -1
-          echo "github SHA is: "
-          echo "${{github.sha}}"
-          echo "github SHA of PR is: "
-          echo "${{github.event.pull_request.head.sha}}"
-          echo ".version is: "
+          echo "Content of .version is:"
           cat src/assets/.version
 
       - name: Extract metadata (tags, labels) for Docker
