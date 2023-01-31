@@ -11,11 +11,12 @@ jobs:
 
   automerge:
     runs-on: ubuntu-latest
+    continue-on-error: true
     permissions:
       pull-requests: write
       contents: write
     steps:
       - uses: fastify/github-action-merge-dependabot@v3
         with:
-          target: major
+          target: minor
 
