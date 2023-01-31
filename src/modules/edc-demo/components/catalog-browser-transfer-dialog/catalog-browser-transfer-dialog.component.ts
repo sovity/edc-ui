@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DataAddress} from '../../../edc-dmgmt-client';
-import {StorageType} from '../../models/storage-type';
 
 @Component({
   selector: 'edc-demo-catalog-browser-transfer-dialog',
@@ -14,7 +13,6 @@ export class CatalogBrowserTransferDialog {
   type: string = 'Json';
 
   constructor(
-    @Inject('STORAGE_TYPES') public storageTypes: StorageType[],
     private dialogRef: MatDialogRef<CatalogBrowserTransferDialog>,
     @Inject(MAT_DIALOG_DATA) contractDefinition?: any,
   ) {}
