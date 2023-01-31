@@ -34,7 +34,7 @@ jobs:
         run: |
           echo "Start storing"
           touch src/assets/.version
-          ls /src/assets
+          ls src/assets
           git log -1 > src/assets/.version
           git log -1
           echo "${{github.sha}}"
