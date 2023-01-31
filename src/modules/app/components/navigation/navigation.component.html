@@ -11,7 +11,7 @@
         width="70%"
         alt="Logo"
         [attr.src]="appConfigService.config.brandLogoSrc"
-        [style]="appConfigService.config.brandLogoStyle"/>
+        [style]="appConfigService.config.brandLogoStyle" />
     </mat-toolbar>
     <mat-nav-list class="overflow-auto grow">
       <a *ngFor="let route of routes" [routerLink]="[route.path]">
@@ -41,7 +41,7 @@
         CONTACT US
       </a>
       <a
-        href="https://sovity.zammad.com/#customer_ticket_new"
+        href="https://sovity.zammad.com/#knowledge_base/1/locale/en-us"
         target="_blank"
         mat-raised-button
         color="primary">

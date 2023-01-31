@@ -27,32 +27,35 @@ app.use((req, res, next) => {
 // Delay Responses
 app.use((req, res, next) => setTimeout(next, 1000));
 
-app.get('/assets', (req, res) => {
+app.get('/api/v1/data/assets', (req, res) => {
   res.json(assets);
 });
 
-app.get('/policydefinitions', (req, res) => {
+app.get('/api/v1/data/policydefinitions', (req, res) => {
   res.json(policyDefinitions);
 });
 
-app.get('/contractdefinitions', (req, res) => {
+app.get('/api/v1/data/contractdefinitions', (req, res) => {
   res.json(contractDefinitions);
 });
 
-app.get('/transferprocess', (req, res) => {
+app.get('/api/v1/data/transferprocess', (req, res) => {
   res.json(transferProcess);
 });
 
-app.get('/contractagreements', (req, res) => {
+app.get('/api/v1/data/contractagreements', (req, res) => {
   res.json(contractAgreements);
 });
 
-app.get('/catalogs/1', (req, res) => {
-  res.json(catalog1);
-});
-
-app.get('/catalogs/2', (req, res) => {
-  res.json(catalog2);
+app.get('/api/v1/data/catalog', (req, res) => {
+  let providerUrl = req.query.providerUrl;
+  if (providerUrl === 'http://existing-other-connector/v1/ids/data') {
+    res.json(catalog1);
+  } else if (providerUrl === 'https://test.gg') {
+    res.json(catalog2);
+  } else {
+    res.json({contractOffers: []});
+  }
 });
 
 app.listen(3000, function () {

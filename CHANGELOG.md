@@ -16,13 +16,23 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
+- Dashboard with KPIs and charts.
+- Current Connector Organization & URL on Landing Page / Dashboard
+- Simplified adding of data sources in Catalog Browser via Connector ID.
+
 #### Changed
+
+- Connector URL is now called Connector ID, fixed naming and added good placeholders.
 
 #### Removed
 
 #### Fixed
 
 - Fixed additional PolicyDefinition uid vs id issues.
+- Fixed E-Mail in README.MD
+- Added API Endpoint to temporary extension to fix an API problem of not being
+  able to start transfer proceses with just contract agreement ids.
+- Fixed MDS Logo not working.
 
 ## [v0.0.1-milestone-7-sovity1] 19.01.2023
 

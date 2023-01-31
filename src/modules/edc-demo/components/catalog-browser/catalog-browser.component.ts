@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {BehaviorSubject, sampleTime} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {BehaviorSubject, Subject, sampleTime} from 'rxjs';
+import {map, switchMap, takeUntil} from 'rxjs/operators';
 import {Asset} from '../../models/asset';
 import {ContractOffer} from '../../models/contract-offer';
 import {CatalogApiUrlService} from '../../services/catalog-api-url.service';
@@ -15,13 +15,13 @@ import {AssetDetailDialog} from '../asset-detail-dialog/asset-detail-dialog.comp
   templateUrl: './catalog-browser.component.html',
   styleUrls: ['./catalog-browser.component.scss'],
 })
-export class CatalogBrowserComponent implements OnInit {
+export class CatalogBrowserComponent implements OnInit, OnDestroy {
   filteredContractOffers: ContractOffer[] = [];
   filteredContractOfferAssets: Asset[] = [];
 
   searchText = '';
-  customCatalogUrl = '';
-  presetCatalogUrlsMessage = '';
+  customProviders = '';
+  presetProvidersMessage = '';
   private fetch$ = new BehaviorSubject(null);
 
   constructor(
@@ -41,6 +41,7 @@ export class CatalogBrowserComponent implements OnInit {
             contractOffer.asset.name?.toLowerCase()?.includes(searchText),
           );
         }),
+        takeUntil(this.ngOnDestroy$),
       )
       .subscribe((filteredContractOffers) => {
         this.filteredContractOffers = filteredContractOffers;
@@ -48,7 +49,7 @@ export class CatalogBrowserComponent implements OnInit {
           (it) => it.asset,
         );
       });
-    this.presetCatalogUrlsMessage = this.buildPresetCatalogUrlsMessage();
+    this.presetProvidersMessage = this.buildPresetCatalogUrlsMessage();
   }
 
   onSearch() {
@@ -66,17 +67,27 @@ export class CatalogBrowserComponent implements OnInit {
   }
 
   onCatalogUrlsChange(): void {
-    this.catalogApiUrlService.setCustomApiUrlString(this.customCatalogUrl);
+    this.catalogApiUrlService.setCustomProvidersAsString(this.customProviders);
     this.fetch$.next(null);
   }
 
   private buildPresetCatalogUrlsMessage(): string {
-    const urls = this.catalogApiUrlService.getPresetApiUrls();
+    const urls = this.catalogApiUrlService.getPresetProviders();
     if (!urls.length) {
       return '';
     }
     return `Already using${
       urls.length > 1 ? ` (${urls.length})` : ''
     }: ${urls.join(', ')}`;
+  }
+
+  ngOnDestroy$ = new Subject();
+
+  ngOnDestroy() {
+    this.ngOnDestroy$.next(null);
+    this.ngOnDestroy$.complete();
+
+    // Reset selected Connector IDs
+    this.catalogApiUrlService.setCustomProviders([]);
   }
 }
