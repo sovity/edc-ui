@@ -2,17 +2,7 @@ name: Build and Release Image
 
 
 on:
-  workflow_dispatch:
-    inputs:
-      imageName:
-        description: 'Name of the image, that will be available as package'
-        required: true
-        type: string
-  push:
-    branches:
-      - main
-    tags:
-      - "*"
+  pull_request:
 
 
 env:
