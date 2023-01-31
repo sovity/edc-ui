@@ -32,13 +32,16 @@ jobs:
 
       - name: Store latest commit's author, message and SHA
         run: |
-          echo "Start storing"
           touch src/assets/.version
-          ls src/assets
+          echo "Saving local commit in .version"
           git log -1 > src/assets/.version
+          echo "Latest local commit is: "
           git log -1
+          echo "github SHA is: "
           echo "${{github.sha}}"
+          "echo "github SHA of PR is: "
           echo "${{github.event.pull_request.head.sha}}"
+          echo ".version is: "
           cat src/assets/.version
 
       - name: Extract metadata (tags, labels) for Docker
