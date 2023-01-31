@@ -33,6 +33,7 @@ jobs:
       - name: Store latest commit's author, message and SHA
         run: |
           echo "Start storing"
+          touch test.txt
           touch $HOME/src/assets/.version
           ls /src/assets
           git log -1 > $HOME/src/assets/.version
