@@ -8,12 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Test printing your secret (Remove this step in production)
-        run: echo ${{ secrets.DEPENDABOT }}
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
 
   otherautomerge:
     runs-on: ubuntu-latest
@@ -25,4 +19,6 @@ jobs:
 
     steps:
       - uses: fastify/github-action-merge-dependabot@v3
+        with:
+          target: patch
 
