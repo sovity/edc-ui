@@ -41,6 +41,7 @@ jobs:
           echo "${{github.event.pull_request.head.sha}}"
           cat src/assets/.version
 
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
