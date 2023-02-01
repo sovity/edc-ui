@@ -42,7 +42,6 @@ jobs:
 
       - name: Store last commit's author, message and SHA
         run: |
-          touch src/assets/config/version.txt
           echo "Saving local commit details in src/assets/version.txt"
           git log -1 > src/assets/config/version.txt
 
