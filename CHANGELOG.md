@@ -15,6 +15,7 @@ the detailed section referring to by linking pull requests or issues.
 ### Detailed Changes
 
 #### Added
+- Added progress loader to all pages other than landing page
 
 #### Changed
 
