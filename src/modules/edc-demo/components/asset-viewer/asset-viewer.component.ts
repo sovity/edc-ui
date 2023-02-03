@@ -10,6 +10,12 @@ import {AssetDetailDialogResult} from '../asset-detail-dialog/asset-detail-dialo
 import {AssetDetailDialog} from '../asset-detail-dialog/asset-detail-dialog.component';
 import {AssetEditorDialogResult} from '../asset-editor-dialog/asset-editor-dialog-result';
 import {AssetEditorDialog} from '../asset-editor-dialog/asset-editor-dialog.component';
+import {Fetched} from '../../models/fetched';
+
+export interface AssetList {
+  filteredAssets: Asset[];
+  numTotalAssets: number;
+}
 
 @Component({
   selector: 'edc-demo-asset-viewer',
@@ -17,7 +23,7 @@ import {AssetEditorDialog} from '../asset-editor-dialog/asset-editor-dialog.comp
   styleUrls: ['./asset-viewer.component.scss'],
 })
 export class AssetViewerComponent implements OnInit {
-  filteredAssets$: Observable<Asset[]> = of([]);
+  assetList: Fetched<AssetList> = Fetched.empty();
   searchText = '';
   private fetch$ = new BehaviorSubject(null);
 
@@ -28,29 +34,27 @@ export class AssetViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.filteredAssets$ = this.fetch$.pipe(
-      switchMap(() => {
-        let assets$ = this.assetService
-          .getAllAssets()
-          .pipe(
-            map((assets) =>
-              assets.map((asset) =>
-                this.assetPropertyMapper.readProperties(asset.properties),
-              ),
+    this.fetch$
+      .pipe(
+        switchMap(() => {
+          return this.assetService.getAllAssets().pipe(
+            map(
+              (assets): AssetList => ({
+                filteredAssets: assets
+                  .map((asset) =>
+                    this.assetPropertyMapper.readProperties(asset.properties),
+                  )
+                  .filter((asset) => asset.name?.includes(this.searchText)),
+                numTotalAssets: assets.length,
+              }),
             ),
+            Fetched.wrap({
+              failureMessage: 'Failed fetching Asset details',
+            }),
           );
-
-        if (this.searchText) {
-          assets$ = assets$.pipe(
-            map((assets) =>
-              assets.filter((asset) => asset.name?.includes(this.searchText)),
-            ),
-          );
-        }
-
-        return assets$;
-      }),
-    );
+        }),
+      )
+      .subscribe((assetList) => (this.assetList = assetList));
   }
 
   onSearch() {

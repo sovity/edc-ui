@@ -1,15 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {
   TransferProcessDto,
   TransferProcessService,
 } from '../../../edc-dmgmt-client';
+import {Fetched} from '../../models/fetched';
 import {
   ConfirmDialogModel,
   ConfirmationDialogComponent,
 } from '../confirmation-dialog/confirmation-dialog.component';
+
+export interface TransferProcessesList {
+  transferProcesses: TransferProcessDto[];
+  numTotalTransferProcesses: number;
+}
 
 @Component({
   selector: 'edc-demo-transfer-history',
@@ -26,7 +31,7 @@ export class TransferHistoryViewerComponent implements OnInit {
     'assetId',
     'contractId',
   ];
-  transferProcesses$: Observable<TransferProcessDto[]> = of([]);
+  transferProcessesList: Fetched<TransferProcessesList> = Fetched.empty();
 
   constructor(
     private transferProcessService: TransferProcessService,
@@ -68,16 +73,26 @@ export class TransferHistoryViewerComponent implements OnInit {
   // }
 
   loadTransferProcesses() {
-    this.transferProcesses$ = this.transferProcessService
+    this.transferProcessService
       .getAllTransferProcesses()
       .pipe(
-        map((transferProcesses) =>
-          transferProcesses.sort(function (a, b) {
-            return (
-              b.createdTimestamp?.valueOf()! - a.createdTimestamp?.valueOf()!
-            );
+        map(
+          (transferProcesses): TransferProcessesList => ({
+            transferProcesses: transferProcesses.sort(function (a, b) {
+              return (
+                b.createdTimestamp?.valueOf()! - a.createdTimestamp?.valueOf()!
+              );
+            }),
+            numTotalTransferProcesses: transferProcesses.length,
           }),
         ),
+        Fetched.wrap({
+          failureMessage: 'Failed fetching Transferred Process entries',
+        }),
+      )
+      .subscribe(
+        (transferProcessesList) =>
+          (this.transferProcessesList = transferProcessesList),
       );
   }
 

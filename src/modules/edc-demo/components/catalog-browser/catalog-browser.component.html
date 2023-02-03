@@ -38,16 +38,30 @@
 
     <!-- Pagination -->
     <mat-paginator
+      *ngIf="contractOffersList.isReady"
       hidePageSize="true"
       pageSize="filteredContractOffers.length"
-      [length]="filteredContractOffers.length">
+      [length]="contractOffersList.data.numTotalContractOffer">
     </mat-paginator>
   </div>
-
-  <edc-demo-contract-offer-list
-    *ngIf="filteredContractOffers.length"
-    [contractOffers]="filteredContractOffers"
+  <div class="flex">
+    <mat-progress-spinner
+      *ngIf="contractOffersList.isLoading"
+      style="width: 80px; height: 80px"
+      diameter="80"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+    <div *ngIf="contractOffersList.isError" class="text-center mt-[50px] w-full">
+      <span>{{ contractOffersList.error.failureMessage }}</span>
+    </div>
+    <div *ngIf="contractOffersList.isReady && contractOffersList.data.numTotalContractOffer>=1">
+    <edc-demo-contract-offer-list
+    *ngIf="contractOffersList.data.numTotalContractOffer"
+    [contractOffers]="contractOffersList.data.filteredContractOffers"
     (contractOfferClick)="
       onContractOfferClick($event)
     "></edc-demo-contract-offer-list>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<div *ngIf="filteredAssets$ | async as assets" id="wrapper">
+<div id="wrapper">
   <div class="flex flex-row !space-x-[10px] items-start">
     <!-- Search Bar -->
     <mat-form-field
@@ -33,13 +33,28 @@
 
     <!-- Paginator -->
     <mat-paginator
+      *ngIf="assetList.isReady"
       hidePageSize="true"
       pageSize="contractDefinitions.length"
-      [length]="assets.length">
+      [length]="assetList.data.numTotalAssets">
     </mat-paginator>
   </div>
 
+  <div class="flex">
+    <mat-progress-spinner
+      *ngIf="assetList.isLoading"
+      style="width: 80px; height: 80px"
+      diameter="80"
+      color="primary"
+      mode="indeterminate">
+    </mat-progress-spinner>
+    <div *ngIf="assetList.isError" class="text-center mt-[50px] w-full">
+      <span>{{ assetList.error.failureMessage }}</span>
+    </div>
+
   <edc-demo-asset-list
-    [assets]="assets"
+    *ngIf="assetList.isReady && assetList.data.numTotalAssets >= 1"
+    [assets]="assetList.data.filteredAssets"
     (assetClick)="onAssetClick($event)"></edc-demo-asset-list>
+  </div>
 </div>

@@ -1,6 +1,16 @@
-<div *ngIf="contracts$ | async as contracts" id="wrapper">
-  <div fxLayout="row wrap" fxLayoutAlign="start start">
-    <mat-card *ngFor="let contract of contracts" class="contract-card">
+<div id="wrapper">
+  <mat-progress-spinner
+    *ngIf="contractList.isLoading"
+    style="width: 80px; height: 80px; margin-top: 40px; margin-left: 30px"
+    diameter="80"
+    color="primary"
+    mode="indeterminate">
+  </mat-progress-spinner>
+  <div *ngIf="contractList.isError" class="text-center mt-[50px] w-full">
+    <span>{{ contractList.error.failureMessage }}</span>
+  </div>
+  <div *ngIf="contractList.isReady && contractList.data.numTotalContracts >= 1" class="flex flex-row flex-wrap">
+    <mat-card *ngFor="let contract of contractList.data.contractAgreements" class="contract-card">
       <mat-card-header>
         <mat-icon mat-card-avatar>attachment</mat-icon>
         <mat-card-title>{{ contract.id }}</mat-card-title>
