@@ -77,7 +77,7 @@ export class TransferHistoryViewerComponent implements OnInit {
           }),
         ),
         Fetched.wrap({
-          failureMessage: 'Failed fetching Transferred Process entries',
+          failureMessage: 'FAILED FETCHING TRANSFERRED PROCESS DETAILS',
         }),
       )
       .subscribe(

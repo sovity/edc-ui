@@ -48,7 +48,7 @@
       [data]="assetList.error.failureMessage"></edc-demo-error-state>
     <edc-demo-empty-state
       *ngIf="assetList.isReady && assetList.data.numTotalAssets === 0"
-      [data]="'No Assets Found'"></edc-demo-empty-state>
+      [data]="'NO ASSETS FOUND'"></edc-demo-empty-state>
     <edc-demo-asset-list
       *ngIf="assetList.isReady && assetList.data.numTotalAssets >= 1"
       [assets]="assetList.data.filteredAssets"

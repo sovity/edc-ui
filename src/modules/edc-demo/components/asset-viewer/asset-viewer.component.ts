@@ -49,7 +49,7 @@ export class AssetViewerComponent implements OnInit {
               }),
             ),
             Fetched.wrap({
-              failureMessage: 'Failed fetching Asset details',
+              failureMessage: 'FAILED FETCHING ASSET DETAILS',
             }),
           );
         }),

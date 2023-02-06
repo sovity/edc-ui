@@ -53,7 +53,7 @@ export class ContractDefinitionViewerComponent implements OnInit {
                 }),
               ),
               Fetched.wrap({
-                failureMessage: 'Failed fetching Contract definitions',
+                failureMessage: 'FAILED FETCHING CONTRACT DEFINITIONS',
               }),
             );
         }),

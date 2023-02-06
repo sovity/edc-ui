@@ -7,7 +7,7 @@
       [data]="contractList.error.failureMessage"></edc-demo-error-state>
     <edc-demo-empty-state
       *ngIf="contractList.isReady && contractList.data.numTotalContracts === 0"
-      [data]="'No Contracts Found'"></edc-demo-empty-state>
+      [data]="'NO CONTRACTS FOUND'"></edc-demo-empty-state>
     <div
       *ngIf="contractList.isReady && contractList.data.numTotalContracts >= 1"
       class="flex flex-row flex-wrap">
