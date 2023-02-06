@@ -49,6 +49,12 @@
       [data]="
         contractDefinitionList.error.failureMessage
       "></edc-demo-error-state>
+    <edc-demo-empty-state
+      *ngIf="
+        contractDefinitionList.isReady &&
+        contractDefinitionList.data.numTotalContractDefinitions === 0
+      "
+      [data]="'No Contract Definitions Found'"></edc-demo-empty-state>
     <div
       *ngIf="
         contractDefinitionList.isReady &&

@@ -11,13 +11,24 @@
       transferProcessesList.data.transferProcesses.length
     "></mat-paginator>
   <div class="flex flex-row justify-center">
-    <edc-demo-loading-state *ngIf="transferProcessesList.isLoading"></edc-demo-loading-state>
+    <edc-demo-loading-state
+      *ngIf="transferProcessesList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="transferProcessesList.isError"
       [data]="
         transferProcessesList.error.failureMessage
       "></edc-demo-error-state>
-    <div *ngIf="transferProcessesList.isReady">
+    <edc-demo-empty-state
+      *ngIf="
+        transferProcessesList.isReady &&
+        transferProcessesList.data.transferProcesses.length === 0
+      "
+      [data]="'No History Found'"></edc-demo-empty-state>
+    <div
+      *ngIf="
+        transferProcessesList.isReady &&
+        transferProcessesList.data.transferProcesses.length >= 1
+      ">
       <table
         class="transfer-history-table"
         mat-table

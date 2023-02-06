@@ -40,10 +40,14 @@
   </div>
 
   <div class="flex flex-row justify-center">
-    <edc-demo-loading-state *ngIf="policyList.isLoading"></edc-demo-loading-state>
+    <edc-demo-loading-state
+      *ngIf="policyList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="policyList.isError"
       [data]="policyList.error.failureMessage"></edc-demo-error-state>
+    <edc-demo-empty-state
+      *ngIf="policyList.isReady && policyList.data.numTotalPolicies === 0"
+      [data]="'No Policies Found'"></edc-demo-empty-state>
     <div
       *ngIf="policyList.isReady && policyList.data.numTotalPolicies >= 1"
       class="flex flex-row flex-wrap">
