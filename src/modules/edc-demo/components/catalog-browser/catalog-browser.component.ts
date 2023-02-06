@@ -58,8 +58,8 @@ export class CatalogBrowserComponent implements OnInit, OnDestroy {
         ),
         takeUntil(this.ngOnDestroy$),
       )
-      .subscribe((filteredContractOffers) => {
-        this.contractOffersList = filteredContractOffers;
+      .subscribe((contractOffersList) => {
+        this.contractOffersList = contractOffersList;
       });
     this.presetProvidersMessage = this.buildPresetCatalogUrlsMessage();
   }

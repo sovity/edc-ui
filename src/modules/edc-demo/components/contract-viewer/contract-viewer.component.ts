@@ -19,7 +19,6 @@ import {
   CatalogBrowserTransferDialog
 } from '../catalog-browser-transfer-dialog/catalog-browser-transfer-dialog.component';
 
-
 export interface ContractList {
   contractAgreements: ContractAgreementDto[];
   numTotalContracts: number;
@@ -64,7 +63,7 @@ export class ContractViewerComponent implements OnInit {
         }
       )),
       Fetched.wrap({
-        failureMessage: "Failed fetching Contracts"
+        failureMessage: "Failed fetching Contracts",
       }))
       .subscribe((contractList) => this.contractList = contractList);
   }

@@ -41,18 +41,20 @@
       "></mat-paginator>
   </div>
 
-  <div class="flex">
-    <mat-progress-spinner
-      *ngIf="contractDefinitionList.isLoading"
-      style="width: 80px; height: 80px"
-      diameter="80"
-      color="primary"
-      mode="indeterminate">
-    </mat-progress-spinner>
-    <div *ngIf="contractDefinitionList.isError">
-      <span>{{ contractDefinitionList.error.failureMessage }}</span>
-    </div>
-    <div *ngIf="contractDefinitionList.isReady && contractDefinitionList.data.numTotalContractDefinitions >= 1" class="flex flex-row flex-wrap">
+  <div class="flex flex-row justify-center">
+    <edc-demo-loading-state
+      *ngIf="contractDefinitionList.isLoading"></edc-demo-loading-state>
+    <edc-demo-error-state
+      *ngIf="contractDefinitionList.isError"
+      [data]="
+        contractDefinitionList.error.failureMessage
+      "></edc-demo-error-state>
+    <div
+      *ngIf="
+        contractDefinitionList.isReady &&
+        contractDefinitionList.data.numTotalContractDefinitions >= 1
+      "
+      class="flex flex-row flex-wrap">
       <mat-card
         *ngFor="
           let contractDefinition of contractDefinitionList.data

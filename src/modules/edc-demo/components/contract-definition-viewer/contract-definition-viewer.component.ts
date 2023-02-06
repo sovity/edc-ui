@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {first, map, switchMap} from 'rxjs/operators';
 import {
   ContractDefinitionDto,
   ContractDefinitionService,
 } from '../../../edc-dmgmt-client';
+import {Fetched} from '../../models/fetched';
 import {NotificationService} from '../../services/notification.service';
 import {
   ConfirmDialogModel,
@@ -13,7 +14,6 @@ import {
 } from '../confirmation-dialog/confirmation-dialog.component';
 import {ContractDefinitionEditorDialogResult} from '../contract-definition-editor-dialog/contract-definition-editor-dialog-result';
 import {ContractDefinitionEditorDialog} from '../contract-definition-editor-dialog/contract-definition-editor-dialog.component';
-import {Fetched} from '../../models/fetched';
 
 export interface ContractDefinitionList {
   filteredContractDefinitions: ContractDefinitionDto[];
@@ -37,25 +37,31 @@ export class ContractDefinitionViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetch$.pipe(
-      switchMap(() => {
-        return this.contractDefinitionService.getAllContractDefinitions().pipe(
-          map(
-            (contractDefinitions): ContractDefinitionList => ({
-              filteredContractDefinitions:
-                this.filterContractDefinitions(
-                  contractDefinitions,
-                  this.searchText,
-                ),
-              numTotalContractDefinitions: contractDefinitions.length,
-            }),
-          ),
-          Fetched.wrap({
-            failureMessage: 'Failed fetching Contract definitions',
-          }),
-        );
-      }),
-    ).subscribe((contractDefinitionList) => (this.contractDefinitionList = contractDefinitionList));
+    this.fetch$
+      .pipe(
+        switchMap(() => {
+          return this.contractDefinitionService
+            .getAllContractDefinitions()
+            .pipe(
+              map(
+                (contractDefinitions): ContractDefinitionList => ({
+                  filteredContractDefinitions: this.filterContractDefinitions(
+                    contractDefinitions,
+                    this.searchText,
+                  ),
+                  numTotalContractDefinitions: contractDefinitions.length,
+                }),
+              ),
+              Fetched.wrap({
+                failureMessage: 'Failed fetching Contract definitions',
+              }),
+            );
+        }),
+      )
+      .subscribe(
+        (contractDefinitionList) =>
+          (this.contractDefinitionList = contractDefinitionList),
+      );
   }
 
   onSearch() {

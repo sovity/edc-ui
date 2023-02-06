@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {AssetService} from '../../../edc-dmgmt-client';
 import {Asset} from '../../models/asset';
+import {Fetched} from '../../models/fetched';
 import {AssetPropertyMapper} from '../../services/asset-property-mapper';
 import {AssetDetailDialogData} from '../asset-detail-dialog/asset-detail-dialog-data';
 import {AssetDetailDialogResult} from '../asset-detail-dialog/asset-detail-dialog-result';
 import {AssetDetailDialog} from '../asset-detail-dialog/asset-detail-dialog.component';
 import {AssetEditorDialogResult} from '../asset-editor-dialog/asset-editor-dialog-result';
 import {AssetEditorDialog} from '../asset-editor-dialog/asset-editor-dialog.component';
-import {Fetched} from '../../models/fetched';
 
 export interface AssetList {
   filteredAssets: Asset[];

@@ -51,7 +51,7 @@ export class PolicyViewComponent implements OnInit {
               }),
             ),
             Fetched.wrap({
-              failureMessage: 'Failed fetching Policy definitions.',
+              failureMessage: 'Failed fetching Policy definitions',
             }),
           );
         }),

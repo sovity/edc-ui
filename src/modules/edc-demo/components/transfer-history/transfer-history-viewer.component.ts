@@ -13,7 +13,6 @@ import {
 
 export interface TransferProcessesList {
   transferProcesses: TransferProcessDto[];
-  numTotalTransferProcesses: number;
 }
 
 @Component({
@@ -64,14 +63,6 @@ export class TransferHistoryViewerComponent implements OnInit {
     });
   }
 
-  // showStorageExplorerLink(transferProcess: TransferProcessDto) {
-  //     return transferProcess.dataDestination?.properties?.type === 'AzureStorage' && transferProcess.state === 'COMPLETED';
-  // }
-  //
-  // showDeprovisionButton(transferProcess: TransferProcessDto) {
-  //     return ['COMPLETED', 'PROVISIONED', 'REQUESTED', 'REQUESTED_ACK', 'IN_PROGRESS', 'STREAMING'].includes(transferProcess.state);
-  // }
-
   loadTransferProcesses() {
     this.transferProcessService
       .getAllTransferProcesses()
@@ -83,7 +74,6 @@ export class TransferHistoryViewerComponent implements OnInit {
                 b.createdTimestamp?.valueOf()! - a.createdTimestamp?.valueOf()!
               );
             }),
-            numTotalTransferProcesses: transferProcesses.length,
           }),
         ),
         Fetched.wrap({
