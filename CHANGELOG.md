@@ -21,6 +21,7 @@ the detailed section referring to by linking pull requests or issues.
 #### Removed
 
 #### Fixed
+- Placeholder URLs missing "/catalog/" path
 
 ## [v0.0.1-milestone-7-sovity3] 06.02.2023
 
