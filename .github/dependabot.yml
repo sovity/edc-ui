@@ -50,3 +50,28 @@ updates:
       labels:
           - "dependencies"
           - "javascript"
+# Docker
+    - package-ecosystem: "docker"
+      directory: "/docker"
+      schedule:
+          interval: "daily"
+      target-branch: "main"
+      open-pull-requests-limit: 30
+      labels:
+          - "dependencies"
+          - "docker"
+# NPM
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "main"
+    open-pull-requests-limit: 30
+    labels:
+      - "dependencies"
+    ignore:
+      # Major Angular updates should be done manually
+      - dependency-name: "@angular/*"
+        update-types: [ "version-update:semver-major" ]
+      - dependency-name: "@angular-devkit/*"
+        update-types: [ "version-update:semver-major" ]
