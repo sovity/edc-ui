@@ -50,16 +50,6 @@ updates:
       labels:
           - "dependencies"
           - "javascript"
-# Docker
-    - package-ecosystem: "docker"
-      directory: "/docker"
-      schedule:
-          interval: "daily"
-      target-branch: "main"
-      open-pull-requests-limit: 30
-      labels:
-          - "dependencies"
-          - "docker"
 # NPM
   - package-ecosystem: "npm"
     directory: "/"
@@ -75,3 +65,13 @@ updates:
         update-types: [ "version-update:semver-major" ]
       - dependency-name: "@angular-devkit/*"
         update-types: [ "version-update:semver-major" ]
+# Docker
+    - package-ecosystem: "docker"
+      directory: "/docker"
+      schedule:
+          interval: "daily"
+      target-branch: "main"
+      open-pull-requests-limit: 30
+      labels:
+          - "dependencies"
+          - "docker"
