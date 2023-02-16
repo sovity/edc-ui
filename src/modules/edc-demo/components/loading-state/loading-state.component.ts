@@ -9,6 +9,5 @@ export class LoadingStateComponent {
   @HostBinding('class.flex-col')
   @HostBinding('class.justify-center')
   @HostBinding('class.items-center')
-  @HostBinding('class.min-h-[35rem]')
   cls = true;
 }

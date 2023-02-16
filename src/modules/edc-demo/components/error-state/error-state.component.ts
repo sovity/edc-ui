@@ -9,7 +9,7 @@ export class ErrorStateComponent {
   @HostBinding('class.flex-col')
   @HostBinding('class.justify-center')
   @HostBinding('class.items-center')
-  @HostBinding('class.min-h-[35rem]')
+  @HostBinding('class.uppercase')
   cls = true;
 
   @Input()

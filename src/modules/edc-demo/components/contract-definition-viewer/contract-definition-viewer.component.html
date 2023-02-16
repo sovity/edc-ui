@@ -40,12 +40,13 @@
         contractDefinitionList.data.filteredContractDefinitions.length
       "></mat-paginator>
   </div>
-
-  <div class="flex flex-row uppercase justify-center">
+  <div class="flex flex-row justify-center">
     <edc-demo-loading-state
-      *ngIf="contractDefinitionList.isLoading"></edc-demo-loading-state>
+      *ngIf="contractDefinitionList.isLoading"
+      class="min-h-[35rem]"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="contractDefinitionList.isError"
+      class="min-h-[35rem]"
       [errorMessage]="
         contractDefinitionList.error.failureMessage
       "></edc-demo-error-state>
@@ -55,8 +56,9 @@
         (!contractDefinitionList.data.numTotalContractDefinitions ||
           !contractDefinitionList.data.filteredContractDefinitions.length)
       "
-      [errorMessage]="
-        'No Contract Definitions with given filter'
+      class="min-h-[35rem]"
+      [emptyMessage]="
+        'No Contract Definitions with given filter.'
       "></edc-demo-empty-state>
   </div>
   <div
