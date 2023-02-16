@@ -63,7 +63,7 @@ export class ContractViewerComponent implements OnInit {
         }
       )),
       Fetched.wrap({
-        failureMessage: "FAILED FETCHING CONTRACTS",
+        failureMessage: "Failed fetching contracts.",
       }))
       .subscribe((contractList) => this.contractList = contractList);
   }

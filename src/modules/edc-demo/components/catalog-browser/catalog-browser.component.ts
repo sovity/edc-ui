@@ -52,7 +52,7 @@ export class CatalogBrowserComponent implements OnInit, OnDestroy {
                 }),
               ),
               Fetched.wrap({
-                failureMessage: 'FAILED FETCHING CONTRACT OFFERS',
+                failureMessage: 'Failed fetching contract offers.',
               }),
             ),
         ),

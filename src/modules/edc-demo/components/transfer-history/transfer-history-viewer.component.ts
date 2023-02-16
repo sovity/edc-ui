@@ -73,7 +73,7 @@ export class TransferHistoryViewerComponent implements OnInit {
           }),
         })),
         Fetched.wrap({
-          failureMessage: 'Failed fetching transfer process details',
+          failureMessage: 'Failed fetching transfer history.',
         }),
       )
       .subscribe(
