@@ -17,11 +17,19 @@ the detailed section referring to by linking pull requests or issues.
 #### Added
 - Added progress loader to all pages other than landing page
 
+- Additional Http Datasource Properties: method, content type, request body,
+  auth header/value, headers
+
 #### Changed
 
 #### Removed
 
 #### Fixed
+- Placeholder URLs missing "/control/" path
+
+## [v0.0.1-milestone-7-sovity3] 06.02.2023
+
+### Fixed
 
 - Fixed dashboard splitting transfers and contract agreements in incoming /
   outgoing. Contract Agreements currently cannot be distinguished as incoming /
