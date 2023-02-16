@@ -13,5 +13,5 @@ export class ErrorStateComponent {
   cls = true;
 
   @Input()
-  data = '';
+  errorMessage = '';
 }

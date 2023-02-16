@@ -46,7 +46,7 @@
       *ngIf="contractDefinitionList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="contractDefinitionList.isError"
-      [data]="
+      [errorMessage]="
         contractDefinitionList.error.failureMessage
       "></edc-demo-error-state>
     <edc-demo-empty-state
@@ -55,7 +55,7 @@
         (!contractDefinitionList.data.numTotalContractDefinitions ||
           !contractDefinitionList.data.filteredContractDefinitions.length)
       "
-      [data]="
+      [errorMessage]="
         'No Contract Definitions with given filter'
       "></edc-demo-empty-state>
   </div>

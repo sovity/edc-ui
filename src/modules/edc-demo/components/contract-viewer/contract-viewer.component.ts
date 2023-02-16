@@ -19,11 +19,6 @@ import {
   CatalogBrowserTransferDialog
 } from '../catalog-browser-transfer-dialog/catalog-browser-transfer-dialog.component';
 
-export interface ContractList {
-  contractAgreements: ContractAgreementDto[];
-  numTotalContracts: number;
-}
-
 interface RunningTransferProcess {
   processId: string;
   contractId: string;
@@ -36,7 +31,7 @@ interface RunningTransferProcess {
   styleUrls: ['./contract-viewer.component.scss'],
 })
 export class ContractViewerComponent implements OnInit {
-  contractList: Fetched<ContractList> = Fetched.empty();
+  contractList: Fetched<ContractAgreementDto[]> = Fetched.empty();
   private runningTransfers: RunningTransferProcess[] = [];
   private pollingHandleTransfer?: any;
 
@@ -56,12 +51,7 @@ export class ContractViewerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.contractAgreementService.getAllAgreements().pipe(map((contracts): ContractList => (
-        {
-          contractAgreements: contracts,
-          numTotalContracts: contracts.length
-        }
-      )),
+    this.contractAgreementService.getAllAgreements().pipe(
       Fetched.wrap({
         failureMessage: "Failed fetching contracts.",
       }))

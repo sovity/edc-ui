@@ -44,14 +44,14 @@
       *ngIf="policyList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="policyList.isError"
-      [data]="policyList.error.failureMessage" class=""></edc-demo-error-state>
+      [errorMessage]="policyList.error.failureMessage" class=""></edc-demo-error-state>
     <edc-demo-empty-state
       *ngIf="policyList.isReady && (!policyList.data.numTotalPolicies || !policyList.data.filteredPolicies.length)"
-      [data]="'No policy found with given filter'"></edc-demo-empty-state>
+      [errorMessage]="'No policy found with given filter'"></edc-demo-empty-state>
   </div>
   <div
     *ngIf="policyList.isReady && !!policyList.data.numTotalPolicies"
-    class="flex flex-row flex-wrap">
+    class="flex flex-row flex-wrap gap-[16px]">
     <mat-card
       *ngFor="let policyDef of policyList.data.filteredPolicies"
       class="policy-card">

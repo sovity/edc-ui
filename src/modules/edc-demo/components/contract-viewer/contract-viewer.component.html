@@ -4,16 +4,16 @@
       *ngIf="contractList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="contractList.isError"
-      [data]="contractList.error.failureMessage"></edc-demo-error-state>
+      [errorMessage]="contractList.error.failureMessage"></edc-demo-error-state>
     <edc-demo-empty-state
-      *ngIf="contractList.isReady && !contractList.data.numTotalContracts"
-      [data]="'No contracts found'"></edc-demo-empty-state>
+      *ngIf="contractList.isReady && !contractList.data.length"
+      [errorMessage]="'No contracts found'"></edc-demo-empty-state>
   </div>
   <div
-    *ngIf="contractList.isReady && !!contractList.data.numTotalContracts"
+    *ngIf="contractList.isReady && !!contractList.data.length"
     class="flex flex-row flex-wrap">
     <mat-card
-      *ngFor="let contract of contractList.data.contractAgreements"
+      *ngFor="let contract of contractList.data"
       class="contract-card">
       <mat-card-header>
         <mat-icon mat-card-avatar>attachment</mat-icon>

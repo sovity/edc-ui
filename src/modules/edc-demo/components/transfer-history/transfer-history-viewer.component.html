@@ -15,7 +15,7 @@
       *ngIf="transferProcessesList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
       *ngIf="transferProcessesList.isError"
-      [data]="
+      [errorMessage]="
         transferProcessesList.error.failureMessage
       "></edc-demo-error-state>
     <edc-demo-empty-state
@@ -23,7 +23,7 @@
         transferProcessesList.isReady &&
         !transferProcessesList.data.transferProcesses.length
       "
-      [data]="'No transfer history found'"></edc-demo-empty-state>
+      [errorMessage]="'No transfer history found'"></edc-demo-empty-state>
   </div>
   <div
     *ngIf="

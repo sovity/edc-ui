@@ -15,7 +15,7 @@ the detailed section referring to by linking pull requests or issues.
 ### Detailed Changes
 
 #### Added
-- Added progress loader to all pages other than landing page
+- Reworked page loading, empty messages and error states
 
 - Additional Http Datasource Properties: method, content type, request body,
   auth header/value, headers

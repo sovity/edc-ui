@@ -12,5 +12,5 @@ export class EmptyStateComponent {
   cls = true;
 
   @Input()
-  data = '';
+  errorMessage = '';
 }
