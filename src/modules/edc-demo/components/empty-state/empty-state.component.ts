@@ -8,7 +8,7 @@ export class EmptyStateComponent {
   @HostBinding('class.flex')
   @HostBinding('class.flex-col')
   @HostBinding('class.justify-center')
-  @HostBinding('class.h-[700px]')
+  @HostBinding('class.min-h-[35rem]')
   cls = true;
 
   @Input()

@@ -41,10 +41,10 @@
       *ngIf="contractOffersList.isReady"
       hidePageSize="true"
       pageSize="filteredContractOffers.length"
-      [length]="contractOffersList.data.numTotalContractOffer">
+      [length]="contractOffersList.data.filteredContractOffers.length">
     </mat-paginator>
   </div>
-  <div class="flex flex-row justify-center">
+  <div class="flex flex-row justify-center uppercase">
     <edc-demo-loading-state
       *ngIf="contractOffersList.isLoading"></edc-demo-loading-state>
     <edc-demo-error-state
@@ -53,20 +53,24 @@
     <edc-demo-empty-state
       *ngIf="
         contractOffersList.isReady &&
-        contractOffersList.data.numTotalContractOffer === 0
+        (!contractOffersList.data.numTotalContractOffer ||
+          !contractOffersList.data.filteredContractOffers.length)
       "
-      [data]="'NO CONTRACT OFFERS FOUND'"></edc-demo-empty-state>
-    <div
-      *ngIf="
-        contractOffersList.isReady &&
-        contractOffersList.data.numTotalContractOffer >= 1
-      ">
-      <edc-demo-contract-offer-list
-        *ngIf="contractOffersList.data.numTotalContractOffer"
-        [contractOffers]="contractOffersList.data.filteredContractOffers"
-        (contractOfferClick)="
-          onContractOfferClick($event)
-        "></edc-demo-contract-offer-list>
-    </div>
+      [data]="
+        'No contract offers found with this filter'
+      "></edc-demo-empty-state>
+  </div>
+  <div
+    *ngIf="
+      contractOffersList.isReady &&
+      !!contractOffersList.data.numTotalContractOffer
+    "
+    class="flex flex-row flex-wrap">
+    <edc-demo-contract-offer-list
+      *ngIf="contractOffersList.data.numTotalContractOffer"
+      [contractOffers]="contractOffersList.data.filteredContractOffers"
+      (contractOfferClick)="
+        onContractOfferClick($event)
+      "></edc-demo-contract-offer-list>
   </div>
 </div>

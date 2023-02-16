@@ -11,10 +11,6 @@ import {
   ConfirmationDialogComponent,
 } from '../confirmation-dialog/confirmation-dialog.component';
 
-export interface TransferProcessesList {
-  transferProcesses: TransferProcessDto[];
-}
-
 @Component({
   selector: 'edc-demo-transfer-history',
   templateUrl: './transfer-history-viewer.component.html',
@@ -30,7 +26,9 @@ export class TransferHistoryViewerComponent implements OnInit {
     'assetId',
     'contractId',
   ];
-  transferProcessesList: Fetched<TransferProcessesList> = Fetched.empty();
+  transferProcessesList: Fetched<{
+    transferProcesses: Array<TransferProcessDto>;
+  }> = Fetched.empty();
 
   constructor(
     private transferProcessService: TransferProcessService,
@@ -67,17 +65,15 @@ export class TransferHistoryViewerComponent implements OnInit {
     this.transferProcessService
       .getAllTransferProcesses()
       .pipe(
-        map(
-          (transferProcesses): TransferProcessesList => ({
-            transferProcesses: transferProcesses.sort(function (a, b) {
-              return (
-                b.createdTimestamp?.valueOf()! - a.createdTimestamp?.valueOf()!
-              );
-            }),
+        map((transferProcesses) => ({
+          transferProcesses: transferProcesses.sort(function (a, b) {
+            return (
+              b.createdTimestamp?.valueOf()! - a.createdTimestamp?.valueOf()!
+            );
           }),
-        ),
+        })),
         Fetched.wrap({
-          failureMessage: 'FAILED FETCHING TRANSFERRED PROCESS DETAILS',
+          failureMessage: 'Failed fetching transfer process details',
         }),
       )
       .subscribe(
