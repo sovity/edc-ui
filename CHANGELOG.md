@@ -16,10 +16,47 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
+- Reworked page loading, empty messages and error states
+- Reworked policy list, new cards, new detail dialog.
+- Additional Http Datasource Properties: method, content type, request body,
+  auth header/value, headers
+
+#### Changed
+
+#### Removed
+
+#### Fixed
+
+- Placeholder URLs missing "/control/" path
+- Fixed Keyword select not adding keywords on input field blur, causing loss of
+  input.
+- Fixed transfer dialog submitting on cancel
+- Fixed transfer dialog validation not working
+- Fix exception on contract definition dialog cancel
+
+## [v0.0.1-milestone-7-sovity3] 06.02.2023
+
+### Fixed
+
+- Fixed dashboard splitting transfers and contract agreements in incoming /
+  outgoing. Contract Agreements currently cannot be distinguished as incoming /
+  outgoing.
+
+## [v0.0.1-milestone-7-sovity2] 01.02.2023
+
+### Overview
+
+A new dashboard and other quality of life improvements.
+
+### Detailed Changes
+
+#### Added
+
 - Dashboard with KPIs and charts.
 - Current Connector Organization & URL on Landing Page / Dashboard
 - Simplified adding of data sources in Catalog Browser via Connector ID.
-- Source code version of deployed edc-ui can now be accessed under /assets/config/version.txt 
+- Source code version of deployed edc-ui can now be accessed under
+  /assets/config/version.txt
 
 #### Changed
 
@@ -32,11 +69,11 @@ the detailed section referring to by linking pull requests or issues.
 
 - Fixed additional PolicyDefinition uid vs id issues.
 - Fixed E-Mail in README.MD
-- Added API Endpoint to workaround extension that fixex an API problem:
-  - Could not start transfer proceses with just contract agreement ids when
+- Added API Endpoint to workaround extension that fixes an API problem:
+  - Could not start transfer processes with just contract agreement ids when
     asset came from a custom catalog provider.
-  - It would needs the asset's originator url.
-  - Since contract agreements dont contain the asset and catalogs are not
+  - It would need the asset's originator url.
+  - Since contract agreements don't contain the asset and catalogs are not
     guaranteed to still contain said asset's details due to policies, a new
     endpoint / extension was required.
 - Fixed MDS Logo not working.

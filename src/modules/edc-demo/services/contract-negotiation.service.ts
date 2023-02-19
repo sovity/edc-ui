@@ -50,6 +50,8 @@ export class ContractNegotiationService {
     }
   }
 
+  updateNegotiationList() {}
+
   isBusy(contractOffer: ContractOffer) {
     return (
       this.runningNegotiations.get(contractOffer.id) !== undefined ||

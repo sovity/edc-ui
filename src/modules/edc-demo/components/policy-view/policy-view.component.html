@@ -1,4 +1,4 @@
-<div *ngIf="filteredPolicies$ | async as policyDefinitions" id="wrapper">
+<div id="wrapper">
   <div class="flex flex-row">
     <!-- Search -->
     <mat-form-field
@@ -33,58 +33,34 @@
 
     <!-- Paginator -->
     <mat-paginator
+      *ngIf="policyList.isReady"
       hidePageSize="true"
       pageSize="10"
-      [length]="policyDefinitions?.length"></mat-paginator>
+      [length]="policyList.data.policyCards.length"></mat-paginator>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="space-around stretch">
-    <mat-card *ngFor="let policyDef of policyDefinitions" class="policy-card">
-      <mat-card-header>
-        <mat-icon mat-card-avatar>policy</mat-icon>
-        <mat-card-title
-          ><span class="code">{{ id(policyDef) }}</span></mat-card-title
-        >
-      </mat-card-header>
-
-      <mat-card-content>
-        <mat-list dense>
-          <mat-list-item>
-            <mat-icon mat-list-icon>trip_origin</mat-icon>
-            <div mat-line>{{ policyDef.policy.assigner || 'n/a' }}</div>
-            <div mat-line>Assigner</div>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>adjust</mat-icon>
-            <div mat-line>{{ policyDef.policy.assignee || 'n/a' }}</div>
-            <div mat-line>Assignee</div>
-          </mat-list-item>
-        </mat-list>
-
-        <!-- Permissions-->
-        <policy-rules
-          [rules]="policyDef.policy.permissions"
-          [title]="'Permissions'"></policy-rules>
-
-        <!-- Obligations-->
-        <policy-rules
-          [rules]="policyDef.policy.obligations"
-          [title]="'Obligations'"></policy-rules>
-
-        <!-- Prohibitions-->
-        <policy-rules
-          [rules]="policyDef.policy.prohibitions"
-          [title]="'Prohibitions'"></policy-rules>
-      </mat-card-content>
-      <button
-        mat-stroked-button
-        color="warn"
-        matSuffix
-        (click)="delete(policyDef)">
-        <mat-icon>delete</mat-icon>
-        Delete
-      </button>
-      <mat-card-actions></mat-card-actions>
-    </mat-card>
+  <div class="flex flex-row justify-center">
+    <edc-demo-loading-state
+      *ngIf="policyList.isLoading"
+      class="min-h-[35rem]"></edc-demo-loading-state>
+    <edc-demo-error-state
+      *ngIf="policyList.isError"
+      class="min-h-[35rem]"
+      [errorMessage]="policyList.error.failureMessage"></edc-demo-error-state>
+    <edc-demo-empty-state
+      *ngIf="
+        policyList.isReady &&
+        (!policyList.data.numTotalPolicies ||
+          !policyList.data.policyCards.length)
+      "
+      class="min-h-[35rem]"
+      [emptyMessage]="
+        'No policy found with given filter.'
+      "></edc-demo-empty-state>
   </div>
+  <edc-demo-policy-cards
+    *ngIf="policyList.isReady && !!policyList.data.numTotalPolicies"
+    [policyCards]="policyList.data.policyCards"
+    [deleteBusy]="deleteBusy"
+    (deleteDone)="refresh()"></edc-demo-policy-cards>
 </div>
