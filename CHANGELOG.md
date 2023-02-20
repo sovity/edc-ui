@@ -24,8 +24,6 @@ the detailed section referring to by linking pull requests or issues.
 
 ## [v0.0.1-milestone-7-sovity4] 20.02.2023
 
-### Overview
-
 ### Detailed Changes
 
 #### Added
@@ -34,10 +32,6 @@ the detailed section referring to by linking pull requests or issues.
 - Reworked policy list, new cards, new detail dialog.
 - Additional Http Datasource Properties: method, content type, request body,
   auth header/value, headers
-
-#### Changed
-
-#### Removed
 
 #### Fixed
 
@@ -76,8 +70,6 @@ A new dashboard and other quality of life improvements.
 
 - Connector URL is now called Connector ID, fixed naming and added good
   placeholders.
-
-#### Removed
 
 #### Fixed
 
@@ -120,15 +112,11 @@ A new dashboard and other quality of life improvements.
 - Added prettier as code formatter.
   - Formatted all non-generated code with prettier.
 
-#### Removed
-
 #### Fixed
 
 - Menu of Navigation bar hiding behind feedback widget
 
 ## [0.0.1-ab1b6fd0-sovity5] 17.01.2023
-
-### Overview
 
 ### Detailed Changes
 
@@ -166,8 +154,6 @@ A new dashboard and other quality of life improvements.
 #### Changed
 
 - Changed asset properties, especially ID property. See `asset-properties.ts`.
-
-#### Removed
 
 #### Fixed
 
@@ -232,8 +218,6 @@ Supporting communication with milestone 7 EDC. Working Logout.
 
 - Developer text description on start page
 
-#### Fixed
-
 ## [0.0.1-ab1b6fd0-sovity3] 2022-11-10
 
 ### Overview
@@ -248,12 +232,6 @@ Passing multiple Catalog Urls.
   (https://github.com/sovity/edc-sovity-ui/issues/46)
   - `catalogUrl` in `app.config.json` may be set to following pattern:
     {catalog1Url},{catalog2Url},...
-
-#### Changed
-
-#### Removed
-
-#### Fixed
 
 ## [0.0.1-ab1b6fd0-sovity2] 2022-09-28
 
@@ -325,5 +303,3 @@ REST-APIs.
 #### Removed
 
 - Support for Azure Storage Blobs
-
-#### Fixed
