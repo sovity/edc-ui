@@ -24,6 +24,10 @@ the detailed section referring to by linking pull requests or issues.
 
 ## [v0.0.1-milestone-7-sovity4] 20.02.2023
 
+### Overview
+
+New policy list, new http data source properties, UX improvements
+
 ### Detailed Changes
 
 #### Added
