@@ -14,5 +14,5 @@ jobs:
       - uses: fastify/github-action-merge-dependabot@v3
         continue-on-error: true
         with:
-          target: patch
+          target: minor
 
