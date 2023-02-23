@@ -1,5 +1,5 @@
-import {FormControl, ɵFormGroupValue} from '@angular/forms';
-import {DataAddressType} from '../data-address-type-select/data-address-type';
+import {FormGroup, ɵFormGroupValue} from '@angular/forms';
+import {ContractAgreementDatasinkFormModel} from './model/contract-agreement-datasink-form-model';
 
 /**
  * Form Value Type
@@ -11,7 +11,5 @@ export type ContractAgreementTransferDialogFormValue =
  * Form Group Template Type
  */
 export interface ContractAgreementTransferDialogFormModel {
-  dataAddressType: FormControl<DataAddressType | null>;
-  dataDestination: FormControl<string>;
-  httpUrl: FormControl<string>;
+  datasink: FormGroup<ContractAgreementDatasinkFormModel>;
 }

@@ -1,65 +1,63 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {switchDisabledControls} from '../../utils/form-group-utils';
-import {jsonValidator} from '../../validators/json-validator';
-import {urlValidator} from '../../validators/url-validator';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {DataAddressType} from '../data-address-type-select/data-address-type';
 import {
   ContractAgreementTransferDialogFormModel,
   ContractAgreementTransferDialogFormValue,
 } from './contract-agreement-transfer-dialog-form-model';
+import {ContractAgreementDatasinkFormBuilder} from './model/contract-agreement-datasink-form-builder';
+import {ContractAgreementDatasinkFormModel} from './model/contract-agreement-datasink-form-model';
 
 /**
  * Handles AngularForms for ContractAgreementTransferDialog
  */
 @Injectable()
 export class ContractAgreementTransferDialogForm {
-  formGroup = this.buildFormGroup();
+  all = this.buildFormGroup();
+
+  /**
+   * FormGroup for "Data Sink"
+   */
+  datasink = this.all.controls.datasink;
 
   /**
    * Quick access to selected data address type
    */
   get dataAddressType(): DataAddressType | null {
-    return this.formGroup.controls.dataAddressType.value;
+    return this.datasink.controls.dataAddressType.value;
   }
 
   /**
    * Quick access to full value
    */
   get value(): ContractAgreementTransferDialogFormValue {
-    return this.formGroup.value;
+    return this.all.value;
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private contractAgreementDatasinkFormBuilder: ContractAgreementDatasinkFormBuilder,
+  ) {}
 
   buildFormGroup(): FormGroup<ContractAgreementTransferDialogFormModel> {
+    const datasink: FormGroup<ContractAgreementDatasinkFormModel> =
+      this.contractAgreementDatasinkFormBuilder.buildFormGroup();
+
     const formGroup: FormGroup<ContractAgreementTransferDialogFormModel> =
       this.formBuilder.nonNullable.group({
-        dataAddressType: 'Http' as DataAddressType | null,
-        dataDestination: ['', [Validators.required, jsonValidator]],
-        httpUrl: ['', [Validators.required, urlValidator]],
+        datasink,
       });
 
-    switchDisabledControls<ContractAgreementTransferDialogFormValue>(
-      formGroup,
-      (value) => {
-        const customDataAddressJson =
-          value.dataAddressType === 'Custom-Data-Address-Json';
-
-        const http = value.dataAddressType === 'Http';
-
-        return {
-          dataAddressType: true,
-
-          // Custom Datasource JSON
-          dataDestination: customDataAddressJson,
-
-          // Http Datasource Fields
-          httpUrl: http,
-        };
-      },
-    );
-
     return formGroup;
+  }
+
+  onHttpHeadersAddClick() {
+    this.datasink.controls.httpHeaders.push(
+      this.contractAgreementDatasinkFormBuilder.buildHeaderFormGroup(),
+    );
+  }
+
+  onHttpHeadersRemoveClick(index: number) {
+    this.datasink.controls.httpHeaders.removeAt(index);
   }
 }
