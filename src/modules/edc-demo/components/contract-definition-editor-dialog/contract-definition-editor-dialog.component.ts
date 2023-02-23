@@ -37,7 +37,8 @@ export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
     private contractDefinitionBuilder: ContractDefinitionBuilder,
     private dialogRef: MatDialogRef<ContractDefinitionEditorDialog>,
     public validationMessages: ValidationMessages,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.policyService
@@ -79,9 +80,9 @@ export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
           this.close({refreshList: true});
         },
         error: (error) => {
-          if(error.status == 409){
+          if (error.status == 409) {
             this.notificationService.showError('Contract Definition ID already taken.');
-          } else if(error.status >= 500){
+          } else if (error.status >= 500) {
             this.notificationService.showError('Error creating contract definition: ' + error.error.message);
           }
           console.error('Error creating contract definition!', error);
@@ -93,7 +94,7 @@ export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
     this.dialogRef.close(params);
   }
 
-  isEqualId(a: {id: string}, b: {id: string}): boolean {
+  isEqualId(a: { id: string }, b: { id: string }): boolean {
     return a?.id === b?.id;
   }
 
