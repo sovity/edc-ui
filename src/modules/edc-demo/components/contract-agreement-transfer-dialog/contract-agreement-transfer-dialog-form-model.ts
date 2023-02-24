@@ -1,7 +1,12 @@
-import {FormArray, FormControl, FormGroup, ɵFormGroupValue} from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ɵFormGroupValue,
+} from '@angular/forms';
 import {DataAddressType} from '../data-address-type-select/data-address-type';
-import {HttpDatasinkAuthHeaderType} from "./model/http-datasink-auth-header-type";
-import {HttpDatasinkHeaderFormModel} from "./model/http-datasink-header-form-model";
+import {HttpDatasinkAuthHeaderType} from './http-datasink-auth-header-type';
+import {HttpDatasinkHeaderFormModel} from './http-datasink-header-form-model';
 
 /**
  * Form Value Type
@@ -13,7 +18,6 @@ export type ContractAgreementTransferDialogFormValue =
  * Form Group Template Type
  */
 export interface ContractAgreementTransferDialogFormModel {
-
   dataAddressType: FormControl<DataAddressType>;
 
   // Custom Datasink JSON

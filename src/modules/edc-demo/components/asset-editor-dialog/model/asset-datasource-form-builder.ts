@@ -8,7 +8,7 @@ import {
   AssetDatasourceFormModel,
   AssetDatasourceFormValue,
 } from '../model/asset-datasource-form-model';
-import {HttpParamsFormAuthHeaderType} from './http-params-form-auth-header-type';
+import {HttpDatasourceAuthHeaderType} from './http-datasource-auth-header-type';
 import {HttpDatasourceHeaderFormModel} from './http-datasource-header-form-model';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AssetDatasourceFormBuilder {
         httpRequestBodyValue: ['', Validators.required],
         httpContentType: ['', Validators.required],
 
-        httpAuthHeaderType: ['None' as HttpParamsFormAuthHeaderType],
+        httpAuthHeaderType: ['None' as HttpDatasourceAuthHeaderType],
         httpAuthHeaderName: ['', Validators.required],
         httpAuthHeaderValue: ['', Validators.required],
         httpAuthHeaderSecretName: ['', Validators.required],

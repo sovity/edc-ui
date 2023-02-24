@@ -6,16 +6,14 @@ import {
   ContractAgreementService,
   DataAddressDto,
 } from '../../../edc-dmgmt-client';
-import {HttpRequestParams} from '../../models/http-request-params';
 import {AssetEntryBuilder} from '../../services/asset-entry-builder';
+import {HttpRequestParamsMapper} from '../../services/http-params-mapper.service';
 import {NotificationService} from '../../services/notification.service';
-import {removeNullValues} from '../../utils/record-utils';
 import {ValidationMessages} from '../../validators/validation-messages';
 import {ContractAgreementTransferDialogData} from './contract-agreement-transfer-dialog-data';
 import {ContractAgreementTransferDialogForm} from './contract-agreement-transfer-dialog-form';
 import {ContractAgreementTransferDialogFormValue} from './contract-agreement-transfer-dialog-form-model';
 import {ContractAgreementTransferDialogResult} from './contract-agreement-transfer-dialog-result';
-import {HttpDatasinkFormMapper} from './model/http-datasink-form-mapper';
 
 @Component({
   selector: 'edc-demo-contract-agreement-transfer-dialog',
@@ -33,7 +31,7 @@ export class ContractAgreementTransferDialog implements OnDestroy {
     private dialogRef: MatDialogRef<ContractAgreementTransferDialog>,
     private contractAgreementService: ContractAgreementService,
     private notificationService: NotificationService,
-    private httpDatasinkFormMapper: HttpDatasinkFormMapper,
+    private httpRequestParamsMapper: HttpRequestParamsMapper,
     @Inject(MAT_DIALOG_DATA) private data: ContractAgreementTransferDialogData,
   ) {}
 
@@ -75,39 +73,12 @@ export class ContractAgreementTransferDialog implements OnDestroy {
       case 'Custom-Data-Address-Json':
         return JSON.parse(formValue.dataDestination?.trim()!!);
       case 'Http':
-        const httpDatasinkProperties =
-          this.httpDatasinkFormMapper.buildHttpDatasinkProperties(formValue);
-        return {
-          properties: {
-            type: 'HttpData',
-            ...this.encodeHttpDatasinkProperties(httpDatasinkProperties),
-          },
-        };
+        return this.httpRequestParamsMapper.buildHttpDataAddressDto(formValue);
       default:
         throw new Error(
           `Invalid Data Address Type ${formValue.dataAddressType}`,
         );
     }
-  }
-
-  private encodeHttpDatasinkProperties(
-    httpDatasink: HttpRequestParams,
-  ): Record<string, string> {
-    const props: Record<string, string | null> = {
-      baseUrl: httpDatasink.url,
-      method: httpDatasink.method,
-      body: httpDatasink.body,
-      contentType: httpDatasink.contentType,
-      authKey: httpDatasink.authHeaderName,
-      authCode: httpDatasink.authHeaderValue,
-      secretName: httpDatasink.authHeaderSecretName,
-      ...Object.fromEntries(
-        Object.entries(httpDatasink.headers).map(
-          ([headerName, headerValue]) => [`header:${headerName}`, headerValue],
-        ),
-      ),
-    };
-    return removeNullValues(props);
   }
 
   private close(params: ContractAgreementTransferDialogResult) {

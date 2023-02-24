@@ -15,7 +15,8 @@ the detailed section referring to by linking pull requests or issues.
 ### Detailed Changes
 
 #### Added
-- Added Additional Http Datasink Properties to the Transfer Dialog Form
+
+- Added Additional Http Datasink properties.
 
 #### Changed
 

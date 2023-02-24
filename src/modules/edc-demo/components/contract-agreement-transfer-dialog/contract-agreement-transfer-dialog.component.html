@@ -124,9 +124,7 @@
           <button
             mat-button
             color="warn"
-            (click)="
-              form.all.controls.httpAuthHeaderType.setValue('None')
-            ">
+            (click)="form.all.controls.httpAuthHeaderType.setValue('None')">
             Remove Authentication
           </button>
         </div>
@@ -185,15 +183,12 @@
             *ngIf="!form.all.controls.httpRequestBodyEnabled.value"
             mat-button
             color="primary"
-            (click)="
-              form.all.controls.httpRequestBodyEnabled.setValue(true)
-            ">
+            (click)="form.all.controls.httpRequestBodyEnabled.setValue(true)">
             Add Payload
           </button>
         </div>
 
-        <ng-container
-          *ngIf="form.all.controls.httpRequestBodyEnabled.value">
+        <ng-container *ngIf="form.all.controls.httpRequestBodyEnabled.value">
           <!-- Request Content Type -->
           <mat-form-field class="grow">
             <mat-label>Content Type</mat-label>
@@ -220,9 +215,7 @@
             *ngIf="form.all.controls.httpRequestBodyEnabled.value"
             mat-button
             color="warn"
-            (click)="
-              form.all.controls.httpRequestBodyEnabled.setValue(false)
-            ">
+            (click)="form.all.controls.httpRequestBodyEnabled.setValue(false)">
             Remove Payload
           </button>
         </div>

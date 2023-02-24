@@ -3,13 +3,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {switchDisabledControls} from '../../utils/form-group-utils';
 import {jsonValidator} from '../../validators/json-validator';
 import {urlValidator} from '../../validators/url-validator';
-import {HttpParamsFormAuthHeaderType} from '../asset-editor-dialog/model/http-params-form-auth-header-type';
+import {HttpDatasourceAuthHeaderType} from '../asset-editor-dialog/model/http-datasource-auth-header-type';
 import {DataAddressType} from '../data-address-type-select/data-address-type';
 import {
   ContractAgreementTransferDialogFormModel,
   ContractAgreementTransferDialogFormValue,
 } from './contract-agreement-transfer-dialog-form-model';
-import {HttpDatasinkHeaderFormModel} from './model/http-datasink-header-form-model';
+import {HttpDatasinkHeaderFormModel} from './http-datasink-header-form-model';
 
 /**
  * Handles AngularForms for ContractAgreementTransferDialog
@@ -48,7 +48,7 @@ export class ContractAgreementTransferDialogForm {
         httpRequestBodyValue: ['', Validators.required],
         httpContentType: ['', Validators.required],
 
-        httpAuthHeaderType: ['None' as HttpParamsFormAuthHeaderType],
+        httpAuthHeaderType: ['None' as HttpDatasourceAuthHeaderType],
         httpAuthHeaderName: ['', Validators.required],
         httpAuthHeaderValue: ['', Validators.required],
         httpAuthHeaderSecretName: ['', Validators.required],
@@ -104,7 +104,7 @@ export class ContractAgreementTransferDialogForm {
   }
 
   onHttpHeadersAddClick() {
-   this.all.controls.httpHeaders.push(this.buildHeaderFormGroup());
+    this.all.controls.httpHeaders.push(this.buildHeaderFormGroup());
   }
 
   onHttpHeadersRemoveClick(index: number) {
