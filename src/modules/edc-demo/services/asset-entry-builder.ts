@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AssetEntryDto, DataAddressDto} from '../../edc-dmgmt-client';
 import {AssetEditorDialogFormValue} from '../components/asset-editor-dialog/asset-editor-dialog-form-model';
 import {HttpDatasourceFormMapper} from '../components/asset-editor-dialog/model/http-datasource-form-mapper';
-import {HttpDatasourceProperties} from '../models/http-datasource-properties';
+import {HttpRequestParams} from '../models/http-request-params';
 import {removeNullValues} from '../utils/record-utils';
 import {AssetPropertyMapper} from './asset-property-mapper';
 
@@ -50,7 +50,7 @@ export class AssetEntryBuilder {
   }
 
   private encodeHttpDatasourceProperties(
-    httpDatasource: HttpDatasourceProperties,
+    httpDatasource: HttpRequestParams,
   ): Record<string, string> {
     const props: Record<string, string | null> = {
       baseUrl: httpDatasource.url,

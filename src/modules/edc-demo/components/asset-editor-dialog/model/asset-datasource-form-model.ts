@@ -5,7 +5,7 @@ import {
   ɵFormGroupValue,
 } from '@angular/forms';
 import {DataAddressType} from '../../data-address-type-select/data-address-type';
-import {HttpDatasourceAuthHeaderType} from './http-datasource-auth-header-type';
+import {HttpParamsFormAuthHeaderType} from './http-params-form-auth-header-type';
 import {HttpDatasourceHeaderFormModel} from './http-datasource-header-form-model';
 
 /**
@@ -28,7 +28,7 @@ export interface AssetDatasourceFormModel {
   httpRequestBodyValue: FormControl<string>;
   httpContentType: FormControl<string>;
 
-  httpAuthHeaderType: FormControl<HttpDatasourceAuthHeaderType>;
+  httpAuthHeaderType: FormControl<HttpParamsFormAuthHeaderType>;
   httpAuthHeaderName: FormControl<string>;
   httpAuthHeaderValue: FormControl<string>;
   httpAuthHeaderSecretName: FormControl<string>;

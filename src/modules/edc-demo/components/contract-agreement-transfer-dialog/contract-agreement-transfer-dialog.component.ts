@@ -6,7 +6,7 @@ import {
   ContractAgreementService,
   DataAddressDto,
 } from '../../../edc-dmgmt-client';
-import {HttpDatasinkProperties} from '../../models/http-datasink-properties';
+import {HttpRequestParams} from '../../models/http-request-params';
 import {AssetEntryBuilder} from '../../services/asset-entry-builder';
 import {NotificationService} from '../../services/notification.service';
 import {removeNullValues} from '../../utils/record-utils';
@@ -15,22 +15,17 @@ import {ContractAgreementTransferDialogData} from './contract-agreement-transfer
 import {ContractAgreementTransferDialogForm} from './contract-agreement-transfer-dialog-form';
 import {ContractAgreementTransferDialogFormValue} from './contract-agreement-transfer-dialog-form-model';
 import {ContractAgreementTransferDialogResult} from './contract-agreement-transfer-dialog-result';
-import {ContractAgreementDatasinkFormBuilder} from './model/contract-agreement-datasink-form-builder';
 import {HttpDatasinkFormMapper} from './model/http-datasink-form-mapper';
 
 @Component({
   selector: 'edc-demo-contract-agreement-transfer-dialog',
   templateUrl: './contract-agreement-transfer-dialog.component.html',
-  providers: [
-    ContractAgreementTransferDialogForm,
-    AssetEntryBuilder,
-    ContractAgreementDatasinkFormBuilder,
-  ],
+  providers: [ContractAgreementTransferDialogForm, AssetEntryBuilder],
 })
 export class ContractAgreementTransferDialog implements OnDestroy {
   loading = false;
 
-  methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
+  methods = ['POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
 
   constructor(
     public form: ContractAgreementTransferDialogForm,
@@ -76,14 +71,12 @@ export class ContractAgreementTransferDialog implements OnDestroy {
   private buildDataAddressDto(
     formValue: ContractAgreementTransferDialogFormValue,
   ): DataAddressDto {
-    switch (formValue.datasink?.dataAddressType) {
+    switch (formValue.dataAddressType) {
       case 'Custom-Data-Address-Json':
-        return JSON.parse(formValue.datasink?.dataDestination?.trim()!!);
+        return JSON.parse(formValue.dataDestination?.trim()!!);
       case 'Http':
         const httpDatasinkProperties =
-          this.httpDatasinkFormMapper.buildHttpDatasinkProperties(
-            formValue.datasink,
-          );
+          this.httpDatasinkFormMapper.buildHttpDatasinkProperties(formValue);
         return {
           properties: {
             type: 'HttpData',
@@ -92,13 +85,13 @@ export class ContractAgreementTransferDialog implements OnDestroy {
         };
       default:
         throw new Error(
-          `Invalid Data Address Type ${formValue.datasink?.dataAddressType}`,
+          `Invalid Data Address Type ${formValue.dataAddressType}`,
         );
     }
   }
 
   private encodeHttpDatasinkProperties(
-    httpDatasink: HttpDatasinkProperties,
+    httpDatasink: HttpRequestParams,
   ): Record<string, string> {
     const props: Record<string, string | null> = {
       baseUrl: httpDatasink.url,

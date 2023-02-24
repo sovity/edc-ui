@@ -15,7 +15,7 @@ the detailed section referring to by linking pull requests or issues.
 ### Detailed Changes
 
 #### Added
-- Additional Http Datasink Properties to the Contract Agreement Transfer Dialog Form
+- Added Additional Http Datasink Properties to the Transfer Dialog Form
 
 #### Changed
 

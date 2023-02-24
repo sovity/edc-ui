@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {switchDisabledControls} from '../../utils/form-group-utils';
+import {jsonValidator} from '../../validators/json-validator';
+import {urlValidator} from '../../validators/url-validator';
+import {HttpParamsFormAuthHeaderType} from '../asset-editor-dialog/model/http-params-form-auth-header-type';
 import {DataAddressType} from '../data-address-type-select/data-address-type';
 import {
   ContractAgreementTransferDialogFormModel,
   ContractAgreementTransferDialogFormValue,
 } from './contract-agreement-transfer-dialog-form-model';
-import {ContractAgreementDatasinkFormBuilder} from './model/contract-agreement-datasink-form-builder';
-import {ContractAgreementDatasinkFormModel} from './model/contract-agreement-datasink-form-model';
+import {HttpDatasinkHeaderFormModel} from './model/http-datasink-header-form-model';
 
 /**
  * Handles AngularForms for ContractAgreementTransferDialog
@@ -16,15 +19,10 @@ export class ContractAgreementTransferDialogForm {
   all = this.buildFormGroup();
 
   /**
-   * FormGroup for "Data Sink"
-   */
-  datasink = this.all.controls.datasink;
-
-  /**
    * Quick access to selected data address type
    */
   get dataAddressType(): DataAddressType | null {
-    return this.datasink.controls.dataAddressType.value;
+    return this.all.controls.dataAddressType.value;
   }
 
   /**
@@ -34,30 +32,82 @@ export class ContractAgreementTransferDialogForm {
     return this.all.value;
   }
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private contractAgreementDatasinkFormBuilder: ContractAgreementDatasinkFormBuilder,
-  ) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   buildFormGroup(): FormGroup<ContractAgreementTransferDialogFormModel> {
-    const datasink: FormGroup<ContractAgreementDatasinkFormModel> =
-      this.contractAgreementDatasinkFormBuilder.buildFormGroup();
-
-    const formGroup: FormGroup<ContractAgreementTransferDialogFormModel> =
+    const all: FormGroup<ContractAgreementTransferDialogFormModel> =
       this.formBuilder.nonNullable.group({
-        datasink,
+        dataAddressType: 'Http' as DataAddressType,
+        dataDestination: ['', [Validators.required, jsonValidator]],
+
+        // Http Datasink Fields
+        httpUrl: ['', [Validators.required, urlValidator]],
+        httpMethod: ['POST', Validators.required],
+
+        httpRequestBodyEnabled: [false],
+        httpRequestBodyValue: ['', Validators.required],
+        httpContentType: ['', Validators.required],
+
+        httpAuthHeaderType: ['None' as HttpParamsFormAuthHeaderType],
+        httpAuthHeaderName: ['', Validators.required],
+        httpAuthHeaderValue: ['', Validators.required],
+        httpAuthHeaderSecretName: ['', Validators.required],
+
+        httpHeaders: this.formBuilder.array(
+          new Array<FormGroup<HttpDatasinkHeaderFormModel>>(),
+        ),
       });
 
-    return formGroup;
+    switchDisabledControls<ContractAgreementTransferDialogFormValue>(
+      all,
+      (value) => {
+        const customDataAddressJson =
+          value.dataAddressType === 'Custom-Data-Address-Json';
+
+        const http = value.dataAddressType === 'Http';
+        const requestBody = !!value.httpRequestBodyEnabled;
+        const httpAuth = value.httpAuthHeaderType !== 'None';
+        const httpAuthByValue = value.httpAuthHeaderType === 'Value';
+        const httpAuthByVault = value.httpAuthHeaderType === 'Vault-Secret';
+
+        return {
+          dataAddressType: true,
+
+          // Custom Datasink JSON
+          dataDestination: customDataAddressJson,
+
+          // Http Datasink Fields
+          httpUrl: http,
+          httpMethod: http,
+
+          httpRequestBodyEnabled: http,
+          httpRequestBodyValue: http && requestBody,
+          httpContentType: http && requestBody,
+
+          httpAuthHeaderType: http,
+          httpAuthHeaderName: http && httpAuth,
+          httpAuthHeaderValue: http && httpAuthByValue,
+          httpAuthHeaderSecretName: http && httpAuthByVault,
+
+          httpHeaders: http,
+        };
+      },
+    );
+    return all;
+  }
+
+  buildHeaderFormGroup(): FormGroup<HttpDatasinkHeaderFormModel> {
+    return this.formBuilder.nonNullable.group({
+      headerName: ['', Validators.required],
+      headerValue: ['', Validators.required],
+    });
   }
 
   onHttpHeadersAddClick() {
-    this.datasink.controls.httpHeaders.push(
-      this.contractAgreementDatasinkFormBuilder.buildHeaderFormGroup(),
-    );
+   this.all.controls.httpHeaders.push(this.buildHeaderFormGroup());
   }
 
   onHttpHeadersRemoveClick(index: number) {
-    this.datasink.controls.httpHeaders.removeAt(index);
+    this.all.controls.httpHeaders.removeAt(index);
   }
 }

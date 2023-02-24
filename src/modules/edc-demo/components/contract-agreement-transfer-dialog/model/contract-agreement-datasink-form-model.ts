@@ -11,9 +11,6 @@ import {HttpDatasinkHeaderFormModel} from './http-datasink-header-form-model';
 /* Form Model for ContractAgreementTransferDialog > DataSink */
 export interface ContractAgreementDatasinkFormModel {
   dataAddressType: FormControl<DataAddressType>;
-  publisher: FormControl<string>;
-  standardLicense: FormControl<string>;
-  endpointDocumentation: FormControl<string>;
 
   // Custom Datasink JSON
   dataDestination: FormControl<string>;

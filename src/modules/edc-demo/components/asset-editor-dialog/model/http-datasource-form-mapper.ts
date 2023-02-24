@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpDatasourceProperties} from '../../../models/http-datasource-properties';
+import {HttpRequestParams} from '../../../models/http-request-params';
 import {AssetDatasourceFormValue} from './asset-datasource-form-model';
 import {HttpDatasourceHeaderFormValue} from './http-datasource-header-form-model';
 
@@ -7,7 +7,7 @@ import {HttpDatasourceHeaderFormValue} from './http-datasource-header-form-model
 export class HttpDatasourceFormMapper {
   buildHttpDatasourceProperties(
     formValue: AssetDatasourceFormValue | undefined,
-  ): HttpDatasourceProperties {
+  ): HttpRequestParams {
     let authHeaderName: string | null = null;
     if (formValue?.httpAuthHeaderType !== 'None') {
       authHeaderName = formValue?.httpAuthHeaderName?.trim() || null;

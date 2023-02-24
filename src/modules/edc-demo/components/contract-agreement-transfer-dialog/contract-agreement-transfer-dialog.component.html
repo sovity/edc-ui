@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Initiate Transfer</h1>
 <mat-dialog-content class="w-[800px]">
-  <form [formGroup]="form.datasink">
+  <form [formGroup]="form.all">
     <div class="section-title">Datasink</div>
     <div class="flex flex-col mt-[10px]">
       <!-- Data Address Type -->
@@ -8,14 +8,14 @@
         label="Type"
         mode="Datasink"
         [control]="
-          form.datasink.controls.dataAddressType
+          form.all.controls.dataAddressType
         "></data-address-type-select>
 
       <!-- Datasink Config JSON (Json) -->
       <mat-form-field
         *ngIf="
           form.dataAddressType === 'Custom-Data-Address-Json' &&
-            form.datasink.controls.dataDestination;
+            form.all.controls.dataDestination;
           let ctrl
         "
         color="accent">
@@ -32,7 +32,7 @@
         <div class="flex flex-row space-x-[10px]">
           <!-- Method (Rest-Api) -->
           <mat-form-field
-            *ngIf="form.datasink.controls.httpMethod; let ctrl"
+            *ngIf="form.all.controls.httpMethod; let ctrl"
             class="w-1/3">
             <mat-label>Method</mat-label>
             <mat-select [formControl]="ctrl">
@@ -42,10 +42,10 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field
-            *ngIf="form.datasink.controls.httpUrl; let ctrl"
+            *ngIf="form.all.controls.httpUrl; let ctrl"
             class="grow"
             color="accent">
-            <mat-label>REST-API Endpoint (GET)</mat-label>
+            <mat-label>URL</mat-label>
             <input matInput [formControl]="ctrl" [placeholder]="'https://'" />
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
               {{ validationMessages.invalidUrlMessage }}
@@ -56,13 +56,13 @@
 
         <!-- Add Authentication Button -->
         <div
-          *ngIf="form.datasink.controls.httpAuthHeaderType.value === 'None'"
+          *ngIf="form.all.controls.httpAuthHeaderType.value === 'None'"
           class="flex flex-row mb-[10px]">
           <button
             mat-button
             color="primary"
             (click)="
-              form.datasink.controls.httpAuthHeaderType.setValue('Vault-Secret')
+              form.all.controls.httpAuthHeaderType.setValue('Vault-Secret')
             ">
             Add Authentication
           </button>
@@ -70,10 +70,10 @@
 
         <!-- Auth Header Value Type -->
         <mat-form-field
-          *ngIf="form.datasink.controls.httpAuthHeaderType.value !== 'None'"
+          *ngIf="form.all.controls.httpAuthHeaderType.value !== 'None'"
           class="grow">
           <mat-label>Type</mat-label>
-          <mat-select [formControl]="form.datasink.controls.httpAuthHeaderType">
+          <mat-select [formControl]="form.all.controls.httpAuthHeaderType">
             <mat-option value="Vault-Secret">
               Header with Vault Secret
             </mat-option>
@@ -81,7 +81,7 @@
           </mat-select>
         </mat-form-field>
         <div
-          *ngIf="form.datasink.controls.httpAuthHeaderType.value !== 'None'"
+          *ngIf="form.all.controls.httpAuthHeaderType.value !== 'None'"
           class="flex flex-row space-x-[10px]">
           <!-- Auth Header Name -->
           <mat-form-field class="w-1/3">
@@ -89,43 +89,43 @@
             <input
               matInput
               placeholder="Authorization"
-              [formControl]="form.datasink.controls.httpAuthHeaderName" />
+              [formControl]="form.all.controls.httpAuthHeaderName" />
           </mat-form-field>
 
           <!-- Auth Header Value -->
           <mat-form-field
-            *ngIf="form.datasink.controls.httpAuthHeaderType.value === 'Value'"
+            *ngIf="form.all.controls.httpAuthHeaderType.value === 'Value'"
             class="grow">
             <mat-label>Auth Header Value</mat-label>
             <input
               matInput
               placeholder="Bearer ..."
-              [formControl]="form.datasink.controls.httpAuthHeaderValue" />
+              [formControl]="form.all.controls.httpAuthHeaderValue" />
           </mat-form-field>
 
           <!-- Auth Header Secret Name -->
           <mat-form-field
             *ngIf="
-              form.datasink.controls.httpAuthHeaderType.value === 'Vault-Secret'
+              form.all.controls.httpAuthHeaderType.value === 'Vault-Secret'
             "
             class="grow">
             <mat-label>Vault Secret Name</mat-label>
             <input
               matInput
               placeholder="MySecret123"
-              [formControl]="form.datasink.controls.httpAuthHeaderSecretName" />
+              [formControl]="form.all.controls.httpAuthHeaderSecretName" />
           </mat-form-field>
         </div>
 
         <!-- Remove Authentication Button -->
         <div
-          *ngIf="form.datasink.controls.httpAuthHeaderType.value !== 'None'"
+          *ngIf="form.all.controls.httpAuthHeaderType.value !== 'None'"
           class="flex flex-row mb-[10px]">
           <button
             mat-button
             color="warn"
             (click)="
-              form.datasink.controls.httpAuthHeaderType.setValue('None')
+              form.all.controls.httpAuthHeaderType.setValue('None')
             ">
             Remove Authentication
           </button>
@@ -135,7 +135,7 @@
 
         <div
           *ngFor="
-            let header of form.datasink.controls.httpHeaders.controls;
+            let header of form.all.controls.httpHeaders.controls;
             let i = index
           "
           class="flex flex-row space-x-[10px]">
@@ -182,30 +182,30 @@
         <!-- Add Payload Button -->
         <div class="flex flex-row mb-[10px]">
           <button
-            *ngIf="!form.datasink.controls.httpRequestBodyEnabled.value"
+            *ngIf="!form.all.controls.httpRequestBodyEnabled.value"
             mat-button
             color="primary"
             (click)="
-              form.datasink.controls.httpRequestBodyEnabled.setValue(true)
+              form.all.controls.httpRequestBodyEnabled.setValue(true)
             ">
             Add Payload
           </button>
         </div>
 
         <ng-container
-          *ngIf="form.datasink.controls.httpRequestBodyEnabled.value">
+          *ngIf="form.all.controls.httpRequestBodyEnabled.value">
           <!-- Request Content Type -->
           <mat-form-field class="grow">
             <mat-label>Content Type</mat-label>
             <input
               matInput
-              [formControl]="form.datasink.controls.httpContentType"
+              [formControl]="form.all.controls.httpContentType"
               [placeholder]="'application/json'" />
           </mat-form-field>
 
           <!-- Request Body -->
           <mat-form-field
-            *ngIf="form.datasink.controls.httpRequestBodyValue; let ctrl">
+            *ngIf="form.all.controls.httpRequestBodyValue; let ctrl">
             <mat-label>Body</mat-label>
             <textarea
               matInput
@@ -217,11 +217,11 @@
         <!-- Remove Payload Button -->
         <div class="flex flex-row mb-[10px]">
           <button
-            *ngIf="form.datasink.controls.httpRequestBodyEnabled.value"
+            *ngIf="form.all.controls.httpRequestBodyEnabled.value"
             mat-button
             color="warn"
             (click)="
-              form.datasink.controls.httpRequestBodyEnabled.setValue(false)
+              form.all.controls.httpRequestBodyEnabled.setValue(false)
             ">
             Remove Payload
           </button>
@@ -239,7 +239,7 @@
   <button
     mat-raised-button
     color="primary"
-    [disabled]="!form.datasink.valid || loading"
+    [disabled]="!form.all.valid || loading"
     (click)="onSave()">
     Create
   </button>
