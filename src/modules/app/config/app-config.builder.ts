@@ -8,13 +8,9 @@ export class AppConfigBuilder {
   /**
    * Build {@link AppConfig} from ENV Vars
    *
-   * @param envVars env vars
+   * @param vars env vars
    */
-  buildAppConfig(envVars: Record<string, string | null>): AppConfig {
-    const vars = {
-      ...JSON.parse(envVars[AppConfigProperties.configJson] || '{}'),
-      ...envVars,
-    };
+  buildAppConfig(vars: Record<string, string | null>): AppConfig {
 
     const profile = getProfileOrFallback(
       vars[AppConfigProperties.activeProfile],

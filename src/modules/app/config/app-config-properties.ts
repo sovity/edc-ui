@@ -13,6 +13,17 @@ export const AppConfigProperties = {
   configJson: `EDC_UI_CONFIG_JSON`,
 
   /**
+   * Additional URL to fetch a Config JSON from that will take precedence.
+   *
+   * This allows an EDC Backend Extension to provide EDC UI configuration
+   *
+   * If this URL is relative, it will be appended to the {@link AppConfigProperties.dataManagementApiUrl}.
+   *
+   * The JSON should be a {@link Record<string, string>}
+   */
+  configUrl: `EDC_UI_CONFIG_URL`,
+
+  /**
    * Customer-Specific Feature Set and/or Theme.
    *
    * See {@link EDC_UI_PROFILE_DATA} in `edc-ui-profile.ts` for all available profiles.
