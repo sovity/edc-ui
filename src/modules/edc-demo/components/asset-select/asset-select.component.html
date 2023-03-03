@@ -1,0 +1,10 @@
+<mat-form-field class="grow form-field" color="accent">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select multiple [formControl]="control" [compareWith]="isEqualId">
+    <mat-option *ngFor="let asset of assets" [value]="asset">
+      <div *ngIf="asset.name" class="flex flex-col">
+        {{ asset.id }}
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

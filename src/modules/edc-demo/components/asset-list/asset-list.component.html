@@ -9,9 +9,14 @@
         {{ asset.name }}
       </a>
     </mat-card-title>
-    <mat-card-subtitle>{{ asset.id }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ asset.originatorOrganization }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="flex flex-col space-y-[16px]">
+    <!-- ID -->
+    <div *ngIf="asset.id" class="whitespace-pre-line truncate-lines-5">
+      Asset ID : {{ asset.id }}
+    </div>
+
     <!-- Description -->
     <div *ngIf="asset.description" class="whitespace-pre-line truncate-lines-5">
       {{ asset.description }}
