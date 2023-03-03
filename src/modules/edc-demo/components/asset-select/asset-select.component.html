@@ -3,7 +3,7 @@
   <mat-select multiple [formControl]="control" [compareWith]="isEqualId">
     <mat-option *ngFor="let asset of assets" [value]="asset">
       <div *ngIf="asset.name" class="flex flex-col">
-        {{ asset.id }}
+        {{ asset.name }}
       </div>
     </mat-option>
   </mat-select>
