@@ -8,7 +8,7 @@ import {AssetDetailDialogResult} from '../asset-detail-dialog/asset-detail-dialo
 import {AssetDetailDialog} from '../asset-detail-dialog/asset-detail-dialog.component';
 
 @Component({
-  selector: 'edc-demo-asset-select',
+  selector: 'asset-select',
   templateUrl: './asset-select.component.html',
 })
 export class AssetSelectComponent {
