@@ -23,7 +23,23 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Fixed
 
+## [v0.0.1-milestone-7-sovity8] 07.03.2023
+
+### Overview
+
+Minor UI fixes.
+
+### Detailed Changes
+
+#### Changed
+
+- Updated the icon for Fetch Status option in the catalog browser
+
+#### Fixed
+
 - Fixed closing of side nav-bar on pressing escape button
+- Fixed "Your Contract Definitions" being called "Your Data Offers" in the
+  dashboard.
 
 ## [v0.0.1-milestone-7-sovity7] 06.03.2023
 
