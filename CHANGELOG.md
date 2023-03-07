@@ -25,7 +25,7 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Fixed
 
-- Fixed handling of http error response code 401 when loggíng out
+- Fixed handling of http error response code 401 when user logout from edc-ui
 
 ## [v0.0.1-milestone-7-sovity8] 07.03.2023
 
