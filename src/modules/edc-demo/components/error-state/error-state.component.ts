@@ -13,5 +13,8 @@ export class ErrorStateComponent {
   cls = true;
 
   @Input()
+  statusCode = 0;
+
+  @Input()
   errorMessage = '';
 }

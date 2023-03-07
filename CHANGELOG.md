@@ -19,11 +19,14 @@ the detailed section referring to by linking pull requests or issues.
 #### Changed
 
 #### Removed
-- Removed asset id from asset details and replaced the same with organization name
+
+- Removed asset id from asset details and replaced the same with organization
+  name
 
 #### Fixed
 
 - Fixed closing of side nav-bar on pressing escape button
+- Fixed handling of http error response code 401 when loggíng out
 
 ## [v0.0.1-milestone-7-sovity7] 06.03.2023
 
