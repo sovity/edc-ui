@@ -14,6 +14,11 @@ export class AssetPropertyGridBuilder {
   buildPropertyGrid(asset: Asset): PropertyGridField[] {
     let fields: PropertyGridField[] = [
       {
+        icon: 'badge',
+        label: 'ID',
+        ...this.propertyGridUtils.guessValue(asset.id),
+      },
+      {
         icon: 'file_copy',
         label: 'Version',
         ...this.propertyGridUtils.guessValue(asset.version),

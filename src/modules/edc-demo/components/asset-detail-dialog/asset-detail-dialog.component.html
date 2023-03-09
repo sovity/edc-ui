@@ -13,6 +13,9 @@
     </div>
     <div class="mat-card-subtitle">
       {{ asset.originatorOrganization }}
+      <i *ngIf="asset.originatorOrganization?.length === 0"
+        >Unknown Organization</i
+      >
     </div>
   </div>
 </div>
