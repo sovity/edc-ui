@@ -8,7 +8,7 @@
         <div class="flex flex-col mt-[10px]">
           <div class="flex flex-row space-x-[10px]">
             <!-- Name -->
-            <mat-form-field class="grow">
+            <mat-form-field class="grow" autocomplete="off">
               <mat-label>Name</mat-label>
               <input matInput [formControl]="form.metadata.controls.name" />
             </mat-form-field>
@@ -16,7 +16,8 @@
             <!-- ID -->
             <mat-form-field
               *ngIf="form.metadata.controls.id; let ctrl"
-              class="grow">
+              class="grow"
+              autocomplete="off">
               <mat-label>Id</mat-label>
               <input
                 placeholder="urn:artifact:..."
@@ -224,7 +225,7 @@
               "
               class="flex flex-row space-x-[10px]">
               <!-- Auth Header Name -->
-              <mat-form-field class="w-1/3">
+              <mat-form-field class="w-1/3" autocomplete="off">
                 <mat-label>Auth Header Name</mat-label>
                 <input
                   matInput
@@ -237,7 +238,8 @@
                 *ngIf="
                   form.datasource.controls.httpAuthHeaderType.value === 'Value'
                 "
-                class="grow">
+                class="grow"
+                autocomplete="off">
                 <mat-label>Auth Header Value</mat-label>
                 <input
                   matInput
@@ -289,7 +291,7 @@
               "
               class="flex flex-row space-x-[10px]">
               <!-- Header Name -->
-              <mat-form-field class="w-1/3">
+              <mat-form-field class="w-1/3" autocomplete="off">
                 <mat-label>Header Name</mat-label>
                 <input
                   matInput
@@ -298,7 +300,7 @@
               </mat-form-field>
 
               <!-- Header Value -->
-              <mat-form-field class="grow">
+              <mat-form-field class="grow" autocomplete="off">
                 <mat-label>Header Value</mat-label>
                 <input
                   matInput
@@ -344,7 +346,7 @@
             <ng-container
               *ngIf="form.datasource.controls.httpRequestBodyEnabled.value">
               <!-- Request Content Type -->
-              <mat-form-field class="grow">
+              <mat-form-field class="grow" autocomplete="off">
                 <mat-label>Content Type</mat-label>
                 <input
                   matInput
@@ -354,7 +356,8 @@
 
               <!-- Request Body -->
               <mat-form-field
-                *ngIf="form.datasource.controls.httpRequestBodyValue; let ctrl">
+                *ngIf="form.datasource.controls.httpRequestBodyValue; let ctrl"
+                autocomplete="off">
                 <mat-label>Body</mat-label>
                 <textarea
                   matInput

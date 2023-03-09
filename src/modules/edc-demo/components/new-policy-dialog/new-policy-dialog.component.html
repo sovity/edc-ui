@@ -5,7 +5,8 @@
     <mat-form-field
       *ngIf="form.group.controls.id; let ctrl"
       id="form-field-id"
-      color="accent">
+      color="accent"
+      autocomplete="off">
       <mat-label>ID</mat-label>
       <input matInput [formControl]="ctrl" />
       <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">{{
@@ -49,7 +50,7 @@
 
     <!-- Connector ID -->
     <ng-container *ngIf="form.policyType == 'Connector-Restricted-Usage'">
-      <mat-form-field color="accent">
+      <mat-form-field color="accent" autocomplete="off">
         <mat-label>Connector ID</mat-label>
         <input
           matInput
