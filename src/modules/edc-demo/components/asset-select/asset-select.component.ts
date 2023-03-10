@@ -27,7 +27,7 @@ export class AssetSelectComponent {
 
   onAssetClick(asset: Asset) {
     const data = AssetDetailDialogData.forAssetDetails(asset, false);
-    const ref = this.matDialog.open(AssetDetailDialog, {
+    this.matDialog.open(AssetDetailDialog, {
       data,
       maxHeight: '90vh',
     });
