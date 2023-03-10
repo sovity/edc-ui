@@ -130,6 +130,7 @@ import {SafePipe} from './pipes/safe.pipe';
     AssetDetailDialog,
     AssetEditorDialog,
     AssetListComponent,
+    AssetSelectComponent,
     AssetViewerComponent,
     CatalogBrowserComponent,
     CatalogBrowserFetchDetailDialogComponent,
@@ -167,7 +168,6 @@ import {SafePipe} from './pipes/safe.pipe';
     SafePipe,
     TransferHistoryViewerComponent,
     TransportModeSelectComponent,
-    AssetSelectComponent,
   ],
   exports: [
     AssetViewerComponent,
