@@ -5,10 +5,9 @@
     <mat-form-field
       *ngIf="form.group.controls.id; let ctrl"
       id="form-field-id"
-      color="accent"
-      autocomplete="off">
+      color="accent">
       <mat-label>ID</mat-label>
-      <input matInput [formControl]="ctrl" />
+      <input matInput autocomplete="new-id" [formControl]="ctrl" />
       <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">{{
         validationMessages.invalidWhitespacesMessage
       }}</mat-error>
@@ -50,11 +49,12 @@
 
     <!-- Connector ID -->
     <ng-container *ngIf="form.policyType == 'Connector-Restricted-Usage'">
-      <mat-form-field color="accent" autocomplete="off">
+      <mat-form-field color="accent">
         <mat-label>Connector ID</mat-label>
         <input
           matInput
           placeholder="https://other-connector.com"
+          autocomplete="new-id"
           [formControl]="form.group.controls.connectorId" />
         <mat-hint>
           The Connector ID and can be found in the dashboard of given EDC and

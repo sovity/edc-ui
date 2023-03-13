@@ -6,9 +6,9 @@
     <mat-form-field
       *ngIf="form.group.controls.id; let ctrl"
       id="form-field-id"
-      color="accent" autocomplete="off">
+      color="accent">
       <mat-label>ID</mat-label>
-      <input matInput [formControl]="ctrl" />
+      <input matInput autocomplete="new-ID" [formControl]="ctrl" />
       <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">{{
         validationMessages.invalidWhitespacesMessage
       }}</mat-error>
