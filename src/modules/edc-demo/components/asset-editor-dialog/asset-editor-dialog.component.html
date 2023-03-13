@@ -8,29 +8,40 @@
         <div class="flex flex-col mt-[10px]">
           <div class="flex flex-row space-x-[10px]">
             <!-- Name -->
-            <mat-form-field class="grow" autocomplete="off">
+            <mat-form-field class="grow">
               <mat-label>Name</mat-label>
               <input matInput [formControl]="form.metadata.controls.name" />
             </mat-form-field>
 
-            <!-- ID -->
-            <mat-form-field
-              *ngIf="form.metadata.controls.id; let ctrl"
-              class="grow"
-              autocomplete="off">
-              <mat-label>Id</mat-label>
+            <!-- Version -->
+            <mat-form-field class="grow">
+              <mat-label>Version</mat-label>
               <input
-                placeholder="urn:artifact:..."
                 matInput
-                [formControl]="ctrl" />
-              <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
-                {{ validationMessages.invalidWhitespacesMessage }}
-              </mat-error>
-              <mat-error *ngIf="ctrl.invalid && ctrl.errors?.requiresPrefix">
-                {{ validationMessages.invalidPrefix('ID', 'urn:artifact') }}
-              </mat-error>
+                [formControl]="form.metadata.controls.version"
+                [placeholder]="'1.0'" />
             </mat-form-field>
           </div>
+
+          <!-- ID -->
+          <mat-form-field
+            *ngIf="form.metadata.controls.id; let ctrl"
+            class="grow">
+            <mat-label>Id</mat-label>
+            <input
+              placeholder="urn:artifact:..."
+              matInput
+              [formControl]="ctrl" />
+            <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
+              {{ validationMessages.invalidWhitespacesMessage }}
+            </mat-error>
+            <mat-error *ngIf="ctrl.invalid && ctrl.errors?.requiresPrefix">
+              {{ validationMessages.invalidPrefix('ID', 'urn:artifact') }}
+            </mat-error>
+            <mat-error *ngIf="ctrl.invalid && ctrl.errors?.idAlreadyExists">
+              {{ validationMessages.idExistsErrorMessage }}
+            </mat-error>
+          </mat-form-field>
 
           <!-- Description -->
           <mat-form-field>
@@ -54,15 +65,6 @@
                 matInput
                 [formControl]="form.metadata.controls.contentType"
                 [placeholder]="'text/plain'" />
-            </mat-form-field>
-
-            <!-- Version -->
-            <mat-form-field class="grow">
-              <mat-label>Version</mat-label>
-              <input
-                matInput
-                [formControl]="form.metadata.controls.version"
-                [placeholder]="'1.0'" />
             </mat-form-field>
           </div>
 
@@ -225,7 +227,7 @@
               "
               class="flex flex-row space-x-[10px]">
               <!-- Auth Header Name -->
-              <mat-form-field class="w-1/3" autocomplete="off">
+              <mat-form-field class="w-1/3">
                 <mat-label>Auth Header Name</mat-label>
                 <input
                   matInput
@@ -238,8 +240,7 @@
                 *ngIf="
                   form.datasource.controls.httpAuthHeaderType.value === 'Value'
                 "
-                class="grow"
-                autocomplete="off">
+                class="grow">
                 <mat-label>Auth Header Value</mat-label>
                 <input
                   matInput
@@ -291,7 +292,7 @@
               "
               class="flex flex-row space-x-[10px]">
               <!-- Header Name -->
-              <mat-form-field class="w-1/3" autocomplete="off">
+              <mat-form-field class="w-1/3">
                 <mat-label>Header Name</mat-label>
                 <input
                   matInput
@@ -300,7 +301,7 @@
               </mat-form-field>
 
               <!-- Header Value -->
-              <mat-form-field class="grow" autocomplete="off">
+              <mat-form-field class="grow">
                 <mat-label>Header Value</mat-label>
                 <input
                   matInput
@@ -346,7 +347,7 @@
             <ng-container
               *ngIf="form.datasource.controls.httpRequestBodyEnabled.value">
               <!-- Request Content Type -->
-              <mat-form-field class="grow" autocomplete="off">
+              <mat-form-field class="grow">
                 <mat-label>Content Type</mat-label>
                 <input
                   matInput
@@ -356,8 +357,7 @@
 
               <!-- Request Body -->
               <mat-form-field
-                *ngIf="form.datasource.controls.httpRequestBodyValue; let ctrl"
-                autocomplete="off">
+                *ngIf="form.datasource.controls.httpRequestBodyValue; let ctrl">
                 <mat-label>Body</mat-label>
                 <textarea
                   matInput
