@@ -27,11 +27,11 @@
       [policies]="policies"></policy-select>
 
     <!-- Assets -->
-    <edc-demo-asset-select
+    <asset-select
       *ngIf="form.group.controls.assets; let ctrl"
       label="Assets"
       [control]="form.group.controls.assets"
-      [assets]="assets"></edc-demo-asset-select>
+      [assets]="assets"></asset-select>
   </div>
 </mat-dialog-content>
 
