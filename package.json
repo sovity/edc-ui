@@ -22,7 +22,7 @@
     "@angular/forms": "^14.2.12",
     "@angular/material": "^14.2.7",
     "@angular/platform-browser": "^14.2.12",
-    "@angular/platform-browser-dynamic": "^14.2.12",
+    "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.2.12",
     "@ng-apimock/core": "^3.6.0",
     "clean-deep": "^3.4.0",
