@@ -21,7 +21,7 @@
     "@angular/flex-layout": "^14.0.0-beta.41",
     "@angular/forms": "^14.2.12",
     "@angular/material": "^14.2.7",
-    "@angular/platform-browser": "^14.2.12",
+    "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.2.12",
     "@angular/router": "^14.2.12",
     "@ng-apimock/core": "^3.6.0",
