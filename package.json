@@ -23,7 +23,7 @@
     "@angular/material": "^14.2.7",
     "@angular/platform-browser": "^14.2.12",
     "@angular/platform-browser-dynamic": "^14.2.12",
-    "@angular/router": "^14.2.12",
+    "@angular/router": "^14.3.0",
     "@ng-apimock/core": "^3.6.0",
     "clean-deep": "^3.4.0",
     "date-fns": "^2.29.3",
