@@ -19,7 +19,6 @@ the detailed section referring to by linking pull requests or issues.
 #### Changed
 
 #### Removed
-- Removed asset id from asset details and replaced the same with organization name
 
 - Removed asset id from asset details and replaced the same with organization
   name
