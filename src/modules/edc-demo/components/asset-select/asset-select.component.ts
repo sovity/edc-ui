@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {filter, map} from 'rxjs/operators';
 import {Asset} from '../../models/asset';
 import {AssetDetailDialogData} from '../asset-detail-dialog/asset-detail-dialog-data';
-import {AssetDetailDialogResult} from '../asset-detail-dialog/asset-detail-dialog-result';
 import {AssetDetailDialog} from '../asset-detail-dialog/asset-detail-dialog.component';
 
 @Component({
@@ -21,9 +19,6 @@ export class AssetSelectComponent {
   @Input()
   assets: Asset[] = [];
 
-  @Output()
-  deleteDone = new EventEmitter();
-
   constructor(private matDialog: MatDialog) {}
 
   isEqualId(a: Asset | null, b: Asset | null): boolean {
@@ -32,16 +27,9 @@ export class AssetSelectComponent {
 
   onAssetClick(asset: Asset) {
     const data = AssetDetailDialogData.forAssetDetails(asset, false);
-    const ref = this.matDialog.open(AssetDetailDialog, {
+    this.matDialog.open(AssetDetailDialog, {
       data,
       maxHeight: '90vh',
     });
-    ref
-      .afterClosed()
-      .pipe(
-        map((it) => it as AssetDetailDialogResult | null),
-        filter((it) => !!it?.refreshList),
-      )
-      .subscribe(() => this.deleteDone.emit());
   }
 }
