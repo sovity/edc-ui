@@ -7,17 +7,15 @@
       color="primary"
       mode="indeterminate">
     </mat-progress-spinner>
-    <div
-      class="flex justify-center items-center uppercase text-center"
-      style="font-size: 0.9em; height: 40px">
-      <edc-demo-error-state
-        *ngIf="kpi.isError"
-        [statusCode]="kpi.errorOrUndefined?.error.status"
-        [errorMessage]="kpi.error.failureMessage"></edc-demo-error-state>
-      <div *ngIf="kpi.isLoading || kpi.isReady" class="text-slate">
-        {{ label }}
-      </div>
+
+    <edc-demo-error-state
+      *ngIf="kpi.isError"
+      [errorState]="kpi.errorOrUndefined?.error"
+      [errorMessage]="kpi.error.failureMessage"></edc-demo-error-state>
+    <div *ngIf="kpi.isLoading || kpi.isReady" class="text-slate">
+      {{ label }}
     </div>
+
     <div
       *ngIf="kpi.isReady"
       class="flex flex-col justify-center items-center overflow-hidden w-full"

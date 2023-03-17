@@ -99,8 +99,8 @@
       *ngIf="data.requestTotals.isAllFailed"
       class="min-h-[35rem]"
       errorMessage="All catalog fetches failed"
-      [statusCode]="
-        data.requestTotals.results[0].errorOrUndefined?.error.status
+      [errorState]="
+        data.requestTotals.results[0].errorOrUndefined?.error
       "></edc-demo-error-state>
     <edc-demo-empty-state
       *ngIf="
