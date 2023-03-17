@@ -13,7 +13,7 @@ export class ErrorStateComponent {
   cls = true;
 
   @Input()
-  errorState: any;
+  error: any;
 
   @Input()
   errorMessage = '';
