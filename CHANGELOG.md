@@ -21,14 +21,38 @@ the detailed section referring to by linking pull requests or issues.
 #### Removed
 - Removed asset id from asset details and replaced the same with organization name
 
-- Removed asset id from asset details and replaced the same with organization
-  name
+#### Fixed
+
+## [v0.0.1-milestone-8-sovity2] 24.03.2023
+
+### Overview
+
+Bugfixes for our productive connectors.
+
+### Detailed Changes
+
+#### Fixed
+
+- Fixed implicit limit of 50 being applied to all views.
+
+## [v0.0.1-milestone-8-sovity1] 20.03.2023
+
+### Overview
+
+Organization names are now prominent in both asset cards and contract offer
+cards.
+
+### Detailed Changes
+
+#### Added
 
 - Made asset IDs less prominent in favor of Organization Name
 
 #### Fixed
 
 - Removed password suggestions for ID and related fields in Chrome
+- Fixed handling of http error response code 401 when user logout from edc-ui
+- Bumped minor dependencies
 
 ## [v0.0.1-milestone-7-sovity8] 07.03.2023
 

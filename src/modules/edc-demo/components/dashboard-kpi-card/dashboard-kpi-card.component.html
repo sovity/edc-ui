@@ -4,8 +4,8 @@
       *ngIf="kpi.isError"
       style="font-size: 80px; width: 80px; height: 80px"
       color="warn"
-      >error
-    </mat-icon>
+      >{{ kpi.error.failureIcon }}</mat-icon
+    >
     <mat-progress-spinner
       *ngIf="kpi.isLoading"
       style="width: 80px; height: 80px"
