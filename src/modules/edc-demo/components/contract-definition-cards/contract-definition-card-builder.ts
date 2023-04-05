@@ -7,7 +7,6 @@ import {
 } from '../../../edc-dmgmt-client';
 import {Asset} from '../../models/asset';
 import {AssetProperties} from '../../services/asset-properties';
-import {PolicyDefinitionUtils} from '../../services/policy-definition-utils';
 import {Operator, OperatorSymbols} from '../../services/policy-type-ext';
 import {associateBy} from '../../utils/map-utils';
 import {assetSearchTargets} from '../../utils/search-utils';
@@ -19,7 +18,7 @@ import {
 
 @Injectable({providedIn: 'root'})
 export class ContractDefinitionCardBuilder {
-  constructor(private policyDefinitionUtils: PolicyDefinitionUtils) {}
+  constructor() {}
 
   buildContractDefinitionCards(
     contractDefinitions: ContractDefinitionDto[],
@@ -77,7 +76,7 @@ export class ContractDefinitionCardBuilder {
   private extractCriterionOperation(criterion: Criterion): string {
     const {operandLeft} = criterion;
     if (
-      operandLeft.toLowerCase() === AssetProperties.id &&
+      operandLeft.toLowerCase() === AssetProperties.edcPropertyType.id &&
       (criterion.operator.toUpperCase() === 'EQ' ||
         criterion.operator.toUpperCase() === 'IN')
     ) {
@@ -113,7 +112,7 @@ export class ContractDefinitionCardBuilder {
         };
 
         // Try find asset
-        if (operandLeft === AssetProperties.id) {
+        if (operandLeft === AssetProperties.edcPropertyType.id) {
           let asset = assetsById.get(it);
           if (asset) {
             return {

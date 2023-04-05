@@ -1,5 +1,5 @@
 import {Component, HostBinding, Input} from '@angular/core';
-import {PropertyGridField} from './property-grid-field';
+import {PropertyGridFieldGroup} from '../property-grid-field-group/property-grid-field-group';
 
 @Component({
   selector: 'edc-demo-property-grid',
@@ -7,7 +7,7 @@ import {PropertyGridField} from './property-grid-field';
 })
 export class PropertyGrid {
   @Input()
-  props: PropertyGridField[] = [];
+  propGroups: PropertyGridFieldGroup[] = [];
 
   @Input()
   columns: number = 3;

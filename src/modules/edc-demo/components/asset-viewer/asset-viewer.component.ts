@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {BehaviorSubject} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {AssetService} from '../../../edc-dmgmt-client';
-import {Asset} from '../../models/asset';
+import {AssetWithAdditionalAssetProperties} from '../../models/asset-with-additional-asset-properties';
 import {Fetched} from '../../models/fetched';
 import {AssetPropertyMapper} from '../../services/asset-property-mapper';
 import {AssetDetailDialogData} from '../asset-detail-dialog/asset-detail-dialog-data';
@@ -13,7 +13,7 @@ import {AssetEditorDialogResult} from '../asset-editor-dialog/asset-editor-dialo
 import {AssetEditorDialog} from '../asset-editor-dialog/asset-editor-dialog.component';
 
 export interface AssetList {
-  filteredAssets: Asset[];
+  filteredAssets: AssetWithAdditionalAssetProperties[];
   numTotalAssets: number;
 }
 
@@ -70,7 +70,13 @@ export class AssetViewerComponent implements OnInit {
     });
   }
 
-  onAssetClick(asset: Asset) {
+  onAssetClick(asset: AssetWithAdditionalAssetProperties) {
+    //if(keyofasset)
+    console.log('here the asset is' + asset);
+    console.log(Object.entries(asset));
+    console.log('the asset list is ' + Object.entries(this.assetList));
+    //console.log('key of props -----'+keysOfProps);
+
     const data = AssetDetailDialogData.forAssetDetails(asset, true);
     const ref = this.dialog.open(AssetDetailDialog, {
       data,

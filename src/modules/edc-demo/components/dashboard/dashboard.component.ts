@@ -3,7 +3,7 @@ import {BehaviorSubject, Subject} from 'rxjs';
 import {switchMap, takeUntil} from 'rxjs/operators';
 import {AppConfig} from '../../../app/config/app-config';
 import {AppConfigService} from '../../../app/config/app-config.service';
-import {PropertyGridField} from '../property-grid/property-grid-field';
+import {PropertyGridFieldGroup} from '../property-grid-field-group/property-grid-field-group';
 import {ConnectorInfoPropertyGridBuilder} from './connector-info-property-grid-builder';
 import {DashboardData, defaultDashboardData} from './dashboard-data';
 import {DashboardDataService} from './dashboard-data.service';
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   data: DashboardData = defaultDashboardData();
 
   config!: AppConfig;
-  connectorProperties: PropertyGridField[] = [];
+  connectorProperties: PropertyGridFieldGroup[] = [];
 
   private refresh$ = new BehaviorSubject(true);
 
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.config = this.appConfigService.config;
     this.connectorProperties =
-      this.connectorInfoPropertyGridBuilder.buildPropertyGrid();
+      this.connectorInfoPropertyGridBuilder.buildPropertyGridGroup();
     this.refresh$
       .pipe(
         switchMap(() => this.dashboardDataService.getDashboardData()),

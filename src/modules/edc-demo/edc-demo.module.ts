@@ -74,6 +74,9 @@ import {PolicyCardsComponent} from './components/policy-cards/policy-cards.compo
 import {PolicyRuleViewerComponent} from './components/policy-rule-viewer/policy-rule-viewer.component';
 import {PolicySelectComponent} from './components/policy-select/policy-select.component';
 import {PolicyViewComponent} from './components/policy-view/policy-view.component';
+import {
+  PropertyGridFieldGroupComponent
+} from './components/property-grid-field-group/property-grid-field-group.component';
 import {PropertyGrid} from './components/property-grid/property-grid.component';
 import {TransferHistoryViewerComponent} from './components/transfer-history/transfer-history-viewer.component';
 import {TransportModeSelectComponent} from './components/transport-mode-select/transport-mode-select.component';
@@ -164,6 +167,7 @@ import {SafePipe} from './pipes/safe.pipe';
     PolicySelectComponent,
     PolicyViewComponent,
     PropertyGrid,
+    PropertyGridFieldGroupComponent,
     ReplacePipe,
     SafePipe,
     TransferHistoryViewerComponent,
