@@ -172,6 +172,7 @@ import {SafePipe} from './pipes/safe.pipe';
     SafePipe,
     TransferHistoryViewerComponent,
     TransportModeSelectComponent,
+    AssetSelectComponent,
   ],
   exports: [
     AssetViewerComponent,
