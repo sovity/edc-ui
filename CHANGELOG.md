@@ -16,16 +16,21 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
+- Added login polling to prevent auto-logout when page is open.
+
 #### Changed
 
 #### Removed
 - Removed asset id from asset details and replaced the same with organization name
+
+- Removed Datasource Payload support, it is probably only intended for Push
 
 #### Fixed
 
 - Fixed getting started docker-compose-yaml to use the newly renamed `edc-dev`
   image.
 - Fixed labels of MDS categories and sub-categories.
+- Fixed issue when navigating back after clicking logout.
 
 ## [v0.0.1-milestone-8-sovity2] 24.03.2023
 
