@@ -42,8 +42,11 @@
 
   <!-- Properties -->
 
-  <edc-demo-property-grid class="mt-[10px]" [propGroups]="propGroups">
-  </edc-demo-property-grid>
+  <edc-demo-property-grid-group
+    class="mt-[10px]"
+    [propGroups]="propGroups"
+    [columns]="3">
+  </edc-demo-property-grid-group>
 </mat-dialog-content>
 
 <mat-dialog-actions>

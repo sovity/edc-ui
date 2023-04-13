@@ -1,11 +1,43 @@
 <edc-demo-empty-state
-  *ngIf="!propGroups?.length"
+  *ngIf="!props?.length"
   class=""
   emptyMessage="No properties."></edc-demo-empty-state>
-<div *ngFor="let propGroup of propGroups; let lastItem = last">
-  <edc-demo-property-grid-field-group
-    class="mt-[10px] mb-[10px]"
-    [propGroup]="propGroup">
-  </edc-demo-property-grid-field-group>
-  <mat-divider *ngIf="!lastItem" class=""></mat-divider>
+<div
+  *ngFor="let prop of props"
+  class="flex flex-row space-x-[10px] overflow-hidden"
+  [style.width]="'calc(100% / ' + columns + ' - ' + (columns - 1) * 5 + 'px)'">
+  <!-- Property Icon -->
+  <mat-icon style="flex-shrink: 0; margin-top: 6px">{{ prop.icon }}</mat-icon>
+  <div class="flex flex-col">
+    <!-- Property Label -->
+    <div class="uppercase text-slate text-sm break-all">{{ prop.label }}</div>
+
+    <!-- Property Value (URL) -->
+    <a
+      *ngIf="prop.url"
+      class="link break-all"
+      target="_blank"
+      rel="noreferrer"
+      [ngClass]="prop.additionalClasses"
+      [attr.href]="prop.url"
+      >{{ prop.text }}</a
+    >
+
+    <!-- Property Value (OnClick Event) -->
+    <a
+      *ngIf="!prop.url && prop.onclick"
+      class="link break-all"
+      href="javascript:void(0)"
+      [ngClass]="prop.additionalClasses"
+      (click)="prop.onclick()"
+      >{{ prop.text }}</a
+    >
+
+    <!-- Property Value (Text) -->
+    <span
+      *ngIf="!(prop.url || prop.onclick)"
+      [ngClass]="prop.additionalClasses"
+      >{{ prop.text }}</span
+    >
+  </div>
 </div>

@@ -5,7 +5,7 @@ import {PropertyGridField} from './property-grid-field';
 @Injectable({providedIn: 'root'})
 export class PropertyGridUtils {
   guessValue(
-    value: string | null | undefined,
+    value: string | null | undefined | void,
   ): Pick<PropertyGridField, 'url' | 'text' | 'additionalClasses'> {
     return {
       text: value || '-',

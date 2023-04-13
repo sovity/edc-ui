@@ -1,0 +1,13 @@
+<edc-demo-empty-state
+  *ngIf="!propGroups?.length"
+  class=""
+  emptyMessage="No properties."></edc-demo-empty-state>
+<ng-container *ngFor="let propGroup of propGroups">
+  <div
+    *ngIf="propGroup.groupLabel != null"
+    class="flex flex-row flex-wrap section-title">
+    {{ propGroup.groupLabel }}
+  </div>
+  <edc-demo-property-grid
+    [props]="propGroup.properties"></edc-demo-property-grid>
+</ng-container>

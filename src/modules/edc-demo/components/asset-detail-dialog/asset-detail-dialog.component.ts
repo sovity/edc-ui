@@ -8,14 +8,13 @@ import {Observable, Subject} from 'rxjs';
 import {filter, finalize, takeUntil} from 'rxjs/operators';
 import {AssetService} from '../../../edc-dmgmt-client';
 import {Asset} from '../../models/asset';
-import {AssetWithAdditionalAssetProperties} from '../../models/asset-with-additional-asset-properties';
 import {ContractNegotiationService} from '../../services/contract-negotiation.service';
 import {NotificationService} from '../../services/notification.service';
 import {
   ConfirmDialogModel,
   ConfirmationDialogComponent,
 } from '../confirmation-dialog/confirmation-dialog.component';
-import {PropertyGridFieldGroup} from '../property-grid-field-group/property-grid-field-group';
+import {PropertyGridGroup} from '../property-grid-group/property-grid-group';
 import {AssetDetailDialogData} from './asset-detail-dialog-data';
 import {AssetDetailDialogResult} from './asset-detail-dialog-result';
 import {AssetPropertyGridGroupBuilder} from './asset-property-grid-group-builder';
@@ -27,8 +26,8 @@ import {AssetPropertyGridGroupBuilder} from './asset-property-grid-group-builder
   providers: [AssetPropertyGridGroupBuilder],
 })
 export class AssetDetailDialog implements OnDestroy {
-  asset: Asset | AssetWithAdditionalAssetProperties;
-  propGroups: PropertyGridFieldGroup[];
+  asset: Asset;
+  propGroups: PropertyGridGroup[];
 
   loading = false;
 
@@ -53,9 +52,11 @@ export class AssetDetailDialog implements OnDestroy {
     public contractNegotiationService: ContractNegotiationService,
   ) {
     this.asset = this.data.asset;
-
     this.propGroups =
-      this.assetPropertyGridGroupBuilder.buildPropertyGridGroups(this.asset);
+      this.assetPropertyGridGroupBuilder.buildPropertyGridGroups(
+        this.asset,
+        this.data.contractOffer?.policy,
+      );
   }
 
   onDeleteClick() {

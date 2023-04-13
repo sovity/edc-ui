@@ -1,22 +1,37 @@
 import {Injectable} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {ActiveFeatureSet} from '../../../app/config/active-feature-set';
-import {AssetWithAdditionalAssetProperties} from '../../models/asset-with-additional-asset-properties';
-import {PropertyGridFieldGroup} from '../property-grid-field-group/property-grid-field-group';
+import {Policy} from '../../../edc-dmgmt-client';
+import {Asset} from '../../models/asset';
+import {JsonDialogComponent} from '../json-dialog/json-dialog.component';
+import {JsonDialogData} from '../json-dialog/json-dialog.data';
+import {PropertyGridGroup} from '../property-grid-group/property-grid-group';
 import {PropertyGridUtils} from '../property-grid/property-grid-utils';
 
 @Injectable()
 export class AssetPropertyGridGroupBuilder {
   constructor(
+    private matDialog: MatDialog,
     private activeFeatureSet: ActiveFeatureSet,
     private propertyGridUtils: PropertyGridUtils,
   ) {}
 
+  onPolicyClick(policyDetails: Policy) {
+    const data: JsonDialogData = {
+      title: 'Policy Details',
+      subtitle: 'Policy',
+      icon: 'policy',
+      objectForJson: policyDetails,
+    };
+    this.matDialog.open(JsonDialogComponent, {data});
+  }
+
   buildPropertyGridGroups(
-    asset: AssetWithAdditionalAssetProperties,
-  ): PropertyGridFieldGroup[] {
-    let fieldGroups: PropertyGridFieldGroup[] = [
+    asset: Asset,
+    policy: Policy | undefined,
+  ): PropertyGridGroup[] {
+    let fieldGroups: PropertyGridGroup[] = [
       {
-        groupLabel: 'Sovity Asset Properties',
         properties: [
           {
             icon: 'category',
@@ -70,69 +85,58 @@ export class AssetPropertyGridGroupBuilder {
     ];
 
     // MDS Specific Fields
-    fieldGroups.push({
-      groupLabel: this.activeFeatureSet.hasMdsFields()
-        ? 'MDS Asset Properties'
-        : 'Additional Properties',
-      properties: [
-        {
-          icon: 'commute',
-          label: 'Transport Mode',
-          ...this.propertyGridUtils.guessValue(asset.transportMode?.label),
-        },
-        {
-          icon: 'commute',
-          label: 'Data Category',
-          ...this.propertyGridUtils.guessValue(asset.dataCategory?.label),
-        },
-        {
-          icon: 'commute',
-          label: 'Data Subcategory',
-          ...this.propertyGridUtils.guessValue(asset.dataSubcategory?.label),
-        },
-        {
-          icon: 'category',
-          label: 'Data Model',
-          ...this.propertyGridUtils.guessValue(asset.dataModel),
-        },
-      ],
-    });
-    if (
-      !!Object.keys(asset.additionalAssetEntries).length &&
-      this.activeFeatureSet.hasMdsFields()
-    ) {
+    if (this.activeFeatureSet.hasMdsFields()) {
       fieldGroups.push({
-        groupLabel: 'Additional Properties',
-        properties: Object.entries(asset.additionalAssetEntries).map(
-          ([key]) => {
-            return {
-              icon: 'widgets',
-              label: key,
-              ...this.propertyGridUtils.guessValue(
-                asset.additionalAssetEntries[key],
-              ),
-            };
+        properties: [
+          {
+            icon: 'commute',
+            label: 'Transport Mode',
+            ...this.propertyGridUtils.guessValue(asset.transportMode?.label),
           },
-        ),
+          {
+            icon: 'commute',
+            label: 'Data Category',
+            ...this.propertyGridUtils.guessValue(asset.dataCategory?.label),
+          },
+          {
+            icon: 'commute',
+            label: 'Data Subcategory',
+            ...this.propertyGridUtils.guessValue(asset.dataSubcategory?.label),
+          },
+          {
+            icon: 'category',
+            label: 'Data Model',
+            ...this.propertyGridUtils.guessValue(asset.dataModel),
+          },
+        ],
       });
     }
 
-    if (!!Object.keys(asset.additionalAssetEntries).length) {
-      fieldGroups[
-        fieldGroups.findIndex((object) => {
-          return object.groupLabel === 'Additional Properties';
-        })
-      ].properties?.push(
-        ...Object.entries(asset.additionalAssetEntries).map(([key]) => {
+    if (asset.additionalProperties.length) {
+      fieldGroups.push({
+        groupLabel: 'Additional Properties',
+        properties: asset.additionalProperties.map((prop) => {
           return {
             icon: 'widgets',
-            label: key,
-            ...this.propertyGridUtils.guessValue(
-              asset.additionalAssetEntries[key],
-            ),
+            label: prop.key,
+            ...this.propertyGridUtils.guessValue(prop.value),
           };
         }),
-      );
+      });
+    }
+
+    if (policy) {
+      fieldGroups.push({
+        groupLabel: 'Policy',
+        properties: [
+          {
+            icon: 'policy',
+            label: 'Contract Policy',
+            text: 'Show Details',
+            onclick: () => this.onPolicyClick(policy),
+          },
+        ],
+      });
     }
     return fieldGroups;
   }

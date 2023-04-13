@@ -45,23 +45,21 @@ export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngOnDestroy$))
       .subscribe((polices) => {
         this.policies = polices;
-        console.log(this.policies);
       });
     this.assetService
       .getAllAssets(0, 10_000_000)
       .pipe(takeUntil(this.ngOnDestroy$))
       .subscribe((assets) => {
         this.assets = assets.map((it) =>
-          this.assetPropertyMapper.readProperties(it.properties),
+          this.assetPropertyMapper.buildAssetFromProperties(it.properties),
         );
       });
   }
 
-  onSave() {
+  onCreate() {
     const formValue = this.form.value;
     const contractDefinition =
       this.contractDefinitionBuilder.buildContractDefinition(formValue);
-
     this.form.group.disable();
     this.loading = true;
     this.contractDefinitionService
@@ -99,11 +97,6 @@ export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
   private close(params: ContractDefinitionEditorDialogResult) {
     this.dialogRef.close(params);
   }
-
-  isEqualId(a: {id: string}, b: {id: string}): boolean {
-    return a?.id === b?.id;
-  }
-
   ngOnDestroy$ = new Subject();
 
   ngOnDestroy(): void {

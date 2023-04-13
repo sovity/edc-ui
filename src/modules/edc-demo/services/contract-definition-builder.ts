@@ -18,16 +18,17 @@ export class ContractDefinitionBuilder {
     formValue: ContractDefinitionEditorDialogFormValue,
   ): ContractDefinitionDto {
     return {
+
       id: formValue.id!.trim(),
       accessPolicyId: policyDefinitionId(formValue.accessPolicy!),
       contractPolicyId: policyDefinitionId(formValue.contractPolicy!),
       criteria: [
         {
-          operandLeft: AssetProperties.edcPropertyType.id,
+          operandLeft: AssetProperties.id,
           operator: 'in',
           operandRight: formValue.assets!.map((it) => it.id),
         },
-      ],
+      ]
     };
   }
 }

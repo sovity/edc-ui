@@ -76,7 +76,7 @@ export class ContractDefinitionCardBuilder {
   private extractCriterionOperation(criterion: Criterion): string {
     const {operandLeft} = criterion;
     if (
-      operandLeft.toLowerCase() === AssetProperties.edcPropertyType.id &&
+      operandLeft.toLowerCase() === AssetProperties.id &&
       (criterion.operator.toUpperCase() === 'EQ' ||
         criterion.operator.toUpperCase() === 'IN')
     ) {
@@ -112,7 +112,7 @@ export class ContractDefinitionCardBuilder {
         };
 
         // Try find asset
-        if (operandLeft === AssetProperties.edcPropertyType.id) {
+        if (operandLeft === AssetProperties.id) {
           let asset = assetsById.get(it);
           if (asset) {
             return {

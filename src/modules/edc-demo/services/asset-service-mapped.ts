@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AssetService} from '../../edc-dmgmt-client';
-import {AssetWithAdditionalAssetProperties} from '../models/asset-with-additional-asset-properties';
+import {Asset} from '../models/asset';
 import {AssetPropertyMapper} from './asset-property-mapper';
 
 /**
@@ -17,13 +17,13 @@ export class AssetServiceMapped {
     private assetService: AssetService,
   ) {}
 
-  fetchAssets(): Observable<AssetWithAdditionalAssetProperties[]> {
+  fetchAssets(): Observable<Asset[]> {
     return this.assetService
       .getAllAssets(0, 10_000_000)
       .pipe(
         map((assets) =>
           assets.map((asset) =>
-            this.assetPropertyMapper.readProperties(asset.properties),
+            this.assetPropertyMapper.buildAssetFromProperties(asset.properties),
           ),
         ),
       );

@@ -32,8 +32,6 @@ import {AssetEntryDto} from '../model/assetEntryDto';
 // @ts-ignore
 import {API_KEY, BASE_PATH, COLLECTION_FORMATS, CONNECTOR_DATAMANAGEMENT_API} from '../variables';
 import {Configuration} from '../configuration';
-import {AssetWithAdditionalAssetProperties} from "../../edc-demo/models/asset-with-additional-asset-properties";
-
 
 @Injectable({
   providedIn: 'root'
@@ -169,9 +167,9 @@ export class AssetService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<Array<AssetWithAdditionalAssetProperties>>;
-  public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<HttpResponse<Array<AssetWithAdditionalAssetProperties>>>;
-  public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<HttpEvent<Array<AssetWithAdditionalAssetProperties>>>;
+  public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<Array<AssetDto>>;
+  public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<HttpResponse<Array<AssetDto>>>;
+  public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<HttpEvent<Array<AssetDto>>>;
   public getAllAssets(offset?: number, limit?: number, filter?: string, sort?: 'ASC' | 'DESC', sortField?: string, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: 'application/json', context?: HttpContext }): Observable<any> {
 
     let localVarQueryParameters = new HttpParams({encoder: this.encoder});
@@ -227,7 +225,7 @@ export class AssetService {
       }
     }
 
-    return this.httpClient.get<Array<AssetWithAdditionalAssetProperties>>(`${this.configuration.basePath}/assets`,
+    return this.httpClient.get<Array<AssetDto>>(`${this.configuration.basePath}/assets`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,

@@ -29,4 +29,11 @@ export interface Asset {
   dataModel: string | null;
   geoReferenceMethod: string | null;
   transportMode: TransportModeSelectItem | null;
+
+  additionalProperties: AdditionalAssetProperty[];
+}
+
+export interface AdditionalAssetProperty {
+  key: string;
+  value: string;
 }

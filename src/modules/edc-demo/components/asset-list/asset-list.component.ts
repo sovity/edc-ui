@@ -1,6 +1,11 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { AssetWithAdditionalAssetProperties } from '../../models/asset-with-additional-asset-properties';
-
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output,
+} from '@angular/core';
+import {Asset} from '../../models/asset';
 
 @Component({
   selector: 'edc-demo-asset-list',
@@ -13,8 +18,8 @@ export class AssetListComponent {
   cls = true;
 
   @Input()
-  assets: AssetWithAdditionalAssetProperties[] = [];
+  assets: Asset[] = [];
 
   @Output()
-  assetClick = new EventEmitter<AssetWithAdditionalAssetProperties>();
+  assetClick = new EventEmitter<Asset>();
 }

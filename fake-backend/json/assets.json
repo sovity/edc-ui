@@ -17,7 +17,8 @@
       "http://w3id.org/mds#dataSubcategory": "General Information About Planning Of Routess",
       "http://w3id.org/mds#dataModel": "my-data-model-001",
       "http://w3id.org/mds#geoReferenceMethod": "lat-and-long-duh",
-      "http://w3id.org/mds#transportMode": "Rail"
+      "http://w3id.org/mds#transportMode": "Rail",
+      "random": "junk value"
     }
   },
   {
