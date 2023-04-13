@@ -29,29 +29,11 @@ export interface Asset {
   dataModel: string | null;
   geoReferenceMethod: string | null;
   transportMode: TransportModeSelectItem | null;
+
+  additionalProperties: AdditionalAssetProperty[];
 }
 
-export function dummyAsset(id: string): Asset {
-  return {
-    id,
-    name: id,
-    version: null,
-    contentType: null,
-    originator: null,
-    originatorOrganization: null,
-    keywords: [],
-
-    description: null,
-    language: null,
-    publisher: null,
-    standardLicense: null,
-    endpointDocumentation: null,
-
-    // MDS Specific
-    dataCategory: null,
-    dataSubcategory: null,
-    dataModel: null,
-    geoReferenceMethod: null,
-    transportMode: null,
-  };
+export interface AdditionalAssetProperty {
+  key: string;
+  value: string;
 }

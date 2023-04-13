@@ -8,7 +8,7 @@ import {
 } from '../components/data-subcategory-select/data-subcategory-select-item.service';
 import {LanguageSelectItemService} from '../components/language-select/language-select-item.service';
 import {TransportModeSelectItemService} from '../components/transport-mode-select/transport-mode-select-item.service';
-import {Asset} from '../models/asset';
+import {AdditionalAssetProperty, Asset} from '../models/asset';
 import {removeNullValues} from '../utils/record-utils';
 import {trimmedOrNull} from '../utils/string-utils';
 import {AssetProperties} from './asset-properties';
@@ -31,25 +31,25 @@ export class AssetPropertyMapper {
   ) {
   }
 
-  readProperties(props: Record<string, string | null>): Asset {
+  buildAssetFromProperties(props: Record<string, string | null>): Asset {
     const language = props[AssetProperties.language]
       ? this.languageSelectItemService.findById(
         props[AssetProperties.language]!,
       )
       : null;
-    const dataCategory = props[AssetProperties.dataCategory]
+    const dataCategory = props[AssetProperties.mds.dataCategory]
       ? this.dataCategorySelectItemService.findById(
-        props[AssetProperties.dataCategory]!,
+        props[AssetProperties.mds.dataCategory]!,
       )
       : null;
-    const dataSubcategory = props[AssetProperties.dataSubcategory]
+    const dataSubcategory = props[AssetProperties.mds.dataSubcategory]
       ? this.dataSubcategorySelectItemService.findById(
-        props[AssetProperties.dataSubcategory]!,
+        props[AssetProperties.mds.dataSubcategory]!,
       )
       : null;
-    const transportMode = props[AssetProperties.transportMode]
+    const transportMode = props[AssetProperties.mds.transportMode]
       ? this.transportModeSelectItemService.findById(
-        props[AssetProperties.transportMode]!,
+        props[AssetProperties.mds.transportMode]!,
       )
       : null;
     const keywords = (props[AssetProperties.keywords] ?? '')
@@ -58,6 +58,20 @@ export class AssetPropertyMapper {
       .filter((it) => it);
 
     const id = props[AssetProperties.id] ?? 'no-id-was-set';
+
+
+    const handledAssetProperties = Object.values(AssetProperties).filter((v) => typeof v === "string")
+
+    if (this.activeFeatureSet.hasMdsFields()) {
+      handledAssetProperties.push(...Object.values(AssetProperties.mds))
+    }
+
+    const additionalProperties: AdditionalAssetProperty[] = Object.entries(props)
+      .filter(([k, _]) => !handledAssetProperties.includes(k))
+      .map(([key, value]) => ({
+        key,
+        value: value ?? '',
+      }));
 
     return {
       id,
@@ -74,12 +88,12 @@ export class AssetPropertyMapper {
       publisher: props[AssetProperties.publisher],
       standardLicense: props[AssetProperties.standardLicense],
       endpointDocumentation: props[AssetProperties.endpointDocumentation],
-
       dataCategory,
       dataSubcategory,
-      dataModel: props[AssetProperties.dataModel],
-      geoReferenceMethod: props[AssetProperties.geoReferenceMethod],
+      dataModel: props[AssetProperties.mds.dataModel],
+      geoReferenceMethod: props[AssetProperties.mds.geoReferenceMethod],
       transportMode,
+      additionalProperties
     };
   }
 
@@ -113,14 +127,14 @@ export class AssetPropertyMapper {
     );
 
     if (this.activeFeatureSet.hasMdsFields()) {
-      props[AssetProperties.dataCategory] = advanced?.dataCategory?.id ?? null;
-      props[AssetProperties.dataSubcategory] =
+      props[AssetProperties.mds.dataCategory] = advanced?.dataCategory?.id ?? null;
+      props[AssetProperties.mds.dataSubcategory] =
         advanced?.dataSubcategory?.id ?? null;
-      props[AssetProperties.dataModel] = trimmedOrNull(advanced?.dataModel);
-      props[AssetProperties.geoReferenceMethod] = trimmedOrNull(
+      props[AssetProperties.mds.dataModel] = trimmedOrNull(advanced?.dataModel);
+      props[AssetProperties.mds.geoReferenceMethod] = trimmedOrNull(
         advanced?.geoReferenceMethod,
       );
-      props[AssetProperties.transportMode] =
+      props[AssetProperties.mds.transportMode] =
         advanced?.transportMode?.id ?? null;
     }
     return removeNullValues(props);
