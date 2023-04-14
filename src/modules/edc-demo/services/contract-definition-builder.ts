@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
-import { ContractDefinitionDto, policyDefinitionId } from '../../edc-dmgmt-client';
-import { ContractDefinitionEditorDialogFormValue } from '../components/contract-definition-editor-dialog/contract-definition-editor-dialog-form-model';
-import { AssetProperties } from './asset-properties';
-
+import {Injectable} from '@angular/core';
+import {
+  ContractDefinitionDto,
+  policyDefinitionId,
+} from '../../edc-dmgmt-client';
+import {ContractDefinitionEditorDialogFormValue} from '../components/contract-definition-editor-dialog/contract-definition-editor-dialog-form-model';
+import {AssetProperties} from './asset-properties';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,6 @@ export class ContractDefinitionBuilder {
     formValue: ContractDefinitionEditorDialogFormValue,
   ): ContractDefinitionDto {
     return {
-
       id: formValue.id!.trim(),
       accessPolicyId: policyDefinitionId(formValue.accessPolicy!),
       contractPolicyId: policyDefinitionId(formValue.contractPolicy!),
@@ -28,7 +29,7 @@ export class ContractDefinitionBuilder {
           operator: 'in',
           operandRight: formValue.assets!.map((it) => it.id),
         },
-      ]
+      ],
     };
   }
 }

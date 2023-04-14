@@ -18,8 +18,6 @@ import {
 
 @Injectable({providedIn: 'root'})
 export class ContractDefinitionCardBuilder {
-  constructor() {}
-
   buildContractDefinitionCards(
     contractDefinitions: ContractDefinitionDto[],
     assets: Asset[],

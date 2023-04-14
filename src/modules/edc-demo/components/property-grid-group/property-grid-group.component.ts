@@ -1,7 +1,6 @@
 import {Component, HostBinding, Input} from '@angular/core';
 import {PropertyGridGroup} from './property-grid-group';
 
-
 @Component({
   selector: 'edc-demo-property-grid-group',
   templateUrl: './property-grid-group.component.html',

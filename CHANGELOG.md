@@ -17,15 +17,13 @@ the detailed section referring to by linking pull requests or issues.
 #### Added
 
 - Added login polling to prevent auto-logout when page is open.
-- Added handling of the additional properties in the case of assets
-- Added viewing of policies option in the Asset Detail Dialog
+- Showing all asset properties for assets and contract offers via an "Additional
+  Properties"
+- Showing policies for contract offers in the asset details dialog.
 
 #### Changed
 
 #### Removed
-
-- Removed asset id from asset details and replaced the same with organization
-  name
 
 - Removed Datasource Payload support, it is probably only intended for Push
 
