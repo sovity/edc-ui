@@ -23,13 +23,11 @@ export const AssetProperties = {
   endpointDocumentation: 'asset:prop:endpointDocumentation',
 
   // mds specific asset properties
-  mds: {
-    dataCategory: 'http://w3id.org/mds#dataCategory',
-    dataSubcategory: 'http://w3id.org/mds#dataSubcategory',
-    dataModel: 'http://w3id.org/mds#dataModel', // guessed
-    geoReferenceMethod: 'http://w3id.org/mds#geoReferenceMethod', // guessed
-    transportMode: 'http://w3id.org/mds#transportMode',
-  },
+  dataCategory: 'http://w3id.org/mds#dataCategory',
+  dataSubcategory: 'http://w3id.org/mds#dataSubcategory',
+  dataModel: 'http://w3id.org/mds#dataModel', // guessed
+  geoReferenceMethod: 'http://w3id.org/mds#geoReferenceMethod', // guessed
+  transportMode: 'http://w3id.org/mds#transportMode',
 
   /**
    * @deprecated use {@link AssetProperties.curatorOrganizationName} instead

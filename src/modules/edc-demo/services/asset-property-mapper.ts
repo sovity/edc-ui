@@ -37,19 +37,19 @@ export class AssetPropertyMapper {
         props[AssetProperties.language]!,
       )
       : null;
-    const dataCategory = props[AssetProperties.mds.dataCategory]
+    const dataCategory = props[AssetProperties.dataCategory]
       ? this.dataCategorySelectItemService.findById(
-        props[AssetProperties.mds.dataCategory]!,
+        props[AssetProperties.dataCategory]!,
       )
       : null;
-    const dataSubcategory = props[AssetProperties.mds.dataSubcategory]
+    const dataSubcategory = props[AssetProperties.dataSubcategory]
       ? this.dataSubcategorySelectItemService.findById(
-        props[AssetProperties.mds.dataSubcategory]!,
+        props[AssetProperties.dataSubcategory]!,
       )
       : null;
-    const transportMode = props[AssetProperties.mds.transportMode]
+    const transportMode = props[AssetProperties.transportMode]
       ? this.transportModeSelectItemService.findById(
-        props[AssetProperties.mds.transportMode]!,
+        props[AssetProperties.transportMode]!,
       )
       : null;
     const keywords = (props[AssetProperties.keywords] ?? '')
@@ -62,10 +62,10 @@ export class AssetPropertyMapper {
 
     const handledAssetProperties = Object.values(AssetProperties).filter((v) => typeof v === "string")
 
-    if (this.activeFeatureSet.hasMdsFields()) {
-      handledAssetProperties.push(...Object.values(AssetProperties.mds))
-    }
-
+    //if (this.activeFeatureSet.hasMdsFields()) {
+    //  handledAssetProperties.push(...Object.values(AssetProperties.mds))
+    //}
+    console.log(handledAssetProperties)
     const additionalProperties: AdditionalAssetProperty[] = Object.entries(props)
       .filter(([k, _]) => !handledAssetProperties.includes(k))
       .map(([key, value]) => ({
@@ -90,8 +90,8 @@ export class AssetPropertyMapper {
       endpointDocumentation: props[AssetProperties.endpointDocumentation],
       dataCategory,
       dataSubcategory,
-      dataModel: props[AssetProperties.mds.dataModel],
-      geoReferenceMethod: props[AssetProperties.mds.geoReferenceMethod],
+      dataModel: props[AssetProperties.dataModel],
+      geoReferenceMethod: props[AssetProperties.geoReferenceMethod],
       transportMode,
       additionalProperties
     };
@@ -127,14 +127,14 @@ export class AssetPropertyMapper {
     );
 
     if (this.activeFeatureSet.hasMdsFields()) {
-      props[AssetProperties.mds.dataCategory] = advanced?.dataCategory?.id ?? null;
-      props[AssetProperties.mds.dataSubcategory] =
+      props[AssetProperties.dataCategory] = advanced?.dataCategory?.id ?? null;
+      props[AssetProperties.dataSubcategory] =
         advanced?.dataSubcategory?.id ?? null;
-      props[AssetProperties.mds.dataModel] = trimmedOrNull(advanced?.dataModel);
-      props[AssetProperties.mds.geoReferenceMethod] = trimmedOrNull(
+      props[AssetProperties.dataModel] = trimmedOrNull(advanced?.dataModel);
+      props[AssetProperties.geoReferenceMethod] = trimmedOrNull(
         advanced?.geoReferenceMethod,
       );
-      props[AssetProperties.mds.transportMode] =
+      props[AssetProperties.transportMode] =
         advanced?.transportMode?.id ?? null;
     }
     return removeNullValues(props);

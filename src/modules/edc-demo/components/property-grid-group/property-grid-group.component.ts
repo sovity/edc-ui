@@ -1,6 +1,7 @@
 import {Component, HostBinding, Input} from '@angular/core';
 import {PropertyGridGroup} from './property-grid-group';
 
+
 @Component({
   selector: 'edc-demo-property-grid-group',
   templateUrl: './property-grid-group.component.html',
@@ -14,7 +15,6 @@ export class PropertyGridGroupComponent {
 
   @HostBinding('class.flex')
   @HostBinding('class.flex-col')
-  @HostBinding('class.gap-[10px]')
   @HostBinding('class.justify-start')
   cls = true;
 }

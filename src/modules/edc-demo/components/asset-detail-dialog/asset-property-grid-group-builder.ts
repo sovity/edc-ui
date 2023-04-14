@@ -110,21 +110,48 @@ export class AssetPropertyGridGroupBuilder {
           },
         ],
       });
-    }
-
-    if (asset.additionalProperties.length) {
+    } else {
       fieldGroups.push({
         groupLabel: 'Additional Properties',
-        properties: asset.additionalProperties.map((prop) => {
-          return {
-            icon: 'widgets',
-            label: prop.key,
-            ...this.propertyGridUtils.guessValue(prop.value),
-          };
-        }),
+        properties: [
+          {
+            icon: 'commute',
+            label: 'Transport Mode',
+            ...this.propertyGridUtils.guessValue(asset.transportMode?.label),
+          },
+          {
+            icon: 'commute',
+            label: 'Data Category',
+            ...this.propertyGridUtils.guessValue(asset.dataCategory?.label),
+          },
+          {
+            icon: 'commute',
+            label: 'Data Subcategory',
+            ...this.propertyGridUtils.guessValue(asset.dataSubcategory?.label),
+          },
+          {
+            icon: 'category',
+            label: 'Data Model',
+            ...this.propertyGridUtils.guessValue(asset.dataModel),
+          },
+        ],
       });
+      if (asset.additionalProperties.length) {
+        fieldGroups[
+          fieldGroups.findIndex((object) => {
+            return object.groupLabel === 'Additional Properties';
+          })
+        ].properties?.push(
+          ...asset.additionalProperties.map((prop) => {
+            return {
+              icon: 'widgets',
+              label: prop.key,
+              ...this.propertyGridUtils.guessValue(prop.value),
+            };
+          }),
+        );
+      }
     }
-
     if (policy) {
       fieldGroups.push({
         groupLabel: 'Policy',
