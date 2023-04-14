@@ -5,9 +5,10 @@
 <ng-container *ngFor="let propGroup of propGroups">
   <div
     *ngIf="propGroup.groupLabel != null"
-    class="flex flex-row flex-wrap section-title">
+    class="flex flex-row flex-wrap property-grid-group-title">
     {{ propGroup.groupLabel }}
   </div>
   <edc-demo-property-grid
-    [props]="propGroup.properties"></edc-demo-property-grid>
+    [props]="propGroup.properties"
+    [columns]="columns"></edc-demo-property-grid>
 </ng-container>

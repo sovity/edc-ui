@@ -10,7 +10,7 @@ import {TransportModeSelectItem} from '../components/transport-mode-select/trans
  */
 export interface Asset {
   id: string;
-  name: string | null;
+  name: string;
   version: string | null;
   contentType: string | null;
   originator: string | null;
@@ -30,6 +30,7 @@ export interface Asset {
   geoReferenceMethod: string | null;
   transportMode: TransportModeSelectItem | null;
 
+  // Unhandled Additional Properties
   additionalProperties: AdditionalAssetProperty[];
 }
 

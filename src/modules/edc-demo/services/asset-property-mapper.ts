@@ -3,16 +3,13 @@ import {ActiveFeatureSet} from '../../app/config/active-feature-set';
 import {AppConfigService} from '../../app/config/app-config.service';
 import {AssetEditorDialogFormValue} from '../components/asset-editor-dialog/asset-editor-dialog-form-model';
 import {DataCategorySelectItemService} from '../components/data-category-select/data-category-select-item.service';
-import {
-  DataSubcategorySelectItemService
-} from '../components/data-subcategory-select/data-subcategory-select-item.service';
+import {DataSubcategorySelectItemService} from '../components/data-subcategory-select/data-subcategory-select-item.service';
 import {LanguageSelectItemService} from '../components/language-select/language-select-item.service';
 import {TransportModeSelectItemService} from '../components/transport-mode-select/transport-mode-select-item.service';
-import {AdditionalAssetProperty, Asset} from '../models/asset';
+import {Asset} from '../models/asset';
 import {removeNullValues} from '../utils/record-utils';
 import {trimmedOrNull} from '../utils/string-utils';
 import {AssetProperties} from './asset-properties';
-
 
 /**
  * Maps between EDC Asset and our type safe asset
@@ -28,29 +25,28 @@ export class AssetPropertyMapper {
     private dataSubcategorySelectItemService: DataSubcategorySelectItemService,
     private appConfigService: AppConfigService,
     private activeFeatureSet: ActiveFeatureSet,
-  ) {
-  }
+  ) {}
 
   buildAssetFromProperties(props: Record<string, string | null>): Asset {
     const language = props[AssetProperties.language]
       ? this.languageSelectItemService.findById(
-        props[AssetProperties.language]!,
-      )
+          props[AssetProperties.language]!,
+        )
       : null;
     const dataCategory = props[AssetProperties.dataCategory]
       ? this.dataCategorySelectItemService.findById(
-        props[AssetProperties.dataCategory]!,
-      )
+          props[AssetProperties.dataCategory]!,
+        )
       : null;
     const dataSubcategory = props[AssetProperties.dataSubcategory]
       ? this.dataSubcategorySelectItemService.findById(
-        props[AssetProperties.dataSubcategory]!,
-      )
+          props[AssetProperties.dataSubcategory]!,
+        )
       : null;
     const transportMode = props[AssetProperties.transportMode]
       ? this.transportModeSelectItemService.findById(
-        props[AssetProperties.transportMode]!,
-      )
+          props[AssetProperties.transportMode]!,
+        )
       : null;
     const keywords = (props[AssetProperties.keywords] ?? '')
       .split(',')
@@ -58,20 +54,7 @@ export class AssetPropertyMapper {
       .filter((it) => it);
 
     const id = props[AssetProperties.id] ?? 'no-id-was-set';
-
-
-    const handledAssetProperties = Object.values(AssetProperties).filter((v) => typeof v === "string")
-
-    //if (this.activeFeatureSet.hasMdsFields()) {
-    //  handledAssetProperties.push(...Object.values(AssetProperties.mds))
-    //}
-    console.log(handledAssetProperties)
-    const additionalProperties: AdditionalAssetProperty[] = Object.entries(props)
-      .filter(([k, _]) => !handledAssetProperties.includes(k))
-      .map(([key, value]) => ({
-        key,
-        value: value ?? '',
-      }));
+    const additionalProperties = this.buildAdditionalProperties(props);
 
     return {
       id,
@@ -81,7 +64,8 @@ export class AssetPropertyMapper {
       originator: props[AssetProperties.originator],
       originatorOrganization:
         props[AssetProperties.curatorOrganizationName] ??
-        props[AssetProperties._legacyCuratorOrganizationName] ?? 'Unknown Organization',
+        props[AssetProperties._legacyCuratorOrganizationName] ??
+        'Unknown Organization',
       keywords,
       description: props[AssetProperties.description],
       language,
@@ -93,8 +77,18 @@ export class AssetPropertyMapper {
       dataModel: props[AssetProperties.dataModel],
       geoReferenceMethod: props[AssetProperties.geoReferenceMethod],
       transportMode,
-      additionalProperties
+      additionalProperties,
     };
+  }
+
+  private buildAdditionalProperties(props: Record<string, string | null>) {
+    const knownKeys = Object.values(AssetProperties);
+    return Object.entries(props)
+      .filter(([k, _]) => !knownKeys.includes(k))
+      .map(([key, value]) => ({
+        key,
+        value: value ?? '',
+      }));
   }
 
   buildProperties(
