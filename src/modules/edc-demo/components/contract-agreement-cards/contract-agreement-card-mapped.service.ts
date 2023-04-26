@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ContractAgreementCard} from '@sovity.de/edc-client';
-import {EdcApiService} from '../../../app/config/edc-api.service';
 import {AssetPropertyMapper} from '../../services/asset-property-mapper';
+import {EdcApiService} from '../../services/edc-api.service';
 import {assetSearchTargets, search} from '../../utils/search-utils';
 import {ContractAgreementCardMapped} from '../contract-agreement-cards/contract-agreement-card-mapped';
 

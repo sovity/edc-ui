@@ -5,7 +5,7 @@ import {
   KpiResult,
   buildEdcClient,
 } from '@sovity.de/edc-client';
-import {AppConfigService} from './app-config.service';
+import {AppConfigService} from '../../app/config/app-config.service';
 
 @Injectable({providedIn: 'root'})
 export class EdcApiService {
