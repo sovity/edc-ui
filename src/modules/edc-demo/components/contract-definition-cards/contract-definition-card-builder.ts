@@ -53,6 +53,7 @@ export class ContractDefinitionCardBuilder {
         contractDefinition.accessPolicyId,
         policyDefinitionById,
       ),
+
       criteria: contractDefinition.criteria.map((criterion) => ({
         label: this.extractCriterionOperation(criterion),
         values: this.extractCriterionValues(criterion, assetById),
@@ -93,10 +94,8 @@ export class ContractDefinitionCardBuilder {
     let {operandRight, operandLeft} = criterion;
 
     let values: (object | string)[] = [];
-    if (Array.isArray(values)) {
+    if (Array.isArray(operandRight)) {
       values = operandRight as string[];
-    } else if (typeof operandRight === 'string') {
-      values = [operandRight];
     } else {
       values = [operandRight];
     }
@@ -109,7 +108,7 @@ export class ContractDefinitionCardBuilder {
           searchTargets: [it],
         };
 
-        // Try find asset
+        // Try to find asset
         if (operandLeft === AssetProperties.id) {
           let asset = assetsById.get(it);
           if (asset) {
