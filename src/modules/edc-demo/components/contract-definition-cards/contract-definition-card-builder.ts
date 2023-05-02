@@ -91,7 +91,7 @@ export class ContractDefinitionCardBuilder {
     criterion: Criterion,
     assetsById: Map<string, Asset>,
   ): ContractDefinitionCardCriterionValue[] {
-    let {operandRight, operandLeft} = criterion;
+    let {operandLeft, operandRight} = criterion;
 
     let values: (object | string)[] = [];
     if (Array.isArray(operandRight)) {
