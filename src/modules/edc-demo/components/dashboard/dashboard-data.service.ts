@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, merge, of, scan} from 'rxjs';
+import {merge, Observable, of, scan} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppConfigService} from '../../../app/config/app-config.service';
 import {
@@ -9,16 +9,19 @@ import {
   ContractDefinitionService,
   PolicyService,
   TransferProcessDto,
-  TransferProcessService,
+  TransferProcessService
 } from '../../../edc-dmgmt-client';
 import {Fetched} from '../../models/fetched';
 import {TransferProcessStates} from '../../models/transfer-process-states';
 import {CatalogApiUrlService} from '../../services/catalog-api-url.service';
 import {ContractOfferService} from '../../services/contract-offer.service';
+import {LastCommitInfoService} from '../../services/last-commit-info.service';
 import {TransferProcessUtils} from '../../services/transfer-process-utils';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
 import {ChartColorService} from './chart-color.service';
 import {DashboardData, defaultDashboardData} from './dashboard-data';
+import {ConnectorInfoPropertyGridBuilder} from "./connector-info-property-grid-builder";
+
 
 @Injectable({providedIn: 'root'})
 export class DashboardDataService {
@@ -33,7 +36,10 @@ export class DashboardDataService {
     private assetService: AssetService,
     private chartColorService: ChartColorService,
     private transferProcessUtils: TransferProcessUtils,
-  ) {}
+    private connectorInfoPropertyGridBuilder: ConnectorInfoPropertyGridBuilder,
+    private lastCommitInfoService: LastCommitInfoService,
+  ) {
+  }
 
   /**
    * Fetch {@link DashboardData}.
@@ -50,6 +56,7 @@ export class DashboardDataService {
       this.numCatalogs(),
       this.policyKpis(),
       this.transferProcessKpis(),
+      this.connectorProperties(),
     ];
 
     // We merge all results as they come in, constructing our DashboardData
@@ -85,8 +92,10 @@ export class DashboardDataService {
       Fetched.wrap({
         failureMessage: 'Failed fetching contract agreements.',
       }),
-      map((numContractAgreements) => ({numContractAgreements})),
-    );
+      0
+    map((numContractAgreements) => ({numContractAgreements})),
+  )
+    ;
   }
 
   private isTransferableContractAgreement(
@@ -190,5 +199,10 @@ export class DashboardDataService {
       ],
       options: {responsive: false},
     };
+  }
+
+  private connectorProperties() {
+
+    return this.connectorInfoPropertyGridBuilder.buildPropertyGrid()
   }
 }
