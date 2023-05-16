@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {merge, Observable, of, scan} from 'rxjs';
+import {Observable, merge, of, scan} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppConfigService} from '../../../app/config/app-config.service';
 import {
@@ -9,7 +9,7 @@ import {
   ContractDefinitionService,
   PolicyService,
   TransferProcessDto,
-  TransferProcessService
+  TransferProcessService,
 } from '../../../edc-dmgmt-client';
 import {Fetched} from '../../models/fetched';
 import {TransferProcessStates} from '../../models/transfer-process-states';
@@ -19,9 +19,8 @@ import {LastCommitInfoService} from '../../services/last-commit-info.service';
 import {TransferProcessUtils} from '../../services/transfer-process-utils';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
 import {ChartColorService} from './chart-color.service';
+import {ConnectorInfoPropertyGridGroupBuilder} from './connector-info-property-grid-group-builder';
 import {DashboardData, defaultDashboardData} from './dashboard-data';
-import {ConnectorInfoPropertyGridBuilder} from "./connector-info-property-grid-builder";
-
 
 @Injectable({providedIn: 'root'})
 export class DashboardDataService {
@@ -36,10 +35,9 @@ export class DashboardDataService {
     private assetService: AssetService,
     private chartColorService: ChartColorService,
     private transferProcessUtils: TransferProcessUtils,
-    private connectorInfoPropertyGridBuilder: ConnectorInfoPropertyGridBuilder,
+    private connectorInfoPropertyGridGroupBuilder: ConnectorInfoPropertyGridGroupBuilder,
     private lastCommitInfoService: LastCommitInfoService,
-  ) {
-  }
+  ) {}
 
   /**
    * Fetch {@link DashboardData}.
@@ -92,10 +90,8 @@ export class DashboardDataService {
       Fetched.wrap({
         failureMessage: 'Failed fetching contract agreements.',
       }),
-      0
-    map((numContractAgreements) => ({numContractAgreements})),
-  )
-    ;
+      map((numContractAgreements) => ({numContractAgreements})),
+    );
   }
 
   private isTransferableContractAgreement(
@@ -201,8 +197,19 @@ export class DashboardDataService {
     };
   }
 
-  private connectorProperties() {
-
-    return this.connectorInfoPropertyGridBuilder.buildPropertyGrid()
+  private connectorProperties(): Observable<Partial<DashboardData>> {
+    return this.lastCommitInfoService.getLastCommitInfoData().pipe(
+      Fetched.wrap({
+        failureMessage: 'Failed fetching connector properties',
+      }),
+      map((lastCommitData) => {
+        return {
+          connectorProperties:
+            this.connectorInfoPropertyGridGroupBuilder.buildPropertyGridGroups(
+              lastCommitData,
+            ),
+        };
+      }),
+    );
   }
 }

@@ -10,7 +10,7 @@ import {DashboardDataService} from './dashboard-data.service';
 @Component({
   selector: 'edc-demo-dashboard',
   templateUrl: './dashboard.component.html',
-  providers: [ConnectorInfoPropertyGridGroupBuilder],
+  providers: [],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   data: DashboardData = defaultDashboardData();
