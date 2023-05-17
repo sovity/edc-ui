@@ -30,8 +30,8 @@ import {RouterModule} from '@angular/router';
 import {CatalogModule} from '../../../component-library/catalog/catalog.module';
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
-import {CatalogBrowserFetchDetailDialogComponent} from './catalog-browser-fetch-detail-dialog/catalog-browser-fetch-detail-dialog.component';
-import {CatalogBrowserPageComponent} from './catalog-browser-page/catalog-browser-page.component';
+import {CatalogBrowserPageComponent} from './catalog-page/catalog-browser-page.component';
+import {DataOfferCardsComponent} from './data-offer-cards/data-offer-cards.component';
 
 @NgModule({
   imports: [
@@ -75,10 +75,7 @@ import {CatalogBrowserPageComponent} from './catalog-browser-page/catalog-browse
     PipesAndDirectivesModule,
     UiElementsModule,
   ],
-  declarations: [
-    CatalogBrowserPageComponent,
-    CatalogBrowserFetchDetailDialogComponent,
-  ],
+  declarations: [CatalogBrowserPageComponent, DataOfferCardsComponent],
   exports: [CatalogBrowserPageComponent],
 })
-export class CatalogBrowserPageModule {}
+export class CatalogPageModule {}
