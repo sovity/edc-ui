@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, merge, of, scan} from 'rxjs';
+import {combineLatest, forkJoin, merge, Observable, of, scan} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppConfigService} from '../../../app/config/app-config.service';
 import {
@@ -37,7 +37,8 @@ export class DashboardDataService {
     private transferProcessUtils: TransferProcessUtils,
     private connectorInfoPropertyGridGroupBuilder: ConnectorInfoPropertyGridGroupBuilder,
     private lastCommitInfoService: LastCommitInfoService,
-  ) {}
+  ) {
+  }
 
   /**
    * Fetch {@link DashboardData}.
@@ -197,19 +198,28 @@ export class DashboardDataService {
     };
   }
 
-  private connectorProperties(): Observable<Partial<DashboardData>> {
-    return this.lastCommitInfoService.getLastCommitInfoData().pipe(
-      Fetched.wrap({
-        failureMessage: 'Failed fetching connector properties',
-      }),
-      map((lastCommitData) => {
-        return {
-          connectorProperties:
-            this.connectorInfoPropertyGridGroupBuilder.buildPropertyGridGroups(
-              lastCommitData,
-            ),
-        };
-      }),
-    );
-  }
+  private connectorProperties(): Observable<Partial<DashboardData>>{
+    forkJoin([
+      this.lastCommitInfoService.getLastCommitInfoData().pipe(Fetched.wrap({
+        failureMessage:
+        'Failed fetching Env and Jar Last Commit Data'
+      })),
+        this.lastCommitInfoService.getUiCommitDetails().pipe(Fetched.wrap({
+        failureMessage:
+        'Failed fetching UI Last Commit Data'
+      })),
+      this.lastCommitInfoService.getUiBuildDateDetails().pipe(Fetched.wrap({
+        failureMessage:
+          'Failed fetching UI Last Build Date Data'
+      }))
+        ]).pipe([lastCommitData, uiCommitData, uiBuildDate], source => {return {
+      connectorProperties:
+        this.connectorInfoPropertyGridGroupBuilder.buildPropertyGridGroups(
+          lastCommitData,
+          uiCommitData,
+        ),
+    }}
+}
+
+
 }

@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {AppConfigService} from '../../../app/config/app-config.service';
-import {Fetched} from '../../models/fetched';
-import {LastCommitInfo} from '../../models/last-commit-info';
-import {LastCommitInfoService} from '../../services/last-commit-info.service';
-import {JsonDialogComponent} from '../json-dialog/json-dialog.component';
-import {JsonDialogData} from '../json-dialog/json-dialog.data';
-import {PropertyGridGroup} from '../property-grid-group/property-grid-group';
-import {PropertyGridField} from '../property-grid/property-grid-field';
-import {PropertyGridUtils} from '../property-grid/property-grid-utils';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AppConfigService } from '../../../app/config/app-config.service';
+import { Fetched } from '../../models/fetched';
+import { LastCommitInfo } from '../../models/last-commit-info';
+import { LastCommitInfoService } from '../../services/last-commit-info.service';
+import { JsonDialogComponent } from '../json-dialog/json-dialog.component';
+import { JsonDialogData } from '../json-dialog/json-dialog.data';
+import { PropertyGridGroup } from '../property-grid-group/property-grid-group';
+import { PropertyGridField } from '../property-grid/property-grid-field';
+import { PropertyGridUtils } from '../property-grid/property-grid-utils';
+
 
 @Injectable({providedIn: 'root'})
 export class ConnectorInfoPropertyGridGroupBuilder {
@@ -19,10 +20,7 @@ export class ConnectorInfoPropertyGridGroupBuilder {
     private lastCommitInfoService: LastCommitInfoService,
   ) {}
 
-  private onShowConnectorVersionClick(
-    title: string,
-    versionData: any,
-  ) {
+  private onShowConnectorVersionClick(title: string, versionData: any) {
     const data: JsonDialogData = {
       title,
       subtitle: 'Show Details',
@@ -112,42 +110,55 @@ export class ConnectorInfoPropertyGridGroupBuilder {
     let fields: PropertyGridField[] = [];
     lastCommitInfo.match({
       ifOk: (LastCommitInfo) => {
-        console.log(LastCommitInfo);
         fields = [
+          {
+            icon: 'link',
+            label: 'UI Version',
+            text: 'Show Details',
+            onclick: () =>
+              this.onShowConnectorVersionClick('Version Information', {
+
+              }),
+          },
           {
             icon: 'link',
             label: 'Jar Version',
             text: 'Show Details',
             onclick: () =>
-              this.onShowConnectorVersionClick(
-                'Version Information',
-                LastCommitInfo,
-              ),
+              this.onShowConnectorVersionClick('Version Information', {
+                'Jar Last Build Date': LastCommitInfo.jarLastBuildDate,
+                'Jar Last Commit Information':
+                  LastCommitInfo.jarLastCommitInfo,
+              }),
           },
           {
             icon: 'link',
             label: 'Environment Version',
             text: 'Show Details',
             onclick: () =>
-              this.onShowConnectorVersionClick(
-                'Version Information',
-                LastCommitInfo,
-              ),
+              this.onShowConnectorVersionClick('Version Information', {
+                'Environment Last Build Date': LastCommitInfo.envLastBuildDate,
+                'Environment Last Commit Information':
+                  LastCommitInfo.envLastCommitInfo,
+              }),
           },
         ];
       },
       ifError: (error) => {
-        console.log(error);
         fields = [
           {
             icon: 'link',
             label: 'Jar Version',
             text: 'Show Details',
             onclick: () =>
-              this.onShowConnectorVersionClick(
-                'Version Information',
-             error
-              ),
+              this.onShowConnectorVersionClick('Version Information', error),
+          },
+          {
+            icon: 'link',
+            label: 'Jar Version',
+            text: 'Show Details',
+            onclick: () =>
+              this.onShowConnectorVersionClick('Version Information', error),
           },
         ];
       },
@@ -155,7 +166,17 @@ export class ConnectorInfoPropertyGridGroupBuilder {
         fields = [
           {
             icon: 'link',
+            label: 'UI Version',
+            text: 'Loading...',
+          },
+          {
+            icon: 'link',
             label: 'Jar Version',
+            text: 'Loading...',
+          },
+          {
+            icon: 'link',
+            label: 'Environment Version',
             text: 'Loading...',
           },
         ];
@@ -168,9 +189,7 @@ export class ConnectorInfoPropertyGridGroupBuilder {
     };
   }
 
-  buildPropertyGridGroups(
-    lastCommitInformation: Fetched<LastCommitInfo>,
-  ): PropertyGridGroup[] {
+  buildPropertyGridGroups(lastCommitInformation: Fetched<LastCommitInfo>): PropertyGridGroup[] {
     let fieldGroups: PropertyGridGroup[];
 
     fieldGroups = [

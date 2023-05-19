@@ -1,3 +1,5 @@
-The GitHub Pipeline .github/workflows/build-and-release-image.yaml will replace this file during build time with
-the commit information (SHA, author and commit message) of the built image.
-This file will be served to allow checking for the exact source code version of a deployed edc-ui.
+commit 66da869b358e77f6b6bd5c109d929253cb6b157b
+Author: Richard Treier <richard.treier@sovity.de>
+Date:   Tue May 9 10:29:28 2023 +0200
+
+    chore prepare CHANGELOG.md for release
