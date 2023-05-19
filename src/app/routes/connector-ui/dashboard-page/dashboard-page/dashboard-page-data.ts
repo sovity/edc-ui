@@ -1,5 +1,6 @@
 import {Fetched} from '../../../../core/services/models/fetched';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
+import {PropertyGridGroup} from "../../../../component-library/property-grid/property-grid-group/property-grid-group";
 
 export interface DashboardPageData {
   incomingTransfersChart: Fetched<DonutChartData>;
@@ -10,6 +11,7 @@ export interface DashboardPageData {
   numContractDefinitions: Fetched<number>;
   numPolicies: Fetched<number>;
   numCatalogs: Fetched<number>;
+  connectorProperties: PropertyGridGroup[];
 }
 
 export function defaultDashboardData(): DashboardPageData {
@@ -22,5 +24,6 @@ export function defaultDashboardData(): DashboardPageData {
     numPolicies: Fetched.empty(),
     numContractDefinitions: Fetched.empty(),
     numCatalogs: Fetched.empty(),
+    connectorProperties: [],
   };
 }

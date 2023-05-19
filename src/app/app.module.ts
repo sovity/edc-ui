@@ -24,6 +24,8 @@ import {
   API_KEY,
   CONNECTOR_DATAMANAGEMENT_API,
 } from './core/services/api/legacy-managent-api-client';
+import {MatDialogModule} from "@angular/material/dialog";
+
 
 @NgModule({
   imports: [
@@ -35,6 +37,7 @@ import {
     // Angular Material
     MatButtonModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatIconModule,
     MatListModule,
     MatNativeDateModule,
