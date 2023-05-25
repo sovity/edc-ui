@@ -3,14 +3,12 @@ import {BehaviorSubject, Subject} from 'rxjs';
 import {switchMap, takeUntil} from 'rxjs/operators';
 import {AppConfig} from '../../../app/config/app-config';
 import {AppConfigService} from '../../../app/config/app-config.service';
-import {ConnectorInfoPropertyGridGroupBuilder} from './connector-info-property-grid-group-builder';
 import {DashboardData, defaultDashboardData} from './dashboard-data';
 import {DashboardDataService} from './dashboard-data.service';
 
 @Component({
   selector: 'edc-demo-dashboard',
   templateUrl: './dashboard.component.html',
-  providers: [],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   data: DashboardData = defaultDashboardData();
