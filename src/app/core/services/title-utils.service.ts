@@ -1,23 +1,50 @@
 import {Injectable} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter, map} from 'rxjs/operators';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {concat, of} from 'rxjs';
+import {filter, map, shareReplay} from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class TitleUtilsService {
+  routeData$ = this.routeDone$().pipe(
+    map(() => this.getRouteDataRecursively(), shareReplay(1)),
+  );
+
+  title$ = this.routeData$.pipe(map((data) => data.title));
+
   constructor(
     private router: Router,
     private titleService: Title,
     private activatedRoute: ActivatedRoute,
   ) {}
 
-  startUpdatingTitleFromRouteData() {
-    const defaultTitle = this.titleService.getTitle();
-    this.router.events
-      .pipe(
+  startUpdatingTitleFromRouteData(defaultTitle: string) {
+    this.title$.subscribe((title) => {
+      this.titleService.setTitle(`MDS Broker - ${title ?? defaultTitle}`);
+    });
+  }
+
+  private routeDone$() {
+    return concat(
+      of({}),
+      this.router.events.pipe(
         filter((event) => event instanceof NavigationEnd),
-        map(() => this.activatedRoute.snapshot.data?.title ?? defaultTitle),
-      )
-      .subscribe((title: string) => this.titleService.setTitle(title));
+      ),
+    );
+  }
+
+  private getRouteDataRecursively(): any {
+    let snapshot: ActivatedRouteSnapshot | null = this.activatedRoute.snapshot;
+    let data = {};
+    while (snapshot) {
+      data = {...data, ...snapshot.data};
+      snapshot = snapshot.firstChild;
+    }
+    return data;
   }
 }

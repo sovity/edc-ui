@@ -2,7 +2,7 @@
   <div class="flex flex-row">
     <!-- Search Bar -->
     <mat-form-field class="search-form-field" color="accent">
-      <mat-label>Search catalog</mat-label>
+      <mat-label>Search Data Offers</mat-label>
       <mat-icon matPrefix>search</mat-icon>
       <input matInput [formControl]="searchText" />
       <button
@@ -16,15 +16,6 @@
 
     <!-- Spacer -->
     <div style="flex-grow: 1"></div>
-
-    <!-- Pagination -->
-    <!--<mat-paginator
-      *ngIf="data.requestTotals.isSomeReady"
-      [hidePageSize]="true"
-      [disabled]="true"
-      [pageSize]="data.filteredContractOffers.length"
-      [length]="data.numTotalContractOffers">
-    </mat-paginator>-->
   </div>
   <div class="flex flex-row justify-center">
     <empty-state

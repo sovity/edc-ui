@@ -4,6 +4,7 @@ import {ActiveFeatureSet} from '../../../core/config/active-feature-set';
 import {Policy} from '../../../core/services/api/legacy-managent-api-client';
 import {AssetProperties} from '../../../core/services/asset-properties';
 import {Asset} from '../../../core/services/models/asset';
+import {BrokerDataOffer} from '../../../routes/broker-ui/catalog-browser-page/catalog-page/mapping/broker-data-offer';
 import {ContractAgreementCardMapped} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
 import {JsonDialogComponent} from '../../json-dialog/json-dialog/json-dialog.component';
 import {JsonDialogData} from '../../json-dialog/json-dialog/json-dialog.data';
@@ -22,10 +23,25 @@ export class AssetPropertyGridGroupBuilder {
   buildPropertyGridGroups(
     asset: Asset,
     contractAgreement: ContractAgreementCardMapped | null,
+    brokerDataOffer: BrokerDataOffer | null,
     policy: Policy | null,
   ): PropertyGridGroup[] {
     let fieldGroups: PropertyGridGroup[];
-    if (contractAgreement != null) {
+    if (brokerDataOffer != null) {
+      fieldGroups = [
+        this.buildBrokerDataOfferConnectorEndpointFocusGroup(asset),
+        this.buildAssetPropertiesGroup(asset, 'Data Offer'),
+        this.buildAdditionalPropertiesGroup(asset),
+        ...brokerDataOffer.policy.map((it, i) =>
+          this.buildContractOfferGroup(
+            asset,
+            it.legacyPolicy,
+            i,
+            brokerDataOffer.policy.length,
+          ),
+        ),
+      ];
+    } else if (contractAgreement != null) {
       fieldGroups = [
         this.buildContractAgreementGroup(contractAgreement),
         this.buildPolicyGroup(asset, policy!!),
@@ -85,12 +101,7 @@ export class AssetPropertyGridGroupBuilder {
         labelTitle: AssetProperties.standardLicense,
         ...this.propertyGridUtils.guessValue(asset.standardLicense),
       },
-      {
-        icon: 'link',
-        label: 'Connector Endpoint',
-        labelTitle: AssetProperties.originator,
-        ...this.propertyGridUtils.guessValue(asset.originator),
-      },
+      this.buildConnectorEndpointField(asset),
       {
         icon: 'account_circle',
         label: 'Organization',
@@ -188,20 +199,26 @@ export class AssetPropertyGridGroupBuilder {
   }
 
   private onShowPolicyDetailsClick(
-    asset: Asset,
-    policyDetails: Policy,
     title: string,
+    subtitle: string,
+    policyDetails: Policy,
   ) {
     const data: JsonDialogData = {
       title,
-      subtitle: asset.name,
+      subtitle,
       icon: 'policy',
       objectForJson: policyDetails,
     };
     this.matDialog.open(JsonDialogComponent, {data});
   }
 
-  private buildPolicyGroup(asset: Asset, contractPolicy: Policy | null) {
+  private buildContractOfferGroup(
+    asset: Asset,
+    contractPolicy: Policy | null,
+    i: number,
+    total: number,
+  ) {
+    const groupLabel = `Contract Offer ${total > 1 ? i + 1 : ''}`;
     let properties: PropertyGridField[] = [];
     if (contractPolicy) {
       properties.push({
@@ -210,13 +227,41 @@ export class AssetPropertyGridGroupBuilder {
         text: 'Show Policy Details',
         onclick: () =>
           this.onShowPolicyDetailsClick(
-            asset,
+            `${groupLabel} Contract Policy)`,
+            asset.name,
             contractPolicy,
-            'Contract Policy',
           ),
       });
     }
-    return {groupLabel: 'Policies', properties};
+    return {groupLabel, properties};
+  }
+
+  private buildPolicyGroup(
+    asset: Asset,
+    contractPolicy: Policy | null,
+    groupLabel: string = 'Policies',
+  ) {
+    let properties: PropertyGridField[] = [];
+    if (contractPolicy) {
+      properties.push(
+        this.buildContractPolicyField(contractPolicy, asset.name),
+      );
+    }
+    return {groupLabel, properties};
+  }
+
+  private buildContractPolicyField(contractPolicy: Policy, subtitle: string) {
+    return {
+      icon: 'policy',
+      label: 'Contract Policy',
+      text: 'Show Policy Details',
+      onclick: () =>
+        this.onShowPolicyDetailsClick(
+          'Contract Policy',
+          subtitle,
+          contractPolicy,
+        ),
+    };
   }
 
   private buildContractAgreementGroup(
@@ -279,6 +324,27 @@ export class AssetPropertyGridGroupBuilder {
           ),
         },
       ],
+    };
+  }
+
+  private buildBrokerDataOfferConnectorEndpointFocusGroup(asset: Asset) {
+    return {
+      groupLabel: null,
+      properties: [
+        {
+          ...this.buildConnectorEndpointField(asset),
+          copyButton: true,
+        },
+      ],
+    };
+  }
+
+  private buildConnectorEndpointField(asset: Asset): PropertyGridField {
+    return {
+      icon: 'link',
+      label: 'Connector Endpoint',
+      labelTitle: AssetProperties.originator,
+      ...this.propertyGridUtils.guessValue(asset.originator),
     };
   }
 }

@@ -19,4 +19,6 @@ export interface PropertyGridField {
   url?: string;
   onclick?: () => void;
   additionalClasses?: string;
+
+  copyButton?: boolean;
 }

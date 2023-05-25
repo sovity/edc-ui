@@ -82,8 +82,8 @@
         <button
           mat-icon-button
           matSuffix
-          [cdkCopyToClipboard]="config.connectorEndpoint"
-          (click)="input.focus(); input.select()">
+          [cdkCopyToClipboard]="config.connectorEndpoint">
+          matTooltip="Copy to clipboard"
           <mat-icon>content_copy</mat-icon>
         </button>
       </mat-form-field>

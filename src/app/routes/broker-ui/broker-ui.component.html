@@ -39,7 +39,7 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ titleService.getTitle() }}</span>
+      <span>{{ titleUtilsService.title$ | async }}</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

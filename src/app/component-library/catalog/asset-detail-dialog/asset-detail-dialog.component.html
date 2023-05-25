@@ -2,6 +2,9 @@
   <mat-icon *ngIf="data.mode === 'asset-details'" class="mat-icon-[40px]">
     upload
   </mat-icon>
+  <mat-icon *ngIf="data.mode === 'broker-data-offer'" class="mat-icon-[40px]">
+    sim_card
+  </mat-icon>
   <mat-icon *ngIf="data.mode === 'contract-agreement'" class="mat-icon-[40px]">
     {{
       data.contractAgreement!!.direction === 'PROVIDING' ? 'upload' : 'download'

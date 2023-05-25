@@ -11,6 +11,7 @@ import {routes} from './connector-ui-routing.module';
   selector: 'connector-ui-page-layout',
   templateUrl: './connector-ui.component.html',
   styleUrls: ['./connector-ui.component.scss'],
+  providers: [TitleUtilsService],
 })
 export class ConnectorUiComponent implements OnInit {
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -30,6 +31,6 @@ export class ConnectorUiComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleUtilsService.startUpdatingTitleFromRouteData();
+    this.titleUtilsService.startUpdatingTitleFromRouteData('EDC Connector');
   }
 }

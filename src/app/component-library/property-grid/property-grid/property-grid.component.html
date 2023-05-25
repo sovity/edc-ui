@@ -48,4 +48,11 @@
       >{{ prop.text }}</span
     >
   </div>
+  <button
+    *ngIf="prop.copyButton"
+    mat-icon-button
+    color="accent"
+    [cdkCopyToClipboard]="prop.url ?? prop.text">
+    <mat-icon>content_copy</mat-icon>
+  </button>
 </div>

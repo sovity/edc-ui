@@ -7,7 +7,10 @@ export const routes: Routes = [
   {
     path: '',
     component: CatalogBrowserPageComponent,
-    data: {title: 'Data Offers', icon: 'sim_card'},
+    data: {
+      title: 'Data Offers',
+      icon: 'sim_card',
+    },
     pathMatch: 'full',
   },
 ];

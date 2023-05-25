@@ -77,6 +77,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
       this.assetPropertyGridGroupBuilder.buildPropertyGridGroups(
         this.data.asset,
         this.data.contractAgreement,
+        this.data.brokerDataOffer,
         this.data.policy,
       );
   }
