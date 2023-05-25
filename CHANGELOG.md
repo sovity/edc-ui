@@ -17,6 +17,7 @@ the detailed section referring to by linking pull requests or issues.
 #### Added
 
 - Tooltips for Asset Properties that show the asset property names.
+- Added Connector Version Information as part of Connector Properties In Dashboard
 
 #### Changed
 
