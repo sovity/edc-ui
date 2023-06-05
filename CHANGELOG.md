@@ -18,6 +18,7 @@ the detailed section referring to by linking pull requests or issues.
 
 - Tooltips for Asset Properties that show the asset property names.
 - Added Broker UI: Catalog Page, Connector Page
+- Added connector version information to the existing Connector Properties in the Dashboard Page
 
 #### Changed
 

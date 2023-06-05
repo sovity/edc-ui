@@ -25,7 +25,6 @@ export class ConnectorInfoPropertyGridGroupBuilder {
       icon: 'link',
       objectForJson: versionData,
     };
-    console.log(data)
     this.matDialog.open(JsonDialogComponent, {data});
   }
 
