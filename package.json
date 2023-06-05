@@ -29,7 +29,7 @@
     "@sovity.de/edc-client": "0.20230531.73811-main-e140ef56",
     "clean-deep": "^3.4.0",
     "date-fns": "^2.29.3",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.4",
     "json-stable-stringify": "^1.0.2",
     "ng2-charts": "^4.1.1",
     "ngx-json-viewer": "^3.2.1",
