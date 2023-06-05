@@ -16,10 +16,12 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
+- Added Broker PoC UI:
+  - Refactored Module Structure
+  - Added Catalog Page
+  - Added Connector Page
+  - Added Copyright Footer
 - Tooltips for Asset Properties that show the asset property names.
-- Added Broker UI: Catalog Page, Connector Page
-- Added connector version information to the existing Connector Properties in
-  the Dashboard Page
 
 #### Changed
 
