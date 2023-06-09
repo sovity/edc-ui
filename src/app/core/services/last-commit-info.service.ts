@@ -1,8 +1,8 @@
-import {HttpClient} from "@angular/common/http";
-import {LastCommitInfo} from "./models/last-commit-info";
-import {Observable} from "rxjs";
-import {Inject, Injectable} from "@angular/core";
-import {APP_CONFIG, AppConfig} from "../config/app-config";
+import {HttpClient} from '@angular/common/http';
+import {Inject, Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {APP_CONFIG, AppConfig} from '../config/app-config';
+import {LastCommitInfo} from './models/last-commit-info';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +18,12 @@ export class LastCommitInfoService {
     return this.http.get<LastCommitInfo>(url);
   }
 
-  getUiCommitDetails(): Observable<String> {
+  getUiCommitDetails(): Observable<string> {
     const path = '/assets/config/version.txt';
     return this.http.get(path, {responseType: 'text'});
   }
 
-  getUiBuildDateDetails(): Observable<String> {
+  getUiBuildDateDetails(): Observable<string> {
     const path = '/assets/config/ui-build-date.txt';
     return this.http.get(path, {responseType: 'text'});
   }

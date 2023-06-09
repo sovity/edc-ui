@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, merge, of, scan, combineLatest} from 'rxjs';
+import {Observable, combineLatest, merge, of, scan} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {CatalogApiUrlService} from '../../../../core/services/api/catalog-api-url.service';
 import {ContractOfferService} from '../../../../core/services/api/contract-offer.service';
@@ -11,16 +11,13 @@ import {
   TransferProcessDto,
   TransferProcessService,
 } from '../../../../core/services/api/legacy-managent-api-client';
+import {ConnectorInfoPropertyGridGroupBuilder} from '../../../../core/services/connector-info-property-grid-group-builder';
+import {LastCommitInfoService} from '../../../../core/services/last-commit-info.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {TransferProcessStates} from '../../../../core/services/models/transfer-process-states';
 import {TransferProcessUtils} from '../../../../core/services/transfer-process-utils';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
 import {DashboardPageData, defaultDashboardData} from './dashboard-page-data';
-import {LastCommitInfoService} from "../../../../core/services/last-commit-info.service";
-import {
-  ConnectorInfoPropertyGridGroupBuilder
-} from "../../../../core/services/connector-info-property-grid-group-builder";
-
 
 @Injectable({providedIn: 'root'})
 export class DashboardPageDataService {
@@ -204,7 +201,9 @@ export class DashboardPageDataService {
       map(([lastCommitInfo, uiBuildDate, uiCommitDetails]) => ({
         connectorProperties:
           this.connectorInfoPropertyGridGroupBuilder.buildPropertyGridGroups(
-            lastCommitInfo,uiBuildDate,uiCommitDetails
+            lastCommitInfo,
+            uiBuildDate,
+            uiCommitDetails,
           ),
       })),
     );

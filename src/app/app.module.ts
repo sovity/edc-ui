@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
 import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldDefaultOptions,
@@ -24,8 +25,6 @@ import {
   API_KEY,
   CONNECTOR_DATAMANAGEMENT_API,
 } from './core/services/api/legacy-managent-api-client';
-import {MatDialogModule} from "@angular/material/dialog";
-
 
 @NgModule({
   imports: [

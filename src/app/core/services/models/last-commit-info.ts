@@ -1,6 +1,6 @@
 export interface LastCommitInfo {
   envLastCommitInfo: string | null;
-  envLastBuildDate: string | null;
+  envBuildDate: string | null;
   jarLastCommitInfo: string | null;
-  jarLastBuildDate: string | null;
+  jarBuildDate: string | null;
 }

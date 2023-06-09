@@ -1,6 +1,6 @@
+import {PropertyGridGroup} from '../../../../component-library/property-grid/property-grid-group/property-grid-group';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
-import {PropertyGridGroup} from "../../../../component-library/property-grid/property-grid-group/property-grid-group";
 
 export interface DashboardPageData {
   incomingTransfersChart: Fetched<DonutChartData>;
