@@ -35,28 +35,28 @@ export class ConnectorInfoPropertyGridGroupBuilder {
     lastCommitInfo: Fetched<LastCommitInfo>,
   ): PropertyGridField[] {
     return lastCommitInfo.match({
-      ifOk: (LastCommitInfo) => [
+      ifOk: (lastCommitInfo) => [
         {
           icon: 'link',
           label: 'Jar Version',
-          text: LastCommitInfo.jarBuildDate
-            ? this.asDate(LastCommitInfo.jarBuildDate)
+          text: lastCommitInfo.jarBuildDate
+            ? this.asDate(lastCommitInfo.jarBuildDate)
             : 'Show Details',
           onclick: () =>
             this.onShowConnectorVersionClick('Version Information', {
-              'Jar Last Commit Information': LastCommitInfo.jarLastCommitInfo,
+              'Jar Last Commit Information': lastCommitInfo.jarLastCommitInfo,
             }),
         },
         {
           icon: 'link',
           label: 'Environment Version',
-          text: LastCommitInfo.envBuildDate
-            ? this.asDate(LastCommitInfo.envBuildDate)
+          text: lastCommitInfo.envBuildDate
+            ? this.asDate(lastCommitInfo.envBuildDate)
             : 'Show Details',
           onclick: () =>
             this.onShowConnectorVersionClick('Version Information', {
               'Environment Last Commit Information':
-                LastCommitInfo.envLastCommitInfo,
+                lastCommitInfo.envLastCommitInfo,
             }),
         },
       ],
