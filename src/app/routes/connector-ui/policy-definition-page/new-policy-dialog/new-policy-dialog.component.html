@@ -26,15 +26,59 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- Time Interval Type -->
+    <mat-form-field color="accent">
+      <mat-label>Date Selection Criteria</mat-label>
+      <mat-select [formControl]="form.group.controls.dateSelectionType">
+        <mat-option value="Start-Date">
+          Start Date (with infinite end date)
+        </mat-option>
+        <mat-option value="End-Date">
+          End Date (with current date as start date)
+        </mat-option>
+        <mat-option value="Date-Range">
+          Date Range
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Start Date  -->
+    <mat-form-field
+      *ngIf="
+        form.policyType == 'Time-Period-Restricted' && form.dateSelectionType == 'Start-Date';
+        let ctrl
+      "
+      color="accent">
+      <mat-label>Start Date - Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Start Date  -->
+    <mat-form-field
+      *ngIf="
+        form.policyType == 'Time-Period-Restricted' && form.dateSelectionType == 'End-Date';
+        let ctrl
+      "
+      color="accent">
+      <mat-label>End Date - Choose a Date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
     <!-- Date Range -->
     <mat-form-field
       *ngIf="
-        form.policyType == 'Time-Period-Restricted' &&
+        form.policyType == 'Time-Period-Restricted' && form.dateSelectionType == 'Date-Range' &&
           form.group.controls.range;
         let ctrl
       "
       color="accent">
-      <mat-label>Time-Period</mat-label>
+      <mat-label>Date Range - Choose a range</mat-label>
       <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
         <input matStartDate formControlName="start" placeholder="Start date" />
         <input matEndDate formControlName="end" placeholder="End date" />

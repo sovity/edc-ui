@@ -6,7 +6,7 @@ import {noWhitespaceValidator} from '../../../../core/validators/no-whitespace-v
 import {
   NewPolicyDialogFormModel,
   NewPolicyDialogFormValue,
-  PolicyType,
+  PolicyType, DateSelectionType,
 } from './new-policy-dialog-form-model';
 
 /**
@@ -26,6 +26,10 @@ export class NewPolicyDialogForm {
   get policyType(): PolicyType {
     return this.group.controls.policyType.value;
   }
+  get dateSelectionType(): DateSelectionType{
+    console.log(this.group.controls.dateSelectionType.value)
+    return this.group.controls.dateSelectionType.value;
+  }
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -35,6 +39,10 @@ export class NewPolicyDialogForm {
         id: ['', [Validators.required, noWhitespaceValidator]],
         policyType: [
           'Connector-Restricted-Usage' as PolicyType,
+          Validators.required,
+        ],
+        dateSelectionType: [
+          'Start-Date' as DateSelectionType,
           Validators.required,
         ],
         range: this.formBuilder.group(
@@ -53,7 +61,7 @@ export class NewPolicyDialogForm {
       switchCtrl: formGroup.controls.policyType,
       enabledControlsByValue: {
         'Connector-Restricted-Usage': ['connectorId'],
-        'Time-Period-Restricted': ['range'],
+        'Time-Period-Restricted': ['range','dateSelectionType'],
       },
     });
 
