@@ -58,27 +58,27 @@ export class PolicyDefinitionBuilder {
   private buildTimePeriodRestrictionPermissions(
     formValue: NewPolicyDialogFormValue,
   ): Permission[] {
-    if(formValue.dateSelectionType === "Date-Range") {
-    const start = formValue.range!!.start!!;
-    const end = addDays(formValue.range!!.end!!, 1);
+    if (formValue.dateSelectionType === 'Date-Range') {
+      const start = formValue.range!!.start!!;
+      const end = addDays(formValue.range!!.end!!, 1);
 
-    return [
-      this.policyDefinitionUtils.buildPermission({
-        constraints: [
-          this.policyDefinitionUtils.buildAtomicConstraint(
-            ExpressionLeftSideConstants.PolicyEvaluationTime,
-            'GEQ',
-            start.toISOString()!,
-          ),
-          this.policyDefinitionUtils.buildAtomicConstraint(
-            ExpressionLeftSideConstants.PolicyEvaluationTime,
-            'LT',
-            end.toISOString()!,
-          ),
-        ],
-      }),
-    ];}
-    else{
+      return [
+        this.policyDefinitionUtils.buildPermission({
+          constraints: [
+            this.policyDefinitionUtils.buildAtomicConstraint(
+              ExpressionLeftSideConstants.PolicyEvaluationTime,
+              'GEQ',
+              start.toISOString()!,
+            ),
+            this.policyDefinitionUtils.buildAtomicConstraint(
+              ExpressionLeftSideConstants.PolicyEvaluationTime,
+              'LT',
+              end.toISOString()!,
+            ),
+          ],
+        }),
+      ];
+    } else {
       const start = formValue.dateSelectionValue!!;
       return [
         this.policyDefinitionUtils.buildPermission({
@@ -87,7 +87,7 @@ export class PolicyDefinitionBuilder {
               ExpressionLeftSideConstants.PolicyEvaluationTime,
               'GEQ',
               start.toISOString()!,
-            )
+            ),
           ],
         }),
       ];

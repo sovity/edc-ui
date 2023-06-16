@@ -38,8 +38,7 @@ export class AssetDatasourceFormBuilder {
         ),
       });
 
-    switchDisabledControls<AssetDatasourceFormValue>
-    (datasource, (value) => {
+    switchDisabledControls<AssetDatasourceFormValue>(datasource, (value) => {
       const customDataAddressJson =
         value.dataAddressType === 'Custom-Data-Address-Json';
 
