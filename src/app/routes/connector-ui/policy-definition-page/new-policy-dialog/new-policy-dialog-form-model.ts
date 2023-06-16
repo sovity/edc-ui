@@ -25,6 +25,4 @@ export type PolicyType =
   | 'Time-Period-Restricted'
   | 'Connector-Restricted-Usage';
 
-export type DateSelectionType =
-  | 'Start-Date'
-  | 'Date-Range'
+export type DateSelectionType = 'Start-Date' | 'Date-Range';

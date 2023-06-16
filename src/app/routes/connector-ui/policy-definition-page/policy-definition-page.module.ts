@@ -5,6 +5,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -20,7 +21,6 @@ import {UiElementsModule} from '../../../component-library/ui-elements/ui-elemen
 import {NewPolicyDialogComponent} from './new-policy-dialog/new-policy-dialog.component';
 import {PolicyCardsComponent} from './policy-cards/policy-cards.component';
 import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-definition-page.component';
-import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   imports: [
