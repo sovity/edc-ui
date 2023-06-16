@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {switchDisabledControlsByField} from '../../../../core/utils/form-group-utils';
+import {switchDisabledControls} from '../../../../core/utils/form-group-utils';
 import {dateRangeRequired} from '../../../../core/validators/date-range-required';
 import {noWhitespaceValidator} from '../../../../core/validators/no-whitespace-validator';
 import {
+  DateSelectionType,
   NewPolicyDialogFormModel,
   NewPolicyDialogFormValue,
-  PolicyType, DateSelectionType,
+  PolicyType,
 } from './new-policy-dialog-form-model';
 
 /**
@@ -26,15 +27,15 @@ export class NewPolicyDialogForm {
   get policyType(): PolicyType {
     return this.group.controls.policyType.value;
   }
-  get dateSelectionType(): DateSelectionType{
-    console.log(this.group.controls.dateSelectionType.value)
+
+  get dateSelectionType(): DateSelectionType {
     return this.group.controls.dateSelectionType.value;
   }
 
   constructor(private formBuilder: FormBuilder) {}
 
   buildFormGroup(): FormGroup<NewPolicyDialogFormModel> {
-    const formGroup: FormGroup<NewPolicyDialogFormModel> =
+    const newPolicyFormGroup: FormGroup<NewPolicyDialogFormModel> =
       this.formBuilder.nonNullable.group({
         id: ['', [Validators.required, noWhitespaceValidator]],
         policyType: [
@@ -45,6 +46,7 @@ export class NewPolicyDialogForm {
           'Start-Date' as DateSelectionType,
           Validators.required,
         ],
+        dateSelectionValue: [null as Date | null, Validators.required],
         range: this.formBuilder.group(
           {
             start: null as Date | null,
@@ -55,16 +57,28 @@ export class NewPolicyDialogForm {
         connectorId: ['', Validators.required],
       });
 
-    // Switch validation depending on selected policy type
-    switchDisabledControlsByField({
-      formGroup,
-      switchCtrl: formGroup.controls.policyType,
-      enabledControlsByValue: {
-        'Connector-Restricted-Usage': ['connectorId'],
-        'Time-Period-Restricted': ['range','dateSelectionType'],
-      },
-    });
+    switchDisabledControls<NewPolicyDialogFormValue>(
+      newPolicyFormGroup,
+      (value) => {
+        const timePeriodRestricted =
+          value.policyType === 'Time-Period-Restricted';
+        const startDateOnly = value.dateSelectionType === 'Start-Date';
+        const dateRange = value.dateSelectionType === 'Date-Range';
 
-    return formGroup;
+        const connecterRestrictedUsage =
+          value.policyType === 'Connector-Restricted-Usage';
+
+        return {
+          id: true,
+          policyType: true,
+          dateSelectionType: timePeriodRestricted,
+          dateSelectionValue: timePeriodRestricted && startDateOnly,
+          range: timePeriodRestricted && dateRange,
+          connectorId: connecterRestrictedUsage,
+        };
+      },
+    );
+
+    return newPolicyFormGroup;
   }
 }

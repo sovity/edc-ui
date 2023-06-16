@@ -58,6 +58,7 @@ export class PolicyDefinitionBuilder {
   private buildTimePeriodRestrictionPermissions(
     formValue: NewPolicyDialogFormValue,
   ): Permission[] {
+    if(formValue.dateSelectionType === "Date-Range") {
     const start = formValue.range!!.start!!;
     const end = addDays(formValue.range!!.end!!, 1);
 
@@ -76,6 +77,20 @@ export class PolicyDefinitionBuilder {
           ),
         ],
       }),
-    ];
+    ];}
+    else{
+      const start = formValue.dateSelectionValue!!;
+      return [
+        this.policyDefinitionUtils.buildPermission({
+          constraints: [
+            this.policyDefinitionUtils.buildAtomicConstraint(
+              ExpressionLeftSideConstants.PolicyEvaluationTime,
+              'GEQ',
+              start.toISOString()!,
+            )
+          ],
+        }),
+      ];
+    }
   }
 }

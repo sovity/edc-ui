@@ -20,6 +20,7 @@ import {UiElementsModule} from '../../../component-library/ui-elements/ui-elemen
 import {NewPolicyDialogComponent} from './new-policy-dialog/new-policy-dialog.component';
 import {PolicyCardsComponent} from './policy-cards/policy-cards.component';
 import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-definition-page.component';
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-def
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatSelectModule,
