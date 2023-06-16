@@ -62,6 +62,7 @@ export class PolicyDefinitionBuilder {
   private buildTimePeriodRestrictionPermissions(
     formValue: NewPolicyDialogFormValue,
   ): Permission[] {
+    if(formValue.dateSelectionType === "Date-Range") {
     const start = formValue.range!!.start!!;
     const constraints: AtomicConstraint[] = [this.evaluationTime('GEQ', start)];
     const end = formValue.range!!.end;
@@ -73,7 +74,21 @@ export class PolicyDefinitionBuilder {
       this.policyDefinitionUtils.buildPermission({
         constraints,
       }),
-    ];
+    ];}
+    else{
+      const start = formValue.dateSelectionValue!!;
+      return [
+        this.policyDefinitionUtils.buildPermission({
+          constraints: [
+            this.policyDefinitionUtils.buildAtomicConstraint(
+              ExpressionLeftSideConstants.PolicyEvaluationTime,
+              'GEQ',
+              start.toISOString()!,
+            )
+          ],
+        }),
+      ];
+    }
   }
 
   private evaluationTime(operator: Operator, date: Date): AtomicConstraint {
