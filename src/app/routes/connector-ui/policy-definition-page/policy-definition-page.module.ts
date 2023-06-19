@@ -5,7 +5,6 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -36,7 +35,6 @@ import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-def
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatSelectModule,

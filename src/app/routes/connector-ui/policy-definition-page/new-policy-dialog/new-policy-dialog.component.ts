@@ -17,6 +17,7 @@ import {NewPolicyDialogResult} from './new-policy-dialog-result';
 })
 export class NewPolicyDialogComponent implements OnDestroy {
   loading = false;
+  minDate: Date;
 
   constructor(
     public form: NewPolicyDialogForm,
@@ -25,7 +26,9 @@ export class NewPolicyDialogComponent implements OnDestroy {
     private dialogRef: MatDialogRef<NewPolicyDialogComponent>,
     public validationMessages: ValidationMessages,
     private policyDefinitionBuilder: PolicyDefinitionBuilder,
-  ) {}
+  ) {
+    this.minDate = new Date();
+  }
 
   onSave() {
     const formValue = this.form.value;
