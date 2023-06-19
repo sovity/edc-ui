@@ -54,9 +54,7 @@ export class NewPolicyDialogForm {
       (value) => {
         const timePeriodRestricted =
           value.policyType === 'Time-Period-Restricted';
-        const startDateOnly = value.rangeIsOpenEnded!;
-        const dateRange = !value.rangeIsOpenEnded!;
-
+        const openEnded = value.rangeIsOpenEnded!;
         const connecterRestrictedUsage =
           value.policyType === 'Connector-Restricted-Usage';
 
@@ -64,8 +62,8 @@ export class NewPolicyDialogForm {
           id: true,
           policyType: true,
           rangeIsOpenEnded: timePeriodRestricted,
-          rangeStart: timePeriodRestricted && startDateOnly,
-          range: timePeriodRestricted && dateRange,
+          rangeStart: timePeriodRestricted && openEnded,
+          range: timePeriodRestricted && !openEnded,
           connectorId: connecterRestrictedUsage,
         };
       },

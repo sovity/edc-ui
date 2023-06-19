@@ -32,7 +32,7 @@
         <mat-checkbox
           color="accent"
           [formControl]="form.group.controls.rangeIsOpenEnded"
-          >Use open-ended start date
+          >Use open-ended date interval
         </mat-checkbox>
       </div>
       <!-- Start Date  -->
@@ -44,12 +44,8 @@
         "
         class="mt-[20px]"
         color="accent">
-        <mat-label>Choose a date</mat-label>
-        <input
-          matInput
-          [min]="minDate"
-          [matDatepicker]="$any(picker)"
-          [formControl]="ctrl" />
+        <mat-label>Choose start date</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="ctrl" />
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -68,10 +64,7 @@
         class="mt-[20px]"
         color="accent">
         <mat-label>Choose a range</mat-label>
-        <mat-date-range-input
-          [formGroup]="ctrl"
-          [rangePicker]="$any(picker)"
-          [min]="minDate">
+        <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
           <input
             matStartDate
             formControlName="start"
