@@ -12,8 +12,8 @@ export type NewPolicyDialogFormValue =
 export interface NewPolicyDialogFormModel {
   id: FormControl<string>;
   policyType: FormControl<PolicyType>;
-  dateSelectionType: FormControl<DateSelectionType>;
-  dateSelectionValue: FormControl<Date | null>;
+  rangeIsOpenEnded: FormControl<boolean>;
+  rangeStart: FormControl<Date | null>;
   range: FormGroup<{
     start: FormControl<Date | null>;
     end: FormControl<Date | null>;
@@ -24,5 +24,3 @@ export interface NewPolicyDialogFormModel {
 export type PolicyType =
   | 'Time-Period-Restricted'
   | 'Connector-Restricted-Usage';
-
-export type DateSelectionType = 'Start-Date' | 'Date-Range';

@@ -4,7 +4,6 @@ import {switchDisabledControls} from '../../../../core/utils/form-group-utils';
 import {dateRangeRequired} from '../../../../core/validators/date-range-required';
 import {noWhitespaceValidator} from '../../../../core/validators/no-whitespace-validator';
 import {
-  DateSelectionType,
   NewPolicyDialogFormModel,
   NewPolicyDialogFormValue,
   PolicyType,
@@ -28,10 +27,6 @@ export class NewPolicyDialogForm {
     return this.group.controls.policyType.value;
   }
 
-  get dateSelectionType(): DateSelectionType {
-    return this.group.controls.dateSelectionType.value;
-  }
-
   constructor(private formBuilder: FormBuilder) {}
 
   buildFormGroup(): FormGroup<NewPolicyDialogFormModel> {
@@ -42,11 +37,8 @@ export class NewPolicyDialogForm {
           'Connector-Restricted-Usage' as PolicyType,
           Validators.required,
         ],
-        dateSelectionType: [
-          'Start-Date' as DateSelectionType,
-          Validators.required,
-        ],
-        dateSelectionValue: [null as Date | null, Validators.required],
+        rangeIsOpenEnded: [false, Validators.required],
+        rangeStart: [null as Date | null, Validators.required],
         range: this.formBuilder.group(
           {
             start: null as Date | null,
@@ -62,8 +54,8 @@ export class NewPolicyDialogForm {
       (value) => {
         const timePeriodRestricted =
           value.policyType === 'Time-Period-Restricted';
-        const startDateOnly = value.dateSelectionType === 'Start-Date';
-        const dateRange = value.dateSelectionType === 'Date-Range';
+        const startDateOnly = value.rangeIsOpenEnded!;
+        const dateRange = !value.rangeIsOpenEnded!;
 
         const connecterRestrictedUsage =
           value.policyType === 'Connector-Restricted-Usage';
@@ -71,8 +63,8 @@ export class NewPolicyDialogForm {
         return {
           id: true,
           policyType: true,
-          dateSelectionType: timePeriodRestricted,
-          dateSelectionValue: timePeriodRestricted && startDateOnly,
+          rangeIsOpenEnded: timePeriodRestricted,
+          rangeStart: timePeriodRestricted && startDateOnly,
           range: timePeriodRestricted && dateRange,
           connectorId: connecterRestrictedUsage,
         };

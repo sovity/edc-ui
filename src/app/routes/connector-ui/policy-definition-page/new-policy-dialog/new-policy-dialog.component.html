@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Create New Policy</h1>
 <mat-dialog-content class="w-[800px]">
-  <div class="flex flex-col mt-[10px]">
+  <div class="flex flex-col">
     <!--  ID -->
     <mat-form-field
       *ngIf="form.group.controls.id; let ctrl"
@@ -27,25 +27,30 @@
     </mat-form-field>
     <!-- Time Interval Type -->
     <ng-container *ngIf="form.policyType === 'Time-Period-Restricted'">
-      <mat-form-field color="accent">
-        <mat-label>Date Selection Criteria</mat-label>
-        <mat-select [formControl]="form.group.controls.dateSelectionType">
-          <mat-option value="Start-Date"> Start Date (open-ended) </mat-option>
-          <mat-option value="Date-Range"> Date Range</mat-option>
-        </mat-select>
-      </mat-form-field>
-
+      <div class="w-full flex flex-row space-x-[20px]" mat-dialog-actions>
+        <label>Date Selection Criteria:</label>
+        <mat-checkbox
+          color="accent"
+          [formControl]="form.group.controls.rangeIsOpenEnded"
+          >Use open-ended start date
+        </mat-checkbox>
+      </div>
       <!-- Start Date  -->
       <mat-form-field
         *ngIf="
-          form.dateSelectionType == 'Start-Date' &&
-            form.group.controls.dateSelectionValue;
+          form.group.controls.rangeIsOpenEnded.value &&
+            form.group.controls.rangeStart;
           let ctrl
         "
+        class="mt-[20px]"
         color="accent">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" [formControl]="ctrl" />
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <input
+          matInput
+          [min]="minDate"
+          [matDatepicker]="$any(picker)"
+          [formControl]="ctrl" />
+        <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="ctrl.hasError('matDatepickerParse')">
@@ -56,19 +61,24 @@
       <!-- Date Range -->
       <mat-form-field
         *ngIf="
-          form.dateSelectionType == 'Date-Range' && form.group.controls.range;
+          !form.group.controls.rangeIsOpenEnded.value &&
+            form.group.controls.range;
           let ctrl
         "
+        class="mt-[20px]"
         color="accent">
         <mat-label>Choose a range</mat-label>
-        <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
+        <mat-date-range-input
+          [formGroup]="ctrl"
+          [rangePicker]="$any(picker)"
+          [min]="minDate">
           <input
             matStartDate
             formControlName="start"
             placeholder="Start date" />
           <input matEndDate formControlName="end" placeholder="End date" />
         </mat-date-range-input>
-        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
         <mat-error *ngIf="ctrl.invalid">{{

@@ -58,7 +58,7 @@ export class PolicyDefinitionBuilder {
   private buildTimePeriodRestrictionPermissions(
     formValue: NewPolicyDialogFormValue,
   ): Permission[] {
-    if (formValue.dateSelectionType === 'Date-Range') {
+    if (!formValue.rangeIsOpenEnded) {
       const start = formValue.range!!.start!!;
       const end = addDays(formValue.range!!.end!!, 1);
 
@@ -79,7 +79,7 @@ export class PolicyDefinitionBuilder {
         }),
       ];
     } else {
-      const start = formValue.dateSelectionValue!!;
+      const start = formValue.rangeStart!!;
       return [
         this.policyDefinitionUtils.buildPermission({
           constraints: [
