@@ -58,7 +58,6 @@ export class NewPolicyDialogForm {
         return {
           id: true,
           policyType: true,
-          rangeIsOpenEnded: timePeriodRestricted,
           range: timePeriodRestricted,
           connectorId: connecterRestrictedUsage,
         };
