@@ -43,7 +43,8 @@
             Validity
           </div>
           <div>
-            <date [date]="card.contractStartDate"></date> -
+            <date [date]="card.contractStartDate"></date>
+            -
             <date [date]="card.contractEndDate"></date>
           </div>
         </div>
@@ -58,18 +59,28 @@
           </div>
         </div>
       </div>
-      <!-- Counterparty Address -->
-      <div class="flex flex-col flex-grow">
-        <div class="text-slate text-sm uppercase tracking-wider">
-          Other Connector
+      <div class="flex flex-row space-x-[10px] justify-between">
+        <!-- Counterparty Address -->
+        <div class="flex flex-col flex-grow">
+          <div class="text-slate text-sm uppercase tracking-wider">
+            Other Connector
+          </div>
+          <div>
+            <a
+              class="link"
+              target="_blank"
+              [attr.href]="card.counterPartyAddress"
+              >{{ card.counterPartyAddress }}</a
+            >
+          </div>
         </div>
-        <div>
-          <a
-            class="link"
-            target="_blank"
-            [attr.href]="card.counterPartyAddress"
-            >{{ card.counterPartyAddress }}</a
-          >
+        <div *ngIf="card.direction === 'CONSUMING'" class="flex flex-col">
+          <div class="text-slate text-sm uppercase tracking-wider">
+            Consumed Limit
+          </div>
+          <div *ngIf="card.consumedConnectorLimits | json" class="flex flex-row flex-wrap">
+            {{card.consumedConnectorLimits}}
+          </div>
         </div>
       </div>
 

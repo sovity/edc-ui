@@ -8,7 +8,7 @@ import {
   ContractAgreementPage,
   EdcClient,
   KpiResult,
-  buildEdcClient,
+  buildEdcClient, ConnectorLimits,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
 
@@ -29,6 +29,10 @@ export class EdcApiService {
 
   getKpis(): Observable<KpiResult> {
     return from(this.edcClient.useCaseApi.kpiEndpoint());
+  }
+
+  getEnterpriseEditionConnectorLimits(): Observable<ConnectorLimits> {
+    return from(this.edcClient.enterpriseEditionApi.connectorLimits());
   }
 
   brokerCatalog(

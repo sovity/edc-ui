@@ -2,9 +2,11 @@ import {Injectable} from '@angular/core';
 import {Observable, combineLatest, concat, interval} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {
+  ConnectorLimits,
   ContractAgreementCard,
   ContractAgreementPage,
 } from '@sovity.de/edc-client';
+import {ActiveFeatureSet} from '../../../../core/config/active-feature-set';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {ContractAgreementCardMapped} from '../contract-agreement-cards/contract-agreement-card-mapped';
@@ -13,9 +15,12 @@ import {ContractAgreementPageData} from './contract-agreement-page.data';
 
 @Injectable({providedIn: 'root'})
 export class ContractAgreementPageService {
+  consumedConnectorLimitsData!: string;
+
   constructor(
     private edcApiService: EdcApiService,
     private contractAgreementCardMappedService: ContractAgreementCardMappedService,
+    private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
   contractAgreementPageData$(
@@ -51,11 +56,37 @@ export class ContractAgreementPageService {
     );
   }
 
+  private fetchConnectorLimitsData(): Observable<ConnectorLimits> {
+    return this.edcApiService.getEnterpriseEditionConnectorLimits().pipe(
+      Fetched.wrap({failureMessage: 'Failed fetching connector limits'}),
+      Fetched.map((connectorLimits) => connectorLimits),
+    );
+  }
+
   private buildContractAgreementPageData(
     contractAgreementPage: ContractAgreementPage,
   ): ContractAgreementPageData {
+    if (this.activeFeatureSet.hasEnterPriseEditionFields() || true) {
+      this.fetchConnectorLimitsData().subscribe((data) =>
+        data.match({
+          ifOk: (value) => {
+            this.consumedConnectorLimitsData = 'test';
+            console.log('data is.......' + this.consumedConnectorLimitsData);
+            //value.numActiveConsumingContractAgreements.toString() +
+            //'/' +
+            //value.maxActiveConsumingContractAgreements!.toString()
+          },
+          ifError: (data) => console.log(data),
+          ifLoading: () => {
+            this.consumedConnectorLimitsData = 'Loading...';
+          },
+        }),
+      );
+    }
+    console.log('before map' + this.consumedConnectorLimitsData);
     let contractAgreements = this.mapContractAgreements(
       contractAgreementPage.contractAgreements,
+      this.consumedConnectorLimitsData!!,
     );
     return {
       contractAgreements,
@@ -72,10 +103,12 @@ export class ContractAgreementPageService {
 
   private mapContractAgreements(
     contractAgreements: ContractAgreementCard[],
+    consumedConnectorLimit: string,
   ): ContractAgreementCardMapped[] {
     return contractAgreements.map((contractAgreement) =>
       this.contractAgreementCardMappedService.buildContractAgreementCardMapped(
         contractAgreement,
+        consumedConnectorLimit,
       ),
     );
   }

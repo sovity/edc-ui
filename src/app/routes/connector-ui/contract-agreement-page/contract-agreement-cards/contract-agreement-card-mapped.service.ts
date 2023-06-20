@@ -17,6 +17,8 @@ export class ContractAgreementCardMappedService {
    */
   buildContractAgreementCardMapped(
     contractAgreement: ContractAgreementCard,
+    consumedConnectorLimit: string,
+
   ): ContractAgreementCardMapped {
     let asset = this.assetPropertyMapper.buildAssetFromProperties(
       contractAgreement.asset.properties,
@@ -28,6 +30,8 @@ export class ContractAgreementCardMappedService {
       isInProgress: contractAgreement.transferProcesses.some(
         (it) => it.state.simplifiedState === 'RUNNING',
       ),
+      consumedConnectorLimits:
+        contractAgreement.direction == 'CONSUMING' ? consumedConnectorLimit : null,
       searchTargets: [
         contractAgreement.contractAgreementId,
         contractAgreement.counterPartyId,
