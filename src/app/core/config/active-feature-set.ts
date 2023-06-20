@@ -10,6 +10,10 @@ export class ActiveFeatureSet {
     return this.has('mds-fields');
   }
 
+  hasEnterPriseEditionFields(): boolean {
+    return this.has('connector-limit-for-consuming-contract-agreements');
+  }
+
   has(feature: EdcUiFeature): boolean {
     return this.config.features.has(feature);
   }
