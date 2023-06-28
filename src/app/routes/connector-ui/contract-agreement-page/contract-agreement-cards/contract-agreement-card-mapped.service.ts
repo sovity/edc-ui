@@ -27,8 +27,8 @@ export class ContractAgreementCardMappedService {
       isInProgress: contractAgreement.transferProcesses.some(
         (it) => it.state.simplifiedState === 'RUNNING',
       ),
-      isActivated: true,
-      connectorMaxLimit: null,
+      statusText: '',
+      statusTooltipText: '',
       searchTargets: [
         contractAgreement.contractAgreementId,
         contractAgreement.counterPartyId,

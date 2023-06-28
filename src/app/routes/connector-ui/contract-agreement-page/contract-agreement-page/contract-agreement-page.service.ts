@@ -21,6 +21,8 @@ export class ContractAgreementPageService {
     private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
+  private consumingContractAgreements: ContractAgreementCardMapped[] = [];
+
   contractAgreementPageData$(
     refresh$: Observable<any>,
     silentPollingInterval: number,
@@ -68,23 +70,17 @@ export class ContractAgreementPageService {
       contractAgreementPage.contractAgreements,
     );
 
-    let consumingContractAgreements = contractAgreements.filter(
+    this.consumingContractAgreements = contractAgreements.filter(
       (it) => it.direction === 'CONSUMING',
     );
 
-    if (connectorLimits?.maxActiveConsumingContractAgreements != null) {
-      consumingContractAgreements.map((it) => {
-        it.isActivated =
-          consumingContractAgreements.indexOf(it) <
-          connectorLimits?.maxActiveConsumingContractAgreements!;
-        it.connectorMaxLimit =
-          connectorLimits?.maxActiveConsumingContractAgreements!;
-      });
+    if (connectorLimits) {
+      this.setStatus(connectorLimits?.maxActiveConsumingContractAgreements!);
     }
 
     return {
       contractAgreements,
-      consumingContractAgreements: consumingContractAgreements,
+      consumingContractAgreements: this.consumingContractAgreements,
       providingContractAgreements: contractAgreements.filter(
         (it) => it.direction === 'PROVIDING',
       ),
@@ -129,9 +125,21 @@ export class ContractAgreementPageService {
   }
 
   private fetchLimits(): Observable<ConnectorLimits | null> {
-    if (this.activeFeatureSet.hasEnterPriseEditionFields()) {
+    if (this.activeFeatureSet.hasConnectorLimits()) {
       return this.edcApiService.getEnterpriseEditionConnectorLimits();
     }
     return of(null);
+  }
+
+  private setStatus(maxConnectorLimit: number | null) {
+    this.consumingContractAgreements.map((it, index) => {
+      if (!maxConnectorLimit || index < maxConnectorLimit!) {
+        it.statusText = 'Active';
+      } else {
+        it.statusText = 'Inactive';
+        it.statusTooltipText =
+          'This connector has an active limit of consuming contract agreements, causing contract agreements to get disabled if new ones are negotiated.';
+      }
+    });
   }
 }

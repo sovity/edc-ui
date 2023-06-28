@@ -292,6 +292,12 @@ export class AssetPropertyGridGroupBuilder {
             contractAgreement.contractAgreementId,
           ),
         },
+        {
+          icon: 'info',
+          label: 'Status',
+          tooltip: contractAgreement.statusTooltipText,
+          ...this.propertyGridUtils.guessValue(contractAgreement.statusText),
+        },
       ],
     };
   }

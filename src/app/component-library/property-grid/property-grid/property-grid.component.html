@@ -41,9 +41,10 @@
       >{{ prop.text }}</a
     >
 
-    <!-- Property Value (Text) -->
+    <!-- Property Value (Text) with tooltip -->
     <span
       *ngIf="!(prop.url || prop.onclick)"
+      matTooltip="{{ prop.tooltip }}"
       [ngClass]="prop.additionalClasses"
       >{{ prop.text }}</span
     >

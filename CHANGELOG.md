@@ -16,7 +16,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
-- Added connector limit restriction to Enterprise Edition Connectors
+- Enteprise Edition (Basic): Added support for consuming contract agreement
+  limits.
 
 #### Changed
 

@@ -7,7 +7,7 @@ export type ContractAgreementCardMapped = Omit<
 > & {
   asset: Asset;
   isInProgress: boolean;
-  isActivated: boolean;
-  connectorMaxLimit: number | null;
+  statusText: string;
+  statusTooltipText: string | null;
   searchTargets: (string | null)[];
 };

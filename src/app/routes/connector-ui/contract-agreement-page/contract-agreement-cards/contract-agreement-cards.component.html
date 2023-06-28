@@ -72,59 +72,16 @@
             >
           </div>
         </div>
-        <!-- Consuming Status -->
+        <!-- Status -->
         <div
           *ngIf="
             card.direction === 'CONSUMING' &&
-            ('connector-limit-for-consuming-contract-agreements'
-              | isActiveFeature)
+            ('connector-limits' | isActiveFeature)
           "
           class="flex flex-col">
-          <div class="text-slate text-sm uppercase tracking-wider">
-            Consuming Status
-          </div>
-          <div
-            *ngIf="card.isActivated && !card.connectorMaxLimit"
-            class="text-right"
-            data-toggle="tooltip"
-            title="Unlimited transferring of the consuming contract agreements are allowed.">
-            {{ 'Activated' }}
-          </div>
-          <div
-            *ngIf="card.isActivated && card.connectorMaxLimit! > 1"
-            class="text-right"
-            data-toggle="tooltip"
-            title="Be aware that only transferring of the {{
-              card.connectorMaxLimit
-            }} newest consuming contract agreements are allowed.">
-            {{ 'Activated' }}
-          </div>
-          <div
-            *ngIf="!card.isActivated && card.connectorMaxLimit! > 1"
-            class="text-right"
-            data-toggle="tooltip"
-            title="Be aware that only transferring of the {{
-              card.connectorMaxLimit
-            }} newest consuming contract agreements are allowed.">
-            {{ 'Deactivated' }}
-          </div>
-          <div
-            *ngIf="card.isActivated && card.connectorMaxLimit === 1"
-            class="text-right"
-            data-toggle="tooltip"
-            title="Be aware that only transferring of the {{
-              card.connectorMaxLimit
-            }} newest consuming contract agreement is allowed.">
-            {{ 'Activated' }}
-          </div>
-          <div
-            *ngIf="!card.isActivated && card.connectorMaxLimit === 1"
-            class="text-right"
-            data-toggle="tooltip"
-            title="Be aware that only transferring of the {{
-              card.connectorMaxLimit
-            }} newest consuming contract agreement is allowed.">
-            {{ 'Deactivated' }}
+          <div class="text-slate text-sm uppercase tracking-wider">Status</div>
+          <div class="text-right" [matTooltip]="card.statusTooltipText">
+            {{ card.statusText }}
           </div>
         </div>
       </div>

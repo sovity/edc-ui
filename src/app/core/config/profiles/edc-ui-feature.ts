@@ -12,4 +12,4 @@ export type EdcUiFeature =
   | 'open-source-marketing'
 
   // Enterprise Edition specific attribute to view limits enforced on consuming contract agreements
-  | 'connector-limit-for-consuming-contract-agreements';
+  | 'connector-limits';

@@ -21,4 +21,5 @@ export interface PropertyGridField {
   additionalClasses?: string;
 
   copyButton?: boolean;
+  tooltip?: string | null;
 }
