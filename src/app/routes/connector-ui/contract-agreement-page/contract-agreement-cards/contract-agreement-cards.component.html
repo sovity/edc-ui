@@ -94,28 +94,36 @@
             *ngIf="card.isActivated && card.connectorMaxLimit! > 1"
             class="text-right"
             data-toggle="tooltip"
-            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreements are allowed.">
+            title="Be aware that only transferring of the {{
+              card.connectorMaxLimit
+            }} newest consuming contract agreements are allowed.">
             {{ 'Activated' }}
           </div>
           <div
             *ngIf="!card.isActivated && card.connectorMaxLimit! > 1"
             class="text-right"
             data-toggle="tooltip"
-            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreements are allowed.">
+            title="Be aware that only transferring of the {{
+              card.connectorMaxLimit
+            }} newest consuming contract agreements are allowed.">
             {{ 'Deactivated' }}
           </div>
           <div
             *ngIf="card.isActivated && card.connectorMaxLimit === 1"
             class="text-right"
             data-toggle="tooltip"
-            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreement is allowed.">
+            title="Be aware that only transferring of the {{
+              card.connectorMaxLimit
+            }} newest consuming contract agreement is allowed.">
             {{ 'Activated' }}
           </div>
           <div
             *ngIf="!card.isActivated && card.connectorMaxLimit === 1"
             class="text-right"
             data-toggle="tooltip"
-            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreement is allowed.">
+            title="Be aware that only transferring of the {{
+              card.connectorMaxLimit
+            }} newest consuming contract agreement is allowed.">
             {{ 'Deactivated' }}
           </div>
         </div>

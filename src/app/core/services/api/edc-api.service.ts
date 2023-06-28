@@ -3,12 +3,13 @@ import {Observable, from} from 'rxjs';
 import {
   CatalogPageQuery,
   CatalogPageResult,
+  ConnectorLimits,
   ConnectorPageQuery,
   ConnectorPageResult,
   ContractAgreementPage,
   EdcClient,
   KpiResult,
-  buildEdcClient, ConnectorLimits,
+  buildEdcClient,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
 

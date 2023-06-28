@@ -73,13 +73,13 @@ export class ContractAgreementPageService {
     );
 
     if (connectorLimits?.maxActiveConsumingContractAgreements != null) {
-      consumingContractAgreements.map(
-        (it) =>
-        {it.isActivated =
-            consumingContractAgreements.indexOf(it) <
-            connectorLimits?.maxActiveConsumingContractAgreements!;
-        it.connectorMaxLimit = connectorLimits?.maxActiveConsumingContractAgreements!;}
-      );
+      consumingContractAgreements.map((it) => {
+        it.isActivated =
+          consumingContractAgreements.indexOf(it) <
+          connectorLimits?.maxActiveConsumingContractAgreements!;
+        it.connectorMaxLimit =
+          connectorLimits?.maxActiveConsumingContractAgreements!;
+      });
     }
 
     return {

@@ -3,7 +3,7 @@
     {
       "contractAgreementId": "my-own-asset-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e",
       "direction": "PROVIDING",
-      "counterPartyAddress": "http://edc2:11003/api/v1/ids/data/blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "counterPartyAddress": "http://edc2:11003/api/v1/ids/data",
       "counterPartyId": "urn:connector:example-connector",
       "contractSigningDate": "2022-03-20T11:18:59.659Z",
       "contractStartDate": "2022-03-20T11:18:59.659Z",
@@ -110,7 +110,7 @@
     {
       "contractAgreementId": "my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b7867531",
       "direction": "CONSUMING",
-      "counterPartyAddress": "http://edc2:11003/api/v1/ids/data/blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "counterPartyAddress": "http://edc2:11003/api/v1/ids/data",
       "counterPartyId": "my-connector",
       "contractSigningDate": "2022-03-25T11:18:59.659Z",
       "contractStartDate": "2022-03-25T11:18:59.659Z",
@@ -181,7 +181,7 @@
     {
       "contractAgreementId": "my-test-asset-2-cd:6ebbc301-9b1e-4cd7-9f17-08b5b7867533",
       "direction": "CONSUMING",
-      "counterPartyAddress": "http://edc2:11003/api/v1/ids/data/blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "counterPartyAddress": "http://edc2:11003/api/v1/ids/data",
       "counterPartyId": "my-connector",
       "contractSigningDate": "2022-03-25T11:18:59.659Z",
       "contractStartDate": "2022-03-25T11:18:59.659Z",
