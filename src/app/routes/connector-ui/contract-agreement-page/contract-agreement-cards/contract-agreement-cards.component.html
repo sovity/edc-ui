@@ -58,25 +58,62 @@
       </div>
       <div class="flex flex-row space-x-[10px] justify-between">
         <!-- Counterparty Address -->
-        <div class="flex flex-col flex-grow">
-          <div class="text-slate text-sm uppercase tracking-wider">
-            Other Connector
-          </div>
+        <div class="flex flex-col">
+          <div class="text-slate text-sm uppercase">Other Connector</div>
           <div>
             <a
-              class="link"
+              class="link break-all"
               target="_blank"
               [attr.href]="card.counterPartyAddress"
               >{{ card.counterPartyAddress }}</a
             >
           </div>
         </div>
-        <div *ngIf="card.direction === 'CONSUMING'" class="flex flex-col">
+        <!-- Consuming Status -->
+        <div
+          *ngIf="
+            card.direction === 'CONSUMING' &&
+            ('connector-limit-for-consuming-contract-agreements'
+              | isActiveFeature)
+          "
+          class="flex flex-col">
           <div class="text-slate text-sm uppercase tracking-wider">
-            Consumed Limit
+            Consuming Status
           </div>
-          <div *ngIf="card.consumedConnectorLimits | json" class="flex flex-row flex-wrap">
-            {{card.consumedConnectorLimits}}
+          <div
+            *ngIf="card.isActivated && !card.connectorMaxLimit"
+            class="text-right"
+            data-toggle="tooltip"
+            title="Unlimited transferring of the consuming contract agreements are allowed.">
+            {{ 'Activated' }}
+          </div>
+          <div
+            *ngIf="card.isActivated && card.connectorMaxLimit! > 1"
+            class="text-right"
+            data-toggle="tooltip"
+            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreements are allowed.">
+            {{ 'Activated' }}
+          </div>
+          <div
+            *ngIf="!card.isActivated && card.connectorMaxLimit! > 1"
+            class="text-right"
+            data-toggle="tooltip"
+            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreements are allowed.">
+            {{ 'Deactivated' }}
+          </div>
+          <div
+            *ngIf="card.isActivated && card.connectorMaxLimit === 1"
+            class="text-right"
+            data-toggle="tooltip"
+            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreement is allowed.">
+            {{ 'Activated' }}
+          </div>
+          <div
+            *ngIf="!card.isActivated && card.connectorMaxLimit === 1"
+            class="text-right"
+            data-toggle="tooltip"
+            title="Be aware that only transferring of the {{card.connectorMaxLimit}} newest consuming contract agreement is allowed.">
+            {{ 'Deactivated' }}
           </div>
         </div>
       </div>
