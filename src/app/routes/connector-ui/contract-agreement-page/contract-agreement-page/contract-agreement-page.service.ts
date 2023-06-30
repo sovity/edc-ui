@@ -92,9 +92,7 @@ export class ContractAgreementPageService {
         ...consumingContractAgreements,
       ],
       consumingContractAgreements,
-      providingContractAgreements: contractAgreements.filter(
-        (it) => it.direction === 'PROVIDING',
-      ),
+      providingContractAgreements,
       numTotalContractAgreements: contractAgreements.length,
     };
   }
