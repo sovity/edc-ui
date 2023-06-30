@@ -27,6 +27,7 @@ export class ContractAgreementCardMappedService {
       isInProgress: contractAgreement.transferProcesses.some(
         (it) => it.state.simplifiedState === 'RUNNING',
       ),
+      isConsumingLimitsEnforced: false,
       statusText: '',
       statusTooltipText: '',
       searchTargets: [
@@ -43,5 +44,26 @@ export class ContractAgreementCardMappedService {
     searchText: string,
   ): ContractAgreementCardMapped[] {
     return search(cards, searchText, (card) => card.searchTargets);
+  }
+
+  setStatus(
+    maxConsumingContracts: number,
+    agreements: ContractAgreementCardMapped[],
+  ): ContractAgreementCardMapped[] {
+    return agreements.map((it, index) => ({
+      ...it,
+      isConsumingLimitsEnforced: true,
+      statusText: index < maxConsumingContracts ? 'Active' : 'Inactive',
+      statusTooltipText:
+        index >= maxConsumingContracts
+          ? maxConsumingContracts == 1
+            ? 'This connector is configured with a limit of ' +
+              maxConsumingContracts +
+              ' active consuming contract agreement, causing contract agreement to get disabled if new ones are negotiated.'
+            : 'This connector is configured with a limit of ' +
+              maxConsumingContracts +
+              ' active consuming contract agreements, causing contract agreements to get disabled if new ones are negotiated.'
+          : '',
+    }));
   }
 }

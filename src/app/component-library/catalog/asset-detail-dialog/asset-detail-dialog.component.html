@@ -97,11 +97,11 @@
       <button
         *ngIf="
           data.type === 'contract-agreement' &&
-          data.contractAgreement?.direction === 'CONSUMING' &&
-          data.contractAgreement?.statusText === 'Active'
+          data.contractAgreement?.direction === 'CONSUMING'
         "
         mat-raised-button
         color="primary"
+        [disabled]="data.contractAgreement?.statusText == 'Inactive'"
         (click)="onTransferClick()">
         Transfer
       </button>

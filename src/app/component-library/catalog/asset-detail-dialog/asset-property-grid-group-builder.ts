@@ -6,7 +6,9 @@ import {Policy} from '../../../core/services/api/legacy-managent-api-client';
 import {AssetProperties} from '../../../core/services/asset-properties';
 import {Asset} from '../../../core/services/models/asset';
 import {BrokerDataOffer} from '../../../routes/broker-ui/catalog-page/catalog-page/mapping/broker-data-offer';
-import {ContractAgreementCardMapped} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
+import {
+  ContractAgreementCardMapped
+} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
 import {JsonDialogComponent} from '../../json-dialog/json-dialog/json-dialog.component';
 import {JsonDialogData} from '../../json-dialog/json-dialog/json-dialog.data';
 import {PropertyGridGroup} from '../../property-grid/property-grid-group/property-grid-group';
@@ -14,13 +16,15 @@ import {PropertyGridField} from '../../property-grid/property-grid/property-grid
 import {PropertyGridFieldService} from '../../property-grid/property-grid/property-grid-field.service';
 import {formatDateAgo} from '../../ui-elements/ago/formatDateAgo';
 
+
 @Injectable()
 export class AssetPropertyGridGroupBuilder {
   constructor(
     private matDialog: MatDialog,
     private activeFeatureSet: ActiveFeatureSet,
     private propertyGridUtils: PropertyGridFieldService,
-  ) {}
+  ) {
+  }
 
   buildAssetPropertiesGroup(
     asset: Asset,
@@ -236,69 +240,74 @@ export class AssetPropertyGridGroupBuilder {
   }
 
   buildContractAgreementGroup(contractAgreement: ContractAgreementCardMapped) {
+    let properties: PropertyGridField[] = [];
+    properties = [
+      {
+        icon: 'category',
+        label: 'Signed',
+        ...this.propertyGridUtils.guessValue(
+          this.propertyGridUtils.formatDate(
+            contractAgreement.contractSigningDate,
+          ),
+        ),
+      },
+      {
+        icon: 'category',
+        label: 'Valid From',
+        ...this.propertyGridUtils.guessValue(
+          this.propertyGridUtils.formatDate(
+            contractAgreement.contractStartDate,
+          ),
+        ),
+      },
+      {
+        icon: 'category',
+        label: 'Valid To',
+        ...this.propertyGridUtils.guessValue(
+          this.propertyGridUtils.formatDate(
+            contractAgreement.contractEndDate,
+          ),
+        ),
+      },
+      {
+        icon: 'policy',
+        label: 'Direction',
+        ...this.propertyGridUtils.guessValue(contractAgreement.direction),
+      },
+      {
+        icon: 'link',
+        label: 'Other Connector Endpoint',
+        ...this.propertyGridUtils.guessValue(
+          contractAgreement.counterPartyAddress,
+        ),
+      },
+      {
+        icon: 'link',
+        label: 'Other Connector ID',
+        ...this.propertyGridUtils.guessValue(
+          contractAgreement.counterPartyId,
+        ),
+      },
+      {
+        icon: 'category',
+        label: 'Contract Agreement ID',
+        ...this.propertyGridUtils.guessValue(
+          contractAgreement.contractAgreementId,
+        ),
+      },
+    ]
+    if (contractAgreement.isConsumingLimitsEnforced){
+      properties.push({
+        icon: 'info',
+        label: 'Status',
+        tooltip: contractAgreement.statusTooltipText,
+        ...this.propertyGridUtils.guessValue(contractAgreement.statusText),
+      },)
+    }
+
     return {
       groupLabel: 'Contract Agreement',
-      properties: [
-        {
-          icon: 'category',
-          label: 'Signed',
-          ...this.propertyGridUtils.guessValue(
-            this.propertyGridUtils.formatDate(
-              contractAgreement.contractSigningDate,
-            ),
-          ),
-        },
-        {
-          icon: 'category',
-          label: 'Valid From',
-          ...this.propertyGridUtils.guessValue(
-            this.propertyGridUtils.formatDate(
-              contractAgreement.contractStartDate,
-            ),
-          ),
-        },
-        {
-          icon: 'category',
-          label: 'Valid To',
-          ...this.propertyGridUtils.guessValue(
-            this.propertyGridUtils.formatDate(
-              contractAgreement.contractEndDate,
-            ),
-          ),
-        },
-        {
-          icon: 'policy',
-          label: 'Direction',
-          ...this.propertyGridUtils.guessValue(contractAgreement.direction),
-        },
-        {
-          icon: 'link',
-          label: 'Other Connector Endpoint',
-          ...this.propertyGridUtils.guessValue(
-            contractAgreement.counterPartyAddress,
-          ),
-        },
-        {
-          icon: 'link',
-          label: 'Other Connector ID',
-          ...this.propertyGridUtils.guessValue(
-            contractAgreement.counterPartyId,
-          ),
-        },
-        {
-          icon: 'category',
-          label: 'Contract Agreement ID',
-          ...this.propertyGridUtils.guessValue(
-            contractAgreement.contractAgreementId,
-          ),
-        },
-        {
-          icon: 'info',
-          label: 'Status',
-          tooltip: contractAgreement.statusTooltipText,
-          ...this.propertyGridUtils.guessValue(contractAgreement.statusText),
-        },
-      ],
+      properties
     };
   }
 

@@ -10,12 +10,14 @@
   <mat-icon
     style="flex-shrink: 0; margin-top: 6px"
     [attr.title]="prop.labelTitle"
+    matTooltip="{{ prop.tooltip }}"
     >{{ prop.icon }}</mat-icon
   >
   <div class="flex flex-col">
     <!-- Property Label -->
     <div
       class="uppercase text-slate text-sm break-all"
+      matTooltip="{{ prop.tooltip }}"
       [attr.title]="prop.labelTitle">
       {{ prop.label }}
     </div>

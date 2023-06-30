@@ -74,13 +74,13 @@
         </div>
         <!-- Status -->
         <div
-          *ngIf="
-            card.direction === 'CONSUMING' &&
-            ('connector-limits' | isActiveFeature)
-          "
-          class="flex flex-col">
-          <div class="text-slate text-sm uppercase tracking-wider">Status</div>
-          <div class="text-right" [matTooltip]="card.statusTooltipText">
+          *ngIf="card.isConsumingLimitsEnforced"
+          class="flex flex-col"
+          [matTooltip]="card.statusTooltipText">
+          <div class="text-slate text-sm uppercase tracking-wider text-right">
+            Status
+          </div>
+          <div class="text-right">
             {{ card.statusText }}
           </div>
         </div>

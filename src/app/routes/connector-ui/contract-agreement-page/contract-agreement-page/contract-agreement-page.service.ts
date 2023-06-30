@@ -21,8 +21,6 @@ export class ContractAgreementPageService {
     private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
-  private consumingContractAgreements: ContractAgreementCardMapped[] = [];
-
   contractAgreementPageData$(
     refresh$: Observable<any>,
     silentPollingInterval: number,
@@ -70,17 +68,30 @@ export class ContractAgreementPageService {
       contractAgreementPage.contractAgreements,
     );
 
-    this.consumingContractAgreements = contractAgreements.filter(
+    let consumingContractAgreements = contractAgreements.filter(
       (it) => it.direction === 'CONSUMING',
     );
+    let providingContractAgreements = contractAgreements.filter(
+      (it) => it.direction === 'PROVIDING',
+    );
 
-    if (connectorLimits) {
-      this.setStatus(connectorLimits?.maxActiveConsumingContractAgreements!);
+    let isConsumingLimitsEnforced =
+      connectorLimits?.maxActiveConsumingContractAgreements != null &&
+      connectorLimits.maxActiveConsumingContractAgreements >= 0;
+    if (isConsumingLimitsEnforced) {
+      consumingContractAgreements =
+        this.contractAgreementCardMappedService.setStatus(
+          connectorLimits?.maxActiveConsumingContractAgreements!,
+          consumingContractAgreements,
+        );
     }
 
     return {
-      contractAgreements,
-      consumingContractAgreements: this.consumingContractAgreements,
+      contractAgreements: [
+        ...providingContractAgreements,
+        ...consumingContractAgreements,
+      ],
+      consumingContractAgreements,
       providingContractAgreements: contractAgreements.filter(
         (it) => it.direction === 'PROVIDING',
       ),
@@ -129,17 +140,5 @@ export class ContractAgreementPageService {
       return this.edcApiService.getEnterpriseEditionConnectorLimits();
     }
     return of(null);
-  }
-
-  private setStatus(maxConnectorLimit: number | null) {
-    this.consumingContractAgreements.map((it, index) => {
-      if (!maxConnectorLimit || index < maxConnectorLimit!) {
-        it.statusText = 'Active';
-      } else {
-        it.statusText = 'Inactive';
-        it.statusTooltipText =
-          'This connector has an active limit of consuming contract agreements, causing contract agreements to get disabled if new ones are negotiated.';
-      }
-    });
   }
 }
