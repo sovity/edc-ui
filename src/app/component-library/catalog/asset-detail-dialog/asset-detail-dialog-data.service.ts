@@ -3,19 +3,15 @@ import {Policy} from '../../../core/services/api/legacy-managent-api-client';
 import {Asset} from '../../../core/services/models/asset';
 import {ContractOffer} from '../../../core/services/models/contract-offer';
 import {BrokerDataOffer} from '../../../routes/broker-ui/catalog-page/catalog-page/mapping/broker-data-offer';
-import {
-  ContractAgreementCardMapped
-} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
+import {ContractAgreementCardMapped} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
 import {AssetDetailDialogData} from './asset-detail-dialog-data';
 import {AssetPropertyGridGroupBuilder} from './asset-property-grid-group-builder';
-
 
 @Injectable()
 export class AssetDetailDialogDataService {
   constructor(
     private assetPropertyGridGroupBuilder: AssetPropertyGridGroupBuilder,
-  ) {
-  }
+  ) {}
 
   assetDetails(asset: Asset, allowDelete: boolean): AssetDetailDialogData {
     const propertyGridGroups = [
