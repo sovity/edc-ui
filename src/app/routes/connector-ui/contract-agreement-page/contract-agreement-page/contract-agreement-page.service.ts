@@ -13,6 +13,7 @@ import {ContractAgreementCardMapped} from '../contract-agreement-cards/contract-
 import {ContractAgreementCardMappedService} from '../contract-agreement-cards/contract-agreement-card-mapped.service';
 import {ContractAgreementPageData} from './contract-agreement-page.data';
 
+
 @Injectable({providedIn: 'root'})
 export class ContractAgreementPageService {
   constructor(
@@ -80,7 +81,7 @@ export class ContractAgreementPageService {
       connectorLimits.maxActiveConsumingContractAgreements >= 0;
     if (isConsumingLimitsEnforced) {
       consumingContractAgreements =
-        this.contractAgreementCardMappedService.setStatus(
+        this.contractAgreementCardMappedService.withEnforcedLimits(
           connectorLimits?.maxActiveConsumingContractAgreements!,
           consumingContractAgreements,
         );

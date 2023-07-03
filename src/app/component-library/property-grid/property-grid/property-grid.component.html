@@ -9,7 +9,7 @@
   <!-- Property Icon -->
   <mat-icon
     style="flex-shrink: 0; margin-top: 6px"
-    matTooltip="{{ prop.tooltip }}"
+   [matTooltip]="prop.tooltip!"
     [attr.title]="prop.labelTitle"
     >{{ prop.icon }}</mat-icon
   >
@@ -17,7 +17,7 @@
     <!-- Property Label -->
     <div
       class="uppercase text-slate text-sm break-all"
-      matTooltip="{{ prop.tooltip }}"
+     [matTooltip]="prop.tooltip!"
       [attr.title]="prop.labelTitle">
       {{ prop.label }}
     </div>
@@ -46,11 +46,11 @@
     <!-- Property Value (Text) with tooltip -->
     <span
       *ngIf="!(prop.url || prop.onclick)"
-      matTooltip="{{ prop.tooltip }}"
+     [matTooltip]="prop.tooltip!"
       [ngClass]="prop.additionalClasses"
       >{{ prop.text }}
       <mat-icon *ngIf="prop.tooltip" class="mat-icon-[10px]"
-        >info
+        >{{prop.icon}}
       </mat-icon></span
     >
   </div>

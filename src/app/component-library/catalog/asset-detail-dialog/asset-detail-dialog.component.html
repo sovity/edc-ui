@@ -101,7 +101,7 @@
         "
         mat-raised-button
         color="primary"
-        [disabled]="data.contractAgreement?.statusText == 'Inactive'"
+        [disabled]="!data.contractAgreement?.canTransfer"
         (click)="onTransferClick()">
         Transfer
       </button>

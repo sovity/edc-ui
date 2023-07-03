@@ -10,5 +10,6 @@ export type ContractAgreementCardMapped = Omit<
   isConsumingLimitsEnforced: boolean;
   statusText: string;
   statusTooltipText: string;
+  canTransfer: boolean;
   searchTargets: (string | null)[];
 };

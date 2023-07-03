@@ -31,6 +31,7 @@ export class ContractAgreementCardMappedService {
       isConsumingLimitsEnforced: false,
       statusText: '',
       statusTooltipText: '',
+      canTransfer: true,
       searchTargets: [
         contractAgreement.contractAgreementId,
         contractAgreement.counterPartyId,
@@ -47,7 +48,7 @@ export class ContractAgreementCardMappedService {
     return search(cards, searchText, (card) => card.searchTargets);
   }
 
-  setStatus(
+  withEnforcedLimits(
     maxConsumingContracts: number,
     agreements: ContractAgreementCardMapped[],
   ): ContractAgreementCardMapped[] {
@@ -59,6 +60,7 @@ export class ContractAgreementCardMappedService {
         index,
         maxConsumingContracts,
       ),
+      canTransfer: index < maxConsumingContracts,
     }));
   }
 
@@ -67,11 +69,9 @@ export class ContractAgreementCardMappedService {
     maxConsumingContracts: number,
   ): string {
     if (index >= maxConsumingContracts) {
-      if (maxConsumingContracts == 1) {
-        return `This connector is configured with a limit of ${maxConsumingContracts} active consuming contract agreement, causing contract agreement to get disabled if new ones are negotiated.`;
-      } else {
-        return `This connector is configured with a limit of ${maxConsumingContracts} active consuming contract agreements, causing contract agreements to get disabled if new ones are negotiated.`;
-      }
+      return `This connector is licensed for a maximum number of ${maxConsumingContracts} consuming contract${
+        maxConsumingContracts == 1 ? '' : 's'
+      }. When negotiating new contracts, older contracts will be deactivated.`;
     } else {
       return '';
     }
