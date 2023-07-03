@@ -21,6 +21,7 @@ export class ContractAgreementCardMappedService {
     let asset = this.assetPropertyMapper.buildAssetFromProperties(
       contractAgreement.asset.properties,
     );
+
     return {
       ...contractAgreement,
       asset,
@@ -54,16 +55,25 @@ export class ContractAgreementCardMappedService {
       ...it,
       isConsumingLimitsEnforced: true,
       statusText: index < maxConsumingContracts ? 'Active' : 'Inactive',
-      statusTooltipText:
-        index >= maxConsumingContracts
-          ? maxConsumingContracts == 1
-            ? 'This connector is configured with a limit of ' +
-              maxConsumingContracts +
-              ' active consuming contract agreement, causing contract agreement to get disabled if new ones are negotiated.'
-            : 'This connector is configured with a limit of ' +
-              maxConsumingContracts +
-              ' active consuming contract agreements, causing contract agreements to get disabled if new ones are negotiated.'
-          : '',
+      statusTooltipText: this.getConsumingContractsInfoText(
+        index,
+        maxConsumingContracts,
+      ),
     }));
+  }
+
+  private getConsumingContractsInfoText(
+    index: number,
+    maxConsumingContracts: number,
+  ): string {
+    if (index >= maxConsumingContracts) {
+      if (maxConsumingContracts == 1) {
+        return `This connector is configured with a limit of ${maxConsumingContracts} active consuming contract agreement, causing contract agreement to get disabled if new ones are negotiated.`;
+      } else {
+        return `This connector is configured with a limit of ${maxConsumingContracts} active consuming contract agreements, causing contract agreements to get disabled if new ones are negotiated.`;
+      }
+    } else {
+      return '';
+    }
   }
 }
