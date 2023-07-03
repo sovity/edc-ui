@@ -20,6 +20,9 @@
       matTooltip="{{ prop.tooltip }}"
       [attr.title]="prop.labelTitle">
       {{ prop.label }}
+      <mat-icon *ngIf="prop.tooltip" class="text-warn mat-icon-[10px]"
+        >warning
+      </mat-icon>
     </div>
 
     <!-- Property Value (URL) -->
