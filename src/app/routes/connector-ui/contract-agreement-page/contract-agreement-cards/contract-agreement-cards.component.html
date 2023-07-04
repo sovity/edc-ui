@@ -83,7 +83,7 @@
           <div class="text-right">
             {{ card.statusText }}
             <mat-icon
-              *ngIf="card.statusText === 'Inactive'"
+              *ngIf="!card.canTransfer"
               class="mat-icon-[10px]"
               >info
             </mat-icon>
