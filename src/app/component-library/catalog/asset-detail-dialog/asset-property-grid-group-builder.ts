@@ -6,9 +6,7 @@ import {Policy} from '../../../core/services/api/legacy-managent-api-client';
 import {AssetProperties} from '../../../core/services/asset-properties';
 import {Asset} from '../../../core/services/models/asset';
 import {BrokerDataOffer} from '../../../routes/broker-ui/catalog-page/catalog-page/mapping/broker-data-offer';
-import {
-  ContractAgreementCardMapped
-} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
+import {ContractAgreementCardMapped} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
 import {JsonDialogComponent} from '../../json-dialog/json-dialog/json-dialog.component';
 import {JsonDialogData} from '../../json-dialog/json-dialog/json-dialog.data';
 import {PropertyGridGroup} from '../../property-grid/property-grid-group/property-grid-group';
@@ -16,15 +14,13 @@ import {PropertyGridField} from '../../property-grid/property-grid/property-grid
 import {PropertyGridFieldService} from '../../property-grid/property-grid/property-grid-field.service';
 import {formatDateAgo} from '../../ui-elements/ago/formatDateAgo';
 
-
 @Injectable()
 export class AssetPropertyGridGroupBuilder {
   constructor(
     private matDialog: MatDialog,
     private activeFeatureSet: ActiveFeatureSet,
     private propertyGridUtils: PropertyGridFieldService,
-  ) {
-  }
+  ) {}
 
   buildAssetPropertiesGroup(
     asset: Asset,
@@ -294,10 +290,12 @@ export class AssetPropertyGridGroupBuilder {
 
     if (contractAgreement.isConsumingLimitsEnforced) {
       properties.push({
-        icon: 'info',
+        icon: contractAgreement.canTransfer ? 'sync' : 'sync_disabled',
         label: 'Status',
         tooltip: contractAgreement.statusTooltipText,
-        ...this.propertyGridUtils.guessValue(contractAgreement.statusText),
+        textIconAfter: contractAgreement.statusTooltipText ? 'help' : null,
+        text: contractAgreement.statusText,
+        additionalClasses: 'text-warn',
       });
     }
 

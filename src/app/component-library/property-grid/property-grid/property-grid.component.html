@@ -3,13 +3,13 @@
   class=""
   emptyMessage="No properties."></empty-state>
 <div
-  *ngFor="let prop of props"
+  *ngFor="let prop of props; trackBy: trackByIndex"
   class="flex flex-row space-x-[10px] overflow-hidden"
   [style.width]="'calc(100% / ' + columns + ' - ' + (columns - 1) * 10 + 'px)'">
   <!-- Property Icon -->
   <mat-icon
     style="flex-shrink: 0; margin-top: 6px"
-   [matTooltip]="prop.tooltip!"
+    [matTooltip]="prop.tooltip!"
     [attr.title]="prop.labelTitle"
     >{{ prop.icon }}</mat-icon
   >
@@ -17,7 +17,7 @@
     <!-- Property Label -->
     <div
       class="uppercase text-slate text-sm break-all"
-     [matTooltip]="prop.tooltip!"
+      [matTooltip]="prop.tooltip!"
       [attr.title]="prop.labelTitle">
       {{ prop.label }}
     </div>
@@ -46,13 +46,13 @@
     <!-- Property Value (Text) with tooltip -->
     <span
       *ngIf="!(prop.url || prop.onclick)"
-     [matTooltip]="prop.tooltip!"
+      [matTooltip]="prop.tooltip!"
       [ngClass]="prop.additionalClasses"
       >{{ prop.text }}
-      <mat-icon *ngIf="prop.tooltip" class="mat-icon-[10px]"
-        >{{prop.icon}}
-      </mat-icon></span
-    >
+      <mat-icon *ngIf="prop.textIconAfter" class="mat-icon-[12px]">
+        {{ prop.textIconAfter }}
+      </mat-icon>
+    </span>
   </div>
   <button
     *ngIf="prop.copyButton"

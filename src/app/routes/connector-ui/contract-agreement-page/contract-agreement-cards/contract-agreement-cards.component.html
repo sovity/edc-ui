@@ -80,12 +80,10 @@
           <div class="text-slate text-sm uppercase tracking-wider text-right">
             Status
           </div>
-          <div class="text-right">
+          <div class="text-right" [class.text-warn]="!card.canTransfer">
             {{ card.statusText }}
-            <mat-icon
-              *ngIf="!card.canTransfer"
-              class="mat-icon-[10px]"
-              >info
+            <mat-icon *ngIf="!card.canTransfer" class="mat-icon-[12px]">
+              help
             </mat-icon>
           </div>
         </div>

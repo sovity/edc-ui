@@ -22,4 +22,5 @@ export interface PropertyGridField {
 
   copyButton?: boolean;
   tooltip?: string | null;
+  textIconAfter?: string | null;
 }
