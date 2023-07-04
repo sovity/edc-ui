@@ -20,7 +20,7 @@ export class HttpRequestParamsMapper {
     return this.encodeHttpRequestParams(params);
   }
 
-  encodeHttpProxyTransferRequestPropreties(
+  encodeHttpProxyTransferRequestProperties(
     asset: Asset,
     value: ContractAgreementTransferDialogFormValue,
   ): Record<string, string> {

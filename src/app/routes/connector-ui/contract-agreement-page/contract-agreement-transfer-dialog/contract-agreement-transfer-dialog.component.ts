@@ -109,7 +109,7 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
     }
 
     let transferRequestProperties =
-      this.httpRequestParamsMapper.encodeHttpProxyTransferRequestPropreties(
+      this.httpRequestParamsMapper.encodeHttpProxyTransferRequestProperties(
         this.data.asset,
         value,
       );
