@@ -315,7 +315,10 @@ export class AssetPropertyGridGroupBuilder {
           copyButton: true,
         },
         {
-          icon: 'link',
+          icon:
+            dataOffer.connectorOnlineStatus == 'ONLINE'
+              ? 'check_circle'
+              : 'remove_circle',
           label: 'Status',
           labelTitle: `Last updated ${lastUpdate}`,
           text:
