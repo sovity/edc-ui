@@ -15,7 +15,10 @@
       "endpoint": "https://example.com/ids/data",
       "createdAt": "2023-05-31T14:06:21.536182+02:00",
       "onlineStatus": "OFFLINE",
-      "numContractOffers": 0
+      "numContractOffers": 0,
+      "ConnectorStatusUpdateDate": "2023-05-31T14:06:21.536182+02:00",
+      "UpdateDetails": "Update Details",
+      "UpdateDate": "2023-05-31T14:06:21.536182+02:00"
     },
     {
       "id": "https://other-connector.com",
@@ -24,7 +27,19 @@
       "lastSuccessfulRefreshAt": "2023-05-31T14:06:21.536182+02:00",
       "lastRefreshAttemptAt": "2023-05-31T14:06:21.536182+02:00",
       "onlineStatus": "ONLINE",
-      "numContractOffers": 2
+      "numContractOffers": 2,"ConnectorStatusUpdateDate": "2023-05-31T14:06:21.536182+02:00",
+      "UpdateDetails": "Update Details",
+      "UpdateDate": "2023-05-31T14:06:21.536182+02:00"
+    },
+    {
+      "id": "https://example2.com",
+      "endpoint": "https://example2.com/ids/data",
+      "createdAt": "2022-05-31T14:06:21.536182+02:00",
+      "onlineStatus": "DEAD",
+      "numContractOffers": 0,
+      "ConnectorStatusUpdateDate": "2023-05-31T14:06:21.536182+02:00",
+      "UpdateDetails": "Update Details",
+      "UpdateDate": "2023-05-31T14:06:21.536182+02:00"
     }
   ]
 }

@@ -17,4 +17,17 @@ export class PropertyGridComponent {
   @HostBinding('class.gap-[10px]')
   @HostBinding('class.justify-start')
   cls = true;
+
+  getStatusClass(icon: string) {
+    switch (icon) {
+      case 'check_circle':
+        return 'broker-online-status-online';
+      case 'pause_circle':
+        return 'broker-online-status-offline';
+      case 'remove_circle':
+        return 'broker-online-status-dead';
+      default:
+        return '';
+    }
+  }
 }
