@@ -12,6 +12,12 @@
         <mat-icon
           *ngIf="connector.onlineStatus === 'OFFLINE'"
           class="small-icon"
+          [ngStyle]="{color: '#cb8e1a'}"
+          >pause_circle</mat-icon
+        >
+        <mat-icon
+          *ngIf="connector.onlineStatus === 'DEAD'"
+          class="small-icon"
           [ngStyle]="{color: 'red'}"
           >remove_circle</mat-icon
         >

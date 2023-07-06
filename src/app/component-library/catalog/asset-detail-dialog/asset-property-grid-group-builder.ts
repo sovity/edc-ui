@@ -318,6 +318,8 @@ export class AssetPropertyGridGroupBuilder {
           icon:
             dataOffer.connectorOnlineStatus == 'ONLINE'
               ? 'check_circle'
+              : dataOffer.connectorOnlineStatus == 'OFFLINE'
+              ? 'pause_circle'
               : 'remove_circle',
           label: 'Status',
           labelTitle: `Last updated ${lastUpdate}`,

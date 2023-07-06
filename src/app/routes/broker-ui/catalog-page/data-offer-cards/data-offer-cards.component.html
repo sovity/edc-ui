@@ -5,13 +5,19 @@
         <mat-icon class="main-icon" mat-card-avatar>sim_card</mat-icon>
         <div class="small-icon-wrapper">
           <mat-icon
-            *ngIf="'ONLINE' === 'ONLINE'"
+            *ngIf="dataOffer.connectorOnlineStatus === 'ONLINE'"
             class="small-icon"
             [ngStyle]="{color: 'green'}"
             >check_circle</mat-icon
           >
           <mat-icon
-            *ngIf="asset.name === 'OFFLINE'"
+            *ngIf="dataOffer.connectorOnlineStatus === 'OFFLINE'"
+            class="small-icon"
+            [ngStyle]="{color: '#cb8e1a'}"
+            >pause_circle</mat-icon
+          >
+          <mat-icon
+            *ngIf="dataOffer.connectorOnlineStatus === 'DEAD'"
             class="small-icon"
             [ngStyle]="{color: 'red'}"
             >remove_circle</mat-icon
