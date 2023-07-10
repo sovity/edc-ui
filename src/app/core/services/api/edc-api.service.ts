@@ -1,13 +1,11 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable, from} from 'rxjs';
 import {
-  CatalogPageQuery,
-  CatalogPageResult,
-  ConnectorPageQuery,
-  ConnectorPageResult,
+  ConnectorLimits,
   ContractAgreementPage,
+  ContractAgreementTransferRequest,
   EdcClient,
-  KpiResult,
+  IdResponseDto,
   buildEdcClient,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
@@ -27,21 +25,15 @@ export class EdcApiService {
     return from(this.edcClient.uiApi.contractAgreementEndpoint());
   }
 
-  getKpis(): Observable<KpiResult> {
-    return from(this.edcClient.useCaseApi.kpiEndpoint());
-  }
-
-  brokerCatalog(
-    catalogPageQuery: CatalogPageQuery,
-  ): Observable<CatalogPageResult> {
-    return from(this.edcClient.brokerServerApi.catalogPage({catalogPageQuery}));
-  }
-
-  brokerConnectors(
-    connectorPageQuery: ConnectorPageQuery,
-  ): Observable<ConnectorPageResult> {
+  initiateTranfer(
+    contractAgreementTransferRequest: ContractAgreementTransferRequest,
+  ): Observable<IdResponseDto> {
     return from(
-      this.edcClient.brokerServerApi.connectorPage({connectorPageQuery}),
+      this.edcClient.uiApi.initiateTransfer({contractAgreementTransferRequest}),
     );
+  }
+
+  getEnterpriseEditionConnectorLimits(): Observable<ConnectorLimits> {
+    return from(this.edcClient.enterpriseEditionApi.connectorLimits());
   }
 }

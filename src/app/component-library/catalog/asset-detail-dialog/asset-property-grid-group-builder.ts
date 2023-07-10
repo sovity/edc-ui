@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {DataOfferListEntryContractOffer} from '@sovity.de/edc-client';
+import {CatalogContractOffer} from '@sovity.de/broker-server-client';
 import {ActiveFeatureSet} from '../../../core/config/active-feature-set';
 import {Policy} from '../../../core/services/api/legacy-managent-api-client';
 import {AssetProperties} from '../../../core/services/asset-properties';
@@ -174,7 +174,7 @@ export class AssetPropertyGridGroupBuilder {
 
   buildContractOfferGroup(
     asset: Asset,
-    contractOffer: DataOfferListEntryContractOffer,
+    contractOffer: CatalogContractOffer,
     i: number,
     total: number,
   ) {
@@ -236,63 +236,72 @@ export class AssetPropertyGridGroupBuilder {
   }
 
   buildContractAgreementGroup(contractAgreement: ContractAgreementCardMapped) {
+    let properties: PropertyGridField[] = [
+      {
+        icon: 'category',
+        label: 'Signed',
+        ...this.propertyGridUtils.guessValue(
+          this.propertyGridUtils.formatDate(
+            contractAgreement.contractSigningDate,
+          ),
+        ),
+      },
+      {
+        icon: 'category',
+        label: 'Valid From',
+        ...this.propertyGridUtils.guessValue(
+          this.propertyGridUtils.formatDate(
+            contractAgreement.contractStartDate,
+          ),
+        ),
+      },
+      {
+        icon: 'category',
+        label: 'Valid To',
+        ...this.propertyGridUtils.guessValue(
+          this.propertyGridUtils.formatDate(contractAgreement.contractEndDate),
+        ),
+      },
+      {
+        icon: 'policy',
+        label: 'Direction',
+        ...this.propertyGridUtils.guessValue(contractAgreement.direction),
+      },
+      {
+        icon: 'link',
+        label: 'Other Connector Endpoint',
+        ...this.propertyGridUtils.guessValue(
+          contractAgreement.counterPartyAddress,
+        ),
+      },
+      {
+        icon: 'link',
+        label: 'Other Connector ID',
+        ...this.propertyGridUtils.guessValue(contractAgreement.counterPartyId),
+      },
+      {
+        icon: 'category',
+        label: 'Contract Agreement ID',
+        ...this.propertyGridUtils.guessValue(
+          contractAgreement.contractAgreementId,
+        ),
+      },
+    ];
+
+    if (contractAgreement.isConsumingLimitsEnforced) {
+      properties.push({
+        icon: contractAgreement.canTransfer ? 'sync' : 'sync_disabled',
+        label: 'Status',
+        tooltip: contractAgreement.statusTooltipText,
+        textIconAfter: contractAgreement.statusTooltipText ? 'help' : null,
+        text: contractAgreement.statusText,
+        additionalClasses: contractAgreement.canTransfer ? '' : 'text-warn',
+      });
+    }
+
     return {
       groupLabel: 'Contract Agreement',
-      properties: [
-        {
-          icon: 'category',
-          label: 'Signed',
-          ...this.propertyGridUtils.guessValue(
-            this.propertyGridUtils.formatDate(
-              contractAgreement.contractSigningDate,
-            ),
-          ),
-        },
-        {
-          icon: 'category',
-          label: 'Valid From',
-          ...this.propertyGridUtils.guessValue(
-            this.propertyGridUtils.formatDate(
-              contractAgreement.contractStartDate,
-            ),
-          ),
-        },
-        {
-          icon: 'category',
-          label: 'Valid To',
-          ...this.propertyGridUtils.guessValue(
-            this.propertyGridUtils.formatDate(
-              contractAgreement.contractEndDate,
-            ),
-          ),
-        },
-        {
-          icon: 'policy',
-          label: 'Direction',
-          ...this.propertyGridUtils.guessValue(contractAgreement.direction),
-        },
-        {
-          icon: 'link',
-          label: 'Other Connector Endpoint',
-          ...this.propertyGridUtils.guessValue(
-            contractAgreement.counterPartyAddress,
-          ),
-        },
-        {
-          icon: 'link',
-          label: 'Other Connector ID',
-          ...this.propertyGridUtils.guessValue(
-            contractAgreement.counterPartyId,
-          ),
-        },
-        {
-          icon: 'category',
-          label: 'Contract Agreement ID',
-          ...this.propertyGridUtils.guessValue(
-            contractAgreement.contractAgreementId,
-          ),
-        },
-      ],
+      properties,
     };
   }
 

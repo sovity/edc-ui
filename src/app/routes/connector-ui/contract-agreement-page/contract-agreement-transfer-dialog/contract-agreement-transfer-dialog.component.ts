@@ -2,11 +2,10 @@ import {Component, Inject, OnDestroy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
-import {
-  ContractAgreementService,
-  DataAddressDto,
-} from '../../../../core/services/api/legacy-managent-api-client';
+import {ContractAgreementTransferRequest} from '@sovity.de/edc-client';
+import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {AssetEntryBuilder} from '../../../../core/services/asset-entry-builder';
+import {DataAddressMapper} from '../../../../core/services/data-address-mapper';
 import {HttpRequestParamsMapper} from '../../../../core/services/http-params-mapper.service';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {ValidationMessages} from '../../../../core/validators/validation-messages';
@@ -23,16 +22,59 @@ import {ContractAgreementTransferDialogResult} from './contract-agreement-transf
 export class ContractAgreementTransferDialogComponent implements OnDestroy {
   loading = false;
 
-  methods = ['POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
+  dataSinkMethods = ['POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
+  dataSourceMethods = ['GET', ...this.dataSinkMethods];
+
+  get proxyMethod(): boolean {
+    return (
+      this.showAllHttpParameterizationFields ||
+      this.data.asset.httpProxyMethod == true
+    );
+  }
+
+  get proxyPath(): boolean {
+    return (
+      this.showAllHttpParameterizationFields ||
+      this.data.asset.httpProxyPath == true
+    );
+  }
+
+  get proxyQueryParams(): boolean {
+    return (
+      this.showAllHttpParameterizationFields ||
+      this.data.asset.httpProxyQueryParams == true
+    );
+  }
+
+  get proxyBody(): boolean {
+    return (
+      this.showAllHttpParameterizationFields ||
+      this.data.asset.httpProxyBody == true
+    );
+  }
+
+  get showHttpParameterizationToggleButton(): boolean {
+    return (
+      this.data.asset.httpProxyMethod !== true ||
+      this.data.asset.httpProxyPath !== true ||
+      this.data.asset.httpProxyQueryParams !== true ||
+      this.data.asset.httpProxyBody !== true
+    );
+  }
+
+  get showAllHttpParameterizationFields(): boolean {
+    return this.form.all.controls.showAllHttpParameterizationFields.value;
+  }
 
   constructor(
     public form: ContractAgreementTransferDialogForm,
     public validationMessages: ValidationMessages,
     private dialogRef: MatDialogRef<ContractAgreementTransferDialogComponent>,
-    private contractAgreementService: ContractAgreementService,
+    private edcApiService: EdcApiService,
     private notificationService: NotificationService,
     private httpRequestParamsMapper: HttpRequestParamsMapper,
-    @Inject(MAT_DIALOG_DATA) private data: ContractAgreementTransferDialogData,
+    private dataAddressMapper: DataAddressMapper,
+    @Inject(MAT_DIALOG_DATA) public data: ContractAgreementTransferDialogData,
   ) {}
 
   onSave() {
@@ -42,11 +84,8 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
     this.loading = true;
     this.form.all.disable();
 
-    this.contractAgreementService
-      .initiateTransfer(
-        this.data.contractId,
-        this.buildDataAddressDto(this.form.value),
-      )
+    this.edcApiService
+      .initiateTranfer(this.buildTransferRequest(this.form.value))
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -66,21 +105,6 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
       });
   }
 
-  private buildDataAddressDto(
-    formValue: ContractAgreementTransferDialogFormValue,
-  ): DataAddressDto {
-    switch (formValue.dataAddressType) {
-      case 'Custom-Data-Address-Json':
-        return JSON.parse(formValue.dataDestination?.trim()!!);
-      case 'Http':
-        return this.httpRequestParamsMapper.buildHttpDataAddressDto(formValue);
-      default:
-        throw new Error(
-          `Invalid Data Address Type ${formValue.dataAddressType}`,
-        );
-    }
-  }
-
   private close(params: ContractAgreementTransferDialogResult) {
     this.dialogRef.close(params);
   }
@@ -90,5 +114,41 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
+  }
+
+  private buildTransferRequest(
+    value: ContractAgreementTransferDialogFormValue,
+  ): ContractAgreementTransferRequest {
+    if (value.dataAddressType === 'Custom-Transfer-Process-Request') {
+      const customJson: any = JSON.parse(
+        value.transferProcessRequest?.trim() ?? '',
+      );
+      customJson.assetId = this.data.asset.id;
+      customJson.contractId = this.data.contractId;
+      customJson.connectorAddress = this.data.asset.originator;
+
+      return {
+        type: 'CUSTOM_JSON',
+        customJson: JSON.stringify(customJson),
+      };
+    }
+
+    let transferRequestProperties =
+      this.httpRequestParamsMapper.encodeHttpProxyTransferRequestProperties(
+        this.data.asset,
+        value,
+      );
+
+    let dataSinkProperties =
+      this.dataAddressMapper.buildDataAddressProperties(value).properties ?? {};
+
+    return {
+      type: 'PARAMS_ONLY',
+      params: {
+        contractAgreementId: this.data.contractId,
+        properties: transferRequestProperties,
+        dataSinkProperties,
+      },
+    };
   }
 }

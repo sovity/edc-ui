@@ -80,6 +80,14 @@ export class AssetPropertyMapper {
       dataModel: props[AssetProperties.dataModel],
       geoReferenceMethod: props[AssetProperties.geoReferenceMethod],
       transportMode,
+      httpProxyMethod: this._parseBoolean(
+        props[AssetProperties.httpProxyMethod],
+      ),
+      httpProxyPath: this._parseBoolean(props[AssetProperties.httpProxyPath]),
+      httpProxyQueryParams: this._parseBoolean(
+        props[AssetProperties.httpProxyQueryParams],
+      ),
+      httpProxyBody: this._parseBoolean(props[AssetProperties.httpProxyBody]),
       additionalProperties,
     };
   }
@@ -115,12 +123,12 @@ export class AssetPropertyMapper {
     props[AssetProperties.description] = trimmedOrNull(metadata?.description);
     props[AssetProperties.language] = metadata?.language?.id ?? null;
 
-    props[AssetProperties.publisher] = trimmedOrNull(datasource?.publisher);
+    props[AssetProperties.publisher] = trimmedOrNull(metadata?.publisher);
     props[AssetProperties.standardLicense] = trimmedOrNull(
-      datasource?.standardLicense,
+      metadata?.standardLicense,
     );
     props[AssetProperties.endpointDocumentation] = trimmedOrNull(
-      datasource?.endpointDocumentation,
+      metadata?.endpointDocumentation,
     );
 
     if (this.activeFeatureSet.hasMdsFields()) {
@@ -134,6 +142,33 @@ export class AssetPropertyMapper {
       props[AssetProperties.transportMode] =
         advanced?.transportMode?.id ?? null;
     }
+
+    if (datasource?.dataAddressType === 'Http') {
+      props[AssetProperties.httpProxyMethod] = this._encodeBoolean(
+        datasource?.httpProxyMethod,
+      );
+      props[AssetProperties.httpProxyPath] = this._encodeBoolean(
+        datasource?.httpProxyPath,
+      );
+      props[AssetProperties.httpProxyQueryParams] = this._encodeBoolean(
+        datasource?.httpProxyQueryParams,
+      );
+      props[AssetProperties.httpProxyBody] = this._encodeBoolean(
+        datasource?.httpProxyBody,
+      );
+    }
+
     return removeNullValues(props);
+  }
+
+  private _parseBoolean(value: string | null): boolean | null {
+    if (!value) {
+      return null;
+    }
+    return value === 'true';
+  }
+
+  private _encodeBoolean(value?: boolean | null): string {
+    return value ? 'true' : 'false';
   }
 }

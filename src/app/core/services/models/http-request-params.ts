@@ -1,13 +1,13 @@
 export interface HttpRequestParams {
   /**
-   * URL the request is sent to
+   * (Base) URL of the request
    */
-  url: string;
+  baseUrl: string;
 
   /**
    * Http-method
    */
-  method: string;
+  method: string | null;
 
   /**
    * Header-Name ("Authorization"), where the secrets are passed into
@@ -28,4 +28,13 @@ export interface HttpRequestParams {
    * Additional headers to be sent
    */
   headers: Record<string, string>;
+
+  /**
+   * Query Parameters
+   */
+  queryParams: string | null;
+  proxyMethod: boolean;
+  proxyPath: boolean;
+  proxyQueryParams: boolean;
+  proxyBody: boolean;
 }

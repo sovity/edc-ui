@@ -22,6 +22,45 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Fixed
 
+## [v0.0.1-milestone-8-sovity11] 07.07.2023
+
+### Overview
+
+Bugfix Release
+
+### Detailed Changes
+
+#### Fixed
+
+- Fixed a bug causing http parameterization not being accessible due to asset
+  properties not being persisted on the consumer side.
+
+## [v0.0.1-milestone-8-sovity10] 07.07.2023
+
+### Overview
+
+Bugfix Release
+
+### Detailed Changes
+
+#### Fixed
+
+- Fixed a bug causing data address dtos to be built wrongly.
+
+## [v0.0.1-milestone-8-sovity9] 04.07.2023
+
+### Overview
+
+Full support for parameterized HTTP Data Sources, some Basic EE features.
+
+### Detailed Changes
+
+#### Added
+
+- Parameterization of Http Data Sources.
+- Enteprise Edition (Basic): Added support for consuming contract agreement
+  limits.
+
 ## [v0.0.1-milestone-8-sovity8] 23.06.2023
 
 ### Overview

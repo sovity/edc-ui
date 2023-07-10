@@ -5,6 +5,7 @@ import {switchDisabledControls} from '../../../../core/utils/form-group-utils';
 import {jsonValidator} from '../../../../core/validators/json-validator';
 import {urlValidator} from '../../../../core/validators/url-validator';
 import {HttpDatasourceAuthHeaderType} from '../../asset-page/asset-create-dialog/model/http-datasource-auth-header-type';
+import {HttpDatasourceQueryParamFormModel} from '../../asset-page/asset-create-dialog/model/http-datasource-query-param-form-model';
 import {
   ContractAgreementTransferDialogFormModel,
   ContractAgreementTransferDialogFormValue,
@@ -39,6 +40,7 @@ export class ContractAgreementTransferDialogForm {
       this.formBuilder.nonNullable.group({
         dataAddressType: 'Http' as DataAddressType,
         dataDestination: ['', [Validators.required, jsonValidator]],
+        transferProcessRequest: ['', [Validators.required, jsonValidator]],
 
         // Http Datasink Fields
         httpUrl: ['', [Validators.required, urlValidator]],
@@ -52,6 +54,16 @@ export class ContractAgreementTransferDialogForm {
         httpHeaders: this.formBuilder.array(
           new Array<FormGroup<HttpDatasinkHeaderFormModel>>(),
         ),
+
+        showAllHttpParameterizationFields: [false],
+
+        httpProxiedPath: [''],
+        httpProxiedMethod: ['GET'],
+        httpProxiedQueryParams: this.formBuilder.array(
+          new Array<FormGroup<HttpDatasourceQueryParamFormModel>>(),
+        ),
+        httpProxiedBody: [''],
+        httpProxiedBodyContentType: [''],
       });
 
     switchDisabledControls<ContractAgreementTransferDialogFormValue>(
@@ -59,6 +71,9 @@ export class ContractAgreementTransferDialogForm {
       (value) => {
         const customDataAddressJson =
           value.dataAddressType === 'Custom-Data-Address-Json';
+
+        const customTransferProcessRequest =
+          value.dataAddressType === 'Custom-Transfer-Process-Request';
 
         const http = value.dataAddressType === 'Http';
         const httpAuth = value.httpAuthHeaderType !== 'None';
@@ -70,6 +85,7 @@ export class ContractAgreementTransferDialogForm {
 
           // Custom Datasink JSON
           dataDestination: customDataAddressJson,
+          transferProcessRequest: customTransferProcessRequest,
 
           // Http Datasink Fields
           httpUrl: http,
@@ -81,6 +97,14 @@ export class ContractAgreementTransferDialogForm {
           httpAuthHeaderSecretName: http && httpAuthByVault,
 
           httpHeaders: http,
+
+          showAllHttpParameterizationFields: !customTransferProcessRequest,
+
+          httpProxiedPath: !customTransferProcessRequest,
+          httpProxiedMethod: !customTransferProcessRequest,
+          httpProxiedQueryParams: !customTransferProcessRequest,
+          httpProxiedBody: !customTransferProcessRequest,
+          httpProxiedBodyContentType: !customTransferProcessRequest,
         };
       },
     );
@@ -94,11 +118,28 @@ export class ContractAgreementTransferDialogForm {
     });
   }
 
+  buildQueryParamFormGroup(): FormGroup<HttpDatasourceQueryParamFormModel> {
+    return this.formBuilder.nonNullable.group({
+      paramName: ['', Validators.required],
+      paramValue: [''],
+    });
+  }
+
   onHttpHeadersAddClick() {
     this.all.controls.httpHeaders.push(this.buildHeaderFormGroup());
   }
 
   onHttpHeadersRemoveClick(index: number) {
     this.all.controls.httpHeaders.removeAt(index);
+  }
+
+  onHttpQueryParamsAddClick() {
+    this.all.controls.httpProxiedQueryParams.push(
+      this.buildQueryParamFormGroup(),
+    );
+  }
+
+  onHttpQueryParamsRemoveClick(index: number) {
+    this.all.controls.httpProxiedQueryParams.removeAt(index);
   }
 }
