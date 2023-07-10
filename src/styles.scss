@@ -16,33 +16,6 @@ body {
   width: 100%;
 }
 
-.icon-wrapper {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-}
-
-.main-icon {
-  position: absolute;
-  font-size: 40px;
-  margin-right: 8px;
-}
-
-.small-icon-wrapper {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-}
-
-.small-icon {
-  font-size: 15px;
-  z-index: 0;
-  margin-top: 7px;
-}
-
 .title-wrapper {
   display: flex;
   flex-direction: column;

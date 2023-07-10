@@ -1,25 +1,11 @@
 <mat-card *ngFor="let connector of connectors" class="asset-card">
   <mat-card-header class="header-content">
-    <div class="icon-wrapper">
-      <mat-icon class="main-icon" mat-card-avatar>link</mat-icon>
-      <div class="small-icon-wrapper">
-        <mat-icon
-          *ngIf="connector.onlineStatus === 'ONLINE'"
-          class="small-icon broker-online-status-online">
-          check_circle
-        </mat-icon>
-        <mat-icon
-          *ngIf="connector.onlineStatus === 'OFFLINE'"
-          class="small-icon broker-online-status-offline">
-          pause_circle
-        </mat-icon>
-        <mat-icon
-          *ngIf="connector.onlineStatus === 'DEAD'"
-          class="small-icon broker-online-status-dead">
-          remove_circle
-        </mat-icon>
-      </div>
-    </div>
+    <status-icon
+      class="flex items-end justify-end w-10 h-10 mr-5"
+      [mainIcon]="'link'"
+      [onlineStatus]="connector.onlineStatus">
+    </status-icon>
+
     <div class="title-wrapper">
       <mat-card-title>
         {{ connector.endpoint }}
