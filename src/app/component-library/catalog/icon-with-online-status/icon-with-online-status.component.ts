@@ -1,10 +1,9 @@
 import {Component, HostBinding, Input} from '@angular/core';
 import {
-  CatalogDataOfferConnectorOnlineStatusEnum,
-  ConnectorDetailPageResultOnlineStatusEnum,
-  ConnectorListEntryOnlineStatusEnum,
-  DataOfferDetailPageResultConnectorOnlineStatusEnum,
-} from '@sovity.de/broker-server-client';
+  ConnectorOnlineStatus,
+  getOnlineStatusColor,
+  getOnlineStatusIcon,
+} from './online-status-utils';
 
 @Component({
   selector: 'icon-with-online-status',
@@ -12,8 +11,8 @@ import {
     <mat-icon
       *ngIf="onlineStatus"
       class="absolute mat-icon-[16px] mt-[26px] ml-[26px]"
-      [ngClass]="getStatusClass(onlineStatus)"
-      >{{ getSmallIcon(onlineStatus) }}</mat-icon
+      [ngClass]="onlineStatusColor"
+      >{{ onlineStatusIcon }}</mat-icon
     >
 
     <mat-icon class="mat-icon-[40px]">{{ mainIcon }}</mat-icon>
@@ -27,34 +26,13 @@ export class IconWithOnlineStatusComponent {
   mainIcon!: string;
 
   @Input()
-  onlineStatus!:
-    | CatalogDataOfferConnectorOnlineStatusEnum
-    | ConnectorListEntryOnlineStatusEnum
-    | DataOfferDetailPageResultConnectorOnlineStatusEnum
-    | ConnectorDetailPageResultOnlineStatusEnum;
+  onlineStatus!: ConnectorOnlineStatus;
 
-  getStatusClass(status: any) {
-    switch (status) {
-      case 'ONLINE':
-        return 'broker-online-status-online';
-      case 'OFFLINE':
-        return 'broker-online-status-offline';
-      case 'DEAD':
-        return 'broker-online-status-dead';
-      default:
-        return '';
-    }
+  get onlineStatusColor(): string {
+    return getOnlineStatusColor(this.onlineStatus);
   }
-  getSmallIcon(status: any) {
-    switch (status) {
-      case 'ONLINE':
-        return 'check_circle';
-      case 'OFFLINE':
-        return 'pause_circle';
-      case 'DEAD':
-        return 'remove_circle';
-      default:
-        return '';
-    }
+
+  get onlineStatusIcon(): string {
+    return getOnlineStatusIcon(this.onlineStatus);
   }
 }

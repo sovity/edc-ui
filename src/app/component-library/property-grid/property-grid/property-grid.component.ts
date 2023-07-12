@@ -19,17 +19,4 @@ export class PropertyGridComponent {
   cls = true;
 
   trackByIndex: TrackByFunction<any> = (index: number) => index;
-
-  getStatusClass(icon: string) {
-    switch (icon) {
-      case 'check_circle':
-        return 'broker-online-status-online';
-      case 'pause_circle':
-        return 'broker-online-status-offline';
-      case 'remove_circle':
-        return 'broker-online-status-dead';
-      default:
-        return '';
-    }
-  }
 }
