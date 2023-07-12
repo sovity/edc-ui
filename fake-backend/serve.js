@@ -77,7 +77,7 @@ const transferHistoryAssetDetails = json(
   'json/transferHistoryAssetDetails.json',
 );
 app.get(
-  '/api/v1/data/transfer-history-page/transfer-processes/urn:artifact:db-rail-network-2023-jan/asset',
+  '/api/v1/data/transfer-history-page/transfer-processes/339b2a27-3b66-49f5-8b43-6a400d5914b5/asset',
   (req, res) => {
     res.json(transferHistoryAssetDetails);
   },

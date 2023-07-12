@@ -4,11 +4,11 @@
     "createdDate": "2022-01-20T11:18:59.659Z",
     "lastUpdatedDate": "2022-06-25T11:18:59.659Z",
     "state": "COMPLETED",
-    "contractAgreementId": "db-rail-network-2023-jan-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e",
+    "contractAgreementId": "test-asset-1-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e",
     "direction": "outgoing",
     "counterPartyConnectorEndpoint": "https://sovity-demo4-mds/api/v1/ids/data",
-    "assetName": "Rail Network DB 2023 January",
-    "assetId": "urn:artifact:db-rail-network-2023-jan",
+    "assetName": "Test Asset 1",
+    "assetId": "urn:artifact:test-asset-1",
     "errorMessage": null
   },
   {
@@ -16,11 +16,11 @@
     "createdDate": "2022-03-20T11:18:59.659Z",
     "lastUpdatedDate": "2022-03-25T11:18:59.659Z",
     "state": "ERROR",
-    "contractAgreementId": "charging-stations-–-walkthrough-cd:5816a60b-86c1-489a-b26a-ed129947f973",
+    "contractAgreementId": "test-asset-2-cd:5816a60b-86c1-489a-b26a-ed129947f973",
     "direction": "outgoing",
     "counterPartyConnectorEndpoint": "http://edc2:11003/api/v1/ids/data",
-    "assetName": "Charging Stations – Walkthrough",
-    "assetId": "urn:artifact:charging-stations-–-walkthrough",
+    "assetName": "Test Asset 2",
+    "assetId": "urn:artifact:test-asset-2",
     "errorMessage": "TransferProcessManager: attempt #8 failed to send transfer. Retry limit exceeded, TransferProcess 1317d0da-cdc6-42ab-b54b-1f90bcfed508 moves to ERROR state. Cause: java.net.SocketException: Connection reset"
   },
   {
@@ -28,11 +28,11 @@
     "createdDate": "2022-03-25T11:18:59.659Z",
     "lastUpdatedDate": "2022-11-20T11:18:59.659Z",
     "state": "COMPLETED",
-    "contractAgreementId": "domain-search-cd:6ebbc301-9b1e-4cd7-9f17-97b5b7867531",
+    "contractAgreementId": "test-asset-3-cd:6ebbc301-9b1e-4cd7-9f17-97b5b7867531",
     "direction": "incoming",
     "counterPartyConnectorEndpoint": "https://sovity-demo2-edc/api/v1/ids/data",
-    "assetName": "Domain Search",
-    "assetId": "urn:artifact:domain-search",
+    "assetName": "Test Asset 3",
+    "assetId": "urn:artifact:test-asset-3",
     "errorMessage": null
   },
   {
@@ -40,11 +40,11 @@
     "createdDate": "2023-01-29T11:18:59.659Z",
     "lastUpdatedDate": "2023-02-29T11:18:59.659Z",
     "state": "IN_PROGRESS",
-    "contractAgreementId": "bitcoin-data-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e",
+    "contractAgreementId": "test-asset-4-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e",
     "direction": "outgoing",
     "counterPartyConnectorEndpoint": "https://sovity-demo2-edc/api/v1/ids/data",
-    "assetName": "Bitcoin Data",
-    "assetId": "urn:artifact:bitcoin-data",
+    "assetName": "Test Asset 4",
+    "assetId": "urn:artifact:test-asset-4",
     "errorMessage": null
   }
 ]

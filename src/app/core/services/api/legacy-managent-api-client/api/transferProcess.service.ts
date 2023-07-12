@@ -13,22 +13,34 @@
  */
 
 /* tslint:disable:no-unused-variable member-ordering */
-import { HttpClient, HttpContext, HttpEvent, HttpHeaders, HttpParameterCodec, HttpParams, HttpResponse } from '@angular/common/http';
-import { Inject, Injectable, Optional } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  HttpClient,
+  HttpContext,
+  HttpEvent,
+  HttpHeaders,
+  HttpParameterCodec,
+  HttpParams,
+  HttpResponse,
+} from '@angular/common/http';
+import {Inject, Injectable, Optional} from '@angular/core';
+import {Observable} from 'rxjs';
 // @ts-ignore
-import { TransferProcessDto } from "../../../../core/services/models/transfer-history-entry";
-import { Configuration } from '../configuration';
-import { CustomHttpParameterCodec } from '../encoder';
+import {TransferProcessDto} from '../../../../core/services/models/transfer-history-entry';
+import {Configuration} from '../configuration';
+import {CustomHttpParameterCodec} from '../encoder';
 // @ts-ignore
-import { TransferId } from '../model/transferId';
+import {TransferId} from '../model/transferId';
 // @ts-ignore
-import { TransferRequestDto } from '../model/transferRequestDto';
+import {TransferRequestDto} from '../model/transferRequestDto';
 // @ts-ignore
-import { TransferState } from '../model/transferState';
+import {TransferState} from '../model/transferState';
 // @ts-ignore
-import { API_KEY, BASE_PATH, COLLECTION_FORMATS, CONNECTOR_DATAMANAGEMENT_API } from '../variables';
-
+import {
+  API_KEY,
+  BASE_PATH,
+  COLLECTION_FORMATS,
+  CONNECTOR_DATAMANAGEMENT_API,
+} from '../variables';
 
 @Injectable({
   providedIn: 'root',
@@ -120,25 +132,25 @@ export class TransferProcessService {
     id: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any>;
   public cancelTransferProcess(
     id: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpResponse<any>>;
   public cancelTransferProcess(
     id: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpEvent<any>>;
   public cancelTransferProcess(
     id: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -208,25 +220,25 @@ export class TransferProcessService {
     id: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any>;
   public deprovisionTransferProcess(
     id: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpResponse<any>>;
   public deprovisionTransferProcess(
     id: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpEvent<any>>;
   public deprovisionTransferProcess(
     id: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -304,7 +316,7 @@ export class TransferProcessService {
     sortField?: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<Array<TransferProcessDto>>;
   public getAllTransferProcesses(
     offset?: number,
@@ -314,7 +326,7 @@ export class TransferProcessService {
     sortField?: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpResponse<Array<TransferProcessDto>>>;
   public getAllTransferProcesses(
     offset?: number,
@@ -324,7 +336,7 @@ export class TransferProcessService {
     sortField?: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpEvent<Array<TransferProcessDto>>>;
   public getAllTransferProcesses(
     offset?: number,
@@ -334,7 +346,7 @@ export class TransferProcessService {
     sortField?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({encoder: this.encoder});
     if (offset !== undefined && offset !== null) {
@@ -433,25 +445,25 @@ export class TransferProcessService {
     id: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<TransferProcessDto>;
   public getTransferProcess(
     id: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpResponse<TransferProcessDto>>;
   public getTransferProcess(
     id: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpEvent<TransferProcessDto>>;
   public getTransferProcess(
     id: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -520,25 +532,25 @@ export class TransferProcessService {
     id: string,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<TransferState>;
   public getTransferProcessState(
     id: string,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpResponse<TransferState>>;
   public getTransferProcessState(
     id: string,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpEvent<TransferState>>;
   public getTransferProcessState(
     id: string,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -607,25 +619,25 @@ export class TransferProcessService {
     transferRequestDto?: TransferRequestDto,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<TransferId>;
   public initiateTransfer(
     transferRequestDto?: TransferRequestDto,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpResponse<TransferId>>;
   public initiateTransfer(
     transferRequestDto?: TransferRequestDto,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<HttpEvent<TransferId>>;
   public initiateTransfer(
     transferRequestDto?: TransferRequestDto,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
+    options?: {httpHeaderAccept?: 'application/json'; context?: HttpContext},
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 

@@ -2,12 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {
-  AssetDetailDialogDataService
-} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
-import {
-  AssetDetailDialogComponent
-} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.component';
+import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
+import {AssetDetailDialogComponent} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.component';
 import {
   ConfirmDialogModel,
   ConfirmationDialogComponent,
@@ -21,7 +17,6 @@ import {Fetched} from '../../../../core/services/models/fetched';
 import {TransferProcessDto} from '../../../../core/services/models/transfer-history-entry';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {TransferProcessAssetDetailsService} from '../../../../core/services/transfer-process-asset-details.service';
-
 
 @Component({
   selector: 'transfer-history-page',
@@ -48,8 +43,7 @@ export class TransferHistoryPageComponent implements OnInit {
     private assetPropertyMapper: AssetPropertyMapper,
     private notificationService: NotificationService,
     private dialog: MatDialog,
-  ) {
-  }
+  ) {}
 
   onTransferHistoryDetailsClick(item: TransferProcessDto) {
     const data: JsonDialogData = {
@@ -64,10 +58,9 @@ export class TransferHistoryPageComponent implements OnInit {
   loadingAssetDetails(assetId: string): Observable<Fetched<Asset>> {
     return this.transferProcessAssetDetailsService
       .getTransferProcessAssetDetails(assetId)
-      .pipe(map((asset) =>
-          this.assetPropertyMapper.buildAssetFromProperties(
-            asset.properties,
-          ),
+      .pipe(
+        map((asset) =>
+          this.assetPropertyMapper.buildAssetFromProperties(asset.properties),
         ),
         Fetched.wrap({
           failureMessage: 'Failed fetching asset details!',
@@ -77,24 +70,27 @@ export class TransferHistoryPageComponent implements OnInit {
 
   buildAssetDetailsDialog(fetchedAssetData: Fetched<Asset>) {
     fetchedAssetData.match({
-      ifOk: assetData => {
+      ifOk: (assetData) => {
         this.dialog.open(AssetDetailDialogComponent, {
-          data: this.assetDetailDialogDataService.assetDetails(assetData, false),
+          data: this.assetDetailDialogDataService.assetDetails(
+            assetData,
+            false,
+          ),
           maxHeight: '90vh',
         });
-      }, ifError: error => {
-        console.log(error)
+      },
+      ifError: (error) => {
+        console.log(error);
         this.notificationService.showError(error.failureMessage);
       },
-      ifLoading: () => {
-      }
+      ifLoading: () => {},
     });
   }
 
-  onAssetDetailsClick(assetId: string) {
-    this.loadingAssetDetails(assetId).subscribe((fetchedAssetData) => {
-      this.buildAssetDetailsDialog(fetchedAssetData)
-    })
+  onAssetDetailsClick(transferProcessId: string) {
+    this.loadingAssetDetails(transferProcessId).subscribe((fetchedAssetData) => {
+      this.buildAssetDetailsDialog(fetchedAssetData);
+    });
   }
 
   ngOnInit(): void {
@@ -130,7 +126,8 @@ export class TransferHistoryPageComponent implements OnInit {
         map((transferProcesses) => ({
           transferProcesses: [...transferProcesses].sort(function (a, b) {
             return (
-              new Date(b.lastUpdatedDate)?.valueOf()! - new Date(a.lastUpdatedDate)?.valueOf()!
+              new Date(b.lastUpdatedDate)?.valueOf()! -
+              new Date(a.lastUpdatedDate)?.valueOf()!
             );
           }),
         })),
