@@ -18,6 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Changed
 
+- Migrated transfer history page to api wrapper
+
 #### Removed
 
 #### Fixed

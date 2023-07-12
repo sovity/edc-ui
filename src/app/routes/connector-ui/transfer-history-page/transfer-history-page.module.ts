@@ -9,6 +9,7 @@ import {RouterModule} from '@angular/router';
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {TransferHistoryPageComponent} from './transfer-history-page/transfer-history-page.component';
+import {CatalogModule} from "../../../component-library/catalog/catalog.module";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {TransferHistoryPageComponent} from './transfer-history-page/transfer-his
     MatIconModule,
 
     // EDC UI Modules
+    CatalogModule,
     PipesAndDirectivesModule,
     UiElementsModule,
   ],

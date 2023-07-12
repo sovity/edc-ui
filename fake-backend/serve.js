@@ -73,6 +73,16 @@ app.get('/api/v1/data/last-commit-info', (req, res) => {
   res.json(lastCommitInfo);
 });
 
+const transferHistoryAssetDetails = json(
+  'json/transferHistoryAssetDetails.json',
+);
+app.get(
+  '/api/v1/data/transfer-history-page/transfer-processes/urn:artifact:db-rail-network-2023-jan/asset',
+  (req, res) => {
+    res.json(transferHistoryAssetDetails);
+  },
+);
+
 const catalog1 = json('json/catalog1.json');
 const catalog2 = json('json/catalog2.json');
 app.get('/api/v1/data/catalog', (req, res) => {
