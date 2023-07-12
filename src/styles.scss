@@ -9,19 +9,7 @@ body {
 body {
   margin: 0;
 }
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
 
-.title-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: 100%;
-}
 .broker-online-status-online {
   color: green;
 }
@@ -31,7 +19,7 @@ body {
 }
 
 .broker-online-status-dead {
-  color: red;
+  color: var(--warn-color);
 }
 
 .snackbar-info-style {

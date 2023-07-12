@@ -1,14 +1,15 @@
 <mat-card *ngFor="let connector of connectors" class="asset-card">
   <mat-card-header class="header-content">
-    <status-icon [mainIcon]="'link'" [onlineStatus]="connector.onlineStatus">
-    </status-icon>
+    <icon-with-online-status
+      mat-card-avatar
+      mainIcon="link"
+      [onlineStatus]="connector.onlineStatus">
+    </icon-with-online-status>
 
-    <div class="title-wrapper">
-      <mat-card-title>
-        {{ connector.endpoint }}
-      </mat-card-title>
-      <mat-card-subtitle>EDC Connector</mat-card-subtitle>
-    </div>
+    <mat-card-title>
+      {{ connector.endpoint }}
+    </mat-card-title>
+    <mat-card-subtitle>EDC Connector</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="flex flex-col space-y-[16px]">
     <div class="flex flex-row space-x-[10px] justify-between">

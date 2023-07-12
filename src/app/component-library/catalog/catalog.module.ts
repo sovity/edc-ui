@@ -16,7 +16,7 @@ import {AssetDetailDialogComponent} from './asset-detail-dialog/asset-detail-dia
 import {AssetPropertyGridGroupBuilder} from './asset-detail-dialog/asset-property-grid-group-builder';
 import {ContractOfferCardsComponent} from './contract-offer-cards/contract-offer-cards.component';
 import {ContractOfferIconComponent} from './contract-offer-icon/contract-offer-icon.component';
-import {IconWithOnlineStatusComponent} from './status-icon/status-icon.component';
+import {IconWithOnlineStatusComponent} from './icon-with-online-status/icon-with-online-status.component';
 import {TransferHistoryMiniListComponent} from './transfer-history-mini-list/transfer-history-mini-list.component';
 
 @NgModule({
