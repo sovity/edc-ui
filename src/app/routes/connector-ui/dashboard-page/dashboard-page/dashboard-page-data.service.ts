@@ -10,16 +10,13 @@ import {
   PolicyService,
   TransferProcessService,
 } from '../../../../core/services/api/legacy-managent-api-client';
-import {
-  ConnectorInfoPropertyGridGroupBuilder
-} from '../../../../core/services/connector-info-property-grid-group-builder';
+import {ConnectorInfoPropertyGridGroupBuilder} from '../../../../core/services/connector-info-property-grid-group-builder';
 import {LastCommitInfoService} from '../../../../core/services/last-commit-info.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {TransferProcessDto} from '../../../../core/services/models/transfer-history-entry';
 import {TransferProcessStates} from '../../../../core/services/models/transfer-process-states';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
 import {DashboardPageData, defaultDashboardData} from './dashboard-page-data';
-
 
 @Injectable({providedIn: 'root'})
 export class DashboardPageDataService {
@@ -33,8 +30,7 @@ export class DashboardPageDataService {
     private assetService: AssetService,
     private lastCommitInfoService: LastCommitInfoService,
     private connectorInfoPropertyGridGroupBuilder: ConnectorInfoPropertyGridGroupBuilder,
-  ) {
-  }
+  ) {}
 
   /**
    * Fetch {@link DashboardPageData}.
@@ -143,8 +139,8 @@ export class DashboardPageDataService {
   ): DonutChartData {
     const filteredTransfers =
       direction === 'incoming'
-        ? transfers.filter((it) => it.direction === "incoming")
-        : transfers.filter((it) => it.direction === "outgoing");
+        ? transfers.filter((it) => it.direction === 'incoming')
+        : transfers.filter((it) => it.direction === 'outgoing');
 
     // Use the keys of the TransferProcessesStates Enum as order
     const order = Object.keys(TransferProcessStates);
