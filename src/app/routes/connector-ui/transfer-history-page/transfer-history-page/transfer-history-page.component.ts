@@ -55,7 +55,7 @@ export class TransferHistoryPageComponent implements OnInit {
     this.dialog.open(JsonDialogComponent, {data});
   }
 
-  loadingAssetDetails(assetId: string): Observable<Fetched<Asset>> {
+  loadAssetDetails(assetId: string): Observable<Fetched<Asset>> {
     return this.transferProcessAssetDetailsService
       .getTransferProcessAssetDetails(assetId)
       .pipe(
@@ -88,7 +88,7 @@ export class TransferHistoryPageComponent implements OnInit {
   }
 
   onAssetDetailsClick(transferProcessId: string) {
-    this.loadingAssetDetails(transferProcessId).subscribe((fetchedAssetData) => {
+    this.loadAssetDetails(transferProcessId).subscribe((fetchedAssetData) => {
       this.buildAssetDetailsDialog(fetchedAssetData);
     });
   }

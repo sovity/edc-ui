@@ -44,7 +44,6 @@
           </mat-icon>
         </td>
       </ng-container>
-
       <ng-container matColumnDef="assetId">
         <th *matHeaderCellDef mat-header-cell scope="col">Asset</th>
         <td *matCellDef="let item" mat-cell>
@@ -61,7 +60,6 @@
           </div>
         </td>
       </ng-container>
-
       <ng-container matColumnDef="state">
         <th *matHeaderCellDef mat-header-cell scope="col">State</th>
         <td *matCellDef="let item" mat-cell>{{ item.state }}</td>
@@ -72,7 +70,6 @@
           <ago [date]="item.lastUpdatedDate"></ago>
         </td>
       </ng-container>
-
       <ng-container matColumnDef="counterPartyConnectorEndpoint">
         <th *matHeaderCellDef mat-header-cell scope="col">
           Counter-party Connector Endpoint
@@ -81,7 +78,6 @@
           {{ item.counterPartyConnectorEndpoint }}
         </td>
       </ng-container>
-
       <ng-container matColumnDef="details">
         <th *matHeaderCellDef mat-header-cell scope="col">Details</th>
         <td *matCellDef="let item" mat-cell>
