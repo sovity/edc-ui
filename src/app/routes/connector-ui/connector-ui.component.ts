@@ -4,6 +4,7 @@ import {Title} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../core/config/app-config';
+import {LoginPollingService} from '../../core/services/login-polling.service';
 import {TitleUtilsService} from '../../core/services/title-utils.service';
 import {routes} from './connector-ui-routing.module';
 
@@ -28,9 +29,15 @@ export class ConnectorUiComponent implements OnInit {
     public titleUtilsService: TitleUtilsService,
     public titleService: Title,
     private breakpointObserver: BreakpointObserver,
+    private loginPollingService: LoginPollingService,
   ) {}
 
   ngOnInit() {
     this.titleUtilsService.startUpdatingTitleFromRouteData('EDC Connector');
+    this.startLoginPolling();
+  }
+
+  private startLoginPolling() {
+    this.loginPollingService.startPolling();
   }
 }

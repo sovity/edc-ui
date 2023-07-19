@@ -18,6 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Changed
 
+- Disabled login polling in broker UI
+
 #### Removed
 
 #### Fixed
