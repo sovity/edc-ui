@@ -7,6 +7,7 @@ import {FaviconService} from './core/services/favicon.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
+
   constructor(
     @Inject(APP_CONFIG) private config: AppConfig,
     private faviconService: FaviconService,
