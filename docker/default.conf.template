@@ -1,5 +1,5 @@
 server {
-    listen <%= $NGINX_BIND %><% if "$NGINX_BIND" ; then -%>:<% fi -%><%= $NGINX_PORT %>;
+    listen ${NGINX_LISTEN};
     server_name localhost;
 
     root /usr/share/nginx/html;
@@ -9,4 +9,3 @@ server {
         try_files $uri $uri/ /index.html;
     }
 }
-
