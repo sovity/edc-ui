@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {PageNotFoundComponent} from '../../component-library/error-404-component/page-not-found.component';
 import {BrokerUiComponent} from './broker-ui.component';
 import {CatalogPageComponent} from './catalog-page/catalog-page/catalog-page.component';
 import {ConnectorPageComponent} from './connector-page/connector-page/connector-page.component';
@@ -34,6 +35,7 @@ export const routes: Routes = [
       hideInNav: true,
     },
   },
+  {path: '**', component: PageNotFoundComponent, data: {hideInNav: true}},
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {PageNotFoundComponent} from '../../component-library/error-404-component/page-not-found.component';
 import {EdcUiFeature} from '../../core/config/profiles/edc-ui-feature';
 import {AssetPageComponent} from './asset-page/asset-page/asset-page.component';
 import {CatalogBrowserPageComponent} from './catalog-browser-page/catalog-browser-page/catalog-browser-page.component';
@@ -61,6 +62,7 @@ export const routes: Routes = [
       requiresFeature: 'logout-button' as EdcUiFeature,
     },
   },
+  {path: '**', component: PageNotFoundComponent, data: {hideInNav: true}},
 ];
 
 @NgModule({

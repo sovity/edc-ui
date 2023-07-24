@@ -43,6 +43,21 @@ body {
   white-space: nowrap;
 }
 
+.text-bold {
+  letter-spacing: -0.025em;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+  font-weight: 700;
+  color: rgb(17 24 39);
+}
+
+.text-light {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+  font-weight: 300;
+  color: rgb(107 114 128);
+}
+
 .mat-hint-text-ellipsis {
   mat-hint {
     text-overflow: ellipsis;
