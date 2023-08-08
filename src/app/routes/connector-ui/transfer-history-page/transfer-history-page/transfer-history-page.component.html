@@ -40,14 +40,14 @@
         <th *matHeaderCellDef mat-header-cell scope="col">Direction</th>
         <td *matCellDef="let item" mat-cell>
           <mat-icon mat-table-avatar>
-            {{ item.direction === 'outgoing' ? 'upload' : 'download' }}
+            {{ item.direction === 'PROVIDING' ? 'upload' : 'download' }}
           </mat-icon>
         </td>
       </ng-container>
       <ng-container matColumnDef="assetId">
         <th *matHeaderCellDef mat-header-cell scope="col">Asset</th>
         <td *matCellDef="let item" mat-cell>
-          <div *ngIf="item.direction === 'outgoing'">
+          <div *ngIf="item.direction === 'PROVIDING'">
             <a
               class="link"
               href="javascript:void(0)"
@@ -55,14 +55,14 @@
               {{ item.assetName ?? item.assetId }}
             </a>
           </div>
-          <div *ngIf="item.direction === 'incoming'">
+          <div *ngIf="item.direction === 'CONSUMING'">
             {{ item.assetName ?? item.assetId }}
           </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="state">
         <th *matHeaderCellDef mat-header-cell scope="col">State</th>
-        <td *matCellDef="let item" mat-cell>{{ item.state }}</td>
+        <td *matCellDef="let item" mat-cell>{{ item.state.name }}</td>
       </ng-container>
       <ng-container matColumnDef="lastUpdated">
         <th *matHeaderCellDef mat-header-cell scope="col">Last updated</th>

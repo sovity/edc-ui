@@ -8,25 +8,25 @@ import {
   ContractAgreementService,
   ContractDefinitionService,
   PolicyService,
-  TransferProcessService,
 } from '../../../../core/services/api/legacy-managent-api-client';
 import {ConnectorInfoPropertyGridGroupBuilder} from '../../../../core/services/connector-info-property-grid-group-builder';
 import {LastCommitInfoService} from '../../../../core/services/last-commit-info.service';
 import {Fetched} from '../../../../core/services/models/fetched';
-import {TransferProcessDto} from '../../../../core/services/models/transfer-history-entry';
 import {TransferProcessStates} from '../../../../core/services/models/transfer-process-states';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
 import {DashboardPageData, defaultDashboardData} from './dashboard-page-data';
+import {EdcApiService} from "../../../../core/services/api/edc-api.service";
+import {TransferHistoryEntry} from "@sovity.de/edc-client";
 
 @Injectable({providedIn: 'root'})
 export class DashboardPageDataService {
   constructor(
+    private edcApiService: EdcApiService,
     private catalogBrowserService: ContractOfferService,
     private contractDefinitionService: ContractDefinitionService,
     private contractAgreementService: ContractAgreementService,
     private policyService: PolicyService,
     private catalogApiUrlService: CatalogApiUrlService,
-    private transferProcessService: TransferProcessService,
     private assetService: AssetService,
     private lastCommitInfoService: LastCommitInfoService,
     private connectorInfoPropertyGridGroupBuilder: ConnectorInfoPropertyGridGroupBuilder,
@@ -116,35 +116,34 @@ export class DashboardPageDataService {
   }
 
   private transferProcessKpis(): Observable<Partial<DashboardPageData>> {
-    return this.transferProcessService
-      .getAllTransferProcesses(0, 10_000_000)
+    return this.edcApiService.getTransferHistoryPage()
       .pipe(
         Fetched.wrap({
           failureMessage: 'Failed fetching transfer processes.',
         }),
         map((transferData) => ({
           incomingTransfersChart: transferData.map((it) =>
-            this.buildTransferChart(it, 'incoming'),
+            this.buildTransferChart(it.transferEntries, 'CONSUMING'),
           ),
           outgoingTransfersChart: transferData.map((it) =>
-            this.buildTransferChart(it, 'outgoing'),
+            this.buildTransferChart(it.transferEntries, 'PROVIDING'),
           ),
         })),
       );
   }
 
   private buildTransferChart(
-    transfers: TransferProcessDto[],
-    direction: 'incoming' | 'outgoing',
+    transfers: TransferHistoryEntry[],
+    direction: 'CONSUMING' | 'PROVIDING',
   ): DonutChartData {
     const filteredTransfers =
-      direction === 'incoming'
-        ? transfers.filter((it) => it.direction === 'incoming')
-        : transfers.filter((it) => it.direction === 'outgoing');
+      direction === 'CONSUMING'
+        ? transfers.filter((it) => it.direction === 'CONSUMING')
+        : transfers.filter((it) => it.direction === 'PROVIDING');
 
     // Use the keys of the TransferProcessesStates Enum as order
     const order = Object.keys(TransferProcessStates);
-    const states = [...new Set(filteredTransfers.map((it) => it.state))].sort(
+    const states = [...new Set(filteredTransfers.map((it) => it.state.name))].sort(
       (a, b) => order.indexOf(a) - order.indexOf(b),
     );
 
@@ -155,7 +154,7 @@ export class DashboardPageDataService {
     const defaultColor = '#bd7ebe';
 
     const amountsByState = states.map(
-      (state) => filteredTransfers.filter((it) => it.state === state).length,
+      (state) => filteredTransfers.filter((it) => it.state.name === state).length,
     );
 
     return {
@@ -163,7 +162,6 @@ export class DashboardPageDataService {
       totalValue: filteredTransfers.length,
       isEmpty: !filteredTransfers.length,
       emptyMessage: `No ${direction} transfer processes.`,
-
       labels: states,
       datasets: [
         {

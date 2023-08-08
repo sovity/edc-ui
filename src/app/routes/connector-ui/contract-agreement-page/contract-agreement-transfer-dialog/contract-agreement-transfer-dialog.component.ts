@@ -146,7 +146,7 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
       type: 'PARAMS_ONLY',
       params: {
         contractAgreementId: this.data.contractId,
-        properties: transferRequestProperties,
+        privateProperties: transferRequestProperties,
         dataSinkProperties,
       },
     };
