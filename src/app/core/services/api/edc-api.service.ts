@@ -1,11 +1,13 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable, from} from 'rxjs';
 import {
+  AssetDto,
   ConnectorLimits,
   ContractAgreementPage,
   ContractAgreementTransferRequest,
   EdcClient,
-  IdResponseDto,
+  IdResponse,
+  TransferHistoryPage,
   buildEdcClient,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
@@ -27,9 +29,19 @@ export class EdcApiService {
 
   initiateTranfer(
     contractAgreementTransferRequest: ContractAgreementTransferRequest,
-  ): Observable<IdResponseDto> {
+  ): Observable<IdResponse> {
     return from(
       this.edcClient.uiApi.initiateTransfer({contractAgreementTransferRequest}),
+    );
+  }
+
+  getTransferHistoryPage(): Observable<TransferHistoryPage> {
+    return from(this.edcClient.uiApi.transferHistoryPageEndpoint());
+  }
+
+  getTransferProcessAsset(transferProcessId: string): Observable<AssetDto> {
+    return from(
+      this.edcClient.uiApi.getTransferProcessAsset({transferProcessId}),
     );
   }
 
