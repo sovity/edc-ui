@@ -1,2 +1,1 @@
-export type DateInput = Date | string | null
-
+export type DateInput = Date | string

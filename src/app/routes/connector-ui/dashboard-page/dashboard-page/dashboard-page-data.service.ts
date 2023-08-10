@@ -1,22 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest, merge, of, scan} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {TransferHistoryEntry} from '@sovity.de/edc-client';
 import {CatalogApiUrlService} from '../../../../core/services/api/catalog-api-url.service';
 import {ContractOfferService} from '../../../../core/services/api/contract-offer.service';
+import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {
   AssetService,
   ContractAgreementService,
   ContractDefinitionService,
   PolicyService,
 } from '../../../../core/services/api/legacy-managent-api-client';
-import {ConnectorInfoPropertyGridGroupBuilder} from '../../../../core/services/connector-info-property-grid-group-builder';
+import {
+  ConnectorInfoPropertyGridGroupBuilder
+} from '../../../../core/services/connector-info-property-grid-group-builder';
 import {LastCommitInfoService} from '../../../../core/services/last-commit-info.service';
 import {Fetched} from '../../../../core/services/models/fetched';
-import {TransferProcessStates} from '../../../../core/services/models/transfer-process-states';
 import {DonutChartData} from '../dashboard-donut-chart/donut-chart-data';
 import {DashboardPageData, defaultDashboardData} from './dashboard-page-data';
-import {EdcApiService} from "../../../../core/services/api/edc-api.service";
-import {TransferHistoryEntry} from "@sovity.de/edc-client";
+
 
 @Injectable({providedIn: 'root'})
 export class DashboardPageDataService {
@@ -30,7 +32,8 @@ export class DashboardPageDataService {
     private assetService: AssetService,
     private lastCommitInfoService: LastCommitInfoService,
     private connectorInfoPropertyGridGroupBuilder: ConnectorInfoPropertyGridGroupBuilder,
-  ) {}
+  ) {
+  }
 
   /**
    * Fetch {@link DashboardPageData}.
@@ -141,11 +144,7 @@ export class DashboardPageDataService {
         ? transfers.filter((it) => it.direction === 'CONSUMING')
         : transfers.filter((it) => it.direction === 'PROVIDING');
 
-    // Use the keys of the TransferProcessesStates Enum as order
-    const order = Object.keys(TransferProcessStates);
-    const states = [...new Set(filteredTransfers.map((it) => it.state.name))].sort(
-      (a, b) => order.indexOf(a) - order.indexOf(b),
-    );
+    const states = [...new Set(filteredTransfers.sort((a, b) => a.state.code - b.state.code).map((it) => it.state.name))]
 
     const colorsByState = new Map<string, string>();
     colorsByState.set('IN_PROGRESS', '#7eb0d5');

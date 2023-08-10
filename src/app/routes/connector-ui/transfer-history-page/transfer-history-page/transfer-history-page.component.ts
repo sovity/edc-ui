@@ -101,12 +101,7 @@ export class TransferHistoryPageComponent implements OnInit {
     this.edcApiService.getTransferHistoryPage()
       .pipe(
         map((transferProcesses) => ({
-          transferProcesses: [...transferProcesses.transferEntries].sort(function (a, b) {
-            return (
-              new Date(b.lastUpdatedDate)?.valueOf()! -
-              new Date(a.lastUpdatedDate)?.valueOf()!
-            );
-          }),
+          transferProcesses: [...transferProcesses.transferEntries]
         })),
         Fetched.wrap({
           failureMessage: 'Failed fetching transfer history.',

@@ -12,7 +12,7 @@ export class AgoPipe implements PipeTransform {
 
   transform(date?: Date | null): Observable<string> {
     return this.interval$.pipe(
-      map(() => formatDateAgo(date)),
+      map(() => formatDateAgo(date!)),
       distinctUntilChanged(),
     );
   }
