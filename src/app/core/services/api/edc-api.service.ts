@@ -34,6 +34,12 @@ export class EdcApiService {
     return from(this.edcClient.uiApi.assetPage());
   }
 
+  deleteAsset(
+    assetId: string,
+  ): Observable<IdResponseDto> {
+    return from(this.edcClient.uiApi.deleteAsset({assetId}));
+  }
+
   getContractAgreementPage(): Observable<ContractAgreementPage> {
     return from(this.edcClient.uiApi.contractAgreementEndpoint());
   }
