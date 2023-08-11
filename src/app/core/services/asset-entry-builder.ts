@@ -21,7 +21,7 @@ export class AssetEntryBuilder {
    * @param formValue form value
    * @return asset create dto
    */
-  buildAssetEntry(formValue: AssetEditorDialogFormValue): AssetCreateRequest {
+  buildAssetCreateRequest(formValue: AssetEditorDialogFormValue): AssetCreateRequest {
     let properties = this.assetPropertyMapper.buildProperties(formValue);
     const dataAddressProperties = this.dataAddressMapper.buildDataAddressProperties(
       formValue.datasource,

@@ -39,7 +39,8 @@ export class AssetCreateDialogComponent implements OnDestroy {
 
   onSave() {
     const formValue = this.form.value;
-    const assetEntry = this.assetEntryBuilder.buildAssetEntry(formValue);
+    const assetEntry =
+      this.assetEntryBuilder.buildAssetCreateRequest(formValue);
 
     this.form.all.disable();
     this.loading = true;
