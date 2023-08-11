@@ -139,8 +139,7 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
         value,
       );
 
-    let dataSinkProperties =
-      this.dataAddressMapper.buildDataAddressProperties(value).properties ?? {};
+    let dataSinkProperties = this.dataAddressMapper.buildDataAddressProperties(value) ?? {};
 
     return {
       type: 'PARAMS_ONLY',
