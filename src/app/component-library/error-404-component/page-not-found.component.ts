@@ -1,20 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {APP_CONFIG, AppConfig} from '../../core/config/app-config';
+import {Component, HostBinding} from '@angular/core';
 
 @Component({
   selector: 'app-page-not-found',
   templateUrl: './page-not-found.component.html',
 })
-export class PageNotFoundComponent implements OnInit {
-  navigator!: string;
-
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {}
-
-  ngOnInit(): void {
-    if (this.config.profile != 'broker') {
-      this.navigator = 'Dashboard';
-    } else {
-      this.navigator = 'Data Offers';
-    }
-  }
+export class PageNotFoundComponent {
+  @HostBinding('class.container')
+  @HostBinding('class.flex')
+  @HostBinding('class.items-center')
+  @HostBinding('class.min-h-screen')
+  @HostBinding('class.px-6')
+  @HostBinding('class.py-12')
+  @HostBinding('class.box-border')
+  cls = true;
 }
