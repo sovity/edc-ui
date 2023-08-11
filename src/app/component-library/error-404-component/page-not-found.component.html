@@ -1,12 +1,15 @@
-<section class="bg-white">
-  <div class="py-18 px-8 lg:py-28 lg:px-6">
-    <div class="text-center">
-      <h1>404</h1>
-      <p class="text-bold">Something's missing.</p>
-      <p class="text-light">Sorry, we can't find that page.</p>
+<div class="container flex items-center min-h-screen px-6 py-12 mx-auto">
+  <div class="flex flex-col items-center max-w-sm mx-auto text-center">
+    <h1 class="mt-3 text-2xl font-semibold text-gray-800 md:text-3xl">
+      Page not found
+    </h1>
+    <p class="mt-4 text-gray-500">
+      The page you are looking for doesn't exist.
+    </p>
+    <div class="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
       <a routerLink="/" mat-raised-button color="primary">
         Back to {{ navigator }}
       </a>
     </div>
   </div>
-</section>
+</div>
