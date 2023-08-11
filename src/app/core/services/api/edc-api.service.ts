@@ -1,6 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable, from} from 'rxjs';
 import {
+  AssetPage,
   ConnectorLimits,
   ContractAgreementPage,
   ContractAgreementTransferRequest,
@@ -27,6 +28,16 @@ export class EdcApiService {
     assetCreateRequest: AssetCreateRequest,
   ): Observable<IdResponseDto> {
     return from(this.edcClient.uiApi.createAsset({assetCreateRequest}));
+  }
+
+  getAssetPage(): Observable<AssetPage> {
+    return from(this.edcClient.uiApi.assetPage());
+  }
+
+  deleteAsset(
+    assetId: string,
+  ): Observable<IdResponseDto> {
+    return from(this.edcClient.uiApi.deleteAsset({assetId}));
   }
 
   getContractAgreementPage(): Observable<ContractAgreementPage> {
