@@ -1,7 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {TransferHistoryEntry} from '@sovity.de/edc-client';
+import {
+  EMPTY,
+  Observable,
+  Subject,
+  concat,
+  interval,
+  skip,
+  switchMap,
+} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {TransferHistoryEntry, TransferHistoryPage} from '@sovity.de/edc-client';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
 import {JsonDialogService} from '../../../../component-library/json-dialog/json-dialog/json-dialog.service';
@@ -19,9 +27,9 @@ import {NotificationService} from '../../../../core/services/notification.servic
 export class TransferHistoryPageComponent implements OnInit, OnDestroy {
   columns: string[] = [
     'direction',
+    'lastUpdated',
     'assetId',
     'state',
-    'lastUpdated',
     'counterPartyConnectorEndpoint',
     'details',
   ];
@@ -81,15 +89,30 @@ export class TransferHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   loadTransferProcesses() {
-    this.edcApiService
-      .getTransferHistoryPage()
-      .pipe(
-        map((transferHistoryPage) => ({
-          transferProcesses: transferHistoryPage.transferEntries,
-        })),
+    const initialRequest: Observable<Fetched<TransferHistoryPage>> =
+      this.edcApiService.getTransferHistoryPage().pipe(
         Fetched.wrap({
           failureMessage: 'Failed fetching transfer history.',
         }),
+      );
+
+    const polling: Observable<Fetched<TransferHistoryPage>> = interval(
+      5_000,
+    ).pipe(
+      skip(1),
+      switchMap(() =>
+        this.edcApiService
+          .getTransferHistoryPage()
+          .pipe(catchError(() => EMPTY)),
+      ),
+      map((data) => Fetched.ready(data)),
+    );
+
+    return concat(initialRequest, polling)
+      .pipe(
+        Fetched.map((transferHistoryPage) => ({
+          transferProcesses: transferHistoryPage.transferEntries,
+        })),
       )
       .subscribe(
         (transferProcessesList) =>
@@ -98,6 +121,7 @@ export class TransferHistoryPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy$ = new Subject();
+
   ngOnDestroy() {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();

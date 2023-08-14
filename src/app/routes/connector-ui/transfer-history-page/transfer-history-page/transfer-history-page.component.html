@@ -1,16 +1,15 @@
 <div id="wrapper">
-  <button mat-raised-button color="primary" (click)="loadTransferProcesses()">
-    <mat-icon>cached</mat-icon>
-    Refresh
-  </button>
-  <mat-paginator
-    *ngIf="transferProcessesList.isReady"
-    [hidePageSize]="true"
-    [disabled]="true"
-    [pageSize]="transferProcessesList.data.transferProcesses.length"
-    [length]="
-      transferProcessesList.data.transferProcesses.length
-    "></mat-paginator>
+  <div class="flex flex-row">
+    <div class="grow"></div>
+    <mat-paginator
+      *ngIf="transferProcessesList.isReady"
+      [hidePageSize]="true"
+      [disabled]="true"
+      [pageSize]="transferProcessesList.data.transferProcesses.length"
+      [length]="
+        transferProcessesList.data.transferProcesses.length
+      "></mat-paginator>
+  </div>
   <div class="flex flex-row justify-center">
     <loading-state
       *ngIf="transferProcessesList.isLoading"
@@ -37,16 +36,28 @@
       mat-table
       [dataSource]="transferProcessesList.data.transferProcesses">
       <ng-container matColumnDef="direction">
-        <th *matHeaderCellDef mat-header-cell scope="col">Direction</th>
-        <td *matCellDef="let item" mat-cell>
+        <th *matHeaderCellDef class="w-[50px]" mat-header-cell scope="col">
+          Direction
+        </th>
+        <td *matCellDef="let item" class="w-[50px]" mat-cell>
           <mat-icon class="mat-icon-[28px]">
             {{ item.direction === 'PROVIDING' ? 'upload' : 'download' }}
           </mat-icon>
         </td>
       </ng-container>
+      <ng-container matColumnDef="lastUpdated">
+        <th *matHeaderCellDef class="w-[150px]" mat-header-cell scope="col">
+          Last updated
+        </th>
+        <td *matCellDef="let item" class="w-[150px]" mat-cell>
+          <ago [date]="item.lastUpdatedDate"></ago>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="assetId">
-        <th *matHeaderCellDef mat-header-cell scope="col">Asset</th>
-        <td *matCellDef="let item" mat-cell>
+        <th *matHeaderCellDef class="w-[300px]" mat-header-cell scope="col">
+          Asset
+        </th>
+        <td *matCellDef="let item" class="w-[300px]" mat-cell>
           <div *ngIf="item.direction === 'PROVIDING'">
             <a
               class="link"
@@ -61,13 +72,17 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="state">
-        <th *matHeaderCellDef mat-header-cell scope="col">State</th>
-        <td *matCellDef="let item" mat-cell>
-          <div class="flex flex-row space-x-[5px]">
-            {{ item.state.name }}
-            {{
-              item.state.name === 'CUSTOM' ? ' (' + item.state.code + ')' : ''
-            }}
+        <th *matHeaderCellDef class="w-[150px]" mat-header-cell scope="col">
+          State
+        </th>
+        <td *matCellDef="let item" class="w-[150px]" mat-cell>
+          <div class="flex flex-row items-center space-x-[5px]">
+            <span>
+              {{ item.state.name }}
+              {{
+                item.state.name === 'CUSTOM' ? ' (' + item.state.code + ')' : ''
+              }}
+            </span>
             <!-- Error Icon -->
             <mat-icon
               *ngIf="item.state.simplifiedState === 'ERROR'"
@@ -86,12 +101,6 @@
           </div>
         </td>
       </ng-container>
-      <ng-container matColumnDef="lastUpdated">
-        <th *matHeaderCellDef mat-header-cell scope="col">Last updated</th>
-        <td *matCellDef="let item" mat-cell>
-          <ago [date]="item.lastUpdatedDate"></ago>
-        </td>
-      </ng-container>
       <ng-container matColumnDef="counterPartyConnectorEndpoint">
         <th *matHeaderCellDef mat-header-cell scope="col">
           Counter-party Connector Endpoint
@@ -101,8 +110,10 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="details">
-        <th *matHeaderCellDef mat-header-cell scope="col">Details</th>
-        <td *matCellDef="let item" mat-cell>
+        <th *matHeaderCellDef class="w-[100px]" mat-header-cell scope="col">
+          Details
+        </th>
+        <td *matCellDef="let item" class="w-[100px]" mat-cell>
           <a
             class="link"
             href="javascript:void(0)"
