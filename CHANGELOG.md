@@ -16,7 +16,11 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
-#### Changed
+- Added custom 404 pages to connector and broker ui
+
+#### Fixed
+
+- Removed 404-causing login polling from broker UI
 
 - Migrated transfer history page to api wrapper
 
