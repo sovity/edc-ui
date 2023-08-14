@@ -53,17 +53,18 @@
           <ago [date]="item.lastUpdatedDate"></ago>
         </td>
       </ng-container>
-      <ng-container matColumnDef="assetId">
-        <th *matHeaderCellDef class="w-[300px]" mat-header-cell scope="col">
-          Asset
-        </th>
-        <td *matCellDef="let item" class="w-[300px]" mat-cell>
+      <ng-container matColumnDef="assetName">
+        <th *matHeaderCellDef mat-header-cell scope="col">Asset</th>
+        <td *matCellDef="let item" mat-cell>
           <div *ngIf="item.direction === 'PROVIDING'">
             <a
               class="link"
               href="javascript:void(0)"
               (click)="onAssetDetailsClick(item.transferProcessId)">
-              {{ item.assetName }}
+              <mat-icon class="mat-icon-[14px]">open_in_new</mat-icon>
+              <div>
+                {{ item.assetName }}
+              </div>
             </a>
           </div>
           <div *ngIf="item.direction === 'CONSUMING'">

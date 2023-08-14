@@ -28,7 +28,7 @@ export class TransferHistoryPageComponent implements OnInit, OnDestroy {
   columns: string[] = [
     'direction',
     'lastUpdated',
-    'assetId',
+    'assetName',
     'state',
     'counterPartyConnectorEndpoint',
     'details',
