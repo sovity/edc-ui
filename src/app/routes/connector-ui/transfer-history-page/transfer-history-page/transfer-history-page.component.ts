@@ -55,41 +55,30 @@ export class TransferHistoryPageComponent implements OnInit {
     this.dialog.open(JsonDialogComponent, {data});
   }
 
-  loadAssetDetails(transferProcessId: string): Observable<Fetched<Asset>> {
+  loadAssetDetails(transferProcessId: string): Observable<Asset> {
     return this.edcApiService.getTransferProcessAsset(transferProcessId)
       .pipe(
         map((asset) =>
           this.assetPropertyMapper.buildAssetFromProperties(asset.properties),
         ),
-        Fetched.wrap({
-          failureMessage: 'Failed fetching asset details!',
-        }),
       );
   }
 
-  buildAssetDetailsDialog(fetchedAssetData: Fetched<Asset>) {
-    fetchedAssetData.match({
-      ifOk: (assetData) => {
+  onAssetDetailsClick(transferProcessId: string) {
+    this.loadAssetDetails(transferProcessId).subscribe({
+      next: (asset) => {
         this.dialog.open(AssetDetailDialogComponent, {
           data: this.assetDetailDialogDataService.assetDetails(
-            assetData,
+            asset,
             false,
           ),
           maxHeight: '90vh',
         });
       },
-      ifError: (error) => {
-        console.log(error);
-        this.notificationService.showError(error.failureMessage);
+      error: (error) => {
+        console.error('Failed to fetch asset details!', error);
+        this.notificationService.showError("Failed to fetch asset details!");
       },
-      ifLoading: () => {
-      },
-    });
-  }
-
-  onAssetDetailsClick(transferProcessId: string) {
-    this.loadAssetDetails(transferProcessId).subscribe((fetchedAssetData) => {
-      this.buildAssetDetailsDialog(fetchedAssetData);
     });
   }
 
@@ -100,8 +89,8 @@ export class TransferHistoryPageComponent implements OnInit {
   loadTransferProcesses() {
     this.edcApiService.getTransferHistoryPage()
       .pipe(
-        map((transferProcesses) => ({
-          transferProcesses: [...transferProcesses.transferEntries]
+        map((transferHistoryPage) => ({
+          transferProcesses: transferHistoryPage.transferEntries
         })),
         Fetched.wrap({
           failureMessage: 'Failed fetching transfer history.',

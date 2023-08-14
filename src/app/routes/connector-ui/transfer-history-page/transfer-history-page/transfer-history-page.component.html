@@ -39,7 +39,7 @@
       <ng-container matColumnDef="direction">
         <th *matHeaderCellDef mat-header-cell scope="col">Direction</th>
         <td *matCellDef="let item" mat-cell>
-          <mat-icon mat-table-avatar>
+          <mat-icon class="mat-icon-[28px]">
             {{ item.direction === 'PROVIDING' ? 'upload' : 'download' }}
           </mat-icon>
         </td>
@@ -52,17 +52,39 @@
               class="link"
               href="javascript:void(0)"
               (click)="onAssetDetailsClick(item.transferProcessId)">
-              {{ item.assetName ?? item.assetId }}
+              {{ item.assetName }}
             </a>
           </div>
           <div *ngIf="item.direction === 'CONSUMING'">
-            {{ item.assetName ?? item.assetId }}
+            {{ item.assetName }}
           </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="state">
         <th *matHeaderCellDef mat-header-cell scope="col">State</th>
-        <td *matCellDef="let item" mat-cell>{{ item.state.name }}</td>
+        <td *matCellDef="let item" mat-cell>
+          <div class="flex flex-row space-x-[5px]">
+            {{ item.state.name }}
+            {{
+              item.state.name === 'CUSTOM' ? ' (' + item.state.code + ')' : ''
+            }}
+            <!-- Error Icon -->
+            <mat-icon
+              *ngIf="item.state.simplifiedState === 'ERROR'"
+              class="text-warn mat-icon-[14px]"
+              [matTooltip]="item.errorMessage!!"
+              >warning
+            </mat-icon>
+            <!-- Progress Spinner -->
+            <mat-progress-spinner
+              *ngIf="item.state.simplifiedState === 'RUNNING'"
+              class="mat-icon-[14px]"
+              diameter="14"
+              color="primary"
+              mode="indeterminate">
+            </mat-progress-spinner>
+          </div>
+        </td>
       </ng-container>
       <ng-container matColumnDef="lastUpdated">
         <th *matHeaderCellDef mat-header-cell scope="col">Last updated</th>

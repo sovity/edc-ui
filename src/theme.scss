@@ -42,14 +42,6 @@ mat-icon[mat-card-avatar] {
   line-height: 40px;
 }
 
-// Fix Icon sizes used in table avatars
-mat-icon[mat-table-avatar] {
-  font-size: 30px;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-}
-
 // Fix mat-chips exploding out and/or having multiline exploding strings
 mat-chip {
   max-width: 100%;
