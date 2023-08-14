@@ -48,11 +48,13 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
   }
 
   onContractAgreementClick(card: ContractAgreementCardMapped) {
-    this.card$(card.contractAgreementId).subscribe((card) => {
-      const data =
-        this.assetDetailDialogDataService.contractAgreementDetails(card);
-      return this.assetDetailDialogService.open(data, this.ngOnDestroy$);
-    });
+    const data$ = this.card$(card.contractAgreementId).pipe(
+      map((card) =>
+        this.assetDetailDialogDataService.contractAgreementDetails(card),
+      ),
+    );
+
+    return this.assetDetailDialogService.open(data$, this.ngOnDestroy$);
   }
 
   refresh() {

@@ -12,11 +12,11 @@ export class AssetDetailDialogService {
 
   /**
    * Shows an Asset Detail Dialog until until$ emits / completes
-   * @param data Asset Detail Dialog data
+   * @param data Asset Detail Dialog data, or a stream if there's a need to refresh the data
    * @param until$ observable that controls the lifetime of the dialog
    */
   open(
-    data: AssetDetailDialogData,
+    data: AssetDetailDialogData | Observable<AssetDetailDialogData>,
     until$: Observable<any> = NEVER,
   ): Observable<AssetDetailDialogResult | undefined> {
     return showDialogUntil(
