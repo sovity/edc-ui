@@ -1,29 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TransferHistoryEntry} from '@sovity.de/edc-client';
-import {
-  AssetDetailDialogDataService
-} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
-import {
-  AssetDetailDialogComponent
-} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.component';
-import {JsonDialogComponent} from '../../../../component-library/json-dialog/json-dialog/json-dialog.component';
-import {JsonDialogData} from '../../../../component-library/json-dialog/json-dialog/json-dialog.data';
+import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
+import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
+import {JsonDialogService} from '../../../../component-library/json-dialog/json-dialog/json-dialog.service';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {AssetPropertyMapper} from '../../../../core/services/asset-property-mapper';
 import {Asset} from '../../../../core/services/models/asset';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {NotificationService} from '../../../../core/services/notification.service';
 
-
 @Component({
   selector: 'transfer-history-page',
   templateUrl: './transfer-history-page.component.html',
   styleUrls: ['./transfer-history-page.component.scss'],
 })
-export class TransferHistoryPageComponent implements OnInit {
+export class TransferHistoryPageComponent implements OnInit, OnDestroy {
   columns: string[] = [
     'direction',
     'assetId',
@@ -39,24 +32,27 @@ export class TransferHistoryPageComponent implements OnInit {
   constructor(
     private edcApiService: EdcApiService,
     private assetDetailDialogDataService: AssetDetailDialogDataService,
+    private assetDetailDialogService: AssetDetailDialogService,
     private assetPropertyMapper: AssetPropertyMapper,
     private notificationService: NotificationService,
-    private dialog: MatDialog,
-  ) {
-  }
+    private jsonDialogService: JsonDialogService,
+  ) {}
 
   onTransferHistoryDetailsClick(item: TransferHistoryEntry) {
-    const data: JsonDialogData = {
-      title: item.assetName ?? item.assetId,
-      subtitle: 'Transfer History Details',
-      icon: 'assignment',
-      objectForJson: item,
-    };
-    this.dialog.open(JsonDialogComponent, {data});
+    this.jsonDialogService.showJsonDetailDialog(
+      {
+        title: item.assetName ?? item.assetId,
+        subtitle: 'Transfer History Details',
+        icon: 'assignment',
+        objectForJson: item,
+      },
+      this.ngOnDestroy$,
+    );
   }
 
   loadAssetDetails(transferProcessId: string): Observable<Asset> {
-    return this.edcApiService.getTransferProcessAsset(transferProcessId)
+    return this.edcApiService
+      .getTransferProcessAsset(transferProcessId)
       .pipe(
         map((asset) =>
           this.assetPropertyMapper.buildAssetFromProperties(asset.properties),
@@ -67,17 +63,15 @@ export class TransferHistoryPageComponent implements OnInit {
   onAssetDetailsClick(transferProcessId: string) {
     this.loadAssetDetails(transferProcessId).subscribe({
       next: (asset) => {
-        this.dialog.open(AssetDetailDialogComponent, {
-          data: this.assetDetailDialogDataService.assetDetails(
-            asset,
-            false,
-          ),
-          maxHeight: '90vh',
-        });
+        const data = this.assetDetailDialogDataService.assetDetails(
+          asset,
+          false,
+        );
+        this.assetDetailDialogService.open(data, this.ngOnDestroy$);
       },
       error: (error) => {
         console.error('Failed to fetch asset details!', error);
-        this.notificationService.showError("Failed to fetch asset details!");
+        this.notificationService.showError('Failed to fetch asset details!');
       },
     });
   }
@@ -87,10 +81,11 @@ export class TransferHistoryPageComponent implements OnInit {
   }
 
   loadTransferProcesses() {
-    this.edcApiService.getTransferHistoryPage()
+    this.edcApiService
+      .getTransferHistoryPage()
       .pipe(
         map((transferHistoryPage) => ({
-          transferProcesses: transferHistoryPage.transferEntries
+          transferProcesses: transferHistoryPage.transferEntries,
         })),
         Fetched.wrap({
           failureMessage: 'Failed fetching transfer history.',
@@ -100,5 +95,11 @@ export class TransferHistoryPageComponent implements OnInit {
         (transferProcessesList) =>
           (this.transferProcessesList = transferProcessesList),
       );
+  }
+
+  ngOnDestroy$ = new Subject();
+  ngOnDestroy() {
+    this.ngOnDestroy$.next(null);
+    this.ngOnDestroy$.complete();
   }
 }
