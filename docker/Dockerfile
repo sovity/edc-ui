@@ -1,12 +1,12 @@
 # Stage 1: Install node modules
-FROM docker.io/node:lts as npm-install
+FROM docker.io/library/node:lts as npm-install
 
 WORKDIR /app
 COPY ./package*.json /app/
 RUN npm install
 
 # Stage 2: Build Project
-FROM node:lts as build
+FROM docker.io/library/node:lts as build
 
 WORKDIR /app
 COPY --from=npm-install /app/node_modules /app/node_modules
