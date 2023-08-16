@@ -14,32 +14,29 @@ COPY ./ /app/
 RUN npm run ng build --no-progress --configuration=production
 
 # Stage 3: Serve app with nginx
-FROM docker.io/nginx:1.25.2-alpine
+FROM docker.io/nginxinc/nginx-unprivileged:1.25-alpine3.18
 
-RUN apk update && apk add jq --no-cache
+# Temporarily switch to root to install packages and create symlink in restricted location
+USER root
+RUN apk add --no-cache jq curl
 
 COPY --from=build /app/dist/edc-demo-client /usr/share/nginx/html
 COPY --from=build /app/src/assets /usr/share/nginx/html/assets
-COPY docker/default.conf.template etc/nginx/conf.d/default.conf.template
+COPY docker/default.conf.template etc/nginx/templates/default.conf.template
+# Before starting nginx, apply ENV vars to create app-config.json from EDC_UI_* ENV Vars
+# Use an entrypoint drop-in instead of modifying the default entrypoint or command,
+# so that the automatic envsubst templating is not disabled.
+COPY docker/99-generate-app-config.sh /docker-entrypoint.d/99-generate-app-config.sh
 
-ENV NGINX_BIND=""
+RUN ln -sf /tmp/app-config.json /usr/share/nginx/html/assets/config/app-config.json \
+  # Nginx is configured to reject symlinks that point to a file owned by a different user, for security reasons
+  && chown --no-dereference nginx:root /usr/share/nginx/html/assets/config/app-config.json
+
+# Switch back to unprivileged user for runtime
+USER nginx:nginx
+
+ENV NGINX_BIND="0.0.0.0"
 ENV NGINX_PORT=8080
 
 HEALTHCHECK --interval=2s --timeout=5s --retries=10 \
-  CMD curl -f http://${NGINX_BIND:"localhost"}:$NGINX_PORT/ || exit 1
-
-# Change nginx setup for nonroot
-RUN sed -i -e 's|/var/run/nginx.pid|/tmp/nginx.pid|' /etc/nginx/nginx.conf \
-  && ln -sf /dev/stdout /var/log/nginx/access.log \
-  && ln -sf /dev/stderr /var/log/nginx/error.log \
-  && chown -R nginx:nginx \
-  /etc/nginx \
-  /var/cache/nginx \
-  /usr/share/nginx/html/assets/config
-
-# Before starting nginx, apply ENV vars:
-# (1) Apply NGINX_BIND and NGINX_PORT to nginx.conf
-# (2) Create app-config.json from EDC_UI_* ENV Vars
-CMD NGINX_LISTEN=${NGINX_BIND:+${NGINX_BIND}:}${NGINX_PORT} envsubst '${NGINX_LISTEN}' </etc/nginx/conf.d/default.conf.template >/etc/nginx/conf.d/default.conf \
-  && jq -n 'env | with_entries( select(.key | startswith("EDC_UI_") ) )' > /usr/share/nginx/html/assets/config/app-config.json \
-  && nginx -g "daemon off;"
+  CMD curl -f http://$NGINX_BIND:$NGINX_PORT/ || exit 1
