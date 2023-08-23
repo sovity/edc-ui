@@ -1,7 +1,9 @@
 export const getUrl = (input: Request | string, baseUrl: string): string => {
-  let url = typeof input === 'string' ? input : input.url;
-  url = url.startsWith(baseUrl) ? url.substr(baseUrl.length) : url;
-  return url;
+  let url = new URL(typeof input === 'string' ? input : input.url);
+  let urlNoQuery = url.origin + url.pathname;
+  return urlNoQuery.startsWith(baseUrl)
+    ? urlNoQuery.substring(baseUrl.length)
+    : urlNoQuery;
 };
 
 export const getMethod = (init: RequestInit | undefined): string =>
