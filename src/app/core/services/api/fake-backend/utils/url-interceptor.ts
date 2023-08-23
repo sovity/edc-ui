@@ -40,7 +40,10 @@ export class UrlInterceptor {
         continue;
       }
 
-      match = match.filter((_, index) => index > 0);
+      match = match
+        .filter((_, index) => index > 0)
+        .map((pathSegment) => decodeURIComponent(pathSegment));
+
       return await entry.response(...match);
     }
 
