@@ -27,10 +27,11 @@ export class AssetPropertyMapper {
     private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
-  buildAssetFromProperties(
-    props: Record<string, string | null>,
-    opts?: {connectorEndpoint?: string},
-  ): Asset {
+  buildAsset(opts: {
+    connectorEndpoint: string;
+    properties: Record<string, string | null>;
+  }): Asset {
+    const props = opts.properties;
     const language = props[AssetProperties.language]
       ? this.languageSelectItemService.findById(
           props[AssetProperties.language]!,
@@ -64,7 +65,7 @@ export class AssetPropertyMapper {
       name: props[AssetProperties.name] ?? id,
       version: props[AssetProperties.version],
       contentType: props[AssetProperties.contentType],
-      originator: opts?.connectorEndpoint ?? props[AssetProperties.originator],
+      originator: opts.connectorEndpoint,
       originatorOrganization:
         props[AssetProperties.curatorOrganizationName] ??
         'Unknown Organization',
@@ -109,9 +110,6 @@ export class AssetPropertyMapper {
     props[AssetProperties.id] = trimmedOrNull(metadata?.id);
     props[AssetProperties.name] = trimmedOrNull(metadata?.name);
     props[AssetProperties.version] = trimmedOrNull(metadata?.version);
-    props[AssetProperties.originator] = trimmedOrNull(
-      this.config.connectorEndpoint,
-    );
     props[AssetProperties.curatorOrganizationName] = trimmedOrNull(
       this.config.curatorOrganizationName,
     );
