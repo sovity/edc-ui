@@ -32,26 +32,21 @@ export class AssetPropertyMapper {
     properties: Record<string, string | null>;
   }): Asset {
     const props = opts.properties;
-    const language = props[AssetProperties.language]
-      ? this.languageSelectItemService.findById(
-          props[AssetProperties.language]!,
-        )
-      : null;
-    const dataCategory = props[AssetProperties.dataCategory]
-      ? this.dataCategorySelectItemService.findById(
-          props[AssetProperties.dataCategory]!,
-        )
-      : null;
-    const dataSubcategory = props[AssetProperties.dataSubcategory]
-      ? this.dataSubcategorySelectItemService.findById(
-          props[AssetProperties.dataSubcategory]!,
-        )
-      : null;
-    const transportMode = props[AssetProperties.transportMode]
-      ? this.transportModeSelectItemService.findById(
-          props[AssetProperties.transportMode]!,
-        )
-      : null;
+    const lookup = <T>(key: string, fn: (id: string) => T) =>
+      props[key] ? fn(props[key]!) : null;
+
+    const language = lookup(AssetProperties.language, (id) =>
+      this.languageSelectItemService.findById(id),
+    );
+    const dataCategory = lookup(AssetProperties.dataCategory, (id) =>
+      this.dataCategorySelectItemService.findById(id),
+    );
+    const dataSubcategory = lookup(AssetProperties.dataSubcategory, (id) =>
+      this.dataSubcategorySelectItemService.findById(id),
+    );
+    const transportMode = lookup(AssetProperties.transportMode, (id) =>
+      this.transportModeSelectItemService.findById(id),
+    );
     const keywords = (props[AssetProperties.keywords] ?? '')
       .split(',')
       .map((it) => it.trim())
