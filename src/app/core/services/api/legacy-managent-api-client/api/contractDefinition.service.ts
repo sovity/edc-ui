@@ -40,7 +40,7 @@ import {
   providedIn: 'root',
 })
 export class ContractDefinitionService {
-  public defaultHeaders = new HttpHeaders({'X-Api-Key v': this.apiKey});
+  public defaultHeaders = new HttpHeaders({'X-Api-Key': this.apiKey});
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
   protected basePath = 'http://localhost';
