@@ -3,12 +3,16 @@ import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {BehaviorSubject, Observable, distinctUntilChanged} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
+import {ContractDefinitionPage} from '@sovity.de/edc-client';
+import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {value$} from '../../../../core/utils/form-group-utils';
 import {ContractDefinitionEditorDialogResult} from '../contract-definition-editor-dialog/contract-definition-editor-dialog-result';
 import {ContractDefinitionEditorDialog} from '../contract-definition-editor-dialog/contract-definition-editor-dialog.component';
-import {ContractDefinitionPageData} from './contract-definition-page.data';
-import {ContractDefinitionPageService} from './contract-definition-page.service';
+import {
+  ContractDefinitionPageData,
+  FetchResult,
+} from './contract-definition-page.data';
 
 @Component({
   selector: 'app-contract-definition-page',
@@ -23,13 +27,17 @@ export class ContractDefinitionPageComponent implements OnInit {
   private fetch$ = new BehaviorSubject(null);
 
   constructor(
-    private contractDefinitionPageService: ContractDefinitionPageService,
+    private edcApiService: EdcApiService,
     private readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-    this.contractDefinitionPageService
-      .contractDefinitionPageData$(this.fetch$, this.searchText$())
+    this.edcApiService
+      .getContractDefinitionPage()
+      .pipe(
+        map((data): ContractDefinitionPageData => ({})),
+        Fetched.wrap({failureMessage: 'Failed fetching contract list.'}),
+      )
       .subscribe((contractDefinitionList) => {
         this.contractDefinitionList = contractDefinitionList;
       });
