@@ -22,6 +22,7 @@ export class ContractDefinitionBuilder {
     formValue: ContractDefinitionEditorDialogFormValue,
   ): ContractDefinitionRequest {
     return {
+      contractDefinitionId: formValue.id ?? '',
       accessPolicyId: policyDefinitionId(formValue.accessPolicy!),
       contractPolicyId: policyDefinitionId(formValue.contractPolicy!),
       assetSelector: [
