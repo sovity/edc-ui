@@ -86,10 +86,9 @@ export class PolicyDefinitionPageComponent implements OnInit {
         (policyDefinition: PolicyDefinitionDto) => {
           return [
             policyDefinition.policyDefinitionId,
-            ...policyDefinition.uiPolicyDto.errors,
-            ...(policyDefinition.uiPolicyDto.constraints?.map(
-              (it) => it.left,
-            ) ?? []),
+            ...policyDefinition.policy.errors,
+            ...(policyDefinition.policy.constraints?.map((it) => it.left) ??
+              []),
           ].filter((it) => !!it);
         },
       ),

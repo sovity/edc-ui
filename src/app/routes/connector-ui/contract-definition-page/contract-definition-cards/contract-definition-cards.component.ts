@@ -52,7 +52,7 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
       title: policyDefinition.policyDefinitionId,
       subtitle: 'Policy',
       icon: 'policy',
-      objectForJson: JSON.parse(policyDefinition.uiPolicyDto.policyJsonLd),
+      objectForJson: JSON.parse(policyDefinition.policy.policyJsonLd),
     };
     this.matDialog.open(JsonDialogComponent, {data});
   }

@@ -21,7 +21,7 @@ export class PolicyDefinitionBuilder {
   ): PolicyDefinitionCreateRequest {
     return {
       policyDefinitionId: formValue.id?.trim()!,
-      uiPolicyDto: {
+      policy: {
         constraints: this.buildPolicyConstraints(formValue),
       },
     };

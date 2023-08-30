@@ -8,7 +8,7 @@ import {
 export let policyDefinitions: PolicyDefinitionDto[] = [
   {
     policyDefinitionId: 'test-policy-definition-1',
-    uiPolicyDto: {
+    policy: {
       policyJsonLd: '{"example-policy-jsonld": true}',
       constraints: [
         {
@@ -22,7 +22,7 @@ export let policyDefinitions: PolicyDefinitionDto[] = [
   },
   {
     policyDefinitionId: 'test-policy-definition-1-with-errors',
-    uiPolicyDto: {
+    policy: {
       policyJsonLd: '{"example-policy-jsonld": true}',
       constraints: [
         {
@@ -36,7 +36,7 @@ export let policyDefinitions: PolicyDefinitionDto[] = [
   },
   {
     policyDefinitionId: 'test-policy-definition-3',
-    uiPolicyDto: {
+    policy: {
       policyJsonLd: '{"example-policy-jsonld": true}',
       constraints: [],
       errors: ['No constraints found!'],
@@ -52,8 +52,8 @@ export const createPolicyDefinition = (
 ): IdResponseDto => {
   const newPolicyDefinition: PolicyDefinitionDto = {
     policyDefinitionId: request.policyDefinitionId,
-    uiPolicyDto: {
-      constraints: request.uiPolicyDto.constraints,
+    policy: {
+      constraints: request.policy.constraints,
       errors: [],
       policyJsonLd: '{"example-policy-jsonld": true}',
     },

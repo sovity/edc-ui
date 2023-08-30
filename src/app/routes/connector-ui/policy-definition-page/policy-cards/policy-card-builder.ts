@@ -16,20 +16,20 @@ export class PolicyCardBuilder {
   }
 
   buildPolicyCard(policyDefinition: PolicyDefinitionDto): PolicyCard {
-    const irregularities = policyDefinition.uiPolicyDto?.errors ?? [];
+    const irregularities = policyDefinition.policy?.errors ?? [];
     return {
       id: policyDefinition.policyDefinitionId,
       isRegular: !irregularities.length,
       irregularities,
       constraints: this.buildPolicyCardConstraints(policyDefinition),
-      objectForJson: JSON.parse(policyDefinition.uiPolicyDto.policyJsonLd),
+      objectForJson: JSON.parse(policyDefinition.policy.policyJsonLd),
     };
   }
 
   private buildPolicyCardConstraints(
     policyDefinition: PolicyDefinitionDto,
   ): PolicyCardConstraint[] {
-    const constraints = policyDefinition.uiPolicyDto?.constraints ?? [];
+    const constraints = policyDefinition.policy?.constraints ?? [];
     return constraints.map((constraint) => {
       let left = constraint.left;
       let operator = OPERATOR_SYMBOLS[constraint.operator];
