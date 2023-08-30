@@ -56,12 +56,12 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     .url('pages/policy-page')
     .on('GET', () => ok(policyDefinitionPage()))
 
-    .url('pages/policy-page/policies')
+    .url('pages/policy-page/policy-definitions')
     .on('POST', () =>
       ok(createPolicyDefinition(body as PolicyDefinitionCreateRequest)),
     )
 
-    .url('pages/policy-page/policies/*')
+    .url('pages/policy-page/policy-definitions/*')
     .on('DELETE', (policyDefinitionId) =>
       ok(deletePolicyDefinition(policyDefinitionId)),
     )
