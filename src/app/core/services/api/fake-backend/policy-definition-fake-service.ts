@@ -1,35 +1,64 @@
-import {IdResponseDto, PolicyDefinitionDto} from '@sovity.de/edc-client';
-import {PolicyDefinitionCreateRequest} from '@sovity.de/edc-client/dist/generated/models/PolicyDefinitionCreateRequest';
-import {UiPolicyDto} from '@sovity.de/edc-client/dist/generated/models/UiPolicyDto';
+import {
+  IdResponseDto,
+  PolicyDefinitionCreateRequest,
+  PolicyDefinitionDto,
+  PolicyDefinitionPage,
+} from '@sovity.de/edc-client';
 
 export let policyDefinitions: PolicyDefinitionDto[] = [
   {
     policyDefinitionId: 'test-policy-definition-1',
     uiPolicyDto: {
-      policyJsonLd: 'test-policy-json-ld-1',
+      policyJsonLd: '{"example-policy-jsonld": true}',
       constraints: [
         {
-          left: 'test-left-1',
+          left: 'REFERRING_CONNECTOR',
           operator: 'EQ',
-          right: {type: 'STRING', value: 'test-asset-1'},
+          right: {type: 'STRING', value: 'https://my-other-connector'},
+        },
+      ],
+      errors: [],
+    },
+  },
+  {
+    policyDefinitionId: 'test-policy-definition-1-with-errors',
+    uiPolicyDto: {
+      policyJsonLd: '{"example-policy-jsonld": true}',
+      constraints: [
+        {
+          left: 'REFERRING_CONNECTOR',
+          operator: 'EQ',
+          right: {type: 'STRING', value: 'https://my-other-connector'},
         },
       ],
       errors: ['test-error-1'],
     },
   },
+  {
+    policyDefinitionId: 'test-policy-definition-3',
+    uiPolicyDto: {
+      policyJsonLd: '{"example-policy-jsonld": true}',
+      constraints: [],
+      errors: ['No constraints found!'],
+    },
+  },
 ];
-
-export const policyDefinitionPage = (): PolicyDefinitionDto[] => {
-  return policyDefinitions;
+export const policyDefinitionPage = (): PolicyDefinitionPage => {
+  return {policies: policyDefinitions};
 };
 
 export const createPolicyDefinition = (
   request: PolicyDefinitionCreateRequest,
 ): IdResponseDto => {
-  policyDefinitions.push({
-    policyDefinitionId: request.policyDefinitionId!,
-    uiPolicyDto: request.uiPolicyDto! as UiPolicyDto,
-  });
+  const newPolicyDefinition: PolicyDefinitionDto = {
+    policyDefinitionId: request.policyDefinitionId,
+    uiPolicyDto: {
+      constraints: request.uiPolicyDto.constraints,
+      errors: [],
+      policyJsonLd: '{"example-policy-jsonld": true}',
+    },
+  };
+  policyDefinitions = [newPolicyDefinition, ...policyDefinitions];
 
   return {
     id: request.policyDefinitionId,

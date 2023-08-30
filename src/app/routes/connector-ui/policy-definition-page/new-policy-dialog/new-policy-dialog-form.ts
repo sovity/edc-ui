@@ -19,7 +19,6 @@ export class NewPolicyDialogForm {
   /**
    * Quick access to full value
    */
-
   get value(): NewPolicyDialogFormValue {
     return this.group.value;
   }
@@ -30,26 +29,41 @@ export class NewPolicyDialogForm {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  buildFormGroup(): FormGroup {
-    return this.formBuilder.nonNullable.group({
-      policyDefinitionId: ['', [Validators.required, noWhitespaceValidator]],
-      policyType: [
-        'Connector-Restricted-Usage' as PolicyType,
-        Validators.required,
-      ],
-      uiPolicyDto: this.formBuilder.group({
-        constraints: this.formBuilder.array([this.buildConstraintForm()]),
-      }),
-    });
-  }
+  buildFormGroup(): FormGroup<NewPolicyDialogFormModel> {
+    const newPolicyFormGroup: FormGroup<NewPolicyDialogFormModel> =
+      this.formBuilder.nonNullable.group({
+        id: ['', [Validators.required, noWhitespaceValidator]],
+        policyType: [
+          'Connector-Restricted-Usage' as PolicyType,
+          Validators.required,
+        ],
+        range: this.formBuilder.group(
+          {
+            start: null as Date | null,
+            end: null as Date | null,
+          },
+          {validators: dateRangeRequired},
+        ),
+        connectorId: ['', Validators.required],
+      });
 
-  buildConstraintForm(): FormGroup {
-    return this.formBuilder.group({
-      policyDefinitionId: true,
-      policyType: true,
-      left: ['', Validators.required],
-      operator: ['', Validators.required],
-      right: this.formBuilder.group({}),
-    });
+    switchDisabledControls<NewPolicyDialogFormValue>(
+      newPolicyFormGroup,
+      (value) => {
+        const timePeriodRestricted =
+          value.policyType === 'Time-Period-Restricted';
+        const connecterRestrictedUsage =
+          value.policyType === 'Connector-Restricted-Usage';
+
+        return {
+          id: true,
+          policyType: true,
+          range: timePeriodRestricted,
+          connectorId: connecterRestrictedUsage,
+        };
+      },
+    );
+
+    return newPolicyFormGroup;
   }
 }

@@ -1,7 +1,9 @@
-import {FetchAPI} from '@sovity.de/edc-client';
-import {AssetCreateRequest} from '@sovity.de/edc-client/dist/generated/models/AssetCreateRequest';
-import {ContractDefinitionRequest} from '@sovity.de/edc-client/dist/generated/models/ContractDefinitionRequest';
-import {PolicyDefinitionCreateRequest} from '@sovity.de/edc-client/dist/generated/models/PolicyDefinitionCreateRequest';
+import {
+  AssetCreateRequest,
+  ContractDefinitionRequest,
+  FetchAPI,
+  PolicyDefinitionCreateRequest,
+} from '@sovity.de/edc-client';
 import {assetPage, createAsset, deleteAsset} from './asset-fake-service';
 import {
   contractDefinitionPage,
@@ -51,15 +53,15 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
       ok(deleteContractDefinition(contractDefinitionId)),
     )
 
-    .url('pages/policy-definition-page')
+    .url('pages/policy-page')
     .on('GET', () => ok(policyDefinitionPage()))
 
-    .url('pages/policy-definition-page/policy-definitions')
+    .url('pages/policy-page/policies')
     .on('POST', () =>
       ok(createPolicyDefinition(body as PolicyDefinitionCreateRequest)),
     )
 
-    .url('pages/policy-definition-page/policy-definitions/*')
+    .url('pages/policy-page/policies/*')
     .on('DELETE', (policyDefinitionId) =>
       ok(deletePolicyDefinition(policyDefinitionId)),
     )
