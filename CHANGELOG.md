@@ -21,6 +21,8 @@ the detailed section referring to by linking pull requests or issues.
 #### Fixed
 
 - Removed 404-causing login polling from broker UI
+- Broker: Fixed popularity not logged when clicking on a data offer.
+- Broker: Fixed missing name in legal notice
 
 #### Removed
 

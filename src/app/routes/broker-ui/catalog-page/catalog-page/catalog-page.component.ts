@@ -9,6 +9,7 @@ import {CatalogPageSortingItem} from '@sovity.de/broker-server-client';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogResult} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-result';
 import {AssetDetailDialogComponent} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.component';
+import {BrokerServerApiService} from '../../../../core/services/api/broker-server-api.service';
 import {FilterValueSelectItem} from '../filter-value-select/filter-value-select-item';
 import {FilterValueSelectVisibleState} from '../filter-value-select/filter-value-select-visible-state';
 import {CatalogActiveFilterPill} from '../state/catalog-active-filter-pill';
@@ -36,6 +37,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   constructor(
     private assetDetailDialogDataService: AssetDetailDialogDataService,
     private matDialog: MatDialog,
+    private brokerServerApiService: BrokerServerApiService,
     private store: Store,
   ) {}
 
@@ -82,6 +84,14 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   }
 
   onDataOfferClick(dataOffer: BrokerDataOffer) {
+    // Call the detail dialog endpoint so the view count is increased
+    this.brokerServerApiService
+      .dataOfferDetailPage({
+        assetId: dataOffer.assetId,
+        connectorEndpoint: dataOffer.connectorEndpoint,
+      })
+      .subscribe();
+
     const data =
       this.assetDetailDialogDataService.brokerDataOfferDetails(dataOffer);
     const ref = this.matDialog.open(AssetDetailDialogComponent, {data});
