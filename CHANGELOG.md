@@ -16,6 +16,22 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Added
 
+#### Fixed
+
+#### Removed
+
+#### Fixed
+
+## [v0.0.1-milestone-8-sovity13] 31.08.2023
+
+### Overview
+
+MDS 1.2 Release: MS8 Release with fixes for both the Connector UI and Broker UI.
+
+### Detailed Changes
+
+#### Added
+
 - Added custom 404 pages to connector and broker ui
 
 #### Fixed
@@ -23,12 +39,15 @@ the detailed section referring to by linking pull requests or issues.
 - Removed 404-causing login polling from broker UI
 - Broker: Fixed popularity not logged when clicking on a data offer.
 - Broker: Fixed missing name in legal notice
-
-#### Removed
-
-#### Fixed
-
+- Docker Image now uses non-root user
 - Renamed button from cancel to close in json-dialogs
+- Added a workaround for our EDC UI image failing when requests contain large
+  cookies.
+
+### Deployment Migration Notes
+
+- The Docker Images no longer bind the port `:80` but the port `:8080`.
+- The Docker Images now use non-root users.
 
 ## [v0.0.1-milestone-8-sovity12] 12.07.2023
 
