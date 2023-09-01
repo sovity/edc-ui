@@ -14,5 +14,5 @@ server {
     }
 
     # Our OAuth Proxies currently have an issue with very large cookies
-    large_client_header_buffers 8 32k
+    large_client_header_buffers 8 32k;
 }
