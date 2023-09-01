@@ -1,9 +1,5 @@
-access_log /dev/stdout;
-error_log /dev/stderr;
-disable_symlinks if_not_owner;
-
 server {
-    listen ${NGINX_BIND}:${NGINX_PORT};
+    listen <%= $NGINX_BIND %><% if "$NGINX_BIND" ; then -%>:<% fi -%><%= $NGINX_PORT %>;
     server_name localhost;
 
     root /usr/share/nginx/html;
@@ -16,3 +12,4 @@ server {
     # Our OAuth Proxies currently have an issue with very large cookies
     large_client_header_buffers 8 32k;
 }
+
