@@ -60,7 +60,7 @@ export class ContractOfferService {
     return {
       ...contractOfferDto,
       asset: this.assetPropertyMapper.buildAsset({
-        connectorEndpoint: connectorEndpoint,
+        connectorEndpoint,
         uiAsset: contractOfferDto.asset,
       }),
     };
