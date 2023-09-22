@@ -25,7 +25,7 @@ export class AssetServiceMapped {
         assetPage.assets.map((uiAsset) =>
           this.assetPropertyMapper.buildAsset({
             connectorEndpoint: this.config.connectorEndpoint,
-            uiAsset: uiAsset,
+            uiAsset,
           }),
         ),
       ),
