@@ -1,12 +1,11 @@
-import {UiAsset} from '@sovity.de/edc-client';
-import {Policy} from '../api/legacy-managent-api-client';
+import {UiAsset, UiPolicy} from '@sovity.de/edc-client';
 
 /**
  * Contract Offer (API Model)
  */
 export interface ContractOfferDto {
   id: string;
-  policy: Policy;
+  policy: UiPolicy;
   provider: string;
   consumer: string;
   asset: UiAsset;

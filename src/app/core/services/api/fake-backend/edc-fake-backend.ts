@@ -4,6 +4,7 @@ import {
   ContractAgreementTransferRequestFromJSON,
   ContractDefinitionPageToJSON,
   ContractDefinitionRequestFromJSON,
+  ContractNegotiationRequestFromJSON,
   FetchAPI,
   IdResponseDtoToJSON,
   PolicyDefinitionCreateRequestFromJSON,
@@ -11,8 +12,10 @@ import {
   TransferHistoryPageToJSON,
   UiAssetCreateRequestFromJSON,
   UiAssetToJSON,
+  UiContractNegotiationToJSON,
 } from '@sovity.de/edc-client';
 import {assetPage, createAsset, deleteAsset} from './asset-fake-service';
+import {getCatalogPageDataOffers} from './catalog-fake-service';
 import {
   contractAgreementInitiateTransfer,
   contractAgreementPage,
@@ -22,6 +25,10 @@ import {
   createContractDefinition,
   deleteContractDefinition,
 } from './contract-definition-fake-service';
+import {
+  getContractNegotiation,
+  initiateContractNegotiation,
+} from './contract-negotiation-fake-service';
 import {
   createPolicyDefinition,
   deletePolicyDefinition,
@@ -127,6 +134,27 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     .on('GET', (transferProcessId) => {
       let asset = transferProcessAsset(transferProcessId);
       return ok(UiAssetToJSON(asset));
+    })
+
+    .url('pages/catalog-page/data-offers')
+    .on('GET', (connectorEndpoint) => {
+      let dataOffers = getCatalogPageDataOffers(connectorEndpoint);
+      return ok(dataOffers);
+    })
+
+    .url('pages/catalog-page/contract-negotiations')
+    .on('POST', () => {
+      let createRequest = ContractNegotiationRequestFromJSON(body);
+
+      let contractNegotiation = initiateContractNegotiation(createRequest);
+
+      return ok(UiContractNegotiationToJSON(contractNegotiation));
+    })
+
+    .url('pages/catalog-page/contract-negotiations')
+    .on('POST', (contractNegotiationId) => {
+      let contractNegotiation = getContractNegotiation(contractNegotiationId);
+      return ok(contractNegotiation);
     })
 
     .tryMatch();

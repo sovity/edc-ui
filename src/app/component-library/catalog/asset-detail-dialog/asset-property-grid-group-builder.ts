@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {CatalogContractOffer} from '@sovity.de/broker-server-client';
+import {UiPolicy} from '@sovity.de/edc-client';
 import {ActiveFeatureSet} from '../../../core/config/active-feature-set';
 import {Policy} from '../../../core/services/api/legacy-managent-api-client';
 import {AssetProperties} from '../../../core/services/asset-properties';
@@ -176,6 +177,20 @@ export class AssetPropertyGridGroupBuilder {
     this.matDialog.open(JsonDialogComponent, {data});
   }
 
+  onShowUiPolicyDetailsClick(
+    title: string,
+    subtitle: string,
+    policyDetails: UiPolicy,
+  ) {
+    const data: JsonDialogData = {
+      title,
+      subtitle,
+      icon: 'policy',
+      objectForJson: policyDetails,
+    };
+    this.matDialog.open(JsonDialogComponent, {data});
+  }
+
   buildContractOfferGroup(
     asset: Asset,
     contractOffer: CatalogContractOffer,
@@ -225,6 +240,20 @@ export class AssetPropertyGridGroupBuilder {
     return {groupLabel, properties};
   }
 
+  buildUiPolicyGroup(
+    asset: Asset,
+    contractPolicy: UiPolicy | null,
+    groupLabel: string = 'Policies',
+  ) {
+    let properties: PropertyGridField[] = [];
+    if (contractPolicy) {
+      properties.push(
+        this.buildUiContractPolicyField(contractPolicy, asset.name),
+      );
+    }
+    return {groupLabel, properties};
+  }
+
   buildContractPolicyField(contractPolicy: Policy, subtitle: string) {
     return {
       icon: 'policy',
@@ -239,6 +268,19 @@ export class AssetPropertyGridGroupBuilder {
     };
   }
 
+  buildUiContractPolicyField(contractPolicy: UiPolicy, subtitle: string) {
+    return {
+      icon: 'policy',
+      label: 'Contract Policy',
+      text: 'Show Policy Details',
+      onclick: () =>
+        this.onShowUiPolicyDetailsClick(
+          'Contract Policy',
+          subtitle,
+          contractPolicy,
+        ),
+    };
+  }
   buildContractAgreementGroup(contractAgreement: ContractAgreementCardMapped) {
     let properties: PropertyGridField[] = [
       {

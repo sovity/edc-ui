@@ -1,9 +1,9 @@
+import {UiContractOffer} from '@sovity.de/edc-client';
 import {Asset} from './asset';
-import {ContractOfferDto} from './contract-offer-dto';
 
 /**
  * Contract Offer (UI Dto)
  */
-export type ContractOffer = Omit<ContractOfferDto, 'asset'> & {
+export type ContractOffer = Omit<UiContractOffer, 'asset'> & {
   asset: Asset;
 };

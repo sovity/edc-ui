@@ -46,24 +46,6 @@ export class CatalogApiUrlService {
     this.customProviders = connectorIds;
   }
 
-  /**
-   * We fetch catalogs by proxying them through our own backend.
-   *
-   * @param connectorEndpoint target connector endpoint (or legacy full url
-   * targeted at own connector with query param providerUrl)
-   * @return full url for fetching catalog
-   */
-  buildCatalogApiUrl(connectorEndpoint: string) {
-    // Detect legacy URLs
-    const prefix = `${this.config.managementApiUrl}/catalog?providerUrl=`;
-    if (connectorEndpoint.startsWith(prefix)) {
-      return connectorEndpoint;
-    }
-
-    // Build Catalog API URL from Connector Endpoint
-    return `${prefix}${encodeURIComponent(connectorEndpoint)}`;
-  }
-
   private splitUrls(commaJoinedUrls?: string | null): string[] {
     return (
       commaJoinedUrls

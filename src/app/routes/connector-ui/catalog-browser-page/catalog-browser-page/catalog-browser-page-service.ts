@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
+import {UiContractOffer, UiDataOffer} from '@sovity.de/edc-client';
 import {CatalogApiUrlService} from '../../../../core/services/api/catalog-api-url.service';
-import {ContractOfferService} from '../../../../core/services/api/contract-offer.service';
-import {ContractOffer} from '../../../../core/services/models/contract-offer';
+import {EdcApiService} from '../../../../core/services/api/edc-api.service';
+import {AssetPropertyMapper} from '../../../../core/services/asset-property-mapper';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {MultiFetched} from '../../../../core/services/models/multi-fetched';
 import {assetSearchTargets, search} from '../../../../core/utils/search-utils';
@@ -15,7 +16,8 @@ import {
 @Injectable({providedIn: 'root'})
 export class CatalogBrowserPageService {
   constructor(
-    private contractOfferService: ContractOfferService,
+    private edcApiService: EdcApiService,
+    private assetPropertyMapper: AssetPropertyMapper,
     private catalogApiUrlService: CatalogApiUrlService,
   ) {}
 
@@ -30,7 +32,6 @@ export class CatalogBrowserPageService {
       map(([data, searchText]): CatalogBrowserPageData => {
         // Merge fetch results
         const contractOffers = data.requestTotals.data.flat();
-
         // Apply filter
         const filteredContractOffers = this.filterContractOffers(
           contractOffers,
@@ -48,12 +49,18 @@ export class CatalogBrowserPageService {
   }
 
   filterContractOffers(
-    contractOffers: ContractOffer[],
+    dataOffers: UiDataOffer[],
     searchText: string,
-  ): ContractOffer[] {
-    return search(contractOffers, searchText, (contractOffer) =>
-      assetSearchTargets(contractOffer.asset),
+  ): UiContractOffer[] {
+    const dataoffersResult = search(dataOffers, searchText, (dataOffer) =>
+      assetSearchTargets(
+        this.assetPropertyMapper.buildAsset({
+          connectorEndpoint: dataOffer.endpoint,
+          uiAsset: dataOffer.asset,
+        }),
+      ),
     );
+    return dataoffersResult.flatMap((dataOffer) => dataOffer.contractOffers);
   }
 
   fetchCatalogs(): Observable<
@@ -62,8 +69,8 @@ export class CatalogBrowserPageService {
     // Prepare to fetch individual Catalogs
     const urls = this.catalogApiUrlService.getAllProviders();
     const sources = urls.map((it) =>
-      this.contractOfferService
-        .getContractOffers(it)
+      this.edcApiService
+        .getCatalogPageDataOffers(it)
         .pipe(Fetched.wrap({failureMessage: 'Failed fetching catalog.'})),
     );
 
@@ -71,7 +78,7 @@ export class CatalogBrowserPageService {
       map((results) => MultiFetched.aggregate(results)),
       map(
         (
-          requestTotals: MultiFetched<ContractOffer[]>,
+          requestTotals: MultiFetched<UiDataOffer[]>,
         ): Pick<CatalogBrowserPageData, 'requests' | 'requestTotals'> => {
           const presetUrls = this.catalogApiUrlService.getPresetProviders();
           return {
