@@ -31,8 +31,8 @@ import {NgxsModule} from '@ngxs/store';
 import {CatalogModule} from '../../../component-library/catalog/catalog.module';
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
-import {CatalogPageComponent} from './catalog-page/catalog-page.component';
 import {BrokerDataOfferCardsComponent} from './broker-data-offer-cards/broker-data-offer-cards.component';
+import {CatalogPageComponent} from './catalog-page/catalog-page.component';
 import {FilterValueSelectComponent} from './filter-value-select/filter-value-select.component';
 import {CatalogPageState} from './state/catalog-page-state';
 

@@ -84,13 +84,11 @@ export const transferProcessAsset = (transferProcessId: string): UiAsset => {
   const assetId = transfer?.assetId ?? 'unknown';
   const isProviding = transfer?.direction === 'PROVIDING';
 
-  const dummyAsset: UiAsset = TestAssets.toAssetDto(
-    TestAssets.dummyAsset(assetId),
-  );
+  const dummyAsset: UiAsset = TestAssets.dummyAsset(assetId);
 
   const assetEntry = getAssetById(assetId);
 
   return isProviding && assetEntry
-    ? TestAssets.toAssetDto(assetEntry)
+    ? TestAssets.toDummyAsset(assetEntry)
     : dummyAsset;
 };

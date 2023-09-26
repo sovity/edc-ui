@@ -39,14 +39,6 @@ export namespace TestAssets {
     privateProperties: {},
   };
 
-  export function toAssetDto(entry: UiAsset): UiAsset {
-    return {
-      assetId: entry.assetId,
-      name: entry.name,
-      additionalProperties: {},
-    };
-  }
-
   export function toDummyAsset(entry: UiAsset): UiAsset {
     return dummyAsset(entry.assetId);
   }
@@ -54,8 +46,7 @@ export namespace TestAssets {
   export function dummyAsset(assetId: string): UiAsset {
     return {
       assetId,
-      name: 'Dummy Asset',
-      privateProperties: {},
+      name: assetId,
     };
   }
 }

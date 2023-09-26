@@ -5,7 +5,7 @@ import {
   ContractAgreementTransferRequest,
   IdResponseDto,
 } from '@sovity.de/edc-client';
-import {Patcher, patchObj} from '../../../utils/object-utils';
+import {Patcher, patchObj} from '../../../../utils/object-utils';
 import {TestAssets} from './data/test-assets';
 import {TestPolicies} from './data/test-policies';
 
@@ -18,7 +18,7 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'urn:connector:example-connector',
     contractSigningDate: new Date('2022-03-20T11:18:59.659Z'),
-    asset: TestAssets.toAssetDto(TestAssets.full),
+    asset: TestAssets.full,
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [
       {
@@ -69,7 +69,7 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'my-connector',
     contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
-    asset: TestAssets.toAssetDto(TestAssets.toDummyAsset(TestAssets.boring)),
+    asset: TestAssets.toDummyAsset(TestAssets.boring),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [
       {
@@ -92,7 +92,7 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'my-connector',
     contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
-    asset: TestAssets.toAssetDto(TestAssets.toDummyAsset(TestAssets.boring)),
+    asset: TestAssets.toDummyAsset(TestAssets.boring),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [],
   },
@@ -104,7 +104,7 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'my-connector',
     contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
-    asset: TestAssets.toAssetDto(TestAssets.toDummyAsset(TestAssets.boring)),
+    asset: TestAssets.toDummyAsset(TestAssets.boring),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [
       {

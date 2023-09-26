@@ -1,5 +1,5 @@
 <div class="mat-card-header" mat-dialog-title removeClass="mat-dialog-title">
-  <mat-icon *ngIf="data.type === 'asset-details'" class="mat-icon-[40px]">
+  <mat-icon *ngIf="data.type === 'asset-details'" class="mat-card-avatar-icon">
     upload
   </mat-icon>
   <icon-with-online-status
@@ -7,7 +7,9 @@
     mainIcon="sim_card"
     [onlineStatus]="data.brokerDataOffer!!.connectorOnlineStatus">
   </icon-with-online-status>
-  <mat-icon *ngIf="data.type === 'contract-agreement'" class="mat-icon-[40px]">
+  <mat-icon
+    *ngIf="data.type === 'contract-agreement'"
+    class="mat-card-avatar-icon">
     {{
       data.contractAgreement!!.direction === 'PROVIDING' ? 'upload' : 'download'
     }}

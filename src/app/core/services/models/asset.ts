@@ -11,14 +11,7 @@ import {TransportModeSelectItem} from '../../../routes/connector-ui/asset-page/t
  */
 export type Asset = Omit<
   UiAsset,
-  | 'language'
-  | 'dataCategory'
-  | 'dataSubcategory'
-  | 'transportMode'
-  | 'additionalProperties'
-  | 'additionalJsonProperties'
-  | 'privateProperties'
-  | 'privateJsonProperties'
+  'language' | 'dataCategory' | 'dataSubcategory' | 'transportMode'
 > & {
   connectorEndpoint: string;
 
@@ -30,7 +23,7 @@ export type Asset = Omit<
   transportMode: TransportModeSelectItem | null;
 
   // Unhandled Additional Properties
-  additionalProperties: AdditionalAssetProperty[];
+  mergedAdditionalProperties: AdditionalAssetProperty[];
 };
 
 export interface AdditionalAssetProperty {

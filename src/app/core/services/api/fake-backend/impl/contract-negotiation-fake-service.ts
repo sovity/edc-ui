@@ -4,7 +4,7 @@ import {
   ContractNegotiationStateSimplifiedStateEnum,
   UiContractNegotiation,
 } from '@sovity.de/edc-client';
-import {Patcher, patchObj} from '../../../utils/object-utils';
+import {Patcher, patchObj} from '../../../../utils/object-utils';
 import {getAssetById} from './asset-fake-service';
 import {addContractAgreement} from './contract-agreement-fake-service';
 import {getPolicyDefinitionByJsonLd} from './policy-definition-fake-service';

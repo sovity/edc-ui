@@ -4,7 +4,7 @@ import {
   ContractDefinitionRequest,
   IdResponseDto,
 } from '@sovity.de/edc-client';
-import {AssetProperty} from '../../models/asset-properties';
+import {AssetProperty} from '../../../models/asset-properties';
 
 let contractDefinitions: ContractDefinitionEntry[] = [
   {

@@ -90,7 +90,7 @@ export class AssetPropertyGridGroupBuilder {
     }
 
     fields.push(
-      ...asset.additionalProperties.map((prop) => {
+      ...asset.mergedAdditionalProperties.map((prop) => {
         return {
           icon: 'category ',
           label: prop.key,
@@ -221,7 +221,7 @@ export class AssetPropertyGridGroupBuilder {
       },
       {
         icon: 'link',
-        label: 'Other Connector ID',
+        label: 'Other Connector Participant ID',
         ...this.propertyGridUtils.guessValue(contractAgreement.counterPartyId),
       },
       {

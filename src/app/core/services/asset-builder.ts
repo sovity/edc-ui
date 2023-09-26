@@ -52,12 +52,14 @@ export class AssetBuilder {
 
     return {
       ...assetProperties,
-      additionalProperties: this.buildAdditionalProperties(asset),
+      connectorEndpoint: connectorEndpoint,
+      creatorOrganizationName:
+        asset.creatorOrganizationName || 'Unknown Organization',
       language: languageSelectItem,
       dataCategory: dataCategorySelectItem,
       dataSubcategory: dataSubcategorySelectItem,
       transportMode: transportModeSelectItem,
-      connectorEndpoint: connectorEndpoint,
+      mergedAdditionalProperties: this.buildAdditionalProperties(asset),
     };
   }
 

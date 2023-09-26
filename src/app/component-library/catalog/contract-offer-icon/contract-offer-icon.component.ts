@@ -8,7 +8,7 @@ import {DataOffer} from '../../../core/services/models/data-offer';
     <!-- Negotiation Success Indicator -->
     <div *ngIf="isNegotiated()" style="position: absolute;">
       <mat-icon
-        class="mat-icon-[40px]"
+        class="mat-card-avatar-icon"
         style="
             margin-top: 3px;
             margin-left: 9px;
@@ -20,7 +20,7 @@ import {DataOffer} from '../../../core/services/models/data-offer';
     </div>
 
     <!-- Icon -->
-    <mat-icon class="mat-icon-[40px]">sim_card</mat-icon>
+    <mat-icon class="mat-card-avatar-icon">sim_card</mat-icon>
   `,
 })
 export class ContractOfferIconComponent {
