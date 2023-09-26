@@ -1,14 +1,14 @@
-<mat-card *ngFor="let contractOffer of contractOffers" class="asset-card">
-  <ng-container *ngIf="contractOffer.asset; let asset">
+<mat-card *ngFor="let dataOffer of dataOffers" class="asset-card">
+  <ng-container *ngIf="dataOffer.asset; let asset">
     <mat-card-header>
       <contract-offer-icon
         mat-card-avatar
-        [contractOffer]="contractOffer"></contract-offer-icon>
+        [dataOffer]="dataOffer"></contract-offer-icon>
       <mat-card-title>
         <a
           class="link"
           href="javascript:void(0)"
-          (click)="contractOfferClick.emit(contractOffer)">
+          (click)="dataOfferClick.emit(dataOffer)">
           {{ asset.name }}
         </a>
       </mat-card-title>
@@ -17,7 +17,7 @@
     <mat-card-content class="flex flex-col space-y-[16px]">
       <!-- Progress Bar -->
       <mat-progress-bar
-        *ngIf="contractNegotiationService.isBusy(contractOffer)"
+        *ngIf="isBusy(dataOffer)"
         color="primary"
         mode="indeterminate"></mat-progress-bar>
 

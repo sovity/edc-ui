@@ -14,6 +14,9 @@ export const assetPage = (): AssetPage => {
   };
 };
 
+export const getAssetById = (id: string) =>
+  assets.find((it) => it.assetId === id);
+
 export const createAsset = (asset: UiAssetCreateRequest): IdResponseDto => {
   assets.push({
     assetId: asset.id,

@@ -1,14 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {ContractNegotiationService} from '../../../core/services/api/contract-negotiation.service';
-import {ContractOffer} from '../../../core/services/models/contract-offer';
+import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
+import {DataOffer} from '../../../core/services/models/data-offer';
 
 @Component({
   selector: 'contract-offer-icon',
   template: `
     <!-- Negotiation Success Indicator -->
-    <div
-      *ngIf="contractNegotiationService.isNegotiated(contractOffer)"
-      style="position: absolute;">
+    <div *ngIf="isNegotiated()" style="position: absolute;">
       <mat-icon
         class="mat-icon-[40px]"
         style="
@@ -27,7 +25,13 @@ import {ContractOffer} from '../../../core/services/models/contract-offer';
 })
 export class ContractOfferIconComponent {
   @Input()
-  contractOffer!: ContractOffer;
+  dataOffer!: DataOffer;
 
   constructor(public contractNegotiationService: ContractNegotiationService) {}
+
+  isNegotiated(): boolean {
+    return this.dataOffer?.contractOffers?.some((it) =>
+      this.contractNegotiationService.isNegotiated(it),
+    );
+  }
 }

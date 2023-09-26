@@ -13,6 +13,7 @@ import {
   UiAssetCreateRequestFromJSON,
   UiAssetToJSON,
   UiContractNegotiationToJSON,
+  UiDataOfferToJSON,
 } from '@sovity.de/edc-client';
 import {assetPage, createAsset, deleteAsset} from './asset-fake-service';
 import {getCatalogPageDataOffers} from './catalog-fake-service';
@@ -38,7 +39,12 @@ import {
   transferHistoryPage,
   transferProcessAsset,
 } from './transfer-history-fake-service';
-import {getBody, getMethod, getUrl} from './utils/request-utils';
+import {
+  getBody,
+  getMethod,
+  getQueryParams,
+  getUrl,
+} from './utils/request-utils';
 import {ok} from './utils/response-utils';
 import {UrlInterceptor} from './utils/url-interceptor';
 
@@ -49,8 +55,17 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
   let url = getUrl(input, 'http://edc.fake-backend/wrapper/ui/');
   let method = getMethod(init);
   let body = getBody(init);
+  let params = getQueryParams(input);
 
-  console.log(...['Fake Backend:', method, url, body].filter((it) => !!it));
+  console.log(
+    ...[
+      'Fake Backend:',
+      method,
+      url,
+      (params as any)['size'] ? params : null,
+      body,
+    ].filter((it) => !!it),
+  );
 
   return new UrlInterceptor(url, method)
 
@@ -137,24 +152,23 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     })
 
     .url('pages/catalog-page/data-offers')
-    .on('GET', (connectorEndpoint) => {
+    .on('GET', () => {
+      let connectorEndpoint = params.get('connectorEndpoint')!;
       let dataOffers = getCatalogPageDataOffers(connectorEndpoint);
-      return ok(dataOffers);
+      return ok(dataOffers.map(UiDataOfferToJSON));
     })
 
     .url('pages/catalog-page/contract-negotiations')
     .on('POST', () => {
       let createRequest = ContractNegotiationRequestFromJSON(body);
-
       let contractNegotiation = initiateContractNegotiation(createRequest);
-
       return ok(UiContractNegotiationToJSON(contractNegotiation));
     })
 
-    .url('pages/catalog-page/contract-negotiations')
+    .url('pages/catalog-page/contract-negotiations/*')
     .on('POST', (contractNegotiationId) => {
       let contractNegotiation = getContractNegotiation(contractNegotiationId);
-      return ok(contractNegotiation);
+      return ok(UiContractNegotiationToJSON(contractNegotiation));
     })
 
     .tryMatch();

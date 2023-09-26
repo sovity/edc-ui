@@ -5,7 +5,7 @@ import {LanguageSelectItem} from '../../../routes/connector-ui/asset-page/langua
 import {TransportModeSelectItem} from '../../../routes/connector-ui/asset-page/transport-mode-select/transport-mode-select-item';
 
 /**
- * Asset (UI Dto / Type Safe)
+ * Asset (UI Dto)
  *
  * Also includes full items / labels for fixed vocabulary values, e.g. language
  */

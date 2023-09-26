@@ -24,6 +24,9 @@ export const policyDefinitionPage = (): PolicyDefinitionPage => {
   return {policies: policyDefinitions};
 };
 
+export const getPolicyDefinitionByJsonLd = (jsonLd: string) =>
+  policyDefinitions.find((it) => it.policy.policyJsonLd === jsonLd)?.policy;
+
 export const createPolicyDefinition = (
   request: PolicyDefinitionCreateRequest,
 ): IdResponseDto => {

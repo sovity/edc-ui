@@ -12,7 +12,7 @@ import {AdditionalAssetProperty, Asset} from './models/asset';
 @Injectable({
   providedIn: 'root',
 })
-export class AssetPropertyMapper {
+export class AssetBuilder {
   constructor(
     private languageSelectItemService: LanguageSelectItemService,
     private transportModeSelectItemService: TransportModeSelectItemService,
@@ -20,7 +20,7 @@ export class AssetPropertyMapper {
     private dataSubcategorySelectItemService: DataSubcategorySelectItemService,
   ) {}
 
-  buildAsset(opts: {uiAsset: UiAsset; connectorEndpoint: string}): Asset {
+  buildAsset(asset: UiAsset, connectorEndpoint: string): Asset {
     const {
       additionalProperties,
       additionalJsonProperties,
@@ -31,7 +31,7 @@ export class AssetPropertyMapper {
       dataSubcategory,
       transportMode,
       ...assetProperties
-    } = opts.uiAsset;
+    } = asset;
 
     const languageSelectItem =
       language == null
@@ -52,12 +52,12 @@ export class AssetPropertyMapper {
 
     return {
       ...assetProperties,
-      additionalProperties: this.buildAdditionalProperties(opts.uiAsset),
+      additionalProperties: this.buildAdditionalProperties(asset),
       language: languageSelectItem,
       dataCategory: dataCategorySelectItem,
       dataSubcategory: dataSubcategorySelectItem,
       transportMode: transportModeSelectItem,
-      connectorEndpoint: opts.connectorEndpoint,
+      connectorEndpoint: connectorEndpoint,
     };
   }
 

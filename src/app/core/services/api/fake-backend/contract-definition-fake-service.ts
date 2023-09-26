@@ -4,7 +4,7 @@ import {
   ContractDefinitionRequest,
   IdResponseDto,
 } from '@sovity.de/edc-client';
-import {AssetProperties} from '../../asset-properties';
+import {AssetProperty} from '../../models/asset-properties';
 
 export let contractDefinitions: ContractDefinitionEntry[] = [
   {
@@ -13,7 +13,7 @@ export let contractDefinitions: ContractDefinitionEntry[] = [
     accessPolicyId: 'test-policy-definition-1',
     assetSelector: [
       {
-        operandLeft: AssetProperties.id,
+        operandLeft: AssetProperty.id,
         operator: 'EQ',
         operandRight: {type: 'VALUE', value: 'test-asset-1'},
       },

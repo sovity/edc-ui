@@ -4,62 +4,85 @@ import {
   ContractNegotiationStateSimplifiedStateEnum,
   UiContractNegotiation,
 } from '@sovity.de/edc-client';
+import {Patcher, patchObj} from '../../../utils/object-utils';
+import {getAssetById} from './asset-fake-service';
+import {addContractAgreement} from './contract-agreement-fake-service';
+import {getPolicyDefinitionByJsonLd} from './policy-definition-fake-service';
 
-export let contractNegotiationStates: ContractNegotiationState[] = [
-  {
-    name: 'INITIATED',
-    code: 500,
-    simplifiedState: ContractNegotiationStateSimplifiedStateEnum.InProgress,
-  },
-  {
-    name: 'AGREED',
-    code: 1000,
-    simplifiedState: ContractNegotiationStateSimplifiedStateEnum.Agreed,
-  },
-];
-export let contractNegotiations: UiContractNegotiation[] = [
+const initiated: ContractNegotiationState = {
+  name: 'INITIATED',
+  code: 500,
+  simplifiedState: ContractNegotiationStateSimplifiedStateEnum.InProgress,
+};
+
+const agreed: ContractNegotiationState = {
+  name: 'AGREED',
+  code: 1000,
+  simplifiedState: ContractNegotiationStateSimplifiedStateEnum.Agreed,
+};
+
+export let negotiations: UiContractNegotiation[] = [
   {
     contractNegotiationId: 'test-contract-negotiation-1',
     createdAt: new Date(),
     contractAgreementId: 'test-contract-agreement-1',
-    state: contractNegotiationStates[0],
+    state: initiated,
   },
   {
     contractNegotiationId: 'test-contract-negotiation-2',
     createdAt: new Date(),
     contractAgreementId: 'test-contract-agreement-2',
-    state: contractNegotiationStates[1],
-  },
-];
-
-export let contractNegotiationRequests: ContractNegotiationRequest[] = [
-  {
-    counterPartyAddress: 'https://sovity-demo2-edc/api/v1/ids/data',
-    counterPartyParticipantId: 'sovity-demo2-edc',
-    contractOfferId: 'test-contract-definition-1',
-    policyJsonLd: '{"example-policy-jsonld": true}',
-    assetId: 'urn:artifact:test-asset-1',
-  },
-  {
-    counterPartyAddress: 'https://sovity-demo4-mds/api/v1/ids/data',
-    counterPartyParticipantId: 'sovity-demo4-mds',
-    contractOfferId: 'test-contract-definition-2',
-    policyJsonLd: '{"example-policy-jsonld": true}',
-    assetId: 'urn:artifact:test-asset-2',
+    state: agreed,
   },
 ];
 
 export const initiateContractNegotiation = (
   request: ContractNegotiationRequest,
 ): UiContractNegotiation => {
-  contractNegotiations = [...contractNegotiations];
+  let contractNegotiationId =
+    'dummy-negotiation-' + Math.random().toString().substring(2);
+  let negotiation: UiContractNegotiation = {
+    contractNegotiationId,
+    state: initiated,
+    createdAt: new Date(),
+  };
+  negotiations = [...negotiations, negotiation];
 
-  return contractNegotiations[0];
+  setTimeout(() => {
+    let contractAgreementId =
+      'dummy-agreement' + Math.random().toString().substring(2);
+
+    updateNegotiation(contractNegotiationId, () => ({
+      state: agreed,
+      contractAgreementId,
+    }));
+
+    addContractAgreement({
+      contractNegotiationId,
+      contractAgreementId,
+      direction: 'CONSUMING',
+      counterPartyAddress: request.counterPartyAddress,
+      transferProcesses: [],
+      counterPartyId: request.counterPartyParticipantId,
+      asset: getAssetById(request.assetId)!,
+      contractSigningDate: new Date(),
+      contractStartDate: new Date(),
+      contractEndDate: new Date(),
+      contractPolicy: getPolicyDefinitionByJsonLd(request.policyJsonLd)!,
+    });
+  }, 4000);
+  return negotiation;
 };
 
 export const getContractNegotiation = (id: string): UiContractNegotiation => {
-  contractNegotiations = contractNegotiations.filter(
-    (it) => it.contractNegotiationId !== id,
+  return negotiations.find((it) => it.contractNegotiationId === id)!;
+};
+
+const updateNegotiation = (
+  id: string,
+  patcher: Patcher<UiContractNegotiation>,
+) => {
+  negotiations = negotiations.map((it) =>
+    it.contractNegotiationId === id ? patchObj(it, patcher) : it,
   );
-  return contractNegotiations[0];
 };

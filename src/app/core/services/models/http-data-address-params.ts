@@ -1,4 +1,4 @@
-export interface HttpRequestParams {
+export interface HttpDataAddressParams {
   /**
    * (Base) URL of the request
    */

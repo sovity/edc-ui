@@ -5,8 +5,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {ContractNegotiationService} from '../../../core/services/api/contract-negotiation.service';
-import {ContractOffer} from '../../../core/services/models/contract-offer';
+import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
+import {DataOffer} from '../../../core/services/models/data-offer';
 
 @Component({
   selector: 'contract-offer-cards',
@@ -19,10 +19,16 @@ export class ContractOfferCardsComponent {
   cls = true;
 
   @Input()
-  contractOffers: ContractOffer[] = [];
+  dataOffers: DataOffer[] = [];
 
   @Output()
-  contractOfferClick = new EventEmitter<ContractOffer>();
+  dataOfferClick = new EventEmitter<DataOffer>();
 
   constructor(public contractNegotiationService: ContractNegotiationService) {}
+
+  isBusy(dataOffer: DataOffer): boolean {
+    return dataOffer.contractOffers.some((it) =>
+      this.contractNegotiationService.isBusy(it),
+    );
+  }
 }

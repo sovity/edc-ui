@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {APP_CONFIG, AppConfig} from '../config/app-config';
-import {LastCommitInfo} from './models/last-commit-info';
+import {APP_CONFIG, AppConfig} from '../../config/app-config';
+import {LastCommitInfo} from './model/last-commit-info';
 
 @Injectable({
   providedIn: 'root',

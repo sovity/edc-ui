@@ -133,6 +133,12 @@ export const contractAgreementPage = (): ContractAgreementPage => {
   };
 };
 
+export const addContractAgreement = (
+  contractAgreement: ContractAgreementCard,
+) => {
+  contractAgreements = [contractAgreement, ...contractAgreements];
+};
+
 export const contractAgreementInitiateTransfer = (
   request: ContractAgreementTransferRequest,
 ): IdResponseDto => {

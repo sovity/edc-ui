@@ -4,8 +4,8 @@ import {TestPolicies} from './data/test-policies';
 
 export let uiDataOffers: UiDataOffer[] = [
   {
-    endpoint: 'https://sovity-demo2-edc/api/v1/ids/data',
-    participantId: 'sovity-demo2-edc',
+    endpoint: 'http://existing-other-connector/api/dsp',
+    participantId: 'existing-other-connector',
     asset: TestAssets.full,
     contractOffers: [
       {
@@ -19,9 +19,9 @@ export let uiDataOffers: UiDataOffer[] = [
     ],
   },
   {
-    endpoint: 'https://sovity-demo4-mds/api/v1/ids/data',
+    endpoint: 'http://existing-other-connector/api/dsp',
     asset: TestAssets.boring,
-    participantId: 'sovity-demo4-mds',
+    participantId: 'existing-other-connector',
     contractOffers: [
       {
         contractOfferId: 'test-contract-offer-3',

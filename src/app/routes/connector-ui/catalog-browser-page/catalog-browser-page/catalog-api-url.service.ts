@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {APP_CONFIG, AppConfig} from '../../config/app-config';
+import {APP_CONFIG, AppConfig} from '../../../../core/config/app-config';
 
 /**
  * Builds Catalog fetch URLs. Stores preset and user configured Connector Endpoints.

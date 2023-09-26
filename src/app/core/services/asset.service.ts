@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../config/app-config';
 import {EdcApiService} from './api/edc-api.service';
-import {AssetPropertyMapper} from './asset-property-mapper';
+import {AssetBuilder} from './asset-builder';
 import {Asset} from './models/asset';
 
 /**
@@ -12,23 +12,22 @@ import {Asset} from './models/asset';
 @Injectable({
   providedIn: 'root',
 })
-export class AssetServiceMapped {
+export class AssetService {
   constructor(
     @Inject(APP_CONFIG) private config: AppConfig,
-    private assetPropertyMapper: AssetPropertyMapper,
+    private assetBuilder: AssetBuilder,
     private edcApiService: EdcApiService,
   ) {}
 
   fetchAssets(): Observable<Asset[]> {
-    return this.edcApiService.getAssetPage().pipe(
-      map((assetPage) =>
-        assetPage.assets.map((uiAsset) =>
-          this.assetPropertyMapper.buildAsset({
-            connectorEndpoint: this.config.connectorEndpoint,
-            uiAsset,
-          }),
+    return this.edcApiService
+      .getAssetPage()
+      .pipe(
+        map((assetPage) =>
+          assetPage.assets.map((asset) =>
+            this.assetBuilder.buildAsset(asset, this.config.connectorEndpoint),
+          ),
         ),
-      ),
-    );
+      );
   }
 }

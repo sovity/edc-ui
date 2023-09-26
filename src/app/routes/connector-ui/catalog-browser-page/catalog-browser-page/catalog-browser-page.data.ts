@@ -1,11 +1,11 @@
-import {UiContractOffer, UiDataOffer} from '@sovity.de/edc-client';
+import {DataOffer} from '../../../../core/services/models/data-offer';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {MultiFetched} from '../../../../core/services/models/multi-fetched';
 
 export interface CatalogBrowserPageData {
-  requestTotals: MultiFetched<UiDataOffer[]>;
+  requestTotals: MultiFetched<DataOffer[]>;
   requests: ContractOfferRequest[];
-  filteredContractOffers: UiContractOffer[];
+  filteredDataOffers: DataOffer[];
   numTotalContractOffers: number;
 }
 
@@ -13,7 +13,7 @@ export function emptyCatalogBrowserPageData(): CatalogBrowserPageData {
   return {
     requests: [],
     requestTotals: MultiFetched.empty(),
-    filteredContractOffers: [],
+    filteredDataOffers: [],
     numTotalContractOffers: 0,
   };
 }
@@ -21,5 +21,5 @@ export function emptyCatalogBrowserPageData(): CatalogBrowserPageData {
 export interface ContractOfferRequest {
   url: string;
   isPresetUrl: boolean;
-  data: Fetched<UiDataOffer[]>;
+  data: Fetched<DataOffer[]>;
 }
