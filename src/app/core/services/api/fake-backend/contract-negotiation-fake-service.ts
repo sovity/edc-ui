@@ -21,7 +21,7 @@ const agreed: ContractNegotiationState = {
   simplifiedState: ContractNegotiationStateSimplifiedStateEnum.Agreed,
 };
 
-export let negotiations: UiContractNegotiation[] = [
+let negotiations: UiContractNegotiation[] = [
   {
     contractNegotiationId: 'test-contract-negotiation-1',
     createdAt: new Date(),

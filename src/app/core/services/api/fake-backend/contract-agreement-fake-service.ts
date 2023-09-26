@@ -9,7 +9,7 @@ import {Patcher, patchObj} from '../../../utils/object-utils';
 import {TestAssets} from './data/test-assets';
 import {TestPolicies} from './data/test-policies';
 
-export let contractAgreements: ContractAgreementCard[] = [
+let contractAgreements: ContractAgreementCard[] = [
   {
     contractAgreementId: 'my-own-asset-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e',
     contractNegotiationId:

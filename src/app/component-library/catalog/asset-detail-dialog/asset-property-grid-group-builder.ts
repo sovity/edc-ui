@@ -163,8 +163,7 @@ export class AssetPropertyGridGroupBuilder {
             title: `${groupLabel} Contract Policy)`,
             subtitle: asset.name,
             icon: 'policy',
-            objectForJson: getLegacyPolicy(contractOffer.contractPolicy)
-              .policyJsonLd,
+            objectForJson: getLegacyPolicy(contractOffer.contractPolicy),
           }),
       },
       {

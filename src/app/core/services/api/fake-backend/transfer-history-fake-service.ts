@@ -3,10 +3,10 @@ import {
   TransferHistoryPage,
   UiAsset,
 } from '@sovity.de/edc-client';
-import {assets} from './asset-fake-service';
+import {getAssetById} from './asset-fake-service';
 import {TestAssets} from './data/test-assets';
 
-export let transferHistoryEntries: TransferHistoryEntry[] = [
+let transferHistoryEntries: TransferHistoryEntry[] = [
   {
     transferProcessId: '339b2a27-3b66-49f5-8b43-6a400d5914b5',
     createdDate: new Date('2023-03-20T11:18:59.659Z'),
@@ -88,7 +88,7 @@ export const transferProcessAsset = (transferProcessId: string): UiAsset => {
     TestAssets.dummyAsset(assetId),
   );
 
-  const assetEntry = assets.find((it) => it.assetId === assetId);
+  const assetEntry = getAssetById(assetId);
 
   return isProviding && assetEntry
     ? TestAssets.toAssetDto(assetEntry)

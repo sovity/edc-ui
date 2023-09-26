@@ -6,7 +6,7 @@ import {
 } from '@sovity.de/edc-client';
 import {TestPolicies} from './data/test-policies';
 
-export let policyDefinitions: PolicyDefinitionDto[] = [
+let policyDefinitions: PolicyDefinitionDto[] = [
   {
     policyDefinitionId: 'test-policy-definition-1',
     policy: TestPolicies.connectorRestricted,

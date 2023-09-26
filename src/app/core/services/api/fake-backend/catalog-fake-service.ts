@@ -2,7 +2,7 @@ import {UiDataOffer} from '@sovity.de/edc-client';
 import {TestAssets} from './data/test-assets';
 import {TestPolicies} from './data/test-policies';
 
-export let uiDataOffers: UiDataOffer[] = [
+let dataOffers: UiDataOffer[] = [
   {
     endpoint: 'http://existing-other-connector/api/dsp',
     participantId: 'existing-other-connector',
@@ -34,5 +34,5 @@ export let uiDataOffers: UiDataOffer[] = [
 export const getCatalogPageDataOffers = (
   connectorEndpoint: string,
 ): UiDataOffer[] => {
-  return uiDataOffers.filter((it) => it.endpoint === connectorEndpoint);
+  return dataOffers.filter((it) => it.endpoint === connectorEndpoint);
 };

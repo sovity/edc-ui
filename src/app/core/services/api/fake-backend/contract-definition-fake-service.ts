@@ -6,7 +6,7 @@ import {
 } from '@sovity.de/edc-client';
 import {AssetProperty} from '../../models/asset-properties';
 
-export let contractDefinitions: ContractDefinitionEntry[] = [
+let contractDefinitions: ContractDefinitionEntry[] = [
   {
     contractDefinitionId: 'test-contract-definition-1',
     contractPolicyId: 'test-policy-definition-1',
