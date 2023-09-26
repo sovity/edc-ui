@@ -18,8 +18,6 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'urn:connector:example-connector',
     contractSigningDate: new Date('2022-03-20T11:18:59.659Z'),
-    contractStartDate: new Date('2022-03-20T11:18:59.659Z'),
-    contractEndDate: new Date('2022-04-20T20:04:35.658Z'),
     asset: TestAssets.toAssetDto(TestAssets.full),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [
@@ -71,8 +69,6 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'my-connector',
     contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
-    contractStartDate: new Date('2022-03-25T11:18:59.659Z'),
-    contractEndDate: new Date('2022-05-01T20:04:35.658Z'),
     asset: TestAssets.toAssetDto(TestAssets.toDummyAsset(TestAssets.boring)),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [
@@ -96,8 +92,6 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'my-connector',
     contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
-    contractStartDate: new Date('2022-03-25T11:18:59.659Z'),
-    contractEndDate: new Date('2022-05-01T20:04:35.658Z'),
     asset: TestAssets.toAssetDto(TestAssets.toDummyAsset(TestAssets.boring)),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [],
@@ -110,8 +104,6 @@ let contractAgreements: ContractAgreementCard[] = [
     counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
     counterPartyId: 'my-connector',
     contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
-    contractStartDate: new Date('2022-03-25T11:18:59.659Z'),
-    contractEndDate: new Date('2022-05-01T20:04:35.658Z'),
     asset: TestAssets.toAssetDto(TestAssets.toDummyAsset(TestAssets.boring)),
     contractPolicy: TestPolicies.connectorRestricted,
     transferProcesses: [

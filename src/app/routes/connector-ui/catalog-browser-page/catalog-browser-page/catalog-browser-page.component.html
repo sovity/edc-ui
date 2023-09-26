@@ -107,8 +107,8 @@
   <div
     *ngIf="data.requestTotals.isSomeReady && !!data.numTotalContractOffers"
     class="flex flex-row flex-wrap">
-    <contract-offer-cards
+    <data-offer-cards
       [dataOffers]="data.filteredDataOffers"
-      (dataOfferClick)="onDataOfferClick($event)"></contract-offer-cards>
+      (dataOfferClick)="onDataOfferClick($event)"></data-offer-cards>
   </div>
 </div>

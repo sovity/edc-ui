@@ -9,10 +9,10 @@ import {ContractNegotiationService} from '../../../core/services/contract-negoti
 import {DataOffer} from '../../../core/services/models/data-offer';
 
 @Component({
-  selector: 'contract-offer-cards',
-  templateUrl: './contract-offer-cards.component.html',
+  selector: 'data-offer-cards',
+  templateUrl: './data-offer-cards.component.html',
 })
-export class ContractOfferCardsComponent {
+export class DataOfferCardsComponent {
   @HostBinding('class.flex')
   @HostBinding('class.flex-wrap')
   @HostBinding('class.gap-[10px]')

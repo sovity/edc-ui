@@ -66,8 +66,6 @@ export const initiateContractNegotiation = (
       counterPartyId: request.counterPartyParticipantId,
       asset: getAssetById(request.assetId)!,
       contractSigningDate: new Date(),
-      contractStartDate: new Date(),
-      contractEndDate: new Date(),
       contractPolicy: getPolicyDefinitionByJsonLd(request.policyJsonLd)!,
     });
   }, 4000);

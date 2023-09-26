@@ -208,22 +208,6 @@ export class AssetPropertyGridGroupBuilder {
         ),
       },
       {
-        icon: 'category',
-        label: 'Valid From',
-        ...this.propertyGridUtils.guessValue(
-          this.propertyGridUtils.formatDate(
-            contractAgreement.contractStartDate,
-          ),
-        ),
-      },
-      {
-        icon: 'category',
-        label: 'Valid To',
-        ...this.propertyGridUtils.guessValue(
-          this.propertyGridUtils.formatDate(contractAgreement.contractEndDate),
-        ),
-      },
-      {
         icon: 'policy',
         label: 'Direction',
         ...this.propertyGridUtils.guessValue(contractAgreement.direction),

@@ -8,10 +8,10 @@ import {
 import {BrokerDataOffer} from '../catalog-page/mapping/broker-data-offer';
 
 @Component({
-  selector: 'data-offer-cards',
-  templateUrl: './data-offer-cards.component.html',
+  selector: 'broker-data-offer-cards',
+  templateUrl: './broker-data-offer-cards.component.html',
 })
-export class DataOfferCardsComponent {
+export class BrokerDataOfferCardsComponent {
   @HostBinding('class.flex')
   @HostBinding('class.flex-wrap')
   @HostBinding('class.gap-[10px]')
