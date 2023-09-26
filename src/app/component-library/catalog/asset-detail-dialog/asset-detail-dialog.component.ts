@@ -41,16 +41,15 @@ export class AssetDetailDialogComponent implements OnDestroy {
 
   get negotiationState(): 'ready' | 'negotiating' | 'negotiated' {
     const dataOffer = this.data.dataOffer!;
-    if (
-      this.contractNegotiationService.isNegotiated(dataOffer.contractOffers[0])
-    ) {
+    let contractOffer = dataOffer.contractOffers[0];
+    let isNegotiated =
+      this.contractNegotiationService.isNegotiated(contractOffer);
+    if (isNegotiated) {
       return 'negotiated';
-    } else if (
-      this.contractNegotiationService.isBusy(dataOffer.contractOffers[0])
-    ) {
-      return 'negotiating';
     }
-    return 'ready';
+
+    let isBusy = this.contractNegotiationService.isBusy(contractOffer);
+    return isBusy ? 'negotiating' : 'ready';
   }
 
   constructor(
