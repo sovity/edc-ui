@@ -68,6 +68,11 @@ export class AssetPropertyGridGroupBuilder {
       },
       {
         icon: 'category',
+        label: 'Participant ID',
+        ...this.propertyGridUtils.guessValue(asset.participantId),
+      },
+      {
+        icon: 'category',
         label: 'Content Type',
         ...this.propertyGridUtils.guessValue(asset.mediaType),
       },
@@ -162,7 +167,7 @@ export class AssetPropertyGridGroupBuilder {
         onclick: () =>
           this.jsonDialogService.showJsonDetailDialog({
             title: `${groupLabel} Contract Policy)`,
-            subtitle: asset.name,
+            subtitle: asset.title,
             icon: 'policy',
             objectForJson: JSON.parse(
               contractOffer.contractPolicy.legacyPolicy ?? 'null',

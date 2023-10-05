@@ -5,6 +5,7 @@ import {
   ContractDefinitionPageToJSON,
   ContractDefinitionRequestFromJSON,
   ContractNegotiationRequestFromJSON,
+  DashboardPageToJSON,
   FetchAPI,
   IdResponseDtoToJSON,
   PolicyDefinitionCreateRequestFromJSON,
@@ -30,6 +31,7 @@ import {
   getContractNegotiation,
   initiateContractNegotiation,
 } from './impl/contract-negotiation-fake-service';
+import {dashboardPage} from './impl/dashboard-fake-service';
 import {
   createPolicyDefinition,
   deletePolicyDefinition,
@@ -68,6 +70,11 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
   );
 
   return new UrlInterceptor(url, method)
+    .url('pages/dashboard-page')
+    .on('GET', () => {
+      const page = dashboardPage();
+      return ok(DashboardPageToJSON(page));
+    })
 
     .url('pages/asset-page')
     .on('GET', () => {
@@ -85,38 +92,6 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     .url('pages/asset-page/assets/*')
     .on('DELETE', (assetId) => {
       let deleted = deleteAsset(assetId);
-      return ok(IdResponseDtoToJSON(deleted));
-    })
-
-    .url('pages/contract-agreement-page')
-    .on('GET', () => {
-      const page = contractAgreementPage();
-      return ok(ContractAgreementPageToJSON(page));
-    })
-
-    .url('pages/contract-agreement-page/transfers')
-    .on('POST', () => {
-      let transferRequest = ContractAgreementTransferRequestFromJSON(body);
-      let created = contractAgreementInitiateTransfer(transferRequest);
-      return ok(IdResponseDtoToJSON(created));
-    })
-
-    .url('pages/contract-definition-page')
-    .on('GET', () => {
-      let page = contractDefinitionPage();
-      return ok(ContractDefinitionPageToJSON(page));
-    })
-
-    .url('pages/contract-definition-page/contract-definitions')
-    .on('POST', () => {
-      let createRequest = ContractDefinitionRequestFromJSON(body);
-      let created = createContractDefinition(createRequest);
-      return ok(IdResponseDtoToJSON(created));
-    })
-
-    .url('pages/contract-definition-page/contract-definitions/*')
-    .on('DELETE', (contractDefinitionId) => {
-      let deleted = deleteContractDefinition(contractDefinitionId);
       return ok(IdResponseDtoToJSON(deleted));
     })
 
@@ -139,16 +114,23 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
       return ok(IdResponseDtoToJSON(deleted));
     })
 
-    .url('pages/transfer-history-page')
+    .url('pages/contract-definition-page')
     .on('GET', () => {
-      let page = transferHistoryPage();
-      return ok(TransferHistoryPageToJSON(page));
+      let page = contractDefinitionPage();
+      return ok(ContractDefinitionPageToJSON(page));
     })
 
-    .url('pages/transfer-history-page/transfer-processes/*/asset')
-    .on('GET', (transferProcessId) => {
-      let asset = transferProcessAsset(transferProcessId);
-      return ok(UiAssetToJSON(asset));
+    .url('pages/contract-definition-page/contract-definitions')
+    .on('POST', () => {
+      let createRequest = ContractDefinitionRequestFromJSON(body);
+      let created = createContractDefinition(createRequest);
+      return ok(IdResponseDtoToJSON(created));
+    })
+
+    .url('pages/contract-definition-page/contract-definitions/*')
+    .on('DELETE', (contractDefinitionId) => {
+      let deleted = deleteContractDefinition(contractDefinitionId);
+      return ok(IdResponseDtoToJSON(deleted));
     })
 
     .url('pages/catalog-page/data-offers')
@@ -169,6 +151,31 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     .on('GET', (contractNegotiationId) => {
       let contractNegotiation = getContractNegotiation(contractNegotiationId);
       return ok(UiContractNegotiationToJSON(contractNegotiation));
+    })
+
+    .url('pages/contract-agreement-page')
+    .on('GET', () => {
+      const page = contractAgreementPage();
+      return ok(ContractAgreementPageToJSON(page));
+    })
+
+    .url('pages/contract-agreement-page/transfers')
+    .on('POST', () => {
+      let transferRequest = ContractAgreementTransferRequestFromJSON(body);
+      let created = contractAgreementInitiateTransfer(transferRequest);
+      return ok(IdResponseDtoToJSON(created));
+    })
+
+    .url('pages/transfer-history-page')
+    .on('GET', () => {
+      let page = transferHistoryPage();
+      return ok(TransferHistoryPageToJSON(page));
+    })
+
+    .url('pages/transfer-history-page/transfer-processes/*/asset')
+    .on('GET', (transferProcessId) => {
+      let asset = transferProcessAsset(transferProcessId);
+      return ok(UiAssetToJSON(asset));
     })
 
     .tryMatch();

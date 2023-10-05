@@ -84,7 +84,7 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
     this.form.all.disable();
 
     this.edcApiService
-      .initiateTranfer(this.buildTransferRequest(this.form.value))
+      .initiateTransfer(this.buildTransferRequest(this.form.value))
       .pipe(
         finalize(() => {
           this.loading = false;

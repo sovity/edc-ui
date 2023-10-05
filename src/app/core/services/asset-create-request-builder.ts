@@ -1,15 +1,11 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UiAssetCreateRequest} from '@sovity.de/edc-client';
 import {AssetEditorDialogFormValue} from '../../routes/connector-ui/asset-page/asset-create-dialog/asset-editor-dialog-form-model';
-import {APP_CONFIG, AppConfig} from '../config/app-config';
 import {DataAddressMapper} from './data-address-mapper';
 
 @Injectable()
 export class AssetCreateRequestBuilder {
-  constructor(
-    @Inject(APP_CONFIG) private config: AppConfig,
-    private dataAddressMapper: DataAddressMapper,
-  ) {}
+  constructor(private dataAddressMapper: DataAddressMapper) {}
 
   /**
    * Build {@link UiAssetCreateRequest} from {@link AssetEditorDialogFormValue}
@@ -21,13 +17,12 @@ export class AssetCreateRequestBuilder {
     formValue: AssetEditorDialogFormValue,
   ): UiAssetCreateRequest {
     let id = formValue.metadata?.id!;
-    let name = formValue.metadata?.name!;
+    let title = formValue.metadata?.title!;
     let version = formValue.metadata?.version;
     let description = formValue.metadata?.description;
     let language = formValue.metadata?.language?.id;
     let keywords = formValue.metadata?.keywords;
     let licenseUrl = formValue.metadata?.standardLicense;
-    let creatorOrganizationName = this.config.curatorOrganizationName;
     let publisherHomepage = formValue.metadata?.publisher;
     let mediaType = formValue.metadata?.contentType;
     let landingPageUrl = formValue.metadata?.endpointDocumentation;
@@ -42,10 +37,9 @@ export class AssetCreateRequestBuilder {
       this.dataAddressMapper.buildDataAddressProperties(formValue.datasource);
     return {
       id,
-      name,
+      title,
       language,
       description,
-      creatorOrganizationName,
       publisherHomepage,
       licenseUrl,
       version,

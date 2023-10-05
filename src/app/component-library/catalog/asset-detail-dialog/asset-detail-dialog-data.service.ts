@@ -52,7 +52,7 @@ export class AssetDetailDialogDataService {
       ),
       this.assetPropertyGridGroupBuilder.buildContractPolicyGroup(
         contractAgreement.contractPolicy,
-        asset.name,
+        asset.title,
       ),
       this.assetPropertyGridGroupBuilder.buildAssetPropertiesGroup(
         asset,

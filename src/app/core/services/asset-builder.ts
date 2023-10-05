@@ -20,7 +20,7 @@ export class AssetBuilder {
     private dataSubcategorySelectItemService: DataSubcategorySelectItemService,
   ) {}
 
-  buildAsset(asset: UiAsset, connectorEndpoint: string): Asset {
+  buildAsset(asset: UiAsset): Asset {
     const {
       additionalProperties,
       additionalJsonProperties,
@@ -32,38 +32,41 @@ export class AssetBuilder {
       transportMode,
       ...assetProperties
     } = asset;
-
-    const languageSelectItem =
-      language == null
-        ? null
-        : this.languageSelectItemService.findById(language);
-    const dataCategorySelectItem =
-      dataCategory == null
-        ? null
-        : this.dataCategorySelectItemService.findById(dataCategory);
-    const dataSubcategorySelectItem =
-      dataSubcategory == null
-        ? null
-        : this.dataSubcategorySelectItemService.findById(dataSubcategory);
-    const transportModeSelectItem =
-      transportMode == null
-        ? null
-        : this.transportModeSelectItemService.findById(transportMode);
-
     return {
       ...assetProperties,
-      connectorEndpoint: connectorEndpoint,
-      creatorOrganizationName:
-        asset.creatorOrganizationName || 'Unknown Organization',
-      language: languageSelectItem,
-      dataCategory: dataCategorySelectItem,
-      dataSubcategory: dataSubcategorySelectItem,
-      transportMode: transportModeSelectItem,
+      language: this.getLanguageItem(language),
+      dataCategory: this.getDataCategoryItem(dataCategory),
+      dataSubcategory: this.getDataSubcategoryItem(dataSubcategory),
+      transportMode: this.getTransportModeItem(transportMode),
       mergedAdditionalProperties: this.buildAdditionalProperties(asset),
     };
   }
 
-  buildAdditionalProperties(asset: UiAsset): AdditionalAssetProperty[] {
+  private getTransportModeItem(transportMode: string | undefined) {
+    return transportMode == null
+      ? null
+      : this.transportModeSelectItemService.findById(transportMode);
+  }
+
+  private getDataSubcategoryItem(dataSubcategory: string | undefined) {
+    return dataSubcategory == null
+      ? null
+      : this.dataSubcategorySelectItemService.findById(dataSubcategory);
+  }
+
+  private getDataCategoryItem(dataCategory: string | undefined) {
+    return dataCategory == null
+      ? null
+      : this.dataCategorySelectItemService.findById(dataCategory);
+  }
+
+  private getLanguageItem(language: string | undefined) {
+    return language == null
+      ? null
+      : this.languageSelectItemService.findById(language);
+  }
+
+  private buildAdditionalProperties(asset: UiAsset): AdditionalAssetProperty[] {
     let result: AdditionalAssetProperty[] = [];
     type AssetKey =
       | 'additionalProperties'
