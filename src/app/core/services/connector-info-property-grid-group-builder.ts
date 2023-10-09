@@ -160,7 +160,7 @@ export class ConnectorInfoPropertyGridGroupBuilder {
   }
 
   private buildConnectorMetadata(data: DashboardPage) {
-    let fields = [
+    const fields = [
       {
         icon: 'link',
         label: 'Connector Endpoint',
@@ -269,9 +269,7 @@ export class ConnectorInfoPropertyGridGroupBuilder {
     UiCommitDetails: Fetched<string>,
     dashboardPageData: Fetched<DashboardPage>,
   ): PropertyGridGroup[] {
-    let fieldGroups: PropertyGridGroup[];
-
-    fieldGroups = [
+    const fieldGroups: PropertyGridGroup[] = [
       this.buildConnectorPropertyGridGroup(null, dashboardPageData),
       this.buildConnectorVersionGroup(
         lastCommitInformation,

@@ -15,7 +15,7 @@ export class DataOfferBuilder {
     private propertyGridFieldService: PropertyGridFieldService,
   ) {}
   buildDataOffer(dataOffer: UiDataOffer): DataOffer {
-    let asset = this.assetBuilder.buildAsset(dataOffer.asset);
+    const asset = this.assetBuilder.buildAsset(dataOffer.asset);
     return {
       ...dataOffer,
       asset,

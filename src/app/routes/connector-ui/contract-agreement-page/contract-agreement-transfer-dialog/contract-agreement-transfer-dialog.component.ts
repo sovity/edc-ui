@@ -132,13 +132,13 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
       };
     }
 
-    let transferProcessProperties =
+    const transferProcessProperties =
       this.httpRequestParamsMapper.encodeHttpProxyTransferRequestProperties(
         this.data.asset,
         value,
       );
 
-    let dataSinkProperties =
+    const dataSinkProperties =
       this.dataAddressMapper.buildDataAddressProperties(value) ?? {};
 
     return {

@@ -78,7 +78,7 @@ export const transferHistoryPage = (): TransferHistoryPage => {
 };
 
 export const transferProcessAsset = (transferProcessId: string): UiAsset => {
-  let transfer = transferHistoryEntries.find(
+  const transfer = transferHistoryEntries.find(
     (it) => it.transferProcessId === transferProcessId,
   );
   const assetId = transfer?.assetId ?? 'unknown';

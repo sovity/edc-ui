@@ -54,10 +54,10 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<Response> => {
-  let url = getUrl(input, 'http://edc.fake-backend/wrapper/ui/');
-  let method = getMethod(init);
-  let body = getBody(init);
-  let params = getQueryParams(input);
+  const url = getUrl(input, 'http://edc.fake-backend/wrapper/ui/');
+  const method = getMethod(init);
+  const body = getBody(init);
+  const params = getQueryParams(input);
 
   console.log(
     ...[
@@ -84,72 +84,72 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
 
     .url('pages/asset-page/assets')
     .on('POST', () => {
-      let createRequest = UiAssetCreateRequestFromJSON(body);
-      let created = createAsset(createRequest);
+      const createRequest = UiAssetCreateRequestFromJSON(body);
+      const created = createAsset(createRequest);
       return ok(IdResponseDtoToJSON(created));
     })
 
     .url('pages/asset-page/assets/*')
     .on('DELETE', (assetId) => {
-      let deleted = deleteAsset(assetId);
+      const deleted = deleteAsset(assetId);
       return ok(IdResponseDtoToJSON(deleted));
     })
 
     .url('pages/policy-page')
     .on('GET', () => {
-      let page = policyDefinitionPage();
+      const page = policyDefinitionPage();
       return ok(PolicyDefinitionPageToJSON(page));
     })
 
     .url('pages/policy-page/policy-definitions')
     .on('POST', () => {
-      let createRequest = PolicyDefinitionCreateRequestFromJSON(body);
-      let created = createPolicyDefinition(createRequest);
+      const createRequest = PolicyDefinitionCreateRequestFromJSON(body);
+      const created = createPolicyDefinition(createRequest);
       return ok(IdResponseDtoToJSON(created));
     })
 
     .url('pages/policy-page/policy-definitions/*')
     .on('DELETE', (policyDefinitionId) => {
-      let deleted = deletePolicyDefinition(policyDefinitionId);
+      const deleted = deletePolicyDefinition(policyDefinitionId);
       return ok(IdResponseDtoToJSON(deleted));
     })
 
     .url('pages/contract-definition-page')
     .on('GET', () => {
-      let page = contractDefinitionPage();
+      const page = contractDefinitionPage();
       return ok(ContractDefinitionPageToJSON(page));
     })
 
     .url('pages/contract-definition-page/contract-definitions')
     .on('POST', () => {
-      let createRequest = ContractDefinitionRequestFromJSON(body);
-      let created = createContractDefinition(createRequest);
+      const createRequest = ContractDefinitionRequestFromJSON(body);
+      const created = createContractDefinition(createRequest);
       return ok(IdResponseDtoToJSON(created));
     })
 
     .url('pages/contract-definition-page/contract-definitions/*')
     .on('DELETE', (contractDefinitionId) => {
-      let deleted = deleteContractDefinition(contractDefinitionId);
+      const deleted = deleteContractDefinition(contractDefinitionId);
       return ok(IdResponseDtoToJSON(deleted));
     })
 
     .url('pages/catalog-page/data-offers')
     .on('GET', () => {
-      let connectorEndpoint = params.get('connectorEndpoint')!;
-      let dataOffers = getCatalogPageDataOffers(connectorEndpoint);
+      const connectorEndpoint = params.get('connectorEndpoint')!;
+      const dataOffers = getCatalogPageDataOffers(connectorEndpoint);
       return ok(dataOffers.map(UiDataOfferToJSON));
     })
 
     .url('pages/catalog-page/contract-negotiations')
     .on('POST', () => {
-      let createRequest = ContractNegotiationRequestFromJSON(body);
-      let contractNegotiation = initiateContractNegotiation(createRequest);
+      const createRequest = ContractNegotiationRequestFromJSON(body);
+      const contractNegotiation = initiateContractNegotiation(createRequest);
       return ok(UiContractNegotiationToJSON(contractNegotiation));
     })
 
     .url('pages/catalog-page/contract-negotiations/*')
     .on('GET', (contractNegotiationId) => {
-      let contractNegotiation = getContractNegotiation(contractNegotiationId);
+      const contractNegotiation = getContractNegotiation(contractNegotiationId);
       return ok(UiContractNegotiationToJSON(contractNegotiation));
     })
 
@@ -161,20 +161,20 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
 
     .url('pages/contract-agreement-page/transfers')
     .on('POST', () => {
-      let transferRequest = ContractAgreementTransferRequestFromJSON(body);
-      let created = contractAgreementInitiateTransfer(transferRequest);
+      const transferRequest = ContractAgreementTransferRequestFromJSON(body);
+      const created = contractAgreementInitiateTransfer(transferRequest);
       return ok(IdResponseDtoToJSON(created));
     })
 
     .url('pages/transfer-history-page')
     .on('GET', () => {
-      let page = transferHistoryPage();
+      const page = transferHistoryPage();
       return ok(TransferHistoryPageToJSON(page));
     })
 
     .url('pages/transfer-history-page/transfer-processes/*/asset')
     .on('GET', (transferProcessId) => {
-      let asset = transferProcessAsset(transferProcessId);
+      const asset = transferProcessAsset(transferProcessId);
       return ok(UiAssetToJSON(asset));
     })
 

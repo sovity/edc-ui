@@ -159,7 +159,7 @@ export class AssetPropertyGridGroupBuilder {
     total: number,
   ) {
     const groupLabel = `Contract Offer ${total > 1 ? i + 1 : ''}`;
-    let properties: PropertyGridField[] = [
+    const properties: PropertyGridField[] = [
       {
         icon: 'policy',
         label: 'Contract Policy',
@@ -191,7 +191,7 @@ export class AssetPropertyGridGroupBuilder {
   }
 
   buildContractAgreementGroup(contractAgreement: ContractAgreementCardMapped) {
-    let properties: PropertyGridField[] = [
+    const properties: PropertyGridField[] = [
       {
         icon: 'category',
         label: 'Signed',

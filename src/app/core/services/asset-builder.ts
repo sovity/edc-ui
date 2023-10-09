@@ -79,7 +79,7 @@ export class AssetBuilder {
   }
 
   private buildAdditionalProperties(asset: UiAsset): AdditionalAssetProperty[] {
-    let result: AdditionalAssetProperty[] = [];
+    const result: AdditionalAssetProperty[] = [];
     type AssetKey =
       | 'additionalProperties'
       | 'additionalJsonProperties'

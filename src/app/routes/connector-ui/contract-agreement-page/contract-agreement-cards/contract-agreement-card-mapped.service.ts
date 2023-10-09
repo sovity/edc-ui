@@ -18,7 +18,7 @@ export class ContractAgreementCardMappedService {
   buildContractAgreementCardMapped(
     contractAgreement: ContractAgreementCard,
   ): ContractAgreementCardMapped {
-    let asset = this.assetBuilder.buildAsset(contractAgreement.asset);
+    const asset = this.assetBuilder.buildAsset(contractAgreement.asset);
 
     return {
       ...contractAgreement,
