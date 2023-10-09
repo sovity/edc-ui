@@ -1,8 +1,12 @@
 import {Injectable} from '@angular/core';
 import {UiAsset} from '@sovity.de/edc-client';
+import {DataCategorySelectItem} from '../../routes/connector-ui/asset-page/data-category-select/data-category-select-item';
 import {DataCategorySelectItemService} from '../../routes/connector-ui/asset-page/data-category-select/data-category-select-item.service';
+import {DataSubcategorySelectItem} from '../../routes/connector-ui/asset-page/data-subcategory-select/data-subcategory-select-item';
 import {DataSubcategorySelectItemService} from '../../routes/connector-ui/asset-page/data-subcategory-select/data-subcategory-select-item.service';
+import {LanguageSelectItem} from '../../routes/connector-ui/asset-page/language-select/language-select-item';
 import {LanguageSelectItemService} from '../../routes/connector-ui/asset-page/language-select/language-select-item.service';
+import {TransportModeSelectItem} from '../../routes/connector-ui/asset-page/transport-mode-select/transport-mode-select-item';
 import {TransportModeSelectItemService} from '../../routes/connector-ui/asset-page/transport-mode-select/transport-mode-select-item.service';
 import {AdditionalAssetProperty, Asset} from './models/asset';
 
@@ -42,25 +46,33 @@ export class AssetBuilder {
     };
   }
 
-  private getTransportModeItem(transportMode: string | undefined) {
+  private getTransportModeItem(
+    transportMode: string | undefined,
+  ): TransportModeSelectItem | null {
     return transportMode == null
       ? null
       : this.transportModeSelectItemService.findById(transportMode);
   }
 
-  private getDataSubcategoryItem(dataSubcategory: string | undefined) {
+  private getDataSubcategoryItem(
+    dataSubcategory: string | undefined,
+  ): DataSubcategorySelectItem | null {
     return dataSubcategory == null
       ? null
       : this.dataSubcategorySelectItemService.findById(dataSubcategory);
   }
 
-  private getDataCategoryItem(dataCategory: string | undefined) {
+  private getDataCategoryItem(
+    dataCategory: string | undefined,
+  ): DataCategorySelectItem | null {
     return dataCategory == null
       ? null
       : this.dataCategorySelectItemService.findById(dataCategory);
   }
 
-  private getLanguageItem(language: string | undefined) {
+  private getLanguageItem(
+    language: string | undefined,
+  ): LanguageSelectItem | null {
     return language == null
       ? null
       : this.languageSelectItemService.findById(language);
