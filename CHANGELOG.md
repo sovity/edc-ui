@@ -22,6 +22,18 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Fixed
 
+## [v0.0.1-milestone-8-sovity14] 24.10.2023
+
+### Overview
+
+Re-release of v0.0.1-milestone-8-sovity14 with fixed curl vulnerabilities.
+
+### Detailed Changes
+
+#### Fixed
+
+- Re-built images to fix a HIGH finding for curl.
+
 ## [v0.0.1-milestone-8-sovity13] 31.08.2023
 
 ### Overview
