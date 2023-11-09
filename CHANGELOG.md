@@ -19,9 +19,9 @@ the detailed section referring to by linking pull requests or issues.
 #### Minor
 
 - New optional marketing banner for MDS Basic Enterprise Edition Connectors.
-- Improved visibility of buttons in "Create New Asset" Dialog
 
 #### Patch
+- Improved visibility of buttons in "Create New Asset" Dialog
 
 #### Deployment Migration Notes
 
