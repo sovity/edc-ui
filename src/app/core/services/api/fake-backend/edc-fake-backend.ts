@@ -16,31 +16,35 @@ import {
   UiContractNegotiationToJSON,
   UiDataOfferToJSON,
 } from '@sovity.de/edc-client';
-import {assetPage, createAsset, deleteAsset} from './impl/asset-fake-service';
-import {getCatalogPageDataOffers} from './impl/catalog-fake-service';
+import {
+  assetPage,
+  createAsset,
+  deleteAsset,
+} from './impl-connector/asset-fake-service';
+import {getCatalogPageDataOffers} from './impl-connector/catalog-fake-service';
 import {
   contractAgreementInitiateTransfer,
   contractAgreementPage,
-} from './impl/contract-agreement-fake-service';
+} from './impl-connector/contract-agreement-fake-service';
 import {
   contractDefinitionPage,
   createContractDefinition,
   deleteContractDefinition,
-} from './impl/contract-definition-fake-service';
+} from './impl-connector/contract-definition-fake-service';
 import {
   getContractNegotiation,
   initiateContractNegotiation,
-} from './impl/contract-negotiation-fake-service';
-import {dashboardPage} from './impl/dashboard-fake-service';
+} from './impl-connector/contract-negotiation-fake-service';
+import {dashboardPage} from './impl-connector/dashboard-fake-service';
 import {
   createPolicyDefinition,
   deletePolicyDefinition,
   policyDefinitionPage,
-} from './impl/policy-definition-fake-service';
+} from './impl-connector/policy-definition-fake-service';
 import {
   transferHistoryPage,
   transferProcessAsset,
-} from './impl/transfer-history-fake-service';
+} from './impl-connector/transfer-history-fake-service';
 import {
   getBody,
   getMethod,
