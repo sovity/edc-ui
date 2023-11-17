@@ -5,9 +5,10 @@ export function patchObj<T>(obj: T, patcher: Patcher<T>): T {
 }
 
 /**
- * Create Map with entries [keyExtractor(it), it]
+ * Create Object with entries [keyExtractor(it), valueExtractor(it)]
  * @param array items
  * @param keyExtractor key extractor
+ * @param valueExtractor value extractor
  */
 export function associateAsObj<T, K extends string | number, R>(
   array: T[],

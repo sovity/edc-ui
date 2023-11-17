@@ -5,7 +5,7 @@ import {
 } from '@sovity.de/broker-server-client';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {CatalogPageResultMapped} from '../catalog-page/mapping/catalog-page-result-mapped';
-import {FilterValueSelectVisibleState} from '../filter-value-select/filter-value-select-visible-state';
+import {FilterBoxVisibleState} from '../filter-box/filter-box-visible-state';
 import {CatalogActiveFilterPill} from './catalog-active-filter-pill';
 
 export interface CatalogPageStateModel {
@@ -28,7 +28,7 @@ export interface CatalogPageStateModel {
    * User Input: Selected Filters
    * (and also includes filter definitions)
    */
-  filters: Record<string, FilterValueSelectVisibleState>;
+  filters: Record<string, FilterBoxVisibleState>;
 
   /**
    * sorting definitions

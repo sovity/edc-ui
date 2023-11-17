@@ -1,12 +1,12 @@
 import {search} from '../../../../core/utils/search-utils';
 import {difference} from '../../../../core/utils/set-utils';
-import {FilterValueSelectItem} from './filter-value-select-item';
-import {FilterValueSelectModel} from './filter-value-select-model';
+import {FilterBoxItem} from './filter-box-item';
+import {FilterBoxModel} from './filter-box-model';
 
 /**
- * Utility Class for interpreting a {@link FilterValueSelectModel}.
+ * Utility Class for interpreting a {@link FilterBoxModel}.
  */
-export class FilterValueSelectVisibleState {
+export class FilterBoxVisibleState {
   constructor(
     /**
      * Filter ID, required for trackBy
@@ -15,11 +15,11 @@ export class FilterValueSelectVisibleState {
     /**
      * Available Items + Texts
      */
-    public model: FilterValueSelectModel,
+    public model: FilterBoxModel,
     /**
      * Items after applying search
      */
-    public visibleItems: FilterValueSelectItem[],
+    public visibleItems: FilterBoxItem[],
     /**
      * Selected Items
      */
@@ -30,9 +30,7 @@ export class FilterValueSelectVisibleState {
    * Calculates the visible state from search text, selected items, available items.
    * @param model search text, selected items, available items
    */
-  static buildVisibleState(
-    model: FilterValueSelectModel,
-  ): FilterValueSelectVisibleState {
+  static buildVisibleState(model: FilterBoxModel): FilterBoxVisibleState {
     const {selectedItems, availableItems, searchText} = model;
 
     const {selectedIds, allItems} = this.mergeSelectedAndAvailableItems(
@@ -45,7 +43,7 @@ export class FilterValueSelectVisibleState {
       item.label,
     ]);
 
-    return new FilterValueSelectVisibleState(
+    return new FilterBoxVisibleState(
       model.id,
       model,
       visibleItems,
@@ -54,10 +52,10 @@ export class FilterValueSelectVisibleState {
   }
 
   private static mergeSelectedAndAvailableItems(
-    selectedItems: FilterValueSelectItem[],
-    availableItems: FilterValueSelectItem[],
-  ): {selectedIds: Set<string>; allItems: FilterValueSelectItem[]} {
-    const items = new Map<string, FilterValueSelectItem>();
+    selectedItems: FilterBoxItem[],
+    availableItems: FilterBoxItem[],
+  ): {selectedIds: Set<string>; allItems: FilterBoxItem[]} {
+    const items = new Map<string, FilterBoxItem>();
     selectedItems.forEach((item) => items.set(item.id, item));
     availableItems.forEach((item) => items.set(item.id, item));
 
@@ -76,11 +74,11 @@ export class FilterValueSelectVisibleState {
     return this.selectedIds.size;
   }
 
-  isSelected(item: FilterValueSelectItem): boolean {
+  isSelected(item: FilterBoxItem): boolean {
     return this.selectedIds.has(item.id);
   }
 
-  isEqualSelectedItems(items: FilterValueSelectItem[]): boolean {
+  isEqualSelectedItems(items: FilterBoxItem[]): boolean {
     return (
       this.selectedIds.size === items.length &&
       items.every((item) => this.selectedIds.has(item.id))
