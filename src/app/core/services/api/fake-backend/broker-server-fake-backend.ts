@@ -12,11 +12,11 @@ import {FetchAPI} from '@sovity.de/edc-client';
 import {
   getCatalogPage,
   getDataOfferDetailPage,
-} from './impl-broker/catalog-fake-impl';
+} from './broker-fake-impl/catalog-fake-impl';
 import {
   getConnectorDetailPage,
   getConnectorPage,
-} from './impl-broker/connector-fake-impl';
+} from './broker-fake-impl/connector-fake-impl';
 import {
   getBody,
   getMethod,

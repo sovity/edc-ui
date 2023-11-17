@@ -3,28 +3,33 @@ import {difference} from '../../../../core/utils/set-utils';
 import {FilterValueSelectItem} from './filter-value-select-item';
 import {FilterValueSelectModel} from './filter-value-select-model';
 
+/**
+ * Utility Class for interpreting a {@link FilterValueSelectModel}.
+ */
 export class FilterValueSelectVisibleState {
   constructor(
+    /**
+     * Filter ID, required for trackBy
+     */
+    public id: string,
+    /**
+     * Available Items + Texts
+     */
     public model: FilterValueSelectModel,
+    /**
+     * Items after applying search
+     */
     public visibleItems: FilterValueSelectItem[],
+    /**
+     * Selected Items
+     */
     public selectedIds: Set<string>,
   ) {}
 
-  get numSelectedItems(): number {
-    return this.selectedIds.size;
-  }
-
-  isSelected(item: FilterValueSelectItem): boolean {
-    return this.selectedIds.has(item.id);
-  }
-
-  isEqualSelectedItems(items: FilterValueSelectItem[]): boolean {
-    return (
-      this.selectedIds.size === items.length &&
-      items.every((item) => this.selectedIds.has(item.id))
-    );
-  }
-
+  /**
+   * Calculates the visible state from search text, selected items, available items.
+   * @param model search text, selected items, available items
+   */
   static buildVisibleState(
     model: FilterValueSelectModel,
   ): FilterValueSelectVisibleState {
@@ -40,7 +45,12 @@ export class FilterValueSelectVisibleState {
       item.label,
     ]);
 
-    return new FilterValueSelectVisibleState(model, visibleItems, selectedIds);
+    return new FilterValueSelectVisibleState(
+      model.id,
+      model,
+      visibleItems,
+      selectedIds,
+    );
   }
 
   private static mergeSelectedAndAvailableItems(
@@ -60,5 +70,20 @@ export class FilterValueSelectVisibleState {
     // Items that are selected, but not part of the available items should show up first in the list
     const allItems = [...selectedUnavailableItems, ...availableItems];
     return {selectedIds, allItems};
+  }
+
+  get numSelectedItems(): number {
+    return this.selectedIds.size;
+  }
+
+  isSelected(item: FilterValueSelectItem): boolean {
+    return this.selectedIds.has(item.id);
+  }
+
+  isEqualSelectedItems(items: FilterValueSelectItem[]): boolean {
+    return (
+      this.selectedIds.size === items.length &&
+      items.every((item) => this.selectedIds.has(item.id))
+    );
   }
 }

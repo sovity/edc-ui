@@ -6,12 +6,18 @@ export interface FilterValueSelectItem {
   label: string;
 }
 
-export function mapCnfFilterItems(
+export function buildFilterValueSelectItems(
   items: CnfFilterItem[],
 ): FilterValueSelectItem[] {
-  return items.map((item) => ({
+  return items.map(buildFilterValueSelectItem);
+}
+
+function buildFilterValueSelectItem(
+  item: CnfFilterItem,
+): FilterValueSelectItem {
+  return {
     type: item.id === '' ? 'NO_VALUE' : 'ITEM',
     id: item.id,
     label: item.id === '' ? 'None' : item.title,
-  }));
+  };
 }

@@ -14,7 +14,7 @@ import {CatalogActiveFilterPill} from '../state/catalog-active-filter-pill';
 import {CatalogPage} from '../state/catalog-page-actions';
 import {CatalogPageState} from '../state/catalog-page-state';
 import {CatalogPageStateModel} from '../state/catalog-page-state-model';
-import {BrokerDataOffer} from './mapping/broker-data-offer';
+import {CatalogDataOfferMapped} from './mapping/catalog-page-result-mapped';
 
 @Component({
   selector: 'catalog-page',
@@ -26,11 +26,13 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   @HostBinding('class.p-[20px]')
   @HostBinding('class.space-x-[20px]')
   cls = true;
-
   state!: CatalogPageStateModel;
   searchText = new FormControl('');
   sortBy = new FormControl<CatalogPageSortingItem | null>(null);
   private fetch$ = new BehaviorSubject(null);
+
+  // only tracked to prevent the component from resetting
+  expandedFilter = '';
 
   constructor(
     private assetDetailDialogDataService: AssetDetailDialogDataService,
@@ -58,6 +60,10 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
         if (this.sortBy.value?.sorting !== state.activeSorting?.sorting) {
           this.sortBy.setValue(state.activeSorting);
         }
+        if (!this.expandedFilter && this.state.fetchedData.isReady) {
+          this.expandedFilter =
+            this.state.fetchedData.data.availableFilters.fields[0].id;
+        }
       });
   }
 
@@ -81,7 +87,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  onDataOfferClick(dataOffer: BrokerDataOffer) {
+  onDataOfferClick(dataOffer: CatalogDataOfferMapped) {
     const data =
       this.assetDetailDialogDataService.brokerDataOfferDetails(dataOffer);
 
@@ -133,5 +139,11 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
 
   onPageChange(event: PageEvent) {
     this.store.dispatch(new CatalogPage.UpdatePage(event.pageIndex));
+  }
+
+  onExpandedChange(filterId: string, expanded: boolean) {
+    if (expanded) {
+      this.expandedFilter = filterId;
+    }
   }
 }
