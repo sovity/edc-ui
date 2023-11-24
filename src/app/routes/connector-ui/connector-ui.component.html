@@ -49,7 +49,12 @@
         TUTORIAL & FAQ
       </a>
     </div>
-    <div class="flex flex-row items-center mx-auto pr-4 pb-4">
+    <div
+      *ngIf="
+        ('mds-ee-basic-marketing' | isActiveFeature) &&
+        config.showEeBasicMarketing
+      "
+      class="flex flex-row items-center mx-auto pr-4 pb-4">
       <i>powered by</i>
       <img
         class="h-6 ml-[0.42rem] mt-[0.17rem]"
