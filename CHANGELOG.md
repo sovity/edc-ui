@@ -20,6 +20,7 @@ the detailed section referring to by linking pull requests or issues.
 
 - MDS Connector UI: Renamed Participant IDs to MDS Connector IDs
 - Connector Restricted Policy now supports entry of multiple connectors.
+- New Transfer History Page Column: Participant ID / Connector ID
 
 #### Patch
 
