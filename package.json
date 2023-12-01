@@ -25,7 +25,7 @@
     "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
-    "@ng-apimock/core": "^3.11.0",
+    "@ng-apimock/core": "^3.11.2",
     "@ngxs/store": "^3.8.1",
     "@sovity.de/broker-server-client": "0.20231117.82827-main-daa9d330",
     "@sovity.de/edc-client": "0.20231130.160808-main-b064eb10",
