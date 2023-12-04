@@ -68,13 +68,13 @@ extensions.
 
 <div>
   <div style="float:left;width:33%;">
-    <img src="docs/screenshots/screenshot-dashboard.png">
+    <img src="docs/screenshots/screenshot-dashboard.png" style="max-width:300px;">
   </div>
   <div style="float:left;width:33%;">
-    <img src="docs/screenshots/screenshot-contracts.png">
+    <img src="docs/screenshots/screenshot-contracts.png" style="max-width:300px;">
   </div>
   <div style="float:left;width:33%;">
-    <img src="docs/screenshots/screenshot-assets.png">
+    <img src="docs/screenshots/screenshot-assets.png" style="max-width:300px;">
   </div>
 </div>
 
