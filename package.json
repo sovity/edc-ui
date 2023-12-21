@@ -30,7 +30,7 @@
     "@sovity.de/broker-server-client": "0.20231117.82827-main-daa9d330",
     "@sovity.de/edc-client": "0.20231130.160808-main-b064eb10",
     "clean-deep": "^3.4.0",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.0.4",
     "dotenv": "^16.3.1",
     "json-stable-stringify": "^1.0.2",
     "ng2-charts": "^4.1.1",
