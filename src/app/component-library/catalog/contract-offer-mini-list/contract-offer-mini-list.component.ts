@@ -7,6 +7,12 @@ import {
 } from '@angular/core';
 import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
 import {ContractOffer} from '../../../core/services/models/contract-offer';
+import {ConnectorEndpointService} from '../connector-endpoint.service';
+
+export interface ContractOffersWithEndpoint {
+  contractOffers: ContractOffer[];
+  endpoint: string;
+}
 
 @Component({
   selector: 'contract-offer-mini-list',
@@ -14,7 +20,7 @@ import {ContractOffer} from '../../../core/services/models/contract-offer';
 })
 export class ContractOfferMiniListComponent {
   @Input()
-  contractOffers!: ContractOffer[];
+  data!: ContractOffersWithEndpoint;
 
   @HostBinding('class.flex')
   @HostBinding('class.flex-col')
@@ -23,5 +29,8 @@ export class ContractOfferMiniListComponent {
   @Output()
   negotiateClick = new EventEmitter<ContractOffer>();
 
-  constructor(public contractNegotiationService: ContractNegotiationService) {}
+  constructor(
+    public contractNegotiationService: ContractNegotiationService,
+    public connectorEndpointService: ConnectorEndpointService,
+  ) {}
 }

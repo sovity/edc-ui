@@ -65,14 +65,17 @@
   <!-- Contract Offers -->
   <contract-offer-mini-list
     *ngIf="data.type === 'data-offer'"
-    [contractOffers]="data.dataOffer!.contractOffers"
+    [data]="{
+      endpoint: data.dataOffer!.endpoint,
+      contractOffers: data.dataOffer!.contractOffers
+    }"
     (negotiateClick)="onNegotiateClick($event)">
   </contract-offer-mini-list>
 </div>
 
 <mat-dialog-actions>
   <div class="w-full flex flex-row justify-end">
-    <div>
+    <div class="flex flex-row gap-1 items-center">
       <button mat-dialog-close mat-button [disabled]="loading">Close</button>
 
       <button
@@ -87,7 +90,10 @@
       <button
         *ngIf="
           data.type === 'data-offer' &&
-          data.dataOffer?.contractOffers?.length === 1
+          data.dataOffer?.contractOffers?.length === 1 &&
+          !connectorEndpointService.isOwnEndpoint(
+            data.dataOffer?.endpoint ?? 'tmp'
+          )
         "
         mat-raised-button
         color="primary"
@@ -110,6 +116,20 @@
           Successfully Negotiated
         </ng-container>
       </button>
+
+      <div
+        *ngIf="
+          data.type === 'data-offer' &&
+          data.dataOffer?.contractOffers?.length === 1 &&
+          connectorEndpointService.isOwnEndpoint(
+            data.dataOffer?.endpoint ?? 'tmp'
+          )
+        "
+        class="text-slate">
+        <mat-chip matTooltip="Cannot negotiate a contract with own connector"
+          >Own connector</mat-chip
+        >
+      </div>
 
       <button
         *ngIf="
