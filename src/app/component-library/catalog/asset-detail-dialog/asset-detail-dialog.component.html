@@ -36,8 +36,12 @@
 
   <!-- Description -->
   <div class="whitespace-pre-line">
-    {{ asset.description }}
-    <i *ngIf="!asset.description">No description.</i>
+    <div
+      [innerHtml]="
+        asset.description
+          ? markdownConverter.toHtml(asset.description)
+          : '<i>No description.</i>'
+      "></div>
   </div>
 
   <!-- Tag List -->

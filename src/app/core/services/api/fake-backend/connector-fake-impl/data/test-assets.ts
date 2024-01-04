@@ -19,7 +19,7 @@ export namespace TestAssets {
     keywords: ['automotive', 'part-demands', '2023', 'January'],
     mediaType: 'application/json',
     description:
-      'Part demands for CKD/SKD parts for January 2023. Split by plant / day / model code.',
+      '# h1\n## h2\n### h3\nPart demands for CKD/SKD parts for January 2023. Split by plant / day / model code.',
     language: 'https://w3id.org/idsa/code/EN',
     publisherHomepage:
       'https://teamabc.departmentxyz.my-german-oem.de/offers/ckd-skd-demands',
