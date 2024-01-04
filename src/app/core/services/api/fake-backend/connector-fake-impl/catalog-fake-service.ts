@@ -31,6 +31,23 @@ let dataOffers: UiDataOffer[] = [
       },
     ],
   },
+  {
+    endpoint: 'http://localhost:3000/api/dsp',
+    asset: {...TestAssets.full, title: 'My Own Connector'},
+    participantId: 'MDSL1234XX.C1234XX',
+    contractOffers: [
+      {
+        contractOfferId:
+          'Zmlyc3QtY2Q=:Zmlyc3QtYXNzZXQtMS4w:MjgzNTZkMTMtN2ZhYy00NTQwLTgwZjItMjI5NzJjOTc1ZWNi',
+        policy: TestPolicies.connectorRestricted,
+      },
+      {
+        contractOfferId:
+          'Bmlyf3Qt62Q=:Zmlyc3QtYXNzZXQtMS4w:NigzNTZkMTMtN2ZhYy00NTQwLTgwZjItMjI5NzJjOTc1ZWNj',
+        policy: TestPolicies.warnings,
+      },
+    ],
+  },
 ];
 
 export const getCatalogPageDataOffers = (
