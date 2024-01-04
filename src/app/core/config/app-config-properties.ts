@@ -41,6 +41,11 @@ export const AppConfigProperties = {
   managementApiKey: 'EDC_UI_MANAGEMENT_API_KEY',
 
   /**
+   * Connector Endpoint URL
+   */
+  connectorEndpoint: 'EDC_UI_CONNECTOR_ENDPOINT',
+
+  /**
    * Logout URL.
    */
   logoutUrl: 'EDC_UI_LOGOUT_URL',
