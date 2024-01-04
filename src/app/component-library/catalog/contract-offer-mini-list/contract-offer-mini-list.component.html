@@ -49,9 +49,12 @@
     <div
       *ngIf="connectorEndpointService.isOwnEndpoint(data.endpoint)"
       class="text-slate">
-      <mat-chip matTooltip="Cannot negotiate a contract with own connector"
-        >Own connector</mat-chip
-      >
+      <button
+        disabled
+        mat-raised-button
+        matTooltip="Cannot negotiate a contract with own connector">
+        <span class="text-gray-500">Own connector</span>
+      </button>
     </div>
   </div>
 </ng-container>
