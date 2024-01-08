@@ -18,6 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
+- Dont show negotiate button for own connector endpoints
+
 #### Patch
 
 - Fix broken `/logout` page
