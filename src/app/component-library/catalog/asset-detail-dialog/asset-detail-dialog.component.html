@@ -36,12 +36,8 @@
 
   <!-- Description -->
   <div class="whitespace-pre-line">
-    <div
-      [innerHtml]="
-        asset.description
-          ? markdownConverter.toHtml(asset.description)
-          : '<i>No description.</i>'
-      "></div>
+    <markdown-description
+      [description]="asset.description"></markdown-description>
   </div>
 
   <!-- Tag List -->

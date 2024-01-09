@@ -1,0 +1,7 @@
+<div
+  class="markdown-description"
+  [innerHtml]="
+    description
+      ? markdownConverter.toHtml(description)
+      : '<i>No description.</i>'
+  "></div>

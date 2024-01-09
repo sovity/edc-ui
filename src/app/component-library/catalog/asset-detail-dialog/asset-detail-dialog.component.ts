@@ -7,7 +7,6 @@ import {
 import {Observable, Subject, isObservable} from 'rxjs';
 import {filter, finalize, takeUntil} from 'rxjs/operators';
 import {UiContractOffer} from '@sovity.de/edc-client';
-import {MarkdownConverter} from 'src/app/core/services/markdown-converter';
 import {EdcApiService} from '../../../core/services/api/edc-api.service';
 import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
 import {UiAssetMapped} from '../../../core/services/models/ui-asset-mapped';
@@ -64,7 +63,6 @@ export class AssetDetailDialogComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA)
     private _data: AssetDetailDialogData | Observable<AssetDetailDialogData>,
     public contractNegotiationService: ContractNegotiationService,
-    public markdownConverter: MarkdownConverter,
   ) {
     if (isObservable(this._data)) {
       this._data
