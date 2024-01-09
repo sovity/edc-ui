@@ -14,9 +14,9 @@
   <mat-card-content class="flex flex-col space-y-[16px]">
     <!-- Description Short Text -->
     <div
-      *ngIf="asset.descriptionShortText"
-      class="whitespace-pre-line truncate-lines-5">
-      {{ asset.descriptionShortText }}
+      class="whitespace-pre-line truncate-lines-5"
+      [ngClass]="asset.descriptionShortText ? 'non-italic' : 'italic'">
+      {{ asset.descriptionShortText ?? 'No description.' }}
     </div>
 
     <!-- Tag List -->

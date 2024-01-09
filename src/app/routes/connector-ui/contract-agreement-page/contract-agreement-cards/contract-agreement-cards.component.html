@@ -77,9 +77,9 @@
 
       <!-- Description Short Text -->
       <div
-        *ngIf="card.asset.descriptionShortText"
-        class="whitespace-pre-line truncate-lines-5">
-        {{ card.asset.descriptionShortText }}
+        class="whitespace-pre-line truncate-lines-5"
+        [ngClass]="card.asset.descriptionShortText ? 'non-italic' : 'italic'">
+        {{ card.asset.descriptionShortText ?? 'No description.' }}
       </div>
 
       <!-- Tag List -->
