@@ -17,11 +17,11 @@
       <mat-card-subtitle>{{ asset.creatorOrganizationName }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="flex flex-col space-y-[16px]">
-      <!-- Description -->
+      <!-- Description Short Text -->
       <div
-        *ngIf="asset.description"
+        *ngIf="asset.descriptionShortText"
         class="whitespace-pre-line truncate-lines-5">
-        {{ asset.description }}
+        {{ asset.descriptionShortText }}
       </div>
 
       <!-- Tag List -->

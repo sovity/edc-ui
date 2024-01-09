@@ -21,11 +21,11 @@
         color="primary"
         mode="indeterminate"></mat-progress-bar>
 
-      <!-- Description -->
+      <!-- Description Short Text -->
       <div
-        *ngIf="asset.description"
+        *ngIf="asset.descriptionShortText"
         class="whitespace-pre-line truncate-lines-5">
-        {{ asset.description }}
+        {{ asset.descriptionShortText }}
       </div>
 
       <!-- Tag List -->
