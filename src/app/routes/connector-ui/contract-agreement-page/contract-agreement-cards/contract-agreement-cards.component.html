@@ -78,7 +78,7 @@
       <!-- Description Short Text -->
       <div
         class="whitespace-pre-line truncate-lines-5"
-        [ngClass]="card.asset.descriptionShortText ? 'non-italic' : 'italic'">
+        [class.italic]="!card.asset.descriptionShortText">
         {{ card.asset.descriptionShortText ?? 'No description.' }}
       </div>
 

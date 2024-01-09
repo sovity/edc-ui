@@ -15,7 +15,7 @@
     <!-- Description Short Text -->
     <div
       class="whitespace-pre-line truncate-lines-5"
-      [ngClass]="asset.descriptionShortText ? 'non-italic' : 'italic'">
+      [class.italic]="!asset.descriptionShortText">
       {{ asset.descriptionShortText ?? 'No description.' }}
     </div>
 
