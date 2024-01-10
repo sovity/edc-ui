@@ -79,7 +79,6 @@ export namespace TestAssets {
     keywords: ['automotive', 'part-demands', '2023', 'January'],
     mediaType: 'application/json',
     description: markdownDescription,
-    // '# Part demands for CKD/SKD parts\n## January 2023\n### Split by plant / day / model code',
     descriptionShortText:
       'Part demands for CKD/SKD parts January 2023 Split by plant / day / model code',
     language: 'https://w3id.org/idsa/code/EN',
