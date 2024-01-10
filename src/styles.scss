@@ -245,4 +245,14 @@ body {
   @apply prose-a:text-[--link-color];
   @apply prose-blockquote:mx-0;
   // @apply prose-blockquote:border-gray-900;;;;;
+
+  table {
+    display: block;
+    max-width: fit-content;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+  }
 }
