@@ -24,7 +24,7 @@ export namespace TestAssets {
   
   # Omen
   
-  This is **bold!** This is _italic_.
+  This is **bold!** This is _italic_. This is inline \`code\`.
   
   > here we quote
 

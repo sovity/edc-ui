@@ -244,6 +244,7 @@ body {
   @apply prose-img:rounded-lg prose-img:max-w-xl prose-img:my-3;
   @apply prose-a:text-[--link-color];
   @apply prose-blockquote:mx-0;
+  @apply prose-code:rounded-lg;
 
   table {
     display: block;
@@ -253,5 +254,11 @@ body {
     text-indent: 0;
     border-color: inherit;
     border-collapse: collapse;
+  }
+
+  pre code {
+    @apply p-0;
+    border: initial;
+    line-height: 1.5;
   }
 }
