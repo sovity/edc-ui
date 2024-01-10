@@ -1,5 +1,4 @@
 # Pull Request
-_Briefly describe WHAT your PR changes, which features it adds/modifies._
 
 ## Linked Issue(s)
 
