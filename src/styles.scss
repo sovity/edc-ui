@@ -240,8 +240,8 @@ body {
 }
 
 .markdown-description {
-  @apply prose whitespace-normal;
-  @apply prose-img:rounded-lg prose-img:max-w-xl prose-img:my-3;
+  @apply prose whitespace-normal max-w-4xl;
+  @apply prose-img:rounded-lg prose-img:max-w-4xl prose-img:my-3;
   @apply prose-a:text-[--link-color];
   @apply prose-blockquote:mx-0;
   @apply prose-code:rounded-lg;

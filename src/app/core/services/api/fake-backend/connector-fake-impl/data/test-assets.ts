@@ -80,7 +80,7 @@ export namespace TestAssets {
     mediaType: 'application/json',
     description: markdownDescription,
     descriptionShortText:
-      'Part demands for CKD/SKD parts January 2023 Split by plant / day / model code',
+      'Part demands for CKD/SKD parts January 2023 Split by plant / day / model code. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     language: 'https://w3id.org/idsa/code/EN',
     publisherHomepage:
       'https://teamabc.departmentxyz.my-german-oem.de/offers/ckd-skd-demands',
