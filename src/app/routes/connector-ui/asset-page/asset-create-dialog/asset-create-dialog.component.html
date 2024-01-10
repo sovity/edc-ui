@@ -50,12 +50,17 @@
 
           <!-- Description -->
 
-          <div class="text-gray-600 flex flex-row items-center gap-1">
+          <mat-hint class="flex flex-row items-center gap-1">
             The description uses
             <a class="link" href="https://www.markdownguide.org/basic-syntax/"
-              >Markdown syntax.</a
+              >Markdown syntax</a
             >
-          </div>
+            <mat-icon
+              class="mat-icon-[16px]"
+              matTooltip="The following standard markdown elements are supported: Headings, bold text, italic text, links, images, tables, quotes, code blocks, listing, enumerations"
+              >question_mark</mat-icon
+            >
+          </mat-hint>
           <mat-form-field class="">
             <mat-label>Description</mat-label>
             <textarea
