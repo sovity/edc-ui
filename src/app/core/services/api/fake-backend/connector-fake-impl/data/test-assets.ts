@@ -15,13 +15,6 @@ export namespace TestAssets {
 
   ![scenery2](https://live.staticflickr.com/65535/40672257333_d81788a384_b.jpg)
 
-  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-  no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-  ![scenery3](https://upload.wikimedia.org/wikipedia/commons/d/dd/Natural_scenery.jpg)
-  
   # Omen
   
   This is **bold!** This is _italic_. This is inline \`code\`.
