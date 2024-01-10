@@ -1,7 +1,8 @@
 <div
+  *ngIf="description"
   class="markdown-description"
   [innerHtml]="
-    description
-      ? markdownConverter.toHtml(description)
-      : '<i>No description.</i>'
+    htmlSanitizer.sanitize(markdownConverter.toHtml(description))
   "></div>
+
+<i *ngIf="!description">No description.</i>

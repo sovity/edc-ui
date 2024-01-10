@@ -146,6 +146,13 @@ body {
   line-height: 40px !important;
 }
 
+.mat-icon-\[10px\] {
+  font-size: 10px !important;
+  width: 10px !important;
+  height: 10px !important;
+  line-height: 10px !important;
+}
+
 .mat-icon-\[14px\] {
   margin-right: 5px;
   font-size: 14px !important;
@@ -154,11 +161,11 @@ body {
   line-height: 14px !important;
 }
 
-.mat-icon-\[10px\] {
-  font-size: 10px !important;
-  width: 10px !important;
-  height: 10px !important;
-  line-height: 10px !important;
+.mat-icon-\[16px\] {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
 }
 
 .mat-icon-\[12px\] {
@@ -218,14 +225,8 @@ body {
 }
 
 .markdown-description {
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  ul,
-  ol {
-    @apply m-0;
-  }
+  @apply prose whitespace-normal;
+  @apply prose-img:rounded-md prose-img:max-w-xl prose-img:my-4;
+  @apply prose-a:text-[--link-color]
+  // @apply prose-blockquote:border-gray-900;;
 }
