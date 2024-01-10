@@ -27,6 +27,10 @@ export namespace TestAssets {
   This is **bold!** This is _italic_.
   
   > here we quote
+
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+  vero eos et accusam et justo duo dolores et ea rebum.
   
   ## Sage
   

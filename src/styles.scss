@@ -1,6 +1,21 @@
 @forward 'theme';
 @forward 'tailwind';
 
+// The following two styling blocks are defined at the top of TailwindCSS.
+// They are not included in the final css output due to sass processing.
+// They are required for Tailwind typography blockquotes to show the left border.
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+}
+
+:after,
+:before {
+  --tw-content: '';
+}
+
 html,
 body {
   height: 100%;
@@ -226,7 +241,8 @@ body {
 
 .markdown-description {
   @apply prose whitespace-normal;
-  @apply prose-img:rounded-md prose-img:max-w-xl prose-img:my-4;
-  @apply prose-a:text-[--link-color]
-  // @apply prose-blockquote:border-gray-900;;
+  @apply prose-img:rounded-md prose-img:max-w-xl prose-img:my-3;
+  @apply prose-a:text-[--link-color];
+  @apply prose-blockquote:mx-0;
+  // @apply prose-blockquote:border-gray-900;;;;;
 }
