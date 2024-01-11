@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   OnInit,
   ViewChild,
@@ -17,6 +18,7 @@ const COLLAPSED_DESCRIPTION_HEIGHT = 600;
   templateUrl: './markdown-description.component.html',
 })
 export class MarkdownDescriptionComponent implements OnInit, AfterViewInit {
+  @HostBinding('class.block') cls = true;
   @Input() description!: string | undefined;
   @ViewChild('content')
   elementView!: ElementRef;

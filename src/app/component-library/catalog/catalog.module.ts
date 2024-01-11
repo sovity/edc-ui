@@ -23,6 +23,7 @@ import {ContractOfferMiniListComponent} from './contract-offer-mini-list/contrac
 import {DataOfferCardsComponent} from './data-offer-cards/data-offer-cards.component';
 import {IconWithOnlineStatusComponent} from './icon-with-online-status/icon-with-online-status.component';
 import {TransferHistoryMiniListComponent} from './transfer-history-mini-list/transfer-history-mini-list.component';
+import {TruncatedShortDescription} from './truncated-short-description/truncated-short-description.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import {TransferHistoryMiniListComponent} from './transfer-history-mini-list/tra
     TransferHistoryMiniListComponent,
     IconWithOnlineStatusComponent,
     MarkdownDescriptionComponent,
+    TruncatedShortDescription,
   ],
   exports: [
     AssetDetailDialogComponent,
@@ -61,6 +63,7 @@ import {TransferHistoryMiniListComponent} from './transfer-history-mini-list/tra
     DataOfferCardsComponent,
     TransferHistoryMiniListComponent,
     IconWithOnlineStatusComponent,
+    TruncatedShortDescription,
   ],
   providers: [
     AssetPropertyGridGroupBuilder,

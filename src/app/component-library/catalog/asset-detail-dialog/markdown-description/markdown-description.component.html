@@ -1,13 +1,7 @@
 <div
   class="overflow-hidden relative"
   #content
-  [ngStyle]="
-    isCollapsed
-      ? {
-          height: collapsedDescriptionHeight + 'px'
-        }
-      : null
-  ">
+  [style.height.px]="isCollapsed ? collapsedDescriptionHeight : null">
   <div
     *ngIf="description"
     class="markdown-description"
@@ -19,8 +13,16 @@
 
   <div
     *ngIf="isCollapsed"
-    id="showMoreOverlay"
-    class="absolute inset-x-0 bottom-0 z-10 flex h-14 flex-col overflow-hidden"></div>
+    class="absolute inset-x-0 bottom-0 z-10 flex h-14 flex-col overflow-hidden"
+    style="
+      background: rgb(0, 0, 0);
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.13211221988795518) 50%,
+        rgba(0, 0, 0, 0.5111038165266107) 100%
+      );
+    "></div>
 </div>
 
 <button
@@ -29,10 +31,10 @@
   mat-button
   (click)="isCollapsed = !isCollapsed">
   <div class="flex items-center gap-1 justify-center">
-    <mat-icon *ngIf="isCollapsed" class="mat-icon-[17px]"
+    <mat-icon *ngIf="isCollapsed" class="mat-icon-[17px] mt-[2px]"
       >keyboard_double_arrow_down</mat-icon
     >
-    <mat-icon *ngIf="!isCollapsed" class="mat-icon-[17px]"
+    <mat-icon *ngIf="!isCollapsed" class="mat-icon-[17px] mt-[2px]"
       >keyboard_double_arrow_up</mat-icon
     >
     {{ isCollapsed ? 'Show more' : 'Show less' }}

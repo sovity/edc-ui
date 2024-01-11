@@ -192,7 +192,6 @@ body {
 }
 
 .mat-icon-\[17px\] {
-  margin-top: 2px;
   font-size: 17px !important;
   line-height: 17px !important;
   width: 17px !important;
@@ -242,28 +241,9 @@ body {
   @apply prose-th:px-[13px] prose-th:py-[6px] prose-th:border prose-th:border-[--tw-prose-td-borders] prose-th:align-middle prose-th:border-solid;
   @apply prose-td:px-[13px] prose-td:py-[6px] prose-td:border prose-td:border-[--tw-prose-td-borders] prose-td:align-middle prose-td:border-solid;
 
-  // table {
-  //   display: block;
-  //   max-width: fit-content;
-  //   overflow-x: auto;
-  //   text-indent: 0;
-  //   border-color: inherit;
-  //   border-collapse: collapse;
-  // }
-
   pre code {
     @apply p-0;
     border: initial;
     line-height: 1.5;
   }
-}
-
-#showMoreOverlay {
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.13211221988795518) 50%,
-    rgba(0, 0, 0, 0.5111038165266107) 100%
-  );
 }
