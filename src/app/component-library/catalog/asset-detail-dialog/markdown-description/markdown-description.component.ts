@@ -20,7 +20,6 @@ export class MarkdownDescriptionComponent implements OnInit, AfterViewInit {
   @Input() description!: string | undefined;
   @ViewChild('content')
   elementView!: ElementRef;
-  contentHeight!: number;
   isLargeDescription = false;
   isCollapsed = false;
   collapsedDescriptionHeight!: number;
@@ -36,9 +35,9 @@ export class MarkdownDescriptionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.contentHeight = this.elementView.nativeElement.offsetHeight;
+    const contentHeight = this.elementView.nativeElement.offsetHeight;
 
-    if (this.contentHeight > this.collapsedDescriptionHeight) {
+    if (contentHeight > this.collapsedDescriptionHeight) {
       this.isLargeDescription = true;
       this.isCollapsed = true;
       this.cd.detectChanges();
