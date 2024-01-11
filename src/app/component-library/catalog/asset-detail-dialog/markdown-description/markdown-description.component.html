@@ -1,4 +1,13 @@
-<div class="overflow-hidden relative" #content [class.h-[600px]]="isCollapsed">
+<div
+  class="overflow-hidden relative"
+  #content
+  [ngStyle]="
+    isCollapsed
+      ? {
+          height: collapsedDescriptionHeight + 'px'
+        }
+      : null
+  ">
   <div
     *ngIf="description"
     class="markdown-description"

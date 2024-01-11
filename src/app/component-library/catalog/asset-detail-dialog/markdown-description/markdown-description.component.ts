@@ -10,7 +10,7 @@ import {
 import {HtmlSanitizer} from 'src/app/core/services/html-sanitizer';
 import {MarkdownConverter} from 'src/app/core/services/markdown-converter';
 
-const MAX_COLLAPSED_DESCRIPTION_HEIGHT = 600;
+const COLLAPSED_DESCRIPTION_HEIGHT = 600;
 
 @Component({
   selector: 'markdown-description',
@@ -23,6 +23,7 @@ export class MarkdownDescriptionComponent implements OnInit, AfterViewInit {
   contentHeight!: number;
   isLargeDescription = false;
   isCollapsed = false;
+  collapsedDescriptionHeight!: number;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -30,12 +31,14 @@ export class MarkdownDescriptionComponent implements OnInit, AfterViewInit {
     public htmlSanitizer: HtmlSanitizer,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.collapsedDescriptionHeight = COLLAPSED_DESCRIPTION_HEIGHT;
+  }
 
   ngAfterViewInit() {
     this.contentHeight = this.elementView.nativeElement.offsetHeight;
 
-    if (this.contentHeight > MAX_COLLAPSED_DESCRIPTION_HEIGHT) {
+    if (this.contentHeight > this.collapsedDescriptionHeight) {
       this.isLargeDescription = true;
       this.isCollapsed = true;
       this.cd.detectChanges();
