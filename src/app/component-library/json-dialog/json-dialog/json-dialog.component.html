@@ -37,7 +37,11 @@
     </mat-checkbox>
   </div>
   <div class="flex flex-row">
-    <button mat-dialog-close mat-button color="default" [disabled]="busy">
+    <button
+      mat-button
+      color="default"
+      [mat-dialog-close]="null"
+      [disabled]="busy">
       Close
     </button>
     <button

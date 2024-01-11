@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
-import {UiAssetCreateRequest} from '@sovity.de/edc-client';
-import {AssetEditorDialogFormValue} from '../../routes/connector-ui/asset-page/asset-create-dialog/asset-editor-dialog-form-model';
+import {
+  UiAssetCreateRequest,
+  UiAssetEditMetadataRequest,
+} from '@sovity.de/edc-client';
+import {AssetEditorDialogFormValue} from '../../routes/connector-ui/asset-page/asset-edit-dialog/form/model/asset-editor-dialog-form-model';
 import {DataAddressMapper} from './data-address-mapper';
 
 @Injectable()
@@ -16,6 +19,26 @@ export class AssetCreateRequestBuilder {
   buildAssetCreateRequest(
     formValue: AssetEditorDialogFormValue,
   ): UiAssetCreateRequest {
+    const metadata = this._metadata(formValue);
+    const dataAddressProperties =
+      this.dataAddressMapper.buildDataAddressProperties(formValue.datasource);
+
+    return {
+      ...metadata,
+      dataAddressProperties,
+    };
+  }
+
+  buildEditMetadataRequest(
+    formValue: AssetEditorDialogFormValue,
+  ): UiAssetEditMetadataRequest {
+    const {id, ...metadata} = this._metadata(formValue);
+    return metadata;
+  }
+
+  private _metadata(
+    formValue: AssetEditorDialogFormValue,
+  ): Omit<UiAssetCreateRequest, 'dataAddressProperties'> {
     const id = formValue.metadata?.id!;
     const title = formValue.metadata?.title!;
     const version = formValue.metadata?.version;
@@ -33,8 +56,6 @@ export class AssetCreateRequestBuilder {
     const geoReferenceMethod = formValue.advanced?.geoReferenceMethod;
     const dataModel = formValue.advanced?.dataModel;
 
-    const dataAddressProperties =
-      this.dataAddressMapper.buildDataAddressProperties(formValue.datasource);
     return {
       id,
       title,
@@ -51,7 +72,6 @@ export class AssetCreateRequestBuilder {
       dataModel,
       geoReferenceMethod,
       transportMode,
-      dataAddressProperties,
     };
   }
 }

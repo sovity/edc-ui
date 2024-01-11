@@ -74,17 +74,29 @@
 </div>
 
 <mat-dialog-actions>
-  <div class="w-full flex flex-row justify-end">
+  <div class="w-full flex flex-row justify-between">
     <div>
-      <button mat-dialog-close mat-button [disabled]="loading">Close</button>
-
       <button
         *ngIf="data.showDeleteButton"
-        mat-raised-button
+        mat-button
         color="warn"
         [disabled]="loading"
         (click)="onDeleteClick()">
         Delete
+      </button>
+    </div>
+    <div>
+      <button mat-button [mat-dialog-close]="null" [disabled]="loading">
+        Close
+      </button>
+
+      <button
+        *ngIf="data.showEditButton"
+        mat-raised-button
+        color="primary"
+        [disabled]="loading"
+        (click)="onEditClick()">
+        Edit
       </button>
 
       <button

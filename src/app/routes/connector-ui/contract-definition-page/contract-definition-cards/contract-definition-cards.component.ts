@@ -58,7 +58,7 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
   }
 
   onAssetClick(asset: UiAssetMapped) {
-    const data = this.assetDetailDialogDataService.assetDetails(asset, false);
+    const data = this.assetDetailDialogDataService.assetDetailsReadonly(asset);
     this.assetDetailDialogService
       .open(data, this.ngOnDestroy$)
       .pipe(filter((it) => !!it?.refreshList))
