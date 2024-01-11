@@ -1,8 +1,31 @@
-<div
-  *ngIf="description"
-  class="markdown-description"
-  [innerHtml]="
-    htmlSanitizer.sanitize(markdownConverter.toHtml(description))
-  "></div>
+<div class="overflow-hidden relative" #content [class.h-[600px]]="isCollapsed">
+  <div
+    *ngIf="description"
+    class="markdown-description"
+    [innerHtml]="
+      htmlSanitizer.sanitize(markdownConverter.toHtml(description))
+    "></div>
 
-<i *ngIf="!description">No description.</i>
+  <i *ngIf="!description">No description.</i>
+
+  <div
+    *ngIf="isCollapsed"
+    id="showMoreOverlay"
+    class="absolute inset-x-0 bottom-0 z-10 flex h-14 flex-col overflow-hidden"></div>
+</div>
+
+<button
+  *ngIf="isLargeDescription"
+  class="w-full"
+  mat-button
+  (click)="isCollapsed = !isCollapsed">
+  <div class="flex items-center gap-1 justify-center">
+    <mat-icon *ngIf="isCollapsed" class="mat-icon-[17px]"
+      >keyboard_double_arrow_down</mat-icon
+    >
+    <mat-icon *ngIf="!isCollapsed" class="mat-icon-[17px]"
+      >keyboard_double_arrow_up</mat-icon
+    >
+    {{ isCollapsed ? 'Show more' : 'Show less' }}
+  </div>
+</button>

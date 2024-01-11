@@ -5,15 +5,27 @@ export namespace TestAssets {
   tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
   vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
   no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+  ![scenery2](https://images.pexels.com/photos/255419/pexels-photo-255419.jpeg?cs=srgb&dl=pexels-pixabay-255419.jpg&fm=jpg)
   
-  ![scenery](https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3NrOTc5MS1pbWFnZS1rd3Z1amE5Ni5qcGc.jpg)
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
 
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
   tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
   vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-  no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-  ![scenery2](https://live.staticflickr.com/65535/40672257333_d81788a384_b.jpg)
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+  
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+
+ ![scenery](https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3NrOTc5MS1pbWFnZS1rd3Z1amE5Ni5qcGc.jpg) no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
 
   # Omen
   
@@ -54,12 +66,28 @@ export namespace TestAssets {
 | Codecademy Hoodie |  False   | 43.99 | This is a long description to test the scrolling behavior of the table. This is a long description to test the scrolling behavior of the table. |
 `;
 
+  const shortMarkdownDescription = `# Short Description
+
+This is a short description text that should be fully rendered without being **collapsed**. No *show more* button should be visible.
+`;
+
   export const boring: UiAsset = {
     assetId: 'data-sample-ckd-skd-demands-2023-Jan',
     title: 'data-sample-ckd-skd-demands-2023-Jan',
     connectorEndpoint: 'https://my-other-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     creatorOrganizationName: 'my-other-connector',
+  };
+
+  export const short: UiAsset = {
+    assetId: 'data-sample-ckd-skd-demands-2023-Feb',
+    title: 'data-sample-ckd-skd-demands-2023-Feb',
+    connectorEndpoint: 'https://my-other-connector/api/dsp',
+    participantId: 'MDSL1234XX.C1234XX',
+    creatorOrganizationName: 'my-other-connector',
+    description: shortMarkdownDescription,
+    descriptionShortText:
+      'Short Description This is a short description text that should be fully rendered without being collapsed. No show more button should be visible.',
   };
 
   export const full: UiAsset = {
