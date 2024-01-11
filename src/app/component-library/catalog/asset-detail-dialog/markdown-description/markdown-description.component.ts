@@ -11,7 +11,7 @@ import {
 import {HtmlSanitizer} from 'src/app/core/services/html-sanitizer';
 import {MarkdownConverter} from 'src/app/core/services/markdown-converter';
 
-const COLLAPSED_DESCRIPTION_HEIGHT = 600;
+const COLLAPSED_DESCRIPTION_HEIGHT = 280;
 
 @Component({
   selector: 'markdown-description',

@@ -233,7 +233,7 @@ body {
 
 .markdown-description {
   @apply prose whitespace-normal max-w-none;
-  @apply prose-img:rounded-lg prose-img:my-3 prose-img:object-cover prose-img:w-full;
+  @apply prose-img:rounded-lg prose-img:my-3 prose-img:object-contain prose-img:w-full prose-img:max-h-[400px];
   @apply prose-a:text-[--link-color];
   @apply prose-blockquote:mx-0;
   @apply prose-code:rounded-lg;
