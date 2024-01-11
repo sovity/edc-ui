@@ -245,16 +245,18 @@ body {
   @apply prose-a:text-[--link-color];
   @apply prose-blockquote:mx-0;
   @apply prose-code:rounded-lg;
+  @apply prose-table:border-collapse;
+  @apply prose-th:px-[13px] prose-th:py-[6px] prose-th:border prose-th:border-[--tw-prose-td-borders] prose-th:align-middle;
+  @apply prose-td:px-[13px] prose-td:py-[6px] prose-td:border prose-td:border-[--tw-prose-td-borders] prose-td:align-middle;
 
-  table {
-    display: block;
-    max-width: fit-content;
-    overflow-x: auto;
-    white-space: nowrap;
-    text-indent: 0;
-    border-color: inherit;
-    border-collapse: collapse;
-  }
+  // table {
+  //   display: block;
+  //   max-width: fit-content;
+  //   overflow-x: auto;
+  //   text-indent: 0;
+  //   border-color: inherit;
+  //   border-collapse: collapse;
+  // }
 
   pre code {
     @apply p-0;
