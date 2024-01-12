@@ -29,6 +29,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   state!: CatalogPageStateModel;
   searchText = new FormControl('');
   sortBy = new FormControl<CatalogPageSortingItem | null>(null);
+  viewMode = 'grid';
   private fetch$ = new BehaviorSubject(null);
 
   // only tracked to prevent the component from resetting
@@ -142,5 +143,9 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     if (expanded) {
       this.expandedFilterId = filterId;
     }
+  }
+
+  onViewSelectionChange(viewMode: string) {
+    this.viewMode = viewMode;
   }
 }

@@ -1,0 +1,16 @@
+<div class="flex flex-row items-center">
+  <button
+    mat-icon-button
+    matTooltip="Grid View"
+    [class.!bg-[#EDEDED]]="selected === 'grid'"
+    (click)="onSelection('grid')">
+    <mat-icon class="mat-icon-[22px]">apps</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    matTooltip="List View"
+    [class.!bg-[#EDEDED]]="selected === 'list'"
+    (click)="onSelection('list')">
+    <mat-icon>view_headline</mat-icon>
+  </button>
+</div>

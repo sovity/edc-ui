@@ -24,6 +24,7 @@ import {DataOfferCardsComponent} from './data-offer-cards/data-offer-cards.compo
 import {IconWithOnlineStatusComponent} from './icon-with-online-status/icon-with-online-status.component';
 import {TransferHistoryMiniListComponent} from './transfer-history-mini-list/transfer-history-mini-list.component';
 import {TruncatedShortDescription} from './truncated-short-description/truncated-short-description.component';
+import {ViewSelectionComponent} from './view-selection/view-selection.component';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import {TruncatedShortDescription} from './truncated-short-description/truncated
     IconWithOnlineStatusComponent,
     MarkdownDescriptionComponent,
     TruncatedShortDescription,
+    ViewSelectionComponent,
   ],
   exports: [
     AssetDetailDialogComponent,
@@ -64,6 +66,7 @@ import {TruncatedShortDescription} from './truncated-short-description/truncated
     TransferHistoryMiniListComponent,
     IconWithOnlineStatusComponent,
     TruncatedShortDescription,
+    ViewSelectionComponent,
   ],
   providers: [
     AssetPropertyGridGroupBuilder,
