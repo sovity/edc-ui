@@ -30,9 +30,13 @@
           <mat-chip *ngIf="asset.version" color="primary" selected>{{
             asset.version
           }}</mat-chip>
-          <mat-chip *ngFor="let keyword of asset.keywords">{{
-            keyword
-          }}</mat-chip>
+          <mat-chip
+            *ngFor="
+              let keyword of asset.keywords
+                | slice : 0 : (asset.version ? 2 : 3)
+            "
+            >{{ keyword }}</mat-chip
+          >
         </mat-chip-list>
       </div>
     </mat-card-content>
