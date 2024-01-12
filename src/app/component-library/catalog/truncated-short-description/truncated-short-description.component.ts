@@ -1,18 +1,16 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input} from '@angular/core';
 
 @Component({
   selector: 'truncated-short-description',
   templateUrl: './truncated-short-description.component.html',
 })
-export class TruncatedShortDescription implements OnInit {
+export class TruncatedShortDescription {
   @Input() text!: string | undefined;
-  @HostBinding('class.italic') italic = false;
-  @HostBinding('class')
-  get classes() {
-    return 'whitespace-pre-line truncate-lines-5';
-  }
-
-  ngOnInit() {
-    this.italic = !this.text;
+  @HostBinding('class.whitespace-pre-line')
+  @HostBinding('class.truncate-lines-5')
+  cls = true;
+  @HostBinding('class.italic')
+  get italic(): boolean {
+    return !this.text;
   }
 }
