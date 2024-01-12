@@ -237,9 +237,37 @@ body {
   @apply prose-a:text-[--link-color];
   @apply prose-blockquote:mx-0;
   @apply prose-code:rounded-lg;
+  @apply prose-blockquote:border-solid prose-blockquote:border-t-0 prose-blockquote:border-r-0 prose-blockquote:border-b-0;
   @apply prose-table:border-collapse;
   @apply prose-th:px-[13px] prose-th:py-[6px] prose-th:border prose-th:border-[--tw-prose-td-borders] prose-th:align-middle prose-th:border-solid;
   @apply prose-td:px-[13px] prose-td:py-[6px] prose-td:border prose-td:border-[--tw-prose-td-borders] prose-td:align-middle prose-td:border-solid;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 500;
+  }
+  h1 {
+    font-size: 19px;
+  }
+
+  h2 {
+    font-size: 17px;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+
+  h4 {
+    font-size: 14px;
+  }
+
+  h5 {
+    font-size: 12px;
+  }
 
   pre code {
     @apply p-0;
