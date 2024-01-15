@@ -29,7 +29,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   state!: CatalogPageStateModel;
   searchText = new FormControl('');
   sortBy = new FormControl<CatalogPageSortingItem | null>(null);
-  viewMode = 'list';
+  viewMode = 'grid';
   private fetch$ = new BehaviorSubject(null);
 
   // only tracked to prevent the component from resetting
