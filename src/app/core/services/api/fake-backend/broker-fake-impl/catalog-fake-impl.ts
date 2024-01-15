@@ -12,98 +12,80 @@ import {subDays, subMinutes} from 'date-fns';
 import {TestAssets} from '../connector-fake-impl/data/test-assets';
 import {TestPolicies} from '../connector-fake-impl/data/test-policies';
 
-const DATA_OFFERS: DataOfferDetailPageResult[] = Array(100).fill({
-  assetId: TestAssets.full.assetId,
-  asset: TestAssets.full as UiAsset,
-  connectorEndpoint: 'https://example-connector/api/dsp',
-  viewCount: 103,
-  connectorOfflineSinceOrLastUpdatedAt: subMinutes(new Date(), 5),
-  updatedAt: subMinutes(new Date(), 5),
-  createdAt: subDays(new Date(), 7),
-  connectorOnlineStatus: 'ONLINE',
-  contractOffers: [
-    {
-      contractOfferId: 'contract-offer-1',
-      updatedAt: subMinutes(new Date(), 5),
-      createdAt: subDays(new Date(), 7),
-      contractPolicy: TestPolicies.warnings,
-    },
-  ],
-});
-// const DATA_OFFERS: DataOfferDetailPageResult[] = [
-// {
-//   assetId: TestAssets.full.assetId,
-//   asset: TestAssets.full as UiAsset,
-//   connectorEndpoint: 'https://example-connector/api/dsp',
-//   viewCount: 103,
-//   connectorOfflineSinceOrLastUpdatedAt: subMinutes(new Date(), 5),
-//   updatedAt: subMinutes(new Date(), 5),
-//   createdAt: subDays(new Date(), 7),
-//   connectorOnlineStatus: 'ONLINE',
-//   contractOffers: [
-//     {
-//       contractOfferId: 'contract-offer-1',
-//       updatedAt: subMinutes(new Date(), 5),
-//       createdAt: subDays(new Date(), 7),
-//       contractPolicy: TestPolicies.warnings,
-//     },
-//   ],
-// },
-//   {
-//     assetId: TestAssets.withSuffix(TestAssets.boring, '2').assetId,
-//     asset: TestAssets.withSuffix(TestAssets.boring, '2') as UiAsset,
-//     connectorEndpoint: 'https://example-connector/api/dsp',
-//     viewCount: 103,
-//     connectorOfflineSinceOrLastUpdatedAt: subMinutes(new Date(), 5),
-//     updatedAt: subMinutes(new Date(), 5),
-//     createdAt: subDays(new Date(), 7),
-//     connectorOnlineStatus: 'OFFLINE',
-//     contractOffers: [
-//       {
-//         contractOfferId: 'contract-offer-1',
-//         updatedAt: subMinutes(new Date(), 5),
-//         createdAt: subDays(new Date(), 7),
-//         contractPolicy: TestPolicies.warnings,
-//       },
-//     ],
-//   },
-//   {
-//     assetId: TestAssets.boring.assetId,
-//     asset: TestAssets.boring as UiAsset,
-//     connectorEndpoint: 'https://example-connector/api/dsp',
-//     viewCount: 103,
-//     connectorOfflineSinceOrLastUpdatedAt: subDays(new Date(), 3),
-//     updatedAt: subMinutes(new Date(), 5),
-//     createdAt: subDays(new Date(), 7),
-//     connectorOnlineStatus: 'DEAD',
-//     contractOffers: [
-//       {
-//         contractOfferId: 'contract-offer-1',
-//         updatedAt: subMinutes(new Date(), 5),
-//         createdAt: subDays(new Date(), 7),
-//         contractPolicy: TestPolicies.warnings,
-//       },
-//     ],
-//   },
-//   {
-//     assetId: TestAssets.short.assetId,
-//     asset: TestAssets.short as UiAsset,
-//     connectorEndpoint: 'https://example-connector/api/dsp',
-//     viewCount: 33,
-//     connectorOfflineSinceOrLastUpdatedAt: subDays(new Date(), 3),
-//     updatedAt: subMinutes(new Date(), 5),
-//     createdAt: subDays(new Date(), 7),
-//     connectorOnlineStatus: 'DEAD',
-//     contractOffers: [
-//       {
-//         contractOfferId: 'contract-offer-1',
-//         updatedAt: subMinutes(new Date(), 5),
-//         createdAt: subDays(new Date(), 7),
-//         contractPolicy: TestPolicies.warnings,
-//       },
-//     ],
-//   },
-// ];
+const DATA_OFFERS: DataOfferDetailPageResult[] = [
+  {
+    assetId: TestAssets.full.assetId,
+    asset: TestAssets.full as UiAsset,
+    connectorEndpoint: 'https://example-connector/api/dsp',
+    viewCount: 103,
+    connectorOfflineSinceOrLastUpdatedAt: subMinutes(new Date(), 5),
+    updatedAt: subMinutes(new Date(), 5),
+    createdAt: subDays(new Date(), 7),
+    connectorOnlineStatus: 'ONLINE',
+    contractOffers: [
+      {
+        contractOfferId: 'contract-offer-1',
+        updatedAt: subMinutes(new Date(), 5),
+        createdAt: subDays(new Date(), 7),
+        contractPolicy: TestPolicies.warnings,
+      },
+    ],
+  },
+  {
+    assetId: TestAssets.withSuffix(TestAssets.boring, '2').assetId,
+    asset: TestAssets.withSuffix(TestAssets.boring, '2') as UiAsset,
+    connectorEndpoint: 'https://example-connector/api/dsp',
+    viewCount: 103,
+    connectorOfflineSinceOrLastUpdatedAt: subMinutes(new Date(), 5),
+    updatedAt: subMinutes(new Date(), 5),
+    createdAt: subDays(new Date(), 7),
+    connectorOnlineStatus: 'OFFLINE',
+    contractOffers: [
+      {
+        contractOfferId: 'contract-offer-1',
+        updatedAt: subMinutes(new Date(), 5),
+        createdAt: subDays(new Date(), 7),
+        contractPolicy: TestPolicies.warnings,
+      },
+    ],
+  },
+  {
+    assetId: TestAssets.boring.assetId,
+    asset: TestAssets.boring as UiAsset,
+    connectorEndpoint: 'https://example-connector/api/dsp',
+    viewCount: 103,
+    connectorOfflineSinceOrLastUpdatedAt: subDays(new Date(), 3),
+    updatedAt: subMinutes(new Date(), 5),
+    createdAt: subDays(new Date(), 7),
+    connectorOnlineStatus: 'DEAD',
+    contractOffers: [
+      {
+        contractOfferId: 'contract-offer-1',
+        updatedAt: subMinutes(new Date(), 5),
+        createdAt: subDays(new Date(), 7),
+        contractPolicy: TestPolicies.warnings,
+      },
+    ],
+  },
+  {
+    assetId: TestAssets.short.assetId,
+    asset: TestAssets.short as UiAsset,
+    connectorEndpoint: 'https://example-connector/api/dsp',
+    viewCount: 33,
+    connectorOfflineSinceOrLastUpdatedAt: subDays(new Date(), 3),
+    updatedAt: subMinutes(new Date(), 5),
+    createdAt: subDays(new Date(), 7),
+    connectorOnlineStatus: 'DEAD',
+    contractOffers: [
+      {
+        contractOfferId: 'contract-offer-1',
+        updatedAt: subMinutes(new Date(), 5),
+        createdAt: subDays(new Date(), 7),
+        contractPolicy: TestPolicies.warnings,
+      },
+    ],
+  },
+];
 
 export const getCatalogPage = (query: CatalogPageQuery): CatalogPageResult => {
   const dataOffers: CatalogDataOffer[] = DATA_OFFERS.map(buildCatalogDataOffer);

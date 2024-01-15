@@ -36,3 +36,18 @@ export function getOnlineStatusIcon(status: ConnectorOnlineStatus): string {
       return '';
   }
 }
+
+export function getOnlineStatusSmallIcon(
+  status: ConnectorOnlineStatus,
+): string {
+  switch (status) {
+    case 'ONLINE':
+      return 'check_circle';
+    case 'OFFLINE':
+      return 'warning';
+    case 'DEAD':
+      return 'error';
+    default:
+      return '';
+  }
+}

@@ -66,11 +66,15 @@
   <div
     *ngIf="
       state.fetchedData.isReady && state.fetchedData.data.dataOffers.length
-    "
-    class="flex flex-row flex-wrap">
+    ">
     <broker-data-offer-cards
+      *ngIf="viewMode === 'grid'"
       [dataOffers]="state.fetchedData.data.dataOffers"
       (dataOfferClick)="onDataOfferClick($event)"></broker-data-offer-cards>
+    <broker-data-offer-list
+      *ngIf="viewMode === 'list'"
+      [dataOffers]="state.fetchedData.data.dataOffers"
+      (dataOfferClick)="onDataOfferClick($event)"></broker-data-offer-list>
   </div>
 </div>
 

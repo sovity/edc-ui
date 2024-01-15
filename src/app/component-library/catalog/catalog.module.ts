@@ -22,6 +22,7 @@ import {ContractOfferIconComponent} from './contract-offer-icon/contract-offer-i
 import {ContractOfferMiniListComponent} from './contract-offer-mini-list/contract-offer-mini-list.component';
 import {DataOfferCardsComponent} from './data-offer-cards/data-offer-cards.component';
 import {IconWithOnlineStatusComponent} from './icon-with-online-status/icon-with-online-status.component';
+import {SmallIconWithOnlineStatusText} from './small-icon-with-online-status-text/small-icon-with-online-status-text.component';
 import {TransferHistoryMiniListComponent} from './transfer-history-mini-list/transfer-history-mini-list.component';
 import {TruncatedShortDescription} from './truncated-short-description/truncated-short-description.component';
 import {ViewSelectionComponent} from './view-selection/view-selection.component';
@@ -40,6 +41,7 @@ import {ViewSelectionComponent} from './view-selection/view-selection.component'
     MatProgressSpinnerModule,
     MatDialogModule,
     MatTooltipModule,
+    MatIconModule,
 
     // Features
     JsonDialogModule,
@@ -57,6 +59,7 @@ import {ViewSelectionComponent} from './view-selection/view-selection.component'
     MarkdownDescriptionComponent,
     TruncatedShortDescription,
     ViewSelectionComponent,
+    SmallIconWithOnlineStatusText,
   ],
   exports: [
     AssetDetailDialogComponent,
@@ -67,6 +70,7 @@ import {ViewSelectionComponent} from './view-selection/view-selection.component'
     IconWithOnlineStatusComponent,
     TruncatedShortDescription,
     ViewSelectionComponent,
+    SmallIconWithOnlineStatusText,
   ],
   providers: [
     AssetPropertyGridGroupBuilder,
