@@ -9,7 +9,7 @@ import {CatalogDataOfferMapped} from '../catalog-page/mapping/catalog-page-resul
 export class BrokerDataOfferList {
   @Input()
   dataOffers: CatalogDataOfferMapped[] = [];
-  columnsToDisplay = ['status', 'name', 'organizationName', 'description'];
+  columnsToDisplay = ['organizationName', 'name', 'description', 'status'];
 
   @Output()
   dataOfferClick = new EventEmitter<CatalogDataOfferMapped>();

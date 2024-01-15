@@ -144,8 +144,4 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       this.expandedFilterId = filterId;
     }
   }
-
-  onViewSelectionChange(viewMode: string) {
-    this.viewMode = viewMode;
-  }
 }

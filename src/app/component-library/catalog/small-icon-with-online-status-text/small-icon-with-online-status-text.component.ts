@@ -13,15 +13,15 @@ import {
 export class SmallIconWithOnlineStatusText {
   @Input() onlineStatus!: ConnectorOnlineStatus;
 
-  get onlineStatusText(): string {
+  get text(): string {
     return capitalize(this.onlineStatus.toLowerCase());
   }
 
-  get onlineStatusColor(): string {
+  get color(): string {
     return getOnlineStatusColor(this.onlineStatus);
   }
 
-  get onlineStatusIcon(): string {
+  get icon(): string {
     return getOnlineStatusSmallIcon(this.onlineStatus);
   }
 }

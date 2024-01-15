@@ -6,9 +6,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class ViewSelectionComponent {
   @Input() selected!: string;
-  @Output() onSelectionChange = new EventEmitter<string>();
+  @Output() selectedChange = new EventEmitter<string>();
 
   onSelection(viewName: string) {
-    this.onSelectionChange.emit(viewName);
+    this.selectedChange.emit(viewName);
   }
 }

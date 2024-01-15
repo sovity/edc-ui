@@ -37,7 +37,7 @@
   <tr *matHeaderRowDef="columnsToDisplay" mat-header-row></tr>
   <tr
     *matRowDef="let rowData; columns: columnsToDisplay"
-    class="cursor-pointer"
+    class="cursor-pointer hover:bg-gray-50"
     mat-row
     (click)="onRowClick(rowData)"></tr>
 </table>

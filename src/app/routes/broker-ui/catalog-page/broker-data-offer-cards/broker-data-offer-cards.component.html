@@ -30,6 +30,9 @@
           <mat-chip *ngFor="let keyword of asset.keywords | slice : 0 : 3">{{
             keyword
           }}</mat-chip>
+          <mat-chip *ngIf="(asset.keywords ?? []).length > 3">
+            +{{ asset.keywords!.length - 3 }}
+          </mat-chip>
         </mat-chip-list>
       </div>
     </mat-card-content>

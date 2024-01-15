@@ -42,11 +42,11 @@ export function getOnlineStatusSmallIcon(
 ): string {
   switch (status) {
     case 'ONLINE':
-      return 'check_circle';
+      return 'cloud_done';
     case 'OFFLINE':
-      return 'warning';
+      return 'pause_circle';
     case 'DEAD':
-      return 'error';
+      return 'remove_circle';
     default:
       return '';
   }
