@@ -44,7 +44,9 @@
       [length]="state.paginationMetadata.numTotal"
       (page)="onPageChange($event)"></mat-paginator>
     <!-- View Switch -->
-    <view-selection [(selected)]="viewMode"></view-selection>
+    <view-selection
+      [selected]="viewMode"
+      (selectedChange)="onViewSelectedChange($event)"></view-selection>
   </div>
 
   <!-- Cards -->
