@@ -5,11 +5,15 @@ export class LocalStoredValue<T> {
   cachedValue: T;
 
   constructor(
-    private defaultValue: T,
+    defaultValue: T,
     private key: string,
-    private isValidValue: (value?: unknown | null) => boolean,
+    isValidValue: (value?: unknown | null) => boolean,
   ) {
-    this.cachedValue = this.validOrDefault(this.readValueOrNull());
+    this.cachedValue = this.localStorageUtils.getData(
+      this.key,
+      defaultValue,
+      isValidValue,
+    );
   }
 
   get value(): T {
@@ -19,28 +23,7 @@ export class LocalStoredValue<T> {
   set value(value: T) {
     if (this.cachedValue != value) {
       this.cachedValue = value;
-      this.writeValue();
+      this.localStorageUtils.saveData(this.key, value);
     }
-  }
-
-  private writeValue() {
-    this.localStorageUtils.saveData(this.key, this.cachedValue);
-  }
-
-  private readValueOrNull(): T | null {
-    try {
-      return this.localStorageUtils.getData(this.key);
-    } catch (e) {
-      console.warn('Error parsing local storage value', this.key, e);
-    }
-    return null;
-  }
-
-  private validOrDefault(value: T | null): T {
-    if (this.isValidValue(value)) {
-      return value ?? this.defaultValue;
-    }
-
-    return this.defaultValue;
   }
 }

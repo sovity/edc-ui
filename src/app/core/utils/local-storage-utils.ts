@@ -3,10 +3,26 @@ export class LocalStorageUtils {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  getData<T>(key: string): T | null {
-    const storedItem = localStorage.getItem(key);
+  getData<T>(
+    key: string,
+    defaultValue: T,
+    isValidValue: (value?: unknown | null) => boolean,
+  ): T {
+    const data = this.getDataOrNull<T>(key) ?? defaultValue;
+    if (!isValidValue(data)) {
+      return defaultValue;
+    }
+    return data;
+  }
 
-    return storedItem == null ? null : JSON.parse(storedItem);
+  getDataOrNull<T>(key: string): T | null {
+    const storedItem = localStorage.getItem(key);
+    try {
+      return storedItem == null ? null : JSON.parse(storedItem);
+    } catch (e) {
+      console.warn('Error parsing local storage value', key, storedItem);
+      return null;
+    }
   }
 
   removeData(key: string) {
