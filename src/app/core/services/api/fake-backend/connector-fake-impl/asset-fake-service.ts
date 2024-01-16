@@ -30,7 +30,7 @@ export const createAsset = (asset: UiAssetCreateRequest): IdResponseDto => {
   const assetId = asset.id;
   assets.push({
     assetId,
-    ...metadata(assetId, asset),
+    ...createAssetMetadata(assetId, asset),
     connectorEndpoint: 'https://my-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     creatorOrganizationName: 'My Org',
@@ -45,7 +45,9 @@ export const editAssetMetadata = (
   assetId: string,
   request: UiAssetEditMetadataRequest,
 ): IdResponseDto => {
-  const asset = patchAsset(assetId, () => metadata(assetId, request));
+  const asset = patchAsset(assetId, () =>
+    createAssetMetadata(assetId, request),
+  );
 
   return {
     id: asset.assetId,
@@ -53,7 +55,7 @@ export const editAssetMetadata = (
   };
 };
 
-function metadata(
+function createAssetMetadata(
   assetId: string,
   request: UiAssetCreateRequest | UiAssetEditMetadataRequest,
 ): Omit<
