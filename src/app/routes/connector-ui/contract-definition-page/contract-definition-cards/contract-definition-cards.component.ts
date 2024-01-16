@@ -72,9 +72,9 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
       subtitle: 'Contract Definition',
       icon: 'policy',
       objectForJson: card.detailJsonObj,
-      actionButton: {
+      toolbarButton: {
         text: 'Delete',
-        color: 'warn',
+        icon: 'delete',
         confirmation: ConfirmDialogModel.forDelete(
           'contract definition',
           card.id,

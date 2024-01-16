@@ -2,11 +2,10 @@
   class="overflow-hidden relative"
   [style.height.px]="isCollapsed ? collapsedDescriptionHeight : null">
   <div
-    *ngIf="description"
     class="markdown-description"
     #content
     [innerHtml]="
-      htmlSanitizer.sanitize(markdownConverter.toHtml(description))
+      htmlSanitizer.sanitize(markdownConverter.toHtml(description ?? ''))
     "></div>
 
   <i *ngIf="!description">No description.</i>
