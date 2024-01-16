@@ -81,14 +81,10 @@
 
       <!-- Tag List -->
       <div *ngIf="card.asset.keywords?.length || card.asset.version">
-        <mat-chip-list aria-label="Tags">
-          <mat-chip *ngIf="card.asset.version" color="primary" selected>{{
-            card.asset.version
-          }}</mat-chip>
-          <mat-chip *ngFor="let keyword of card.asset.keywords">{{
-            keyword
-          }}</mat-chip>
-        </mat-chip-list>
+        <tag-list
+          [keywords]="card.asset.keywords"
+          [version]="card.asset.version"
+          [numberOfKeywordsDisplayed]="5"></tag-list>
       </div>
     </mat-card-content>
   </mat-card>
