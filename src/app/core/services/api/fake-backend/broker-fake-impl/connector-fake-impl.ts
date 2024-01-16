@@ -11,6 +11,7 @@ const CONNECTORS: ConnectorDetailPageResult[] = [
   {
     participantId: 'MDSL1234XX.C1234XX',
     endpoint: 'https://example-connector/api/dsp',
+    organizationName: 'International Consolidated Airlines Group SA',
     createdAt: new Date('2023-04-01'),
     lastSuccessfulRefreshAt: subMinutes(new Date(), 5),
     lastRefreshAttemptAt: subMinutes(new Date(), 5),
@@ -21,6 +22,7 @@ const CONNECTORS: ConnectorDetailPageResult[] = [
   {
     participantId: 'MDSL1234XX.C1235XX',
     endpoint: 'https://example-connector2/api/dsp',
+    organizationName: 'Blue Microphones',
     createdAt: new Date('2023-04-01'),
     lastSuccessfulRefreshAt: subMinutes(new Date(), 5),
     lastRefreshAttemptAt: subMinutes(new Date(), 5),
@@ -31,6 +33,7 @@ const CONNECTORS: ConnectorDetailPageResult[] = [
   {
     participantId: 'MDSL1234XX.C1237XX',
     endpoint: 'https://example-connector3/api/dsp',
+    organizationName: 'Samsung',
     createdAt: new Date('2023-04-01'),
     lastSuccessfulRefreshAt: subMinutes(new Date(), 5),
     lastRefreshAttemptAt: subMinutes(new Date(), 5),
@@ -74,6 +77,7 @@ const buildConnectorListEntry = (
   onlineStatus: it.onlineStatus,
   createdAt: it.createdAt,
   endpoint: it.endpoint,
+  organizationName: it.organizationName,
   lastSuccessfulRefreshAt: it.lastSuccessfulRefreshAt,
   lastRefreshAttemptAt: it.lastRefreshAttemptAt,
   numDataOffers: it.numDataOffers,
