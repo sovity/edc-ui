@@ -14,6 +14,7 @@ import {AssetAdvancedFormBuilder} from './form/asset-advanced-form-builder';
 import {AssetDatasourceFormBuilder} from './form/asset-datasource-form-builder';
 import {AssetEditDialogForm} from './form/asset-edit-dialog-form';
 import {AssetMetadataFormBuilder} from './form/asset-metadata-form-builder';
+import {DATA_SOURCE_HTTP_METHODS} from './form/http-methods';
 import {AssetEditorDialogFormValue} from './form/model/asset-editor-dialog-form-model';
 
 @Component({
@@ -30,7 +31,7 @@ import {AssetEditorDialogFormValue} from './form/model/asset-editor-dialog-form-
 export class AssetEditDialogComponent implements OnDestroy {
   loading = false;
 
-  methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
+  methods = DATA_SOURCE_HTTP_METHODS;
 
   constructor(
     private edcApiService: EdcApiService,
