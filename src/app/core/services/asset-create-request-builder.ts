@@ -14,32 +14,32 @@ export class AssetCreateRequestBuilder {
    * Build {@link UiAssetCreateRequest} from {@link AssetEditorDialogFormValue}
    *
    * @param formValue form value
-   * @return asset create dto
+   * @return {@link UiAssetCreateRequest}
    */
   buildAssetCreateRequest(
     formValue: AssetEditorDialogFormValue,
   ): UiAssetCreateRequest {
-    const metadata = this.buildMetadata(formValue);
+    const id = formValue.metadata?.id!;
+    const metadata = this.buildEditMetadataRequest(formValue);
     const dataAddressProperties =
       this.dataAddressMapper.buildDataAddressProperties(formValue.datasource);
 
     return {
+      id,
       ...metadata,
       dataAddressProperties,
     };
   }
 
+  /**
+   * Build {@link UiAssetEditMetadataRequest} from {@link AssetEditorDialogFormValue}
+   *
+   * @param formValue form value
+   * @return {@link UiAssetEditMetadataRequest}
+   */
   buildEditMetadataRequest(
     formValue: AssetEditorDialogFormValue,
   ): UiAssetEditMetadataRequest {
-    const {id, ...metadata} = this.buildMetadata(formValue);
-    return metadata;
-  }
-
-  private buildMetadata(
-    formValue: AssetEditorDialogFormValue,
-  ): Omit<UiAssetCreateRequest, 'dataAddressProperties'> {
-    const id = formValue.metadata?.id!;
     const title = formValue.metadata?.title!;
     const version = formValue.metadata?.version;
     const description = formValue.metadata?.description;
@@ -57,7 +57,6 @@ export class AssetCreateRequestBuilder {
     const dataModel = formValue.advanced?.dataModel;
 
     return {
-      id,
       title,
       language,
       description,

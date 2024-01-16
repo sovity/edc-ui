@@ -1,16 +1,23 @@
-import {Input, SimpleChange, SimpleChanges} from '@angular/core';
+import {Input, SimpleChanges} from '@angular/core';
 import {Subject} from 'rxjs';
 
 /**
- * A version of {@link SimpleChanges} with some type safety.
+ * A type-safe version of {@link SimpleChanges}.
  *
- * Although it doesn't filter input by whether they are decorated by an {@link Input}, it helps
+ * Does not contain all {@link Input}s, but only simple fields.
  */
 export type SimpleChangesTyped<
   Component extends object,
   Props = ExcludeFunctions<Component>,
 > = {
-  [Key in keyof Props]: SimpleChange;
+  [Key in keyof Props]: SimpleChangeTyped<Props[Key]>;
+};
+
+export type SimpleChangeTyped<T> = {
+  previousValue: T;
+  currentValue: T;
+  firstChange: boolean;
+  isFirstChange(): boolean;
 };
 
 type MarkFunctionPropertyNames<Component> = {

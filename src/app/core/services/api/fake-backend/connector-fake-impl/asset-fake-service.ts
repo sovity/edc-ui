@@ -27,8 +27,10 @@ function patchAsset(assetId: string, patcher: Patcher<UiAsset>): UiAsset {
 }
 
 export const createAsset = (asset: UiAssetCreateRequest): IdResponseDto => {
+  const assetId = asset.id;
   assets.push({
-    ...metadata(asset.id, asset),
+    assetId,
+    ...metadata(assetId, asset),
     connectorEndpoint: 'https://my-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     creatorOrganizationName: 'My Org',
@@ -54,9 +56,19 @@ export const editAssetMetadata = (
 function metadata(
   assetId: string,
   request: UiAssetCreateRequest | UiAssetEditMetadataRequest,
-) {
+): Omit<
+  UiAsset,
+  | 'assetId'
+  | 'assetJsonLd'
+  | 'connectorEndpoint'
+  | 'creatorOrganizationName'
+  | 'httpDatasourceHintsProxyBody'
+  | 'httpDatasourceHintsProxyMethod'
+  | 'httpDatasourceHintsProxyPath'
+  | 'httpDatasourceHintsProxyQueryParams'
+  | 'participantId'
+> {
   return {
-    assetId,
     title: request.title ?? assetId,
     description: request.description,
     descriptionShortText: request.description,
