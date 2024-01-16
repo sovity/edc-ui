@@ -19,7 +19,7 @@ export class AssetCreateRequestBuilder {
   buildAssetCreateRequest(
     formValue: AssetEditorDialogFormValue,
   ): UiAssetCreateRequest {
-    const metadata = this._metadata(formValue);
+    const metadata = this.buildMetadata(formValue);
     const dataAddressProperties =
       this.dataAddressMapper.buildDataAddressProperties(formValue.datasource);
 
@@ -32,11 +32,11 @@ export class AssetCreateRequestBuilder {
   buildEditMetadataRequest(
     formValue: AssetEditorDialogFormValue,
   ): UiAssetEditMetadataRequest {
-    const {id, ...metadata} = this._metadata(formValue);
+    const {id, ...metadata} = this.buildMetadata(formValue);
     return metadata;
   }
 
-  private _metadata(
+  private buildMetadata(
     formValue: AssetEditorDialogFormValue,
   ): Omit<UiAssetCreateRequest, 'dataAddressProperties'> {
     const id = formValue.metadata?.id!;

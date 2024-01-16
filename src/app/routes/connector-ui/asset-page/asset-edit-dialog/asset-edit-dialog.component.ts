@@ -11,8 +11,8 @@ import {ValidationMessages} from '../../../../core/validators/validation-message
 import {AssetEditDialogData} from './asset-edit-dialog-data';
 import {AssetEditDialogResult} from './asset-edit-dialog-result';
 import {AssetAdvancedFormBuilder} from './form/asset-advanced-form-builder';
-import {AssetEditDialogForm} from './form/asset-edit-dialog-form';
 import {AssetDatasourceFormBuilder} from './form/asset-datasource-form-builder';
+import {AssetEditDialogForm} from './form/asset-edit-dialog-form';
 import {AssetMetadataFormBuilder} from './form/asset-metadata-form-builder';
 import {AssetEditorDialogFormValue} from './form/model/asset-editor-dialog-form-model';
 
