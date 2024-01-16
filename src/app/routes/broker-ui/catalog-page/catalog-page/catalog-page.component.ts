@@ -5,9 +5,10 @@ import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, map, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
 import {CatalogPageSortingItem} from '@sovity.de/broker-server-client';
-import {BrokerViewSelectionService} from 'src/app/core/services/broker-view-selection.service';
+import {LocalStoredValue} from 'src/app/core/utils/local-stored-value';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
+import {ViewModeEnum} from '../../../../component-library/catalog/view-selection/view-mode-enum';
 import {BrokerServerApiService} from '../../../../core/services/api/broker-server-api.service';
 import {FilterBoxItem} from '../filter-box/filter-box-item';
 import {FilterBoxVisibleState} from '../filter-box/filter-box-visible-state';
@@ -30,7 +31,11 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   state!: CatalogPageStateModel;
   searchText = new FormControl('');
   sortBy = new FormControl<CatalogPageSortingItem | null>(null);
-  viewMode = this.viewSelectionService.getView();
+  viewModeEnum = ViewModeEnum;
+  viewMode = new LocalStoredValue<ViewModeEnum>(
+    ViewModeEnum.GRID,
+    'brokerui.viewMode',
+  );
   private fetch$ = new BehaviorSubject(null);
 
   // only tracked to prevent the component from resetting
@@ -41,7 +46,6 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     private assetDetailDialogService: AssetDetailDialogService,
     private brokerServerApiService: BrokerServerApiService,
     private store: Store,
-    private viewSelectionService: BrokerViewSelectionService,
   ) {}
 
   ngOnInit(): void {
@@ -145,10 +149,5 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     if (expanded) {
       this.expandedFilterId = filterId;
     }
-  }
-
-  onViewSelectedChange(view: string) {
-    this.viewMode = view;
-    this.viewSelectionService.setView(view);
   }
 }

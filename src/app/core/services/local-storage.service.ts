@@ -3,21 +3,24 @@ import {Injectable} from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class LocalStorageService {
-  constructor() {}
-
-  public saveData(key: string, value: string) {
-    localStorage.setItem(key, value);
+export class LocalStorageService<T> {
+  saveData(key: string, value: T) {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
-  public getData(key: string) {
-    return localStorage.getItem(key);
+  getData(key: string): T | null {
+    const storedItem = localStorage.getItem(key);
+
+    if (storedItem == null) {
+      return null;
+    }
+    return JSON.parse(localStorage.getItem(key)!);
   }
-  public removeData(key: string) {
+  removeData(key: string) {
     localStorage.removeItem(key);
   }
 
-  public clearData() {
+  clearData() {
     localStorage.clear();
   }
 }

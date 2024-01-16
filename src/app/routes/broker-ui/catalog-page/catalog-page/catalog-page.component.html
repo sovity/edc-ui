@@ -44,9 +44,7 @@
       [length]="state.paginationMetadata.numTotal"
       (page)="onPageChange($event)"></mat-paginator>
     <!-- View Switch -->
-    <view-selection
-      [selected]="viewMode"
-      (selectedChange)="onViewSelectedChange($event)"></view-selection>
+    <view-selection [(selected)]="viewMode.value"></view-selection>
   </div>
 
   <!-- Cards -->
@@ -68,11 +66,11 @@
       state.fetchedData.isReady && state.fetchedData.data.dataOffers.length
     ">
     <broker-data-offer-cards
-      *ngIf="viewMode === 'grid'"
+      *ngIf="viewMode.value === viewModeEnum.GRID"
       [dataOffers]="state.fetchedData.data.dataOffers"
       (dataOfferClick)="onDataOfferClick($event)"></broker-data-offer-cards>
     <broker-data-offer-list
-      *ngIf="viewMode === 'list'"
+      *ngIf="viewMode.value === viewModeEnum.LIST"
       [dataOffers]="state.fetchedData.data.dataOffers"
       (dataOfferClick)="onDataOfferClick($event)"></broker-data-offer-list>
   </div>
