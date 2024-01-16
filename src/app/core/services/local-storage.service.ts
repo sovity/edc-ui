@@ -11,10 +11,7 @@ export class LocalStorageService<T> {
   getData(key: string): T | null {
     const storedItem = localStorage.getItem(key);
 
-    if (storedItem == null) {
-      return null;
-    }
-    return JSON.parse(localStorage.getItem(key)!);
+    return storedItem == null ? null : JSON.parse(storedItem);
   }
   removeData(key: string) {
     localStorage.removeItem(key);
