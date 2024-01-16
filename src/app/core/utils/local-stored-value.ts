@@ -1,7 +1,7 @@
-import {LocalStorageService} from '../services/local-storage.service';
+import {LocalStorageUtils} from './local-storage-utils';
 
 export class LocalStoredValue<T> {
-  localStorageService = new LocalStorageService<T>();
+  localStorageService = new LocalStorageUtils();
 
   constructor(private cachedValue: T, private key: string) {
     this.cachedValue =
