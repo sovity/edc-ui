@@ -1,4 +1,4 @@
 export enum ViewModeEnum {
-  GRID,
-  LIST,
+  GRID = 'GRID',
+  LIST = 'LIST',
 }

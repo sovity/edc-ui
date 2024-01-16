@@ -35,6 +35,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   viewMode = new LocalStoredValue<ViewModeEnum>(
     ViewModeEnum.GRID,
     'brokerui.viewMode',
+    (value) => Object.values(ViewModeEnum).includes(value as ViewModeEnum),
   );
   private fetch$ = new BehaviorSubject(null);
 
