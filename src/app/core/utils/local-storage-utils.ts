@@ -6,22 +6,23 @@ export class LocalStorageUtils {
   getData<T>(
     key: string,
     defaultValue: T,
-    isValidValue: (value?: unknown | null) => boolean,
+    isValidValue: (value?: unknown) => boolean,
   ): T {
-    const data = this.getDataOrNull<T>(key) ?? defaultValue;
+    const data = this.getDataUnsafe<T>(key, defaultValue);
     if (!isValidValue(data)) {
       return defaultValue;
     }
     return data;
   }
 
-  getDataOrNull<T>(key: string): T | null {
+  private getDataUnsafe<T>(key: string, defaultValue: T): T {
     const storedItem = localStorage.getItem(key);
+
     try {
-      return storedItem == null ? null : JSON.parse(storedItem);
+      return storedItem == null ? defaultValue : (JSON.parse(storedItem) as T);
     } catch (e) {
       console.warn('Error parsing local storage value', key, storedItem);
-      return null;
+      return defaultValue;
     }
   }
 

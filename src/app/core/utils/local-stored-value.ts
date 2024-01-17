@@ -7,7 +7,7 @@ export class LocalStoredValue<T> {
   constructor(
     defaultValue: T,
     private key: string,
-    isValidValue: (value?: unknown | null) => boolean,
+    isValidValue: (value: unknown) => boolean,
   ) {
     this.cachedValue = this.localStorageUtils.getData(
       this.key,
