@@ -29,7 +29,7 @@
     *ngIf="data.contractOffers.length > 1"
     class="flex flex-row justify-end mt-[15px]">
     <button
-      *ngIf="!connectorEndpointService.isOwnEndpoint(data.endpoint)"
+      *ngIf="!data.asset.isOwnConnector"
       mat-raised-button
       color="primary"
       [disabled]="
@@ -46,13 +46,8 @@
         Successfully Negotiated
       </ng-container>
     </button>
-    <div
-      *ngIf="connectorEndpointService.isOwnEndpoint(data.endpoint)"
-      class="text-slate">
-      <button
-        disabled
-        mat-raised-button
-        matTooltip="Cannot negotiate a contract with own connector">
+    <div *ngIf="data.asset.isOwnConnector" class="text-slate">
+      <button disabled mat-raised-button>
         <span class="text-gray-500">Own connector</span>
       </button>
     </div>

@@ -29,7 +29,6 @@ export interface AppConfig {
   // EDC Backend Endpoints
   managementApiUrl: string;
   managementApiKey: string;
-  connectorEndpoint: string;
   logoutUrl: string; // requires feature flag logout-button
 
   // Other EDC Backend Endpoints

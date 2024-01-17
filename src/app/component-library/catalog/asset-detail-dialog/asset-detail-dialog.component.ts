@@ -18,7 +18,6 @@ import {
   ConfirmationDialogComponent,
 } from '../../confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import {PropertyGridGroup} from '../../property-grid/property-grid-group/property-grid-group';
-import {ConnectorEndpointService} from '../connector-endpoint.service';
 import {AssetDetailDialogData} from './asset-detail-dialog-data';
 import {AssetDetailDialogResult} from './asset-detail-dialog-result';
 
@@ -64,7 +63,6 @@ export class AssetDetailDialogComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA)
     private _data: AssetDetailDialogData | Observable<AssetDetailDialogData>,
     public contractNegotiationService: ContractNegotiationService,
-    public connectorEndpointService: ConnectorEndpointService,
   ) {
     if (isObservable(this._data)) {
       this._data

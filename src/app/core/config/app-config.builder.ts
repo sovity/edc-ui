@@ -26,9 +26,6 @@ export class AppConfigBuilder {
       managementApiUrl:
         vars[AppConfigProperties.managementApiUrl] ??
         'https://no-backend-api-url-configured',
-      connectorEndpoint:
-        vars[AppConfigProperties.connectorEndpoint] ??
-        'https://no-connector-endpoint-configured',
       logoutUrl:
         vars[AppConfigProperties.logoutUrl] ??
         'https://no-logout-url-configured',
