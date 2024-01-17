@@ -46,10 +46,12 @@
         Successfully Negotiated
       </ng-container>
     </button>
-    <div *ngIf="data.asset.isOwnConnector" class="text-slate">
-      <button disabled mat-raised-button>
-        <span class="text-gray-500">Own connector</span>
-      </button>
-    </div>
+    <button
+      *ngIf="data.asset.isOwnConnector"
+      disabled
+      mat-raised-button
+      matTooltip="Cannot negotiate contracts with your own connector.">
+      Negotiate
+    </button>
   </div>
 </ng-container>
