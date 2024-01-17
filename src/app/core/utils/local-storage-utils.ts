@@ -15,11 +15,11 @@ export class LocalStorageUtils {
     return defaultValue;
   }
 
-  private getDataUnsafe(key: string, defaultValue: unknown): unknown {
+  private getDataUnsafe(key: string, defaultValue: any): unknown {
     const storedItem = localStorage.getItem(key);
 
     try {
-      return storedItem == null ? defaultValue : (JSON.parse(storedItem) as T);
+      return storedItem == null ? defaultValue : JSON.parse(storedItem);
     } catch (e) {
       console.warn('Error parsing local storage value', key, storedItem);
       return defaultValue;
