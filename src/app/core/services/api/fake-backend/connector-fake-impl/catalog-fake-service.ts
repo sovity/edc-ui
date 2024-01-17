@@ -32,6 +32,17 @@ let dataOffers: UiDataOffer[] = [
     ],
   },
   {
+    endpoint: 'http://existing-other-connector/api/dsp',
+    asset: TestAssets.short,
+    participantId: 'MDSL1234XX.C1234XX',
+    contractOffers: [
+      {
+        contractOfferId: 'test-contract-offer-3',
+        policy: TestPolicies.failedMapping,
+      },
+    ],
+  },
+  {
     endpoint: 'http://localhost:3000/api/dsp',
     asset: {...TestAssets.full, title: 'My Own Connector'},
     participantId: 'MDSL1234XX.C1234XX',
