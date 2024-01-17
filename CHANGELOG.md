@@ -18,8 +18,6 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
-- Dont show negotiate button for own connector endpoints
-
 #### Patch
 
 #### Deployment Migration Notes
@@ -36,6 +34,7 @@ MDS feature release for Connector UI and Broker UI
 
 - Asset descriptions now support Markdown
 - Asset metadata is now editable
+- Negotiate button is not shown for own connector endpoints
 - Broker: Catalog now supports list view
 - Broker: Connectors page now shows organization names and connector IDs
 
