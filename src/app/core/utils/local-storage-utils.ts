@@ -6,16 +6,16 @@ export class LocalStorageUtils {
   getData<T>(
     key: string,
     defaultValue: T,
-    isValidValue: (value?: unknown) => boolean,
+    isValidValue: (value?: unknown) => value is T,
   ): T {
-    const data = this.getDataUnsafe<T>(key, defaultValue);
-    if (!isValidValue(data)) {
-      return defaultValue;
+    const data = this.getDataUnsafe(key, defaultValue);
+    if (isValidValue(data)) {
+      return data;
     }
-    return data;
+    return defaultValue;
   }
 
-  private getDataUnsafe<T>(key: string, defaultValue: T): T {
+  private getDataUnsafe(key: string, defaultValue: unknown): unknown {
     const storedItem = localStorage.getItem(key);
 
     try {
