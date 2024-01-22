@@ -31,7 +31,7 @@
     "@sovity.de/edc-client": "0.20240117.123601-main-45d15241",
     "clean-deep": "^3.4.0",
     "date-fns": "^2.30.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.3.2",
     "isomorphic-dompurify": "^2.0.0",
     "json-stable-stringify": "^1.0.2",
     "marked": "^11.1.1",
