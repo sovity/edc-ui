@@ -56,6 +56,20 @@ export class AssetCreateRequestBuilder {
     const geoReferenceMethod = formValue.advanced?.geoReferenceMethod;
     const dataModel = formValue.advanced?.dataModel;
 
+    const sovereignLegalName = formValue.advanced?.sovereignLegalName;
+    const geoLocation = formValue.advanced?.geoLocation;
+    const nutsLocations = formValue.advanced?.nutsLocations;
+    const dataSampleUrls = formValue.advanced?.dataSampleUrls;
+    const referenceFileUrls = formValue.advanced?.referenceFileUrls;
+    const referenceFilesDescription =
+      formValue.advanced?.referenceFilesDescription;
+    const conditionsForUse = formValue.advanced?.conditionsForUse;
+    const dataUpdateFrequency = formValue.advanced?.dataUpdateFrequency;
+    const temporalCoverageFrom =
+      formValue.advanced?.temporalCoverageFrom || undefined;
+    const temporalCoverageToInclusive =
+      formValue.advanced?.temporalCoverageToInclusive || undefined;
+
     return {
       title,
       language,
@@ -71,6 +85,16 @@ export class AssetCreateRequestBuilder {
       dataModel,
       geoReferenceMethod,
       transportMode,
+      sovereignLegalName,
+      geoLocation,
+      nutsLocation: nutsLocations,
+      dataSampleUrls,
+      referenceFileUrls,
+      referenceFilesDescription,
+      conditionsForUse,
+      dataUpdateFrequency,
+      temporalCoverageFrom,
+      temporalCoverageToInclusive,
     };
   }
 }
