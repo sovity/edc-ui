@@ -1,4 +1,4 @@
-import {FormControl, ɵFormGroupValue} from '@angular/forms';
+import {FormArray, FormControl, ɵFormGroupValue} from '@angular/forms';
 import {DataCategorySelectItem} from '../../../data-category-select/data-category-select-item';
 import {DataSubcategorySelectItem} from '../../../data-subcategory-select/data-subcategory-select-item';
 import {TransportModeSelectItem} from '../../../transport-mode-select/transport-mode-select-item';
@@ -13,6 +13,16 @@ export interface AssetAdvancedFormModel {
   dataModel: FormControl<string>;
   geoReferenceMethod: FormControl<string>;
   transportMode: FormControl<TransportModeSelectItem | null>;
+  sovereignLegalName: FormControl<string>;
+  geoLocation: FormControl<string>;
+  nutsLocations: FormArray<FormControl<string>>;
+  dataSampleUrls: FormArray<FormControl<string>>;
+  referenceFileUrls: FormArray<FormControl<string>>;
+  referenceFilesDescription: FormControl<string>;
+  conditionsForUse: FormControl<string>;
+  dataUpdateFrequency: FormControl<string>;
+  temporalCoverageFrom: FormControl<Date | null>;
+  temporalCoverageToInclusive: FormControl<Date | null>;
 }
 
 /**
