@@ -184,7 +184,9 @@
           <!-- Sovereign legal name -->
           <mat-form-field class="grow">
             <mat-label>Sovereign</mat-label>
-            <input matInput [formControl]="form.advanced.controls.dataModel" />
+            <input
+              matInput
+              [formControl]="form.advanced.controls.sovereignLegalName" />
           </mat-form-field>
 
           <!-- Data update frequency -->
@@ -193,7 +195,7 @@
               <mat-label>Data update frequency</mat-label>
               <input
                 matInput
-                [formControl]="form.advanced.controls.dataModel" />
+                [formControl]="form.advanced.controls.dataUpdateFrequency" />
             </mat-form-field>
 
             <!-- Geo location -->
@@ -201,7 +203,7 @@
               <mat-label>Geo location</mat-label>
               <input
                 matInput
-                [formControl]="form.advanced.controls.dataModel" />
+                [formControl]="form.advanced.controls.geoLocation" />
             </mat-form-field>
           </div>
 
@@ -311,40 +313,36 @@
             <textarea
               class="h-28"
               matInput
-              [formControl]="form.metadata.controls.description"></textarea>
+              [formControl]="
+                form.advanced.controls.referenceFilesDescription
+              "></textarea>
           </mat-form-field>
 
-          <div class="flex flex-row space-x-[10px]">
-            <!-- Temporal coverage start -->
-            <mat-form-field class="grow">
-              <mat-label>Temporal coverage start</mat-label>
+          <!-- Temporal coverage -->
+          <mat-form-field
+            *ngIf="form.advanced.controls.temporalCoverage; let ctrl"
+            class="mt-[20px]"
+            color="accent">
+            <mat-label>Date Range</mat-label>
+            <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
               <input
-                matInput
-                [matDatepicker]="temporalCoverageStartPicker"
-                [formControl]="form.advanced.controls.temporalCoverageFrom" />
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="temporalCoverageStartPicker"></mat-datepicker-toggle>
-              <mat-datepicker #temporalCoverageStartPicker></mat-datepicker>
-            </mat-form-field>
-
-            <!-- Temporal coverage end -->
-            <mat-form-field class="grow">
-              <mat-label>Temporal coverage end (inclusive)</mat-label>
+                matStartDate
+                formControlName="from"
+                placeholder="Start date" />
               <input
-                matInput
-                [matDatepicker]="temporalCoverageEndPicker"
-                [formControl]="
-                  form.advanced.controls.temporalCoverageToInclusive
-                " />
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="temporalCoverageEndPicker"></mat-datepicker-toggle>
-              <mat-datepicker #temporalCoverageEndPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
+                matEndDate
+                formControlName="toInclusive"
+                placeholder="End date (inclusive)" />
+            </mat-date-range-input>
+            <mat-hint>DD/MM/YYYY – DD/MM/YYYY (optional)</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="ctrl.invalid">{{
+              validationMessages.invalidDateRangeMessage
+            }}</mat-error>
+          </mat-form-field>
 
           <!-- Conditions for use -->
           <mat-form-field class="mt-[20px]">
@@ -353,7 +351,9 @@
               class="h-28"
               matInput
               placeholder="Please cite the dataset as..."
-              [formControl]="form.metadata.controls.description"></textarea>
+              [formControl]="
+                form.advanced.controls.conditionsForUse
+              "></textarea>
           </mat-form-field>
         </div>
       </form>

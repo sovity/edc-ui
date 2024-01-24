@@ -1,7 +1,13 @@
-import {FormArray, FormControl, ɵFormGroupValue} from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ɵFormGroupValue,
+} from '@angular/forms';
 import {DataCategorySelectItem} from '../../../data-category-select/data-category-select-item';
 import {DataSubcategorySelectItem} from '../../../data-subcategory-select/data-subcategory-select-item';
 import {TransportModeSelectItem} from '../../../transport-mode-select/transport-mode-select-item';
+import {TemporalCoverageFormModel} from './temporal-coverage-form-model';
 
 /**
  * Form Model for AssetEditorDialog > Advanced
@@ -21,8 +27,7 @@ export interface AssetAdvancedFormModel {
   referenceFilesDescription: FormControl<string>;
   conditionsForUse: FormControl<string>;
   dataUpdateFrequency: FormControl<string>;
-  temporalCoverageFrom: FormControl<Date | null>;
-  temporalCoverageToInclusive: FormControl<Date | null>;
+  temporalCoverage: FormGroup<TemporalCoverageFormModel>;
 }
 
 /**

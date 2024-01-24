@@ -66,9 +66,9 @@ export class AssetCreateRequestBuilder {
     const conditionsForUse = formValue.advanced?.conditionsForUse;
     const dataUpdateFrequency = formValue.advanced?.dataUpdateFrequency;
     const temporalCoverageFrom =
-      formValue.advanced?.temporalCoverageFrom || undefined;
+      formValue.advanced?.temporalCoverage?.from || undefined;
     const temporalCoverageToInclusive =
-      formValue.advanced?.temporalCoverageToInclusive || undefined;
+      formValue.advanced?.temporalCoverage?.toInclusive || undefined;
 
     return {
       title,

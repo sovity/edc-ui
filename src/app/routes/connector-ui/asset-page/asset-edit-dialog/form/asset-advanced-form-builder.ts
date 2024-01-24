@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {dateRangeNotRequired} from 'src/app/core/validators/date-range-not-required';
+import {urlValidator} from 'src/app/core/validators/url-validator';
 import {AssetAdvancedFormModel} from './model/asset-advanced-form-model';
 import {AssetEditorDialogFormValue} from './model/asset-editor-dialog-form-model';
 
@@ -22,21 +24,32 @@ export class AssetAdvancedFormBuilder {
         initial?.nutsLocations?.map((x) => this.buildRequiredString(x)) ?? [],
       ),
       dataSampleUrls: this.formBuilder.array(
-        initial?.dataSampleUrls?.map((x) => this.buildRequiredString(x)) ?? [],
+        initial?.dataSampleUrls?.map((x) => this.buildRequiredUrl(x)) ?? [],
       ),
       referenceFileUrls: this.formBuilder.nonNullable.array(
-        initial?.referenceFileUrls?.map((x) => this.buildRequiredString(x)) ??
-          [],
+        initial?.referenceFileUrls?.map((x) => this.buildRequiredUrl(x)) ?? [],
       ),
       referenceFilesDescription: initial?.referenceFilesDescription!,
       conditionsForUse: initial?.conditionsForUse!,
       dataUpdateFrequency: initial?.dataUpdateFrequency!,
-      temporalCoverageFrom: initial?.temporalCoverageFrom || null,
-      temporalCoverageToInclusive: initial?.temporalCoverageToInclusive || null,
+      temporalCoverage: this.formBuilder.group(
+        {
+          from: initial?.temporalCoverage?.from || null,
+          toInclusive: initial?.temporalCoverage?.toInclusive || null,
+        },
+        {validators: dateRangeNotRequired},
+      ),
     });
   }
 
   buildRequiredString(initial: string): FormControl<string> {
     return this.formBuilder.nonNullable.control(initial, Validators.required);
+  }
+
+  buildRequiredUrl(initial: string): FormControl<string> {
+    return this.formBuilder.nonNullable.control(initial, [
+      Validators.required,
+      urlValidator,
+    ]);
   }
 }

@@ -160,7 +160,7 @@ export class AssetEditDialogForm {
 
   onDataSampleUrlsAddClick() {
     this.advanced!.controls.dataSampleUrls.push(
-      this.assetAdvancedFormBuilder.buildRequiredString(''),
+      this.assetAdvancedFormBuilder.buildRequiredUrl(''),
     );
   }
 
@@ -170,7 +170,7 @@ export class AssetEditDialogForm {
 
   onReferenceFileUrlsAddClick() {
     this.advanced!.controls.referenceFileUrls.push(
-      this.assetAdvancedFormBuilder.buildRequiredString(''),
+      this.assetAdvancedFormBuilder.buildRequiredUrl(''),
     );
   }
 
