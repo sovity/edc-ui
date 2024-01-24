@@ -11,6 +11,7 @@ import {PropertyGridGroup} from '../../property-grid/property-grid-group/propert
 import {PropertyGridField} from '../../property-grid/property-grid/property-grid-field';
 import {PropertyGridFieldService} from '../../property-grid/property-grid/property-grid-field.service';
 import {formatDateAgo} from '../../ui-elements/ago/formatDateAgo';
+import {UrlListDialogService} from '../../url-list-dialog/url-list-dialog/url-list-dialog.service';
 import {
   getOnlineStatusColor,
   getOnlineStatusIcon,
@@ -24,6 +25,7 @@ export class AssetPropertyGridGroupBuilder {
     private activeFeatureSet: ActiveFeatureSet,
     private propertyGridUtils: PropertyGridFieldService,
     private jsonDialogService: JsonDialogService,
+    private urlListDialogService: UrlListDialogService,
     private policyPropertyFieldBuilder: PolicyPropertyFieldBuilder,
   ) {}
 
@@ -193,6 +195,13 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.geoLocation),
       });
     }
+    if (includeEmpty || asset.nutsLocation) {
+      fields.push({
+        icon: 'location_on',
+        label: 'NUTS Locations',
+        ...this.propertyGridUtils.guessValue(asset.nutsLocation?.join(', ')),
+      });
+    }
     if (includeEmpty || asset.sovereignLegalName) {
       fields.push({
         icon: 'account_balance',
@@ -200,47 +209,19 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.sovereignLegalName),
       });
     }
-    if (includeEmpty || asset.nutsLocation) {
-      fields.push({
-        icon: 'location_searching',
-        label: 'NUTS Locations',
-        ...this.propertyGridUtils.guessValue(asset.nutsLocation?.join(', ')),
-      });
-    }
     if (includeEmpty || asset.dataSampleUrls) {
-      fields.push({
-        icon: 'attachment',
-        label: 'Data Samples',
-        text: 'Show Data Samples',
-        onclick: () =>
-          this.jsonDialogService.showJsonDetailDialog({
-            title: `Data Samples`,
-            subtitle: asset.title,
-            icon: 'attachment',
-            objectForJson: asset.dataSampleUrls,
-          }),
-      });
+      fields.push(
+        this.buildDataSampleUrlsField(asset.dataSampleUrls, asset.title),
+      );
     }
     if (includeEmpty || asset.referenceFileUrls) {
-      fields.push({
-        icon: 'receipt',
-        label: 'Reference Files',
-        text: 'Show Reference Files',
-        onclick: () =>
-          this.jsonDialogService.showJsonDetailDialog({
-            title: `Reference Files`,
-            subtitle: asset.title,
-            icon: 'receipt',
-            objectForJson: asset.referenceFileUrls,
-          }),
-      });
-    }
-    if (includeEmpty || asset.referenceFilesDescription) {
-      fields.push({
-        icon: 'commute',
-        label: 'Reference Files Description',
-        ...this.propertyGridUtils.guessValue(asset.referenceFilesDescription),
-      });
+      fields.push(
+        this.buildReferenceFileUrlsField(
+          asset.referenceFileUrls,
+          asset.referenceFilesDescription,
+          asset.title,
+        ),
+      );
     }
     if (includeEmpty || asset.conditionsForUse) {
       fields.push({
@@ -421,6 +402,58 @@ export class AssetPropertyGridGroupBuilder {
       icon: 'link',
       label: 'Connector Endpoint',
       ...this.propertyGridUtils.guessValue(endpoint),
+    };
+  }
+
+  buildDataSampleUrlsField(
+    dataSampleUrls: string[] | undefined,
+    title: string,
+  ): PropertyGridField {
+    if (!dataSampleUrls) {
+      return {
+        icon: 'attachment',
+        label: 'Data Samples',
+        text: '-',
+      };
+    }
+    return {
+      icon: 'attachment',
+      label: 'Data Samples',
+      text: 'Show Data Samples',
+      onclick: () =>
+        this.urlListDialogService.showUrlListDialog({
+          title: `Data Samples`,
+          subtitle: title,
+          icon: 'attachment',
+          urls: dataSampleUrls,
+        }),
+    };
+  }
+
+  buildReferenceFileUrlsField(
+    referenceFileUrls: string[] | undefined,
+    description: string | undefined,
+    title: string,
+  ): PropertyGridField {
+    if (!referenceFileUrls) {
+      return {
+        icon: 'receipt',
+        label: 'Reference Files',
+        text: '-',
+      };
+    }
+    return {
+      icon: 'receipt',
+      label: 'Reference Files',
+      text: 'Show Reference Files',
+      onclick: () =>
+        this.urlListDialogService.showUrlListDialog({
+          title: `Reference Files`,
+          subtitle: title,
+          icon: 'receipt',
+          urls: referenceFileUrls,
+          description: description,
+        }),
     };
   }
 
