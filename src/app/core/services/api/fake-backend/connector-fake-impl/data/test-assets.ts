@@ -81,6 +81,7 @@ This is a short description text that should be fully rendered without being **c
     connectorEndpoint: 'https://my-other-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     creatorOrganizationName: 'my-other-connector',
+    temporalCoverageFrom: new Date('2024-01-01'),
     isOwnConnector: true,
   };
 
@@ -121,6 +122,23 @@ This is a short description text that should be fully rendered without being **c
     dataModel: 'unspecified',
     geoReferenceMethod: 'Lat/Lon',
     transportMode: 'Rail',
+    sovereignLegalName: 'The Sovereign',
+    geoLocation: '40.741895,-73.989308',
+    nutsLocation: ['DE', 'DE9', 'DE92', 'DE929'],
+    dataSampleUrls: [
+      'https://teamabc.departmentxyz.sample/a',
+      'https://teamabc.departmentxyz.sample/b',
+      'https://teamabc.departmentxyz.sample/c',
+      'https://teamabc.departmentxyz.sample/d',
+      'https://teamabc.departmentxyz.sample/e',
+    ],
+    referenceFileUrls: ['https://teamabc.departmentxyz.reference/a'],
+    referenceFilesDescription: 'This reference file is important',
+    conditionsForUse:
+      'If you use the dataset please cite it in your work and give attribution',
+    dataUpdateFrequency: 'every month',
+    temporalCoverageFrom: new Date('2024-01-01'),
+    temporalCoverageToInclusive: new Date('2024-01-24'),
     httpDatasourceHintsProxyQueryParams: true,
     httpDatasourceHintsProxyPath: true,
     httpDatasourceHintsProxyMethod: true,

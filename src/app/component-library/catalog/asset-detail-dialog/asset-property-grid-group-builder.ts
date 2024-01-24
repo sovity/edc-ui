@@ -77,7 +77,7 @@ export class AssetPropertyGridGroupBuilder {
     ];
 
     if (this.activeFeatureSet.hasMdsFields()) {
-      fields.push(...this.buildMdsProperties(asset, true));
+      fields.push(...this.buildMdsProperties(asset, false));
     }
 
     return {
@@ -184,6 +184,88 @@ export class AssetPropertyGridGroupBuilder {
         icon: 'commute',
         label: 'Geo Reference Method',
         ...this.propertyGridUtils.guessValue(asset.geoReferenceMethod),
+      });
+    }
+    if (includeEmpty || asset.geoLocation) {
+      fields.push({
+        icon: 'location_on',
+        label: 'Geo Location',
+        ...this.propertyGridUtils.guessValue(asset.geoLocation),
+      });
+    }
+    if (includeEmpty || asset.sovereignLegalName) {
+      fields.push({
+        icon: 'account_balance',
+        label: 'Sovereign',
+        ...this.propertyGridUtils.guessValue(asset.sovereignLegalName),
+      });
+    }
+    if (includeEmpty || asset.nutsLocation) {
+      fields.push({
+        icon: 'location_searching',
+        label: 'NUTS Locations',
+        ...this.propertyGridUtils.guessValue(asset.nutsLocation?.join(', ')),
+      });
+    }
+    if (includeEmpty || asset.dataSampleUrls) {
+      fields.push({
+        icon: 'attachment',
+        label: 'Data Samples',
+        text: 'Show Data Samples',
+        onclick: () =>
+          this.jsonDialogService.showJsonDetailDialog({
+            title: `Data Samples`,
+            subtitle: asset.title,
+            icon: 'attachment',
+            objectForJson: asset.dataSampleUrls,
+          }),
+      });
+    }
+    if (includeEmpty || asset.referenceFileUrls) {
+      fields.push({
+        icon: 'receipt',
+        label: 'Reference Files',
+        text: 'Show Reference Files',
+        onclick: () =>
+          this.jsonDialogService.showJsonDetailDialog({
+            title: `Reference Files`,
+            subtitle: asset.title,
+            icon: 'receipt',
+            objectForJson: asset.referenceFileUrls,
+          }),
+      });
+    }
+    if (includeEmpty || asset.referenceFilesDescription) {
+      fields.push({
+        icon: 'commute',
+        label: 'Reference Files Description',
+        ...this.propertyGridUtils.guessValue(asset.referenceFilesDescription),
+      });
+    }
+    if (includeEmpty || asset.conditionsForUse) {
+      fields.push({
+        icon: 'description',
+        label: 'Conditions For Use',
+        ...this.propertyGridUtils.guessValue(asset.conditionsForUse),
+      });
+    }
+    if (includeEmpty || asset.dataUpdateFrequency) {
+      fields.push({
+        icon: 'timelapse',
+        label: 'Data Update Frequency',
+        ...this.propertyGridUtils.guessValue(asset.dataUpdateFrequency),
+      });
+    }
+    if (includeEmpty || asset.temporalCoverageFrom) {
+      fields.push({
+        icon: 'today',
+        label: 'Temporal Coverage',
+        ...this.propertyGridUtils.guessValue(
+          this.buildTemporalCoverageString(
+            asset.temporalCoverageFrom,
+            asset.temporalCoverageToInclusive,
+          ),
+        ),
       });
     }
     return fields;
@@ -340,5 +422,18 @@ export class AssetPropertyGridGroupBuilder {
       label: 'Connector Endpoint',
       ...this.propertyGridUtils.guessValue(endpoint),
     };
+  }
+
+  buildTemporalCoverageString(
+    start: Date | undefined,
+    end: Date | undefined,
+  ): string {
+    if (!start) return '';
+
+    if (!end) {
+      return `Start: ${start.toLocaleDateString()}`;
+    }
+
+    return `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`;
   }
 }
