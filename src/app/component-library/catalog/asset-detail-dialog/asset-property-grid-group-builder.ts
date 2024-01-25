@@ -195,12 +195,8 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.geoLocation),
       });
     }
-    if (includeEmpty || asset.nutsLocation) {
-      fields.push({
-        icon: 'location_on',
-        label: 'NUTS Locations',
-        ...this.propertyGridUtils.guessValue(asset.nutsLocation?.join(', ')),
-      });
+    if (includeEmpty || (asset.nutsLocation && asset.nutsLocation.length > 0)) {
+      fields.push(this.buildNutsLocationsField(asset.nutsLocation));
     }
     if (includeEmpty || asset.sovereignLegalName) {
       fields.push({
@@ -209,12 +205,18 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.sovereignLegalName),
       });
     }
-    if (includeEmpty || asset.dataSampleUrls) {
+    if (
+      includeEmpty ||
+      (asset.dataSampleUrls && asset.dataSampleUrls.length > 0)
+    ) {
       fields.push(
         this.buildDataSampleUrlsField(asset.dataSampleUrls, asset.title),
       );
     }
-    if (includeEmpty || asset.referenceFileUrls) {
+    if (
+      includeEmpty ||
+      (asset.referenceFileUrls && asset.referenceFileUrls.length > 0)
+    ) {
       fields.push(
         this.buildReferenceFileUrlsField(
           asset.referenceFileUrls,
@@ -237,7 +239,11 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.dataUpdateFrequency),
       });
     }
-    if (includeEmpty || asset.temporalCoverageFrom) {
+    if (
+      includeEmpty ||
+      asset.temporalCoverageFrom ||
+      asset.temporalCoverageToInclusive
+    ) {
       fields.push({
         icon: 'today',
         label: 'Temporal Coverage',
@@ -405,11 +411,23 @@ export class AssetPropertyGridGroupBuilder {
     };
   }
 
+  buildNutsLocationsField(locations: string[] | undefined): PropertyGridField {
+    if (!locations || locations.length == 0) {
+      return {icon: 'location_on', label: 'NUTS Locations', text: '-'};
+    }
+
+    return {
+      icon: 'location_on',
+      label: 'NUTS Locations',
+      text: locations.join(', '),
+    };
+  }
+
   buildDataSampleUrlsField(
     dataSampleUrls: string[] | undefined,
     title: string,
   ): PropertyGridField {
-    if (!dataSampleUrls) {
+    if (!dataSampleUrls || dataSampleUrls.length == 0) {
       return {
         icon: 'attachment',
         label: 'Data Samples',
@@ -435,7 +453,7 @@ export class AssetPropertyGridGroupBuilder {
     description: string | undefined,
     title: string,
   ): PropertyGridField {
-    if (!referenceFileUrls) {
+    if (!referenceFileUrls || referenceFileUrls.length == 0) {
       return {
         icon: 'receipt',
         label: 'Reference Files',
@@ -461,10 +479,14 @@ export class AssetPropertyGridGroupBuilder {
     start: Date | undefined,
     end: Date | undefined,
   ): string {
-    if (!start) return '-';
+    if (!start && !end) return '-';
 
     if (!end) {
-      return `Start: ${start.toLocaleDateString()}`;
+      return `Start: ${start!.toLocaleDateString()}`;
+    }
+
+    if (!start) {
+      return `End: ${end.toLocaleDateString()}`;
     }
 
     return `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`;

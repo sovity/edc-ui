@@ -3,6 +3,7 @@ import {
   UiAssetCreateRequest,
   UiAssetEditMetadataRequest,
 } from '@sovity.de/edc-client';
+import {addDays} from 'date-fns';
 import {AssetEditorDialogFormValue} from '../../routes/connector-ui/asset-page/asset-edit-dialog/form/model/asset-editor-dialog-form-model';
 import {DataAddressMapper} from './data-address-mapper';
 
@@ -65,10 +66,16 @@ export class AssetCreateRequestBuilder {
       formValue.advanced?.referenceFilesDescription;
     const conditionsForUse = formValue.advanced?.conditionsForUse;
     const dataUpdateFrequency = formValue.advanced?.dataUpdateFrequency;
-    const temporalCoverageFrom =
+    let temporalCoverageFrom =
       formValue.advanced?.temporalCoverage?.from || undefined;
-    const temporalCoverageToInclusive =
+    let temporalCoverageToInclusive =
       formValue.advanced?.temporalCoverage?.toInclusive || undefined;
+    temporalCoverageFrom = temporalCoverageFrom
+      ? addDays(temporalCoverageFrom, 1)
+      : undefined;
+    temporalCoverageToInclusive = temporalCoverageToInclusive
+      ? addDays(temporalCoverageToInclusive, 1)
+      : undefined;
 
     return {
       title,
