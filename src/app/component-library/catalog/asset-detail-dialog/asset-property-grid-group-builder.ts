@@ -461,7 +461,7 @@ export class AssetPropertyGridGroupBuilder {
     start: Date | undefined,
     end: Date | undefined,
   ): string {
-    if (!start) return '';
+    if (!start) return '-';
 
     if (!end) {
       return `Start: ${start.toLocaleDateString()}`;
