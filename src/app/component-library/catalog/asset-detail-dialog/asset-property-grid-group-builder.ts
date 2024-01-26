@@ -414,13 +414,6 @@ export class AssetPropertyGridGroupBuilder {
     dataSampleUrls: string[],
     title: string,
   ): PropertyGridField {
-    if (!dataSampleUrls || dataSampleUrls.length == 0) {
-      return {
-        icon: 'attachment',
-        label: 'Data Samples',
-        text: '-',
-      };
-    }
     return {
       icon: 'attachment',
       label: 'Data Samples',
@@ -440,13 +433,6 @@ export class AssetPropertyGridGroupBuilder {
     description: string | undefined,
     title: string,
   ): PropertyGridField {
-    if (!referenceFileUrls || referenceFileUrls.length == 0) {
-      return {
-        icon: 'receipt',
-        label: 'Reference Files',
-        text: '-',
-      };
-    }
     return {
       icon: 'receipt',
       label: 'Reference Files',
@@ -466,8 +452,6 @@ export class AssetPropertyGridGroupBuilder {
     start: Date | undefined,
     end: Date | undefined,
   ): string {
-    if (!start && !end) return '-';
-
     if (!end) {
       return `Start: ${start!.toLocaleDateString()}`;
     }
