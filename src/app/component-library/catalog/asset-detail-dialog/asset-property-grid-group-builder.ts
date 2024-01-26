@@ -192,7 +192,7 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.geoLocation),
       });
     }
-    if (asset.nutsLocation && asset.nutsLocation.length > 0) {
+    if (asset.nutsLocation?.length) {
       fields.push(this.buildNutsLocationsField(asset.nutsLocation));
     }
     if (asset.sovereignLegalName) {
@@ -202,12 +202,12 @@ export class AssetPropertyGridGroupBuilder {
         ...this.propertyGridUtils.guessValue(asset.sovereignLegalName),
       });
     }
-    if (asset.dataSampleUrls && asset.dataSampleUrls.length > 0) {
+    if (asset.dataSampleUrls?.length) {
       fields.push(
         this.buildDataSampleUrlsField(asset.dataSampleUrls, asset.title),
       );
     }
-    if (asset.referenceFileUrls && asset.referenceFileUrls.length > 0) {
+    if (asset.referenceFileUrls?.length) {
       fields.push(
         this.buildReferenceFileUrlsField(
           asset.referenceFileUrls,
@@ -411,7 +411,7 @@ export class AssetPropertyGridGroupBuilder {
   }
 
   buildDataSampleUrlsField(
-    dataSampleUrls: string[] | undefined,
+    dataSampleUrls: string[],
     title: string,
   ): PropertyGridField {
     if (!dataSampleUrls || dataSampleUrls.length == 0) {
@@ -436,7 +436,7 @@ export class AssetPropertyGridGroupBuilder {
   }
 
   buildReferenceFileUrlsField(
-    referenceFileUrls: string[] | undefined,
+    referenceFileUrls: string[],
     description: string | undefined,
     title: string,
   ): PropertyGridField {

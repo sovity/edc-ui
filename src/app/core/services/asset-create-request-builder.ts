@@ -5,6 +5,7 @@ import {
 } from '@sovity.de/edc-client';
 import {format} from 'date-fns-tz';
 import {AssetEditorDialogFormValue} from '../../routes/connector-ui/asset-page/asset-edit-dialog/form/model/asset-editor-dialog-form-model';
+import {toGmtZeroHourDate} from '../utils/date-utils';
 import {DataAddressMapper} from './data-address-mapper';
 
 @Injectable()
@@ -70,20 +71,11 @@ export class AssetCreateRequestBuilder {
       formValue.advanced?.temporalCoverage?.from || undefined;
     let temporalCoverageToInclusive =
       formValue.advanced?.temporalCoverage?.toInclusive || undefined;
-    /*
-     * We dont care about hours, we just want the date to be displayed identically in all timezones.
-     * For requests the hour context is lost (in both directions) as the api clients just convert the date to
-     * a field like this temporalCoverageFrom: "2024-01-01".
-     * The date string is then parsed into a date object again assuming UTC
-     * Therefore to display dates identically in all timezones we convert the date picked (which contains hour
-     * information as per timezone) to a GMT date at hour 0 here.
-     * This results to dates being displayed identically in all timezones.
-     */
     temporalCoverageFrom = temporalCoverageFrom
-      ? new Date(format(temporalCoverageFrom, 'yyyy-MM-dd'))
+      ? toGmtZeroHourDate(temporalCoverageFrom)
       : undefined;
     temporalCoverageToInclusive = temporalCoverageToInclusive
-      ? new Date(format(temporalCoverageToInclusive, 'yyyy-MM-dd'))
+      ? toGmtZeroHourDate(temporalCoverageToInclusive)
       : undefined;
 
     return {
