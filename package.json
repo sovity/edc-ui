@@ -62,8 +62,8 @@
     "postcss-import": "^15.1.0",
     "postcss-loader": "^7.3.3",
     "postcss-scss": "^4.0.9",
-    "prettier": "^2.8.8",
-    "prettier-plugin-organize-attributes": "^0.0.5",
+    "prettier": "^3.2.4",
+    "prettier-plugin-organize-attributes": "^1.0.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^4.8.4"
   },
