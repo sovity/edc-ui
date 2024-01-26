@@ -3,7 +3,6 @@ import {
   UiAssetCreateRequest,
   UiAssetEditMetadataRequest,
 } from '@sovity.de/edc-client';
-import {format} from 'date-fns-tz';
 import {AssetEditorDialogFormValue} from '../../routes/connector-ui/asset-page/asset-edit-dialog/form/model/asset-editor-dialog-form-model';
 import {toGmtZeroHourDate} from '../utils/date-utils';
 import {DataAddressMapper} from './data-address-mapper';
