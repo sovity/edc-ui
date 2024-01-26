@@ -79,7 +79,7 @@ export class AssetPropertyGridGroupBuilder {
     ];
 
     if (this.activeFeatureSet.hasMdsFields()) {
-      fields.push(...this.buildMdsProperties(asset, false));
+      fields.push(...this.buildMdsProperties(asset));
     }
 
     return {
@@ -128,7 +128,7 @@ export class AssetPropertyGridGroupBuilder {
     const fields: PropertyGridField[] = [];
 
     if (!this.activeFeatureSet.hasMdsFields()) {
-      fields.push(...this.buildMdsProperties(asset, false));
+      fields.push(...this.buildMdsProperties(asset));
     }
 
     fields.push(
@@ -148,75 +148,66 @@ export class AssetPropertyGridGroupBuilder {
     };
   }
 
-  buildMdsProperties(
-    asset: UiAssetMapped,
-    includeEmpty: boolean,
-  ): PropertyGridField[] {
+  buildMdsProperties(asset: UiAssetMapped): PropertyGridField[] {
     const fields: PropertyGridField[] = [];
-    if (includeEmpty || asset.transportMode) {
+    if (asset.transportMode) {
       fields.push({
         icon: 'commute',
         label: 'Transport Mode',
         ...this.propertyGridUtils.guessValue(asset.transportMode?.label),
       });
     }
-    if (includeEmpty || asset.dataCategory) {
+    if (asset.dataCategory) {
       fields.push({
         icon: 'commute',
         label: 'Data Category',
         ...this.propertyGridUtils.guessValue(asset.dataCategory?.label),
       });
     }
-    if (includeEmpty || asset.dataSubcategory) {
+    if (asset.dataSubcategory) {
       fields.push({
         icon: 'commute',
         label: 'Data Subcategory',
         ...this.propertyGridUtils.guessValue(asset.dataSubcategory?.label),
       });
     }
-    if (includeEmpty || asset.dataModel) {
+    if (asset.dataModel) {
       fields.push({
         icon: 'category',
         label: 'Data Model',
         ...this.propertyGridUtils.guessValue(asset.dataModel),
       });
     }
-    if (includeEmpty || asset.geoReferenceMethod) {
+    if (asset.geoReferenceMethod) {
       fields.push({
         icon: 'commute',
         label: 'Geo Reference Method',
         ...this.propertyGridUtils.guessValue(asset.geoReferenceMethod),
       });
     }
-    if (includeEmpty || asset.geoLocation) {
+    if (asset.geoLocation) {
       fields.push({
         icon: 'location_on',
         label: 'Geo Location',
         ...this.propertyGridUtils.guessValue(asset.geoLocation),
       });
     }
-    if (includeEmpty || (asset.nutsLocation && asset.nutsLocation.length > 0)) {
+    if (asset.nutsLocation && asset.nutsLocation.length > 0) {
       fields.push(this.buildNutsLocationsField(asset.nutsLocation));
     }
-    if (includeEmpty || asset.sovereignLegalName) {
+    if (asset.sovereignLegalName) {
       fields.push({
         icon: 'account_balance',
         label: 'Sovereign',
         ...this.propertyGridUtils.guessValue(asset.sovereignLegalName),
       });
     }
-    if (
-      includeEmpty ||
-      (asset.dataSampleUrls && asset.dataSampleUrls.length > 0)
-    ) {
+    if (asset.dataSampleUrls && asset.dataSampleUrls.length > 0) {
       fields.push(
         this.buildDataSampleUrlsField(asset.dataSampleUrls, asset.title),
       );
     }
-    if (
-      includeEmpty ||
-      (asset.referenceFileUrls && asset.referenceFileUrls.length > 0)
-    ) {
+    if (asset.referenceFileUrls && asset.referenceFileUrls.length > 0) {
       fields.push(
         this.buildReferenceFileUrlsField(
           asset.referenceFileUrls,
@@ -225,25 +216,21 @@ export class AssetPropertyGridGroupBuilder {
         ),
       );
     }
-    if (includeEmpty || asset.conditionsForUse) {
+    if (asset.conditionsForUse) {
       fields.push({
         icon: 'description',
         label: 'Conditions For Use',
         ...this.propertyGridUtils.guessValue(asset.conditionsForUse),
       });
     }
-    if (includeEmpty || asset.dataUpdateFrequency) {
+    if (asset.dataUpdateFrequency) {
       fields.push({
         icon: 'timelapse',
         label: 'Data Update Frequency',
         ...this.propertyGridUtils.guessValue(asset.dataUpdateFrequency),
       });
     }
-    if (
-      includeEmpty ||
-      asset.temporalCoverageFrom ||
-      asset.temporalCoverageToInclusive
-    ) {
+    if (asset.temporalCoverageFrom || asset.temporalCoverageToInclusive) {
       fields.push({
         icon: 'today',
         label: 'Temporal Coverage',

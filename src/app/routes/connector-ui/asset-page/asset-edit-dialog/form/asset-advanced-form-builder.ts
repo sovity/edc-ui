@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {dateRangeNotRequired} from 'src/app/core/validators/date-range-not-required';
 import {urlValidator} from 'src/app/core/validators/url-validator';
+import {validOptionalDateRange} from 'src/app/core/validators/valid-optional-date-range';
 import {AssetAdvancedFormModel} from './model/asset-advanced-form-model';
 import {AssetEditorDialogFormValue} from './model/asset-editor-dialog-form-model';
 
@@ -37,7 +37,7 @@ export class AssetAdvancedFormBuilder {
           from: initial?.temporalCoverage?.from || null,
           toInclusive: initial?.temporalCoverage?.toInclusive || null,
         },
-        {validators: dateRangeNotRequired},
+        {validators: validOptionalDateRange},
       ),
     });
   }

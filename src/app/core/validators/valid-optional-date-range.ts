@@ -5,7 +5,7 @@ import {DateRange} from '@angular/material/datepicker';
  * Validates end date is set after start date but does not require any dates to be set.
  * @param control control
  */
-export const dateRangeNotRequired: ValidatorFn = (
+export const validOptionalDateRange: ValidatorFn = (
   control: AbstractControl,
 ): ValidationErrors | null => {
   const value: DateRange<Date> = control.value;

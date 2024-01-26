@@ -122,7 +122,7 @@ This is a short description text that should be fully rendered without being **c
     dataModel: 'unspecified',
     geoReferenceMethod: 'Lat/Lon',
     transportMode: 'Rail',
-    sovereignLegalName: 'The Sovereign',
+    sovereignLegalName: 'Data Owning Company GmbH',
     geoLocation: '40.741895,-73.989308',
     nutsLocation: ['DE', 'DE9', 'DE92', 'DE929'],
     dataSampleUrls: [
