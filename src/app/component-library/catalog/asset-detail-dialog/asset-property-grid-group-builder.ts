@@ -398,11 +398,7 @@ export class AssetPropertyGridGroupBuilder {
     };
   }
 
-  buildNutsLocationsField(locations: string[] | undefined): PropertyGridField {
-    if (!locations || locations.length == 0) {
-      return {icon: 'location_on', label: 'NUTS Locations', text: '-'};
-    }
-
+  buildNutsLocationsField(locations: string[]): PropertyGridField {
     return {
       icon: 'location_on',
       label: 'NUTS Locations',
