@@ -76,8 +76,13 @@ export class HttpRequestParamsMapper {
       [DataAddressProperty.queryParams]: httpRequestParams.queryParams,
       ...mapKeys(
         httpRequestParams.headers,
-        (k) => `${DataAddressProperty.header}:${k}`,
-      ),
+        (k) => {
+          if(k.toLowerCase() === 'content-type') {
+            return DataAddressProperty.contentType;
+          } else {
+            return `${DataAddressProperty.header}:${k}`;
+          }
+        }),
     };
     return removeNullValues(props);
   }

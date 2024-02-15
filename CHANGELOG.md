@@ -20,6 +20,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
+- Fix `Content-Type` header being ignored by backend for transfers
+
 #### Deployment Migration Notes
 
 ## [v2.4.0] 2024-02-14
