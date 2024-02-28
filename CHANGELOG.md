@@ -18,7 +18,7 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
-- Broker can initialize connector endpoint filters from query params
+- Broker UI: Added query params for the connector endpoints filter
 
 #### Patch
 

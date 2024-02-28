@@ -102,6 +102,26 @@ export class CatalogPageState implements OnDestroy {
     ctx.dispatch(CatalogPage.NeedFetch);
   }
 
+  @Action(CatalogPage.AddFilterBox)
+  onAddFilterBox(ctx: Ctx, action: CatalogPage.AddFilterBox) {
+    let state = ctx.getState();
+    if (action.filterBox.id in state.filters) {
+      return;
+    }
+
+    state = {
+      ...state,
+      filters: {
+        ...state.filters,
+        [action.filterBox.id]: FilterBoxVisibleState.buildVisibleState(
+          action.filterBox,
+        ),
+      },
+    };
+    state = this._recalculateActiveFilterItems(state);
+    ctx.setState(state);
+  }
+
   @Action(CatalogPage.UpdateFilterSelectedItems)
   onUpdateFilterSelectedItems(
     ctx: Ctx,
@@ -110,9 +130,7 @@ export class CatalogPageState implements OnDestroy {
     let state = ctx.getState();
     state = this._updateFilterModelById(state, action.filterId, (model) => ({
       ...model,
-      selectedItems: action.selectedItems.filter((x) =>
-        model.availableItems.find((y) => x.id === y.id),
-      ),
+      selectedItems: action.selectedItems,
     }));
     state = this._recalculateActiveFilterItems(state);
     state = this._resetPage(state);
