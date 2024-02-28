@@ -77,7 +77,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
         if (this.sortBy.value?.sorting !== state.activeSorting?.sorting) {
           this.sortBy.setValue(state.activeSorting);
         }
-        if (!this.expandedFilterId && this.state.isPageReady) {
+        if (!this.expandedFilterId && this.state.fetchedData.isReady) {
           this.expandedFilterId =
             this.state.fetchedData.data.availableFilters.fields[0].id;
         }
