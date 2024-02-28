@@ -1,8 +1,9 @@
 import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {PageEvent} from '@angular/material/paginator';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BehaviorSubject, Subject} from 'rxjs';
-import {filter, map, takeUntil} from 'rxjs/operators';
+import {filter, map, take, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
 import {CatalogPageSortingItem} from '@sovity.de/broker-server-client';
 import {LocalStoredValue} from 'src/app/core/utils/local-stored-value';
@@ -40,6 +41,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     'brokerui.viewMode',
     isViewMode,
   );
+  initialConnectorEndpointsFilterValues: string[] | null = null;
   private fetch$ = new BehaviorSubject(null);
 
   // only tracked to prevent the component from resetting
@@ -50,6 +52,8 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     private assetDetailDialogService: AssetDetailDialogService,
     private brokerServerApiService: BrokerServerApiService,
     private store: Store,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +61,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     this.startListeningToStore();
     this.startEmittingSearchText();
     this.startEmittingSortBy();
+    this.parseConnectorEndpointQueryParams();
   }
 
   private startListeningToStore() {
@@ -65,15 +70,21 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngOnDestroy$))
       .subscribe((state) => {
         this.state = state;
+
         if (this.searchText.value != state.searchText) {
           this.searchText.setValue(state.searchText);
         }
         if (this.sortBy.value?.sorting !== state.activeSorting?.sorting) {
           this.sortBy.setValue(state.activeSorting);
         }
-        if (!this.expandedFilterId && this.state.fetchedData.isReady) {
-          this.expandedFilterId =
-            this.state.fetchedData.data.availableFilters.fields[0].id;
+
+        if (this.state.isPageReady) {
+          this.setInitialConnectorEndpointFilters();
+
+          if (!this.expandedFilterId) {
+            this.expandedFilterId =
+              this.state.fetchedData.data.availableFilters.fields[0].id;
+          }
         }
       });
   }
@@ -96,6 +107,39 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
           this.store.dispatch(new CatalogPage.UpdateSorting(value));
         }
       });
+  }
+
+  private parseConnectorEndpointQueryParams() {
+    this.route.queryParams.pipe(take(1)).subscribe((x) => {
+      if (!('connectorEndpoint' in x)) {
+        return;
+      }
+      const endpoints = x.connectorEndpoint;
+      this.initialConnectorEndpointsFilterValues = Array.isArray(endpoints)
+        ? endpoints.filter((item, i, arr) => arr.indexOf(item) === i)
+        : [endpoints];
+      // remove query params from url
+      this.router.navigate([]);
+    });
+  }
+
+  private setInitialConnectorEndpointFilters() {
+    if (this.initialConnectorEndpointsFilterValues?.length) {
+      const filterBoxItems = this.initialConnectorEndpointsFilterValues.map(
+        (x): FilterBoxItem => ({type: 'ITEM', id: x, label: x}),
+      );
+      this.initialConnectorEndpointsFilterValues = null;
+      this.store.dispatch(
+        new CatalogPage.UpdateFilterSelectedItems(
+          'connectorEndpoint',
+          filterBoxItems,
+        ),
+      );
+      this.expandedFilterId =
+        this.state.fetchedData.data.availableFilters.fields.find(
+          (x) => x.id === 'connectorEndpoint',
+        )!.id;
+    }
   }
 
   onDataOfferClick(dataOffer: CatalogDataOfferMapped) {

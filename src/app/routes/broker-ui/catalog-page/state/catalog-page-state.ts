@@ -110,7 +110,9 @@ export class CatalogPageState implements OnDestroy {
     let state = ctx.getState();
     state = this._updateFilterModelById(state, action.filterId, (model) => ({
       ...model,
-      selectedItems: action.selectedItems,
+      selectedItems: action.selectedItems.filter((x) =>
+        model.availableItems.find((y) => x.id === y.id),
+      ),
     }));
     state = this._recalculateActiveFilterItems(state);
     state = this._resetPage(state);
