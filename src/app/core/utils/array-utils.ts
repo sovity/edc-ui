@@ -15,6 +15,3 @@ export function removeOnce<T>(list: T[], item: T): T[] {
   }
   return list;
 }
-
-export const unique = <T>(item: T, i: number, arr: T[]) =>
-  arr.indexOf(item) === i;

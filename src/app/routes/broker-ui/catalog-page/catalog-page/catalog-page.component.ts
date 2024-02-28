@@ -6,7 +6,6 @@ import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, map, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
 import {CatalogPageSortingItem} from '@sovity.de/broker-server-client';
-import {unique} from 'src/app/core/utils/array-utils';
 import {LocalStoredValue} from 'src/app/core/utils/local-stored-value';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
@@ -127,7 +126,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       return [];
     }
     const endpoints = params.connectorEndpoint;
-    return Array.isArray(endpoints) ? endpoints.filter(unique) : [endpoints];
+    return Array.isArray(endpoints) ? [...new Set(endpoints)] : [endpoints];
   }
 
   private buildConnectorEndpointFilterBoxModel(
