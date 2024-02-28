@@ -104,22 +104,21 @@ export class CatalogPageState implements OnDestroy {
 
   @Action(CatalogPage.AddFilterBox)
   onAddFilterBox(ctx: Ctx, action: CatalogPage.AddFilterBox) {
-    let state = ctx.getState();
+    const state = ctx.getState();
     if (action.filterBox.id in state.filters) {
       return;
     }
-
-    state = {
-      ...state,
-      filters: {
-        ...state.filters,
-        [action.filterBox.id]: FilterBoxVisibleState.buildVisibleState(
-          action.filterBox,
-        ),
-      },
-    };
-    state = this._recalculateActiveFilterItems(state);
-    ctx.setState(state);
+    ctx.setState(
+      this._recalculateActiveFilterItems({
+        ...state,
+        filters: {
+          ...state.filters,
+          [action.filterBox.id]: FilterBoxVisibleState.buildVisibleState(
+            action.filterBox,
+          ),
+        },
+      }),
+    );
   }
 
   @Action(CatalogPage.UpdateFilterSelectedItems)
