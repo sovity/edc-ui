@@ -71,15 +71,13 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngOnDestroy$))
       .subscribe((state) => {
         this.state = state;
-
         if (this.searchText.value != state.searchText) {
           this.searchText.setValue(state.searchText);
         }
         if (this.sortBy.value?.sorting !== state.activeSorting?.sorting) {
           this.sortBy.setValue(state.activeSorting);
         }
-
-        if (this.state.isPageReady && !this.expandedFilterId) {
+        if (!this.expandedFilterId && this.state.isPageReady) {
           this.expandedFilterId =
             this.state.fetchedData.data.availableFilters.fields[0].id;
         }
