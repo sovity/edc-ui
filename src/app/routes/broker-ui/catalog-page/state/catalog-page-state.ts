@@ -43,10 +43,13 @@ export class CatalogPageState implements OnDestroy {
   }
 
   @Action(CatalogPage.Reset)
-  onReset(ctx: Ctx) {
+  onReset(ctx: Ctx, action: CatalogPage.Reset) {
     let state = ctx.getState();
     state.fetchSubscription?.unsubscribe();
     state = DEFAULT_CATALOG_PAGE_STATE_MODEL;
+    if (action.initialFilters?.length) {
+      state = this._addFilterBoxes(state, action.initialFilters);
+    }
     ctx.setState(state);
     ctx.dispatch(CatalogPage.NeedFetch);
   }
@@ -102,25 +105,6 @@ export class CatalogPageState implements OnDestroy {
     ctx.dispatch(CatalogPage.NeedFetch);
   }
 
-  @Action(CatalogPage.AddFilterBox)
-  onAddFilterBox(ctx: Ctx, action: CatalogPage.AddFilterBox) {
-    const state = ctx.getState();
-    if (action.filterBox.id in state.filters) {
-      return;
-    }
-    ctx.setState(
-      this._recalculateActiveFilterItems({
-        ...state,
-        filters: {
-          ...state.filters,
-          [action.filterBox.id]: FilterBoxVisibleState.buildVisibleState(
-            action.filterBox,
-          ),
-        },
-      }),
-    );
-  }
-
   @Action(CatalogPage.UpdateFilterSelectedItems)
   onUpdateFilterSelectedItems(
     ctx: Ctx,
@@ -174,6 +158,24 @@ export class CatalogPageState implements OnDestroy {
         ),
       );
     }
+  }
+
+  private _addFilterBoxes(
+    state: CatalogPageStateModel,
+    filterBoxes: FilterBoxModel[],
+  ): CatalogPageStateModel {
+    const newFilterBoxes: Record<string, FilterBoxVisibleState> = {};
+    for (let x of filterBoxes.filter((x) => !(x.id in state.filters))) {
+      newFilterBoxes[x.id] = FilterBoxVisibleState.buildVisibleState(x);
+    }
+
+    return this._recalculateActiveFilterItems({
+      ...state,
+      filters: {
+        ...state.filters,
+        ...newFilterBoxes,
+      },
+    });
   }
 
   private _resetPage(state: CatalogPageStateModel): CatalogPageStateModel {

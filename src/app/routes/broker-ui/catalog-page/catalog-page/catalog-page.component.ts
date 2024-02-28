@@ -57,11 +57,24 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(CatalogPage.Reset);
-    this.setConnectorEndpointFiltersFromQueryParamsOnce();
+    this.initializePage();
     this.startListeningToStore();
     this.startEmittingSearchText();
     this.startEmittingSortBy();
+  }
+
+  private initializePage() {
+    const connectorEndpointFilterBox =
+      this.getConnectorEndpointFilterBoxFromQueryParamsOnce();
+    if (!connectorEndpointFilterBox) {
+      this.store.dispatch(new CatalogPage.Reset());
+      return;
+    }
+
+    this.store.dispatch(new CatalogPage.Reset([connectorEndpointFilterBox]));
+    this.expandedFilterId = 'connectorEndpoint';
+    // remove query params from url
+    this.router.navigate([]);
   }
 
   private startListeningToStore() {
@@ -103,7 +116,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private setConnectorEndpointFiltersFromQueryParamsOnce() {
+  private getConnectorEndpointFilterBoxFromQueryParamsOnce() {
     const connectorEndpoints = this.parseConnectorEndpoints(
       this.route.snapshot.queryParams,
     );
@@ -111,14 +124,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.store.dispatch(
-      new CatalogPage.AddFilterBox(
-        this.buildConnectorEndpointFilterBoxModel(connectorEndpoints),
-      ),
-    );
-    this.expandedFilterId = 'connectorEndpoint';
-    // remove query params from url
-    this.router.navigate([]);
+    return this.buildConnectorEndpointFilterBoxModel(connectorEndpoints);
   }
 
   private parseConnectorEndpoints(params: Params): string[] {
