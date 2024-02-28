@@ -18,6 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
+- Broker can initialize connector endpoint filters from query params
+
 #### Patch
 
 #### Deployment Migration Notes
