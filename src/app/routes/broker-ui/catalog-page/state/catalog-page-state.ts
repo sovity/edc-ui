@@ -47,8 +47,12 @@ export class CatalogPageState implements OnDestroy {
     let state = ctx.getState();
     state.fetchSubscription?.unsubscribe();
     state = DEFAULT_CATALOG_PAGE_STATE_MODEL;
-    if (action.initialFilters?.length) {
-      state = this._addFilterBoxes(state, action.initialFilters);
+    if (action.initialConnectorEndpoints?.length) {
+      state = this._addFilterBoxes(state, [
+        this._buildConnectorEndpointFilterBoxModel(
+          action.initialConnectorEndpoints,
+        ),
+      ]);
     }
     ctx.setState(state);
     ctx.dispatch(CatalogPage.NeedFetch);
@@ -160,20 +164,36 @@ export class CatalogPageState implements OnDestroy {
     }
   }
 
+  private _buildConnectorEndpointFilterBoxModel(
+    endpoints: string[],
+  ): FilterBoxModel {
+    const items: FilterBoxItem[] = endpoints.map((x) => ({
+      type: 'ITEM',
+      id: x,
+      label: x,
+    }));
+    return {
+      id: 'connectorEndpoint',
+      title: 'Connector',
+      selectedItems: items,
+      availableItems: items,
+      searchText: '',
+    };
+  }
+
   private _addFilterBoxes(
     state: CatalogPageStateModel,
     filterBoxes: FilterBoxModel[],
   ): CatalogPageStateModel {
-    const newFilterBoxes: Record<string, FilterBoxVisibleState> = {};
-    for (let x of filterBoxes.filter((x) => !(x.id in state.filters))) {
-      newFilterBoxes[x.id] = FilterBoxVisibleState.buildVisibleState(x);
-    }
-
     return this._recalculateActiveFilterItems({
       ...state,
       filters: {
         ...state.filters,
-        ...newFilterBoxes,
+        ...associateAsObj(
+          filterBoxes,
+          (x) => x.id,
+          (x) => FilterBoxVisibleState.buildVisibleState(x),
+        ),
       },
     });
   }

@@ -15,7 +15,6 @@ import {
 } from '../../../../component-library/catalog/view-selection/view-mode-enum';
 import {BrokerServerApiService} from '../../../../core/services/api/broker-server-api.service';
 import {FilterBoxItem} from '../filter-box/filter-box-item';
-import {FilterBoxModel} from '../filter-box/filter-box-model';
 import {FilterBoxVisibleState} from '../filter-box/filter-box-visible-state';
 import {CatalogActiveFilterPill} from '../state/catalog-active-filter-pill';
 import {CatalogPage} from '../state/catalog-page-actions';
@@ -64,17 +63,16 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   }
 
   private initializePage() {
-    const connectorEndpointFilterBox =
-      this.getConnectorEndpointFilterBoxFromQueryParamsOnce();
-    if (!connectorEndpointFilterBox) {
-      this.store.dispatch(new CatalogPage.Reset());
-      return;
-    }
+    const endpoints = this.parseConnectorEndpoints(
+      this.route.snapshot.queryParams,
+    );
+    this.store.dispatch(new CatalogPage.Reset(endpoints));
 
-    this.store.dispatch(new CatalogPage.Reset([connectorEndpointFilterBox]));
-    this.expandedFilterId = 'connectorEndpoint';
-    // remove query params from url
-    this.router.navigate([]);
+    if (endpoints.length) {
+      this.expandedFilterId = 'connectorEndpoint';
+      // remove query params from url
+      this.router.navigate([]);
+    }
   }
 
   private startListeningToStore() {
@@ -116,40 +114,12 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private getConnectorEndpointFilterBoxFromQueryParamsOnce() {
-    const connectorEndpoints = this.parseConnectorEndpoints(
-      this.route.snapshot.queryParams,
-    );
-    if (!connectorEndpoints?.length) {
-      return;
-    }
-
-    return this.buildConnectorEndpointFilterBoxModel(connectorEndpoints);
-  }
-
   private parseConnectorEndpoints(params: Params): string[] {
     if (!('connectorEndpoint' in params)) {
       return [];
     }
     const endpoints = params.connectorEndpoint;
     return Array.isArray(endpoints) ? [...new Set(endpoints)] : [endpoints];
-  }
-
-  private buildConnectorEndpointFilterBoxModel(
-    endpoints: string[],
-  ): FilterBoxModel {
-    const items: FilterBoxItem[] = endpoints.map((x) => ({
-      type: 'ITEM',
-      id: x,
-      label: x,
-    }));
-    return {
-      id: 'connectorEndpoint',
-      title: 'Connector',
-      selectedItems: items,
-      availableItems: items,
-      searchText: '',
-    };
   }
 
   onDataOfferClick(dataOffer: CatalogDataOfferMapped) {
