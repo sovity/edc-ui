@@ -20,7 +20,7 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
-- Fixed an asset select issue from a bad compare function
+- Fixed an asset select issue resulting from a bad compare function
 
 #### Deployment Migration Notes
 
