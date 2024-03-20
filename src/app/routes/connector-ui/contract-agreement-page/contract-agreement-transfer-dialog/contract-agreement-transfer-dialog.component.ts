@@ -92,6 +92,7 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
     this.form.all.disable();
 
     const value = this.form.value;
+    console.log('value', value);
     let request$: Observable<IdResponseDto>;
     if (value.dataAddressType === 'Custom-Transfer-Process-Request') {
       const request = this.buildCustomTransferRequest(value);
