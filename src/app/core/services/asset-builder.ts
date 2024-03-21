@@ -98,16 +98,13 @@ export class AssetBuilder {
         continue;
       }
 
-      let propJson;
       try {
-        propJson = JSON.parse(asset[propName]!);
+        const propJson = JSON.parse(asset[propName]!);
+        for (let key in propJson) {
+          result.push({key: key, value: propJson[key]});
+        }
       } catch (e) {
         console.error('Error parsing additional properties', e);
-        continue;
-      }
-
-      for (let key in propJson) {
-        result.push({key: key, value: propJson[key]});
       }
     }
     return result;
