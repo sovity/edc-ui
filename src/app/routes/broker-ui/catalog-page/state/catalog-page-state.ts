@@ -43,10 +43,17 @@ export class CatalogPageState implements OnDestroy {
   }
 
   @Action(CatalogPage.Reset)
-  onReset(ctx: Ctx) {
+  onReset(ctx: Ctx, action: CatalogPage.Reset) {
     let state = ctx.getState();
     state.fetchSubscription?.unsubscribe();
     state = DEFAULT_CATALOG_PAGE_STATE_MODEL;
+    if (action.initialMdsIds?.length) {
+      state = this._addFilterBoxes(state, [
+        this._buildMdsIdFilterBoxModel(
+          action.initialMdsIds,
+        ),
+      ]);
+    }
     ctx.setState(state);
     ctx.dispatch(CatalogPage.NeedFetch);
   }
@@ -155,6 +162,40 @@ export class CatalogPageState implements OnDestroy {
         ),
       );
     }
+  }
+
+  private _buildMdsIdFilterBoxModel(
+    endpoints: string[],
+  ): FilterBoxModel {
+    const items: FilterBoxItem[] = endpoints.map((x) => ({
+      type: 'ITEM',
+      id: x,
+      label: x,
+    }));
+    return {
+      id: 'curatorMdsId',
+      title: 'MDS ID',
+      selectedItems: items,
+      availableItems: items,
+      searchText: '',
+    };
+  }
+
+  private _addFilterBoxes(
+    state: CatalogPageStateModel,
+    filterBoxes: FilterBoxModel[],
+  ): CatalogPageStateModel {
+    return this._recalculateActiveFilterItems({
+      ...state,
+      filters: {
+        ...state.filters,
+        ...associateAsObj(
+          filterBoxes,
+          (x) => x.id,
+          (x) => FilterBoxVisibleState.buildVisibleState(x),
+        ),
+      },
+    });
   }
 
   private _resetPage(state: CatalogPageStateModel): CatalogPageStateModel {

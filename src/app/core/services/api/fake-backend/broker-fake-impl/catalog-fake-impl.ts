@@ -112,6 +112,34 @@ export const getCatalogPage = (query: CatalogPageQuery): CatalogPageResult => {
             {id: '', title: ''},
           ],
         },
+        {
+          id: 'connectorEndpoint',
+          title: 'Connector',
+          values: [
+            {
+              id: 'https://example-connector/api/dsp',
+              title: 'https://example-connector/api/dsp',
+            },
+            {
+              id: 'https://example-connector2/api/dsp',
+              title: 'https://example-connector2/api/dsp',
+            },
+          ],
+        },
+        {
+          id: 'curatorMdsId',
+          title: 'MDS ID',
+          values: [
+            {
+              id: 'MDSL1111AA',
+              title: 'MDSL1111AA',
+            },
+            {
+              id: 'MDSL2222BB',
+              title: 'MDSL2222BB',
+            },
+          ],
+        },
       ],
     },
     paginationMetadata: {

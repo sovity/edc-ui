@@ -16,13 +16,35 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Major
 
+- Broker UI: Replaced "connectorEndpoint" with "mdsId" as query parameter on the catalog page
+
 #### Minor
 
 #### Patch
 
+- Fixed an asset select issue resulting from a bad compare function
+- Asset: Fix double encoding of query params by disallowing '&' and '=' chars in
+  form field and sending them unencoded
+- Fixed an issue that prevented custom headers from being included in HTTP Data Transfers
 - Fix `Content-Type` header being ignored by backend for transfers
 
 #### Deployment Migration Notes
+
+## [v2.5.0] - 2024-02-28
+
+### Overview
+
+Enable better integration of Broker UI and Authority Portal
+
+### Detailed Changes
+
+#### Minor
+
+- Broker UI: Added query params for the connector endpoints filter
+
+#### Deployment Migration Notes
+
+_No special deployment migration steps required_
 
 ## [v2.4.0] 2024-02-14
 

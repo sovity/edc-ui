@@ -1,6 +1,7 @@
 import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {PageEvent} from '@angular/material/paginator';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, map, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
@@ -50,13 +51,28 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     private assetDetailDialogService: AssetDetailDialogService,
     private brokerServerApiService: BrokerServerApiService,
     private store: Store,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(CatalogPage.Reset);
+    this.initializePage();
     this.startListeningToStore();
     this.startEmittingSearchText();
     this.startEmittingSortBy();
+  }
+
+  private initializePage() {
+    const mdsIds = this.parseMdsId(
+      this.route.snapshot.queryParams,
+    );
+    this.store.dispatch(new CatalogPage.Reset(mdsIds));
+
+    if (mdsIds.length) {
+      this.expandedFilterId = 'curatorMdsId';
+      // remove query params from url
+      this.router.navigate([]);
+    }
   }
 
   private startListeningToStore() {
@@ -96,6 +112,14 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
           this.store.dispatch(new CatalogPage.UpdateSorting(value));
         }
       });
+  }
+
+  private parseMdsId(params: Params): string[] {
+    if (!('mdsId' in params)) {
+      return [];
+    }
+    const mdsIds = params.mdsId;
+    return Array.isArray(mdsIds) ? [...new Set(mdsIds)] : [mdsIds];
   }
 
   onDataOfferClick(dataOffer: CatalogDataOfferMapped) {
