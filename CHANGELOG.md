@@ -26,24 +26,29 @@ the detailed section referring to by linking pull requests or issues.
 
 ### Overview
 
+Bugfixes and improvement of Broker UI integration with AP
+
 ### Detailed Changes
 
 #### Major
 
-- Broker UI: Catalog page no longer supports query parameter "connectorEndpoint" to filter connectors
-- Broker UI: Catalog page now supports query parameter "mdsId" to filter connectors
-
-#### Minor
+- Broker UI: Catalog page no longer supports query parameter "connectorEndpoint"
+  to filter connectors
+- Broker UI: Catalog page now supports query parameter "mdsId" to filter
+  connectors
 
 #### Patch
 
 - Fixed an asset select issue caused by a bad compare function
 - Asset: Fix double encoding of query params by disallowing '&' and '=' chars in
   form field and sending them unencoded
-- Fixed an issue that prevented custom headers from being included in HTTP Data Transfers
+- Fixed an issue that prevented custom headers from being included in HTTP Data
+  Transfers
 - Fix `Content-Type` header being ignored by backend for transfers
 
 #### Deployment Migration Notes
+
+_No special deployment migration steps required_
 
 ## [v2.5.0] - 2024-02-28
 
