@@ -32,9 +32,9 @@ Bugfixes and improvement of Broker UI integration with AP
 
 #### Major
 
-- Broker UI: Catalog page no longer supports query parameter "connectorEndpoint"
+- Broker UI: Catalog page no longer supports query parameter `connectorEndpoint`
   to filter connectors
-- Broker UI: Catalog page now supports query parameter "mdsId" to filter
+- Broker UI: Catalog page now supports query parameter `mdsId` to filter
   connectors
 
 #### Patch
