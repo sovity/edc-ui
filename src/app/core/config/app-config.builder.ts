@@ -31,7 +31,8 @@ export class AppConfigBuilder {
         'https://no-logout-url-configured',
       shownManagementApiUrl:
         vars[AppConfigProperties.shownManagementApiUrl] ??
-        'https://no-shown-management-api-url-configured',
+        vars[AppConfigProperties.managementApiUrl] ??
+        'https://no-backend-api-url-configured',
 
       // Other EDC Backend Endpoints
       catalogUrls: vars[AppConfigProperties.catalogUrls] ?? '',

@@ -30,7 +30,7 @@ export interface AppConfig {
   managementApiUrl: string;
   managementApiKey: string;
   logoutUrl: string; // requires feature flag logout-button
-  shownManagementApiUrl: string; // override for displayed management api url, defaults to internal managementApiUrl
+  shownManagementApiUrl: string;
 
   // Other EDC Backend Endpoints
   catalogUrls: string;

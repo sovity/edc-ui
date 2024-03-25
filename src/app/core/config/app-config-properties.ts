@@ -43,7 +43,7 @@ export const AppConfigProperties = {
   /**
    * Overridden management API URL to be displayed for the user
    */
-  shownManagementApiUrl: 'EDC_UI_SHOWN_MANAGEMENT_API_URL_IN_DASHBOARD',
+  shownManagementApiUrl: 'EDC_UI_MANAGEMENT_API_URL_SHOWN_IN_DASHBOARD',
 
   /**
    * Logout URL.
