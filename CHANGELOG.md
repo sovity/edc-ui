@@ -18,7 +18,6 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
-- Added support for displaying a configurable Management API URL for the user
 - Now displaying the Management API URL on the dashboard. The displayed URL is also overridable.
 
 #### Patch
