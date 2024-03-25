@@ -18,9 +18,14 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
+- Added support for displaying a configurable management API URL for the user
+
 #### Patch
 
 #### Deployment Migration Notes
+
+- New environment variables:
+  - `EDC_UI_SHOWN_MANAGEMENT_API_URL_IN_DASHBOARD`
 
 ## [v3.0.0] - 2024-03-22
 
