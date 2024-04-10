@@ -18,14 +18,43 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
+- Now displaying the Management API URL on the dashboard. The displayed URL is also overridable.
+
 #### Patch
 
-- Fixed an asset select issue resulting from a bad compare function
+#### Deployment Migration Notes
+
+- New **optional** environment variable:
+  - `EDC_UI_MANAGEMENT_API_URL_SHOWN_IN_DASHBOARD` as override for shown Management API URL on the dashboard
+
+## [v3.0.0] - 2024-03-22
+
+### Overview
+
+Bugfixes and improvement of Broker UI integration with AP
+
+### Detailed Changes
+
+#### Major
+
+- Broker UI: Catalog page no longer supports query parameter `connectorEndpoint`
+  to filter connectors
+- Broker UI: Catalog page now supports query parameter `mdsId` to filter
+  connectors
+
+#### Patch
+
+- Fixed an asset select issue caused by a bad compare function
 - Asset: Fix double encoding of query params by disallowing '&' and '=' chars in
   form field and sending them unencoded
+- Fixed an issue that prevented custom headers from being included in HTTP Data
+  Transfers
+- Fix `Content-Type` header being ignored by backend for transfers
 - Fixed Method Parameterization always showing "GET", added unselected option.
 
 #### Deployment Migration Notes
+
+_No special deployment migration steps required_
 
 ## [v2.5.0] - 2024-02-28
 
