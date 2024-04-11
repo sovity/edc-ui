@@ -129,6 +129,7 @@ MDS feature release for Connector UI and Broker UI
 
 - Improved handling of asset keywords in cards
 - EE: Fixed issues around logout page
+- Fix name of "Name" column
 
 #### Deployment Migration Notes
 
