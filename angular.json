@@ -64,7 +64,8 @@
                 "hidden": false,
                 "scripts": true,
                 "styles": true
-              }
+              },
+              "subresourceIntegrity": true
             },
             "development": {
               "buildOptimizer": false,
