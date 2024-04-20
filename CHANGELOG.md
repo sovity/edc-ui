@@ -22,7 +22,7 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Deployment Migration Notes
 
-## [v3.2.2] - 2024-04-18
+## [v3.2.2] - 2024-04-20
 
 ### Overview
 
