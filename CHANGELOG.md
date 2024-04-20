@@ -26,16 +26,20 @@ the detailed section referring to by linking pull requests or issues.
 
 ### Overview
 
-Bugfix for custom properties
+MDS Bufix Release
 
 ### Detailed Changes
 
 #### Patch
 
-- Fixed an issue causing pages using asset cards to crash if object custom
-  properties were used.
+- Connector UI & Broker UI: Fixed an issue causing pages using asset cards to
+  crash if object custom properties were used.
+- Removed HTTP Options "HEAD" and "OPTIONS" as they are not supported by the
+  parameterization backend.
 
 #### Deployment Migration Notes
+
+_No special deployment migration steps required_
 
 ## [v3.2.1] - 2024-04-18
 
