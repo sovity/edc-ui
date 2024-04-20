@@ -4,6 +4,7 @@ export const DATA_SOURCE_HTTP_METHODS = [
   'PUT',
   'PATCH',
   'DELETE',
+  'OPTIONS',
 ];
 export const DATA_SINK_HTTP_METHODS = DATA_SOURCE_HTTP_METHODS.filter(
   (it) => it !== 'GET',

@@ -34,8 +34,7 @@ MDS Bufix Release
 
 - Connector UI & Broker UI: Fixed an issue causing pages using asset cards to
   crash if object custom properties were used.
-- Removed HTTP Options "HEAD" and "OPTIONS" as they are not supported by the
-  parameterization backend.
+- Removed HTTP Option "HEAD" as it is not supported by the backend.
 
 #### Deployment Migration Notes
 
