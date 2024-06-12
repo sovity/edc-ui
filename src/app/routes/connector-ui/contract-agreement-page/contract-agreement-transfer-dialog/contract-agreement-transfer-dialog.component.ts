@@ -100,45 +100,45 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
       {maxWidth: '30rem'},
     );
 
-    confirmationDialogRef
-      .afterClosed()
-      .subscribe((result) => this.initiateTransfer(result));
+    confirmationDialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.initiateTransfer();
+      }
+    });
   }
 
-  private initiateTransfer(result: boolean) {
-    if (result) {
-      this.loading = true;
-      this.form.all.disable();
+  private initiateTransfer() {
+    this.loading = true;
+    this.form.all.disable();
 
-      const value = this.form.value;
-      let request$: Observable<IdResponseDto>;
-      if (value.dataAddressType === 'Custom-Transfer-Process-Request') {
-        const request = this.buildCustomTransferRequest(value);
-        request$ = this.edcApiService.initiateCustomTransfer(request);
-      } else {
-        const request = this.buildTransferRequest(value);
-        request$ = this.edcApiService.initiateTransfer(request);
-      }
-
-      request$
-        .pipe(
-          finalize(() => {
-            this.loading = false;
-            this.form.all.enable();
-          }),
-        )
-        .subscribe({
-          next: (response) =>
-            this.close({
-              transferProcessId: response.id!,
-              contractId: this.data.contractId,
-            }),
-          error: (err) => {
-            this.notificationService.showError('Failed initiating transfer!');
-            console.error('Failed initiating transfer', err);
-          },
-        });
+    const value = this.form.value;
+    let request$: Observable<IdResponseDto>;
+    if (value.dataAddressType === 'Custom-Transfer-Process-Request') {
+      const request = this.buildCustomTransferRequest(value);
+      request$ = this.edcApiService.initiateCustomTransfer(request);
+    } else {
+      const request = this.buildTransferRequest(value);
+      request$ = this.edcApiService.initiateTransfer(request);
     }
+
+    request$
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.form.all.enable();
+        }),
+      )
+      .subscribe({
+        next: (response) =>
+          this.close({
+            transferProcessId: response.id!,
+            contractId: this.data.contractId,
+          }),
+        error: (err) => {
+          this.notificationService.showError('Failed initiating transfer!');
+          console.error('Failed initiating transfer', err);
+        },
+      });
   }
 
   private close(params: ContractAgreementTransferDialogResult) {
