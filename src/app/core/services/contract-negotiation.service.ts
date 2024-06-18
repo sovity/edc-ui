@@ -68,35 +68,40 @@ export class ContractNegotiationService {
       .afterClosed()
       .subscribe((result) => {
         if (result) {
-          this.initiateNegotiation(initiateRequest)
-            .pipe(
-              tap(() => this.onStarted(contractOfferId)),
-              switchMap((negotiation) =>
-                interval(1000).pipe(
-                  switchMap(() =>
-                    this.fetchNegotiation(
-                      negotiation.contractNegotiationId,
-                    ).pipe(catchError(() => EMPTY)),
-                  ),
-                ),
-              ),
-              filter(
-                (negotiation) =>
-                  negotiation.state.simplifiedState != 'IN_PROGRESS',
-              ),
-              first(),
-            )
-            .subscribe({
-              next: (negotiation) => {
-                if (negotiation.state.simplifiedState === 'AGREED') {
-                  this.onSuccess(contractOfferId);
-                } else {
-                  this.onFailureNegotiating(contractOfferId);
-                }
-              },
-              error: () => this.onFailureStarting(),
-            });
+          this.startNegotiation(initiateRequest);
         }
+      });
+  }
+
+  private startNegotiation(initiateRequest: ContractNegotiationRequest) {
+    const contractOfferId = initiateRequest.contractOfferId;
+
+    this.initiateNegotiation(initiateRequest)
+      .pipe(
+        tap(() => this.onStarted(contractOfferId)),
+        switchMap((negotiation) =>
+          interval(1000).pipe(
+            switchMap(() =>
+              this.fetchNegotiation(negotiation.contractNegotiationId).pipe(
+                catchError(() => EMPTY),
+              ),
+            ),
+          ),
+        ),
+        filter(
+          (negotiation) => negotiation.state.simplifiedState != 'IN_PROGRESS',
+        ),
+        first(),
+      )
+      .subscribe({
+        next: (negotiation) => {
+          if (negotiation.state.simplifiedState === 'AGREED') {
+            this.onSuccess(contractOfferId);
+          } else {
+            this.onFailureNegotiating(contractOfferId);
+          }
+        },
+        error: () => this.onFailureStarting(),
       });
   }
 
