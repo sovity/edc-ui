@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -16,6 +22,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
+import {TranslateModule} from '@ngx-translate/core';
 import {JsonDialogModule} from '../../../component-library/json-dialog/json-dialog.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {NewPolicyDialogComponent} from './new-policy-dialog/new-policy-dialog.component';
@@ -30,6 +37,7 @@ import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-def
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    TranslateModule,
 
     // Angular Material
     MatBadgeModule,

@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {DataOffer} from '../../../core/services/models/data-offer';
 import {UiAssetMapped} from '../../../core/services/models/ui-asset-mapped';
 import {CatalogDataOfferMapped} from '../../../routes/broker-ui/catalog-page/catalog-page/mapping/catalog-page-result-mapped';
@@ -13,6 +14,7 @@ import {AssetPropertyGridGroupBuilder} from './asset-property-grid-group-builder
 export class AssetDetailDialogDataService {
   constructor(
     private assetPropertyGridGroupBuilder: AssetPropertyGridGroupBuilder,
+    private translateService: TranslateService,
   ) {}
 
   assetDetailsReadonly(asset: UiAssetMapped): AssetDetailDialogData {
@@ -74,7 +76,7 @@ export class AssetDetailDialogDataService {
       ),
       this.assetPropertyGridGroupBuilder.buildAssetPropertiesGroup(
         asset,
-        'Asset',
+        this.translateService.instant('general.asset'),
       ),
       ...this.assetPropertyGridGroupBuilder.buildAdditionalPropertiesGroups(
         asset,
@@ -98,7 +100,7 @@ export class AssetDetailDialogDataService {
       this.assetPropertyGridGroupBuilder.buildBrokerDataOfferGroup(dataOffer),
       this.assetPropertyGridGroupBuilder.buildAssetPropertiesGroup(
         asset,
-        'Asset',
+        this.translateService.instant('general.asset'),
       ),
       ...this.assetPropertyGridGroupBuilder.buildAdditionalPropertiesGroups(
         asset,

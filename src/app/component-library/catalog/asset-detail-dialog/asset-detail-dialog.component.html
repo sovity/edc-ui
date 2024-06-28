@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <div class="flex flex-row justify-between space-x-[10px]">
   <div class="mat-card-header" mat-dialog-title removeClass="mat-dialog-title">
     <mat-icon
@@ -38,7 +45,7 @@
       *ngIf="data.showEditButton"
       class="hover:!bg-[#EDEDED]"
       mat-icon-button
-      matTooltip="Edit"
+      matTooltip="{{ 'general.edit' | translate }}"
       (click)="onEditClick()">
       <mat-icon class="mat-icon-[22px]">edit</mat-icon>
     </button>
@@ -46,7 +53,7 @@
       *ngIf="data.showDeleteButton"
       class="hover:!bg-[#EDEDED]"
       mat-icon-button
-      matTooltip="Delete"
+      matTooltip="{{ 'general.delete' | translate }}"
       (click)="onDeleteClick()">
       <mat-icon class="mat-icon-[22px]">delete</mat-icon>
     </button>
@@ -61,9 +68,12 @@
     mode="indeterminate"></mat-progress-bar>
 
   <!-- Description -->
-  <markdown-description
-    class="pt-3"
-    [description]="asset.description"></markdown-description>
+  <div class="whitespace-pre-line">
+    {{ asset.description }}
+    <i *ngIf="!asset.description">{{
+      'component_library.no_description' | translate
+    }}</i>
+  </div>
 
   <div>
     <hr class="h-px my-5 bg-gray-200 border-0" />
@@ -81,7 +91,7 @@
     <div
       class="flex flex-row flex-wrap property-grid-group-title"
       [style.margin-top.px]="30">
-      Transfer History
+      {{ 'component_library.t_history' | translate }}
     </div>
     <transfer-history-mini-list [contractAgreement]="data.contractAgreement!!">
     </transfer-history-mini-list>
@@ -103,7 +113,7 @@
   <div class="w-full flex flex-row justify-end">
     <div class="flex gap-1 items-center">
       <button mat-button [mat-dialog-close]="null" [disabled]="loading">
-        Close
+        {{ 'general.close' | translate }}
       </button>
 
       <ng-container
@@ -115,8 +125,8 @@
           *ngIf="data.asset.isOwnConnector"
           disabled
           mat-raised-button
-          matTooltip="Cannot negotiate contracts with your own connector.">
-          Negotiate
+          matTooltip="{{ 'tooltip.negotiate' | translate }}">
+          {{ 'component_library.negotiate' | translate }}
         </button>
 
         <button
@@ -134,12 +144,14 @@
             )
           "
           (click)="onNegotiateClick(data.dataOffer!.contractOffers[0])">
-          <ng-container *ngSwitchCase="'ready'">Negotiate</ng-container>
+          <ng-container *ngSwitchCase="'ready'">{{
+            'component_library.negotiate' | translate
+          }}</ng-container>
           <ng-container *ngSwitchCase="'negotiating'">
-            Negotiating...
+            {{ 'component_library.negotiating' | translate }}
           </ng-container>
           <ng-container *ngSwitchCase="'negotiated'">
-            Successfully Negotiated
+            {{ 'component_library.succ_negotiating' | translate }}
           </ng-container>
         </button>
       </ng-container>
@@ -154,7 +166,7 @@
         [matTooltip]="data.contractAgreement?.statusTooltipText ?? ''"
         [disabled]="!data.contractAgreement?.canTransfer"
         (click)="onTransferClick()">
-        Transfer
+        {{ 'component_library.transfer' | translate }}
       </button>
     </div>
   </div>

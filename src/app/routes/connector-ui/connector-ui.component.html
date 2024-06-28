@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     class="sidenav"
@@ -24,9 +31,15 @@
           "
           [routerLinkActive]="['is-active']">
           <mat-icon mat-list-icon>{{ route.data?.icon }}</mat-icon>
-          <span matLine>{{ route.data?.title ?? route.path }}</span>
+          <span matLine>{{
+            ('connector_ui.' + (route.data?.title || '') | translate) ||
+              ('connector_ui.' + (route.path || '') | translate)
+          }}</span>
         </mat-list-item>
       </a>
+      <app-language-selector
+        class="language"
+        style="display: flex"></app-language-selector>
     </mat-nav-list>
     <div
       *ngIf="'sovity-zammad-integration' | isActiveFeature"
@@ -69,7 +82,7 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ titleService.getTitle() }}</span>
+      <span>{{ titleService.getTitle() || '' | translate }}</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

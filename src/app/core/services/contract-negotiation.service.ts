@@ -1,7 +1,14 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EMPTY, Observable, interval} from 'rxjs';
 import {catchError, filter, first, switchMap, tap} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {
   ContractNegotiationRequest,
   UiContractNegotiation,
@@ -22,6 +29,7 @@ export class ContractNegotiationService {
     private edcApiService: EdcApiService,
     private notificationService: NotificationService,
     private confirmationDialog: MatDialog,
+    private translateService: TranslateService,
   ) {
     if (!environment.production) {
       // Test data on local dev
@@ -106,7 +114,8 @@ export class ContractNegotiationService {
   }
 
   private onFailureStarting() {
-    this.notificationService.showError('Failure starting negotiation.');
+    const err = this.translateService.instant('notification.starting_neg');
+    this.notificationService.showError(err);
   }
 
   private onStarted(contractOfferId: string) {
@@ -115,13 +124,15 @@ export class ContractNegotiationService {
 
   private onFailureNegotiating(contractOfferId: string) {
     this.runningContractOffers.delete(contractOfferId);
-    this.notificationService.showError('Failed negotiating contract.');
+    const err2 = this.translateService.instant('notification.negotiation');
+    this.notificationService.showError(err2);
   }
 
   private onSuccess(contractOfferId: string) {
     this.runningContractOffers.delete(contractOfferId);
     this.doneContractOffers.add(contractOfferId);
-    this.notificationService.showInfo('Contract Negotiation complete!');
+    const mes = this.translateService.instant('notification.compl_negotiation');
+    this.notificationService.showError(mes);
   }
 
   private initiateNegotiation(

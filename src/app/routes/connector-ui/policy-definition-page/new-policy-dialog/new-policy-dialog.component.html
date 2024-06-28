@@ -1,4 +1,11 @@
-<h1 mat-dialog-title>Create New Policy</h1>
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
+<h1 mat-dialog-title>{{ 'policy_definition_page.create_pol' | translate }}</h1>
 <mat-dialog-content class="w-[800px]">
   <div class="flex flex-col">
     <!--  ID -->
@@ -15,13 +22,13 @@
 
     <!-- Policy Type -->
     <mat-form-field color="accent">
-      <mat-label>Type</mat-label>
+      <mat-label>{{ 'general.type' | translate }}</mat-label>
       <mat-select [formControl]="form.group.controls.policyType">
         <mat-option value="Time-Period-Restricted">
-          Time-Period-Restricted
+          {{ 'policy_definition_page.time_res' | translate }}
         </mat-option>
         <mat-option value="Connector-Restricted-Usage">
-          Connector-Restricted-Usage
+          {{ 'policy_definition_page.conn_res' | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -32,7 +39,9 @@
         *ngIf="form.group.controls.range; let ctrl"
         class="mt-[20px]"
         color="accent">
-        <mat-label>Date Range</mat-label>
+        <mat-label>{{
+          'policy_definition_page.date_range' | translate
+        }}</mat-label>
         <mat-date-range-input
           required
           [formGroup]="ctrl"
@@ -62,7 +71,7 @@
 
 <mat-dialog-actions class="flex flex-row justify-end">
   <button mat-button [mat-dialog-close]="null" [disabled]="loading">
-    Cancel
+    {{ 'general.cancel' | translate }}
   </button>
 
   <button
@@ -70,6 +79,6 @@
     mat-raised-button
     [disabled]="loading || !form.group.valid"
     (click)="onSave()">
-    Create
+    {{ 'general.create' | translate }}
   </button>
 </mat-dialog-actions>

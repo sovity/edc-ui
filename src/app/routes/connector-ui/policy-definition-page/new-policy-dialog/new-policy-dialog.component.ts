@@ -1,7 +1,14 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Component, OnDestroy} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {finalize, takeUntil} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {PolicyDefinitionBuilder} from '../../../../core/services/policy-definition-builder';
@@ -24,6 +31,7 @@ export class NewPolicyDialogComponent implements OnDestroy {
     private dialogRef: MatDialogRef<NewPolicyDialogComponent>,
     public validationMessages: ValidationMessages,
     private policyDefinitionBuilder: PolicyDefinitionBuilder,
+    private translateService: TranslateService,
   ) {}
 
   onSave() {
@@ -43,12 +51,16 @@ export class NewPolicyDialogComponent implements OnDestroy {
       )
       .subscribe({
         complete: () => {
-          this.notificationService.showInfo('Successfully created policy.');
+          const succ_pol = this.translateService.instant(
+            'notification.succ_pol',
+          );
+          this.notificationService.showInfo(succ_pol);
           this.close({refreshList: true});
         },
         error: (error) => {
-          console.error('Failed creating Policy!', error);
-          this.notificationService.showError('Failed creating policy!');
+          const fai_pol = this.translateService.instant('notification.fai_pol');
+          console.error(fai_pol, error);
+          this.notificationService.showError(fai_pol);
         },
       });
   }
