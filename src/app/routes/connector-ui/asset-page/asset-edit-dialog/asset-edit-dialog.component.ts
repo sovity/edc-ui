@@ -1,7 +1,14 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Component, Inject, OnDestroy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {EMPTY, Observable, Subject, switchMap} from 'rxjs';
 import {catchError, finalize, map, takeUntil, tap} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {IdResponseDto} from '@sovity.de/edc-client';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {AssetCreateRequestBuilder} from '../../../../core/services/asset-create-request-builder';
@@ -41,6 +48,7 @@ export class AssetEditDialogComponent implements OnDestroy {
     private assetEntryBuilder: AssetCreateRequestBuilder,
     private notificationService: NotificationService,
     private dialogRef: MatDialogRef<AssetEditDialogComponent>,
+    private translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) private data: AssetEditDialogData,
   ) {
     this.form.reset(this.data.initialFormValue);
@@ -61,11 +69,16 @@ export class AssetEditDialogComponent implements OnDestroy {
         // Save Asset
         takeUntil(this.ngOnDestroy$),
         tap(() => {
-          this.notificationService.showInfo('Successfully saved asset');
+          const asset = this.translateService.instant('notification.asset');
+          this.notificationService.showInfo(asset);
         }),
         catchError((error) => {
-          console.error('Failed saving asset!', error);
-          this.notificationService.showError('Failed saving asset!');
+          const err = this.translateService.instant(
+            'notification.failed_asset',
+          );
+          console.error(err, error);
+          this.notificationService.showError(err);
+
           this.form.all.enable();
           return EMPTY;
         }),
@@ -85,8 +98,11 @@ export class AssetEditDialogComponent implements OnDestroy {
       .subscribe({
         next: (result: AssetEditDialogResult) => this.close(result),
         error: (error) => {
-          console.error('Failed refreshing asset list!', error);
-          this.notificationService.showError('Failed refreshing asset list!');
+          const err = this.translateService.instant(
+            'notification.failed_refresh',
+          );
+          console.error(err, error);
+          this.notificationService.showError(err);
         },
       });
   }

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EdcUiFeature} from '../../core/config/profiles/edc-ui-feature';
@@ -20,43 +26,51 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardPageComponent,
-    data: {title: 'Dashboard', icon: 'data_usage'},
+    title: 'connector_ui.dashboard',
+    data: {title: 'dashboard', icon: 'data_usage'},
   },
   {
     path: 'catalog-browser',
     component: CatalogBrowserPageComponent,
-    data: {title: 'Catalog Browser', icon: 'sim_card'},
+    title: 'connector_ui.catalog',
+    data: {title: 'catalog', icon: 'sim_card'},
   },
   {
     path: 'contracts',
     component: ContractAgreementPageComponent,
-    data: {title: 'Contracts', icon: 'attachment'},
+    title: 'connector_ui.contracts',
+    data: {title: 'contracts', icon: 'attachment'},
   },
   {
     path: 'transfer-history',
     component: TransferHistoryPageComponent,
-    data: {title: 'Transfer History', icon: 'assignment'},
+    title: 'connector_ui.transfer',
+    data: {title: 'transfer', icon: 'assignment'},
   },
   {
     path: 'my-assets', // must not be "assets" to prevent conflict with assets directory
     component: AssetPageComponent,
-    data: {title: 'Assets', icon: 'upload'},
+    title: 'connector_ui.assets',
+    data: {title: 'assets', icon: 'upload'},
   },
   {
     path: 'policies',
     component: PolicyDefinitionPageComponent,
-    data: {title: 'Policies', icon: 'policy'},
+    title: 'connector_ui.policies',
+    data: {title: 'policies', icon: 'policy'},
   },
   {
     path: 'contract-definitions',
     component: ContractDefinitionPageComponent,
-    data: {title: 'Contract Definitions', icon: 'rule'},
+    title: 'connector_ui.contract',
+    data: {title: 'contract', icon: 'rule'},
   },
   {
     path: 'logout',
     component: LogoutPageComponent,
+    title: 'connector_ui.logout',
     data: {
-      title: 'Logout',
+      title: 'logout',
       icon: 'logout',
       requiresFeature: 'logout-button' as EdcUiFeature,
     },

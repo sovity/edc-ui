@@ -1,12 +1,25 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <h1 mat-dialog-title>
-  {{ form.mode === 'CREATE' ? 'Create New Asset' : 'Edit Asset' }}
+  {{
+    form.mode === 'CREATE'
+      ? ('asset_page.create_asset' | translate)
+      : ('asset_page.edit_asset' | translate)
+  }}
 </h1>
 <mat-dialog-content class="w-[800px]">
   <mat-vertical-stepper [linear]="true">
     <!-- Step: Metadata -->
     <mat-step [stepControl]="form.metadata">
       <form [formGroup]="form.metadata">
-        <ng-template matStepLabel>General Information</ng-template>
+        <ng-template matStepLabel>{{
+          'asset_page.information' | translate
+        }}</ng-template>
         <div class="flex flex-col mt-[10px]">
           <div class="flex flex-row space-x-[10px]">
             <!-- Name -->
@@ -33,7 +46,7 @@
           <mat-form-field
             *ngIf="form.metadata.controls.id; let ctrl"
             class="grow">
-            <mat-label>Asset ID</mat-label>
+            <mat-label>{{ 'asset_page.asset_id' | translate }}</mat-label>
             <input
               placeholder="my-asset-1"
               matInput
@@ -53,7 +66,7 @@
           <!-- Description -->
 
           <mat-form-field>
-            <mat-label>Description</mat-label>
+            <mat-label>{{ 'general.description' | translate }}</mat-label>
             <textarea
               class="h-36"
               matInput
@@ -62,7 +75,7 @@
                 '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
               "></textarea>
             <mat-hint class="flex flex-row items-center gap-1 mb-1">
-              The description uses
+              {{ 'asset_page.descrip' | translate }}
               <a
                 class="link"
                 externalLink
@@ -76,19 +89,19 @@
 
           <!-- Keywords -->
           <keyword-select
-            label="Keywords"
+            [label]="'asset_page.keywords' | translate"
             [control]="form.metadata.controls.keywords"></keyword-select>
 
           <!-- Language -->
           <language-select
             class="grow"
-            label="Language"
+            [label]="'general.language' | translate"
             [control]="form.metadata.controls.language"></language-select>
 
           <div class="flex flex-row space-x-[10px]">
             <!-- Content Type -->
             <mat-form-field class="grow">
-              <mat-label>Content Type</mat-label>
+              <mat-label>{{ 'general.content' | translate }}</mat-label>
               <input
                 matInput
                 [formControl]="form.metadata.controls.contentType"
@@ -100,7 +113,7 @@
           <mat-form-field
             *ngIf="form.metadata.controls.endpointDocumentation; let ctrl"
             class="grow">
-            <mat-label>Endpoint Documentation</mat-label>
+            <mat-label>{{ 'general.endpoint_doc' | translate }}</mat-label>
             <input placeholder="https://" matInput [formControl]="ctrl" />
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
               {{ validationMessages.invalidUrlMessage }}
@@ -112,7 +125,7 @@
             <mat-form-field
               *ngIf="form.metadata.controls.publisher; let ctrl"
               class="grow">
-              <mat-label>Publisher</mat-label>
+              <mat-label>{{ 'general.publisher' | translate }}</mat-label>
               <input placeholder="https://" matInput [formControl]="ctrl" />
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
                 {{ validationMessages.invalidUrlMessage }}
@@ -123,7 +136,7 @@
             <mat-form-field
               *ngIf="form.metadata.controls.standardLicense; let ctrl"
               class="grow">
-              <mat-label>Standard License</mat-label>
+              <mat-label>{{ 'general.st_license' | translate }}</mat-label>
               <input placeholder="https://" matInput [formControl]="ctrl" />
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
                 {{ validationMessages.invalidUrlMessage }}
@@ -136,13 +149,15 @@
     <!-- Step: Advanced -->
     <mat-step *ngIf="form.advanced" [stepControl]="form.advanced">
       <form [formGroup]="form.advanced">
-        <ng-template matStepLabel>Advanced Information</ng-template>
+        <ng-template matStepLabel>{{
+          'general.ad_info' | translate
+        }}</ng-template>
         <div class="flex flex-col mt-[10px]">
           <div class="flex flex-row space-x-[10px]">
             <!-- Data Category -->
             <data-category-select
               class="grow"
-              label="Data Category"
+              [label]="'general.category' | translate"
               [control]="
                 form.advanced.controls.dataCategory
               "></data-category-select>
@@ -150,7 +165,7 @@
             <!-- Data Subcategory -->
             <data-subcategory-select
               class="grow"
-              label="Data Subcategory"
+              [label]="'general.subcategory' | translate"
               [dataCategory]="form.dataCategory"
               [control]="
                 form.advanced.controls.dataSubcategory
@@ -159,7 +174,7 @@
 
           <!-- Data Model -->
           <mat-form-field>
-            <mat-label>Data Model</mat-label>
+            <mat-label>{{ 'general.model' | translate }}</mat-label>
             <input
               matInput
               placeholder="unspecified"
@@ -170,14 +185,14 @@
             <!-- Transport Mode -->
             <transport-mode-select
               class="grow"
-              label="Transport Mode"
+              [label]="'general.transport' | translate"
               [control]="
                 form.advanced.controls.transportMode
               "></transport-mode-select>
 
             <!-- Geo reference method -->
             <mat-form-field class="grow">
-              <mat-label>Geo reference method</mat-label>
+              <mat-label>{{ 'general.geo_method' | translate }}</mat-label>
               <input
                 matInput
                 placeholder="Lat/Lon"
@@ -187,18 +202,18 @@
 
           <!-- Sovereign legal name -->
           <mat-form-field>
-            <mat-label>Sovereign</mat-label>
+            <mat-label>{{ 'general.sovereign' | translate }}</mat-label>
             <input
               matInput
               placeholder="Data Owning Company GMBH"
               [formControl]="form.advanced.controls.sovereignLegalName" />
-            <mat-hint>Legal name of the data owner</mat-hint>
+            <mat-hint>{{ 'asset_page.legal_name' | translate }}</mat-hint>
           </mat-form-field>
 
           <!-- Data update frequency -->
           <div class="flex flex-row space-x-[10px] mt-[15px]">
             <mat-form-field class="grow">
-              <mat-label>Data update frequency</mat-label>
+              <mat-label>{{ 'general.frequency' | translate }}</mat-label>
               <input
                 matInput
                 placeholder="every month"
@@ -207,7 +222,7 @@
 
             <!-- Geo location -->
             <mat-form-field class="grow">
-              <mat-label>Geo location</mat-label>
+              <mat-label>{{ 'general.geo_location' | translate }}</mat-label>
               <input
                 matInput
                 placeholder="40.741895,-73.989308"
@@ -216,7 +231,7 @@
           </div>
 
           <!-- NUTS locations -->
-          <div class="form-section-title">NUTS locations</div>
+          <div class="form-section-title">{{ 'general.nuts' | translate }}</div>
           <div
             *ngFor="
               let location of form.advanced.controls.nutsLocations.controls;
@@ -224,7 +239,7 @@
             "
             class="flex flex-row space-x-[10px]">
             <mat-form-field class="grow">
-              <mat-label>NUTS location</mat-label>
+              <mat-label>{{ 'general.nuts' | translate }}</mat-label>
               <input matInput placeholder="DE929" [formControl]="location" />
             </mat-form-field>
 
@@ -233,7 +248,7 @@
               color="warn"
               style="height: 54px; margin-top: 4px; margin-left: 8px"
               (click)="form.onNutsLocationsRemoveClick(i)">
-              Remove
+              {{ 'general.remove' | translate }}
             </button>
           </div>
 
@@ -242,12 +257,12 @@
               mat-button
               color="accent"
               (click)="form.onNutsLocationsAddClick()">
-              Add location
+              {{ 'asset_page.add_loc' | translate }}
             </button>
           </div>
 
           <!-- Data sample URLs -->
-          <div class="form-section-title">Data samples</div>
+          <div class="form-section-title">{{ 'general.data' | translate }}</div>
           <div
             *ngFor="
               let sample of form.advanced.controls.dataSampleUrls.controls;
@@ -267,7 +282,7 @@
               color="warn"
               style="height: 54px; margin-top: 4px; margin-left: 8px"
               (click)="form.onDataSampleUrlsRemoveClick(i)">
-              Remove
+              {{ 'general.remove' | translate }}
             </button>
           </div>
 
@@ -276,12 +291,14 @@
               mat-button
               color="accent"
               (click)="form.onDataSampleUrlsAddClick()">
-              Add data sample
+              {{ 'asset_page.add_sample' | translate }}
             </button>
           </div>
 
           <!-- Reference file URLs -->
-          <div class="form-section-title">Reference files</div>
+          <div class="form-section-title">
+            {{ 'general.files' | translate }}
+          </div>
           <div
             *ngFor="
               let file of form.advanced.controls.referenceFileUrls.controls;
@@ -301,7 +318,7 @@
               color="warn"
               style="height: 54px; margin-top: 4px; margin-left: 8px"
               (click)="form.onReferenceFileUrlsRemoveClick(i)">
-              Remove
+              {{ 'general.remove' | translate }}
             </button>
           </div>
 
@@ -310,14 +327,14 @@
               mat-button
               color="accent"
               (click)="form.onReferenceFileUrlsAddClick()">
-              Add reference file
+              {{ 'asset_page.add_file' | translate }}
             </button>
           </div>
 
           <!-- Reference files description -->
           <mat-form-field
             *ngIf="this.form.advanced.controls.referenceFileUrls.length > 0">
-            <mat-label>Reference files description</mat-label>
+            <mat-label>{{ 'asset_page.file_des' | translate }}</mat-label>
             <textarea
               class="h-28"
               matInput
@@ -325,9 +342,7 @@
               [formControl]="
                 form.advanced.controls.referenceFilesDescription
               "></textarea>
-            <mat-hint
-              >Additional information regarding the reference files</mat-hint
-            >
+            <mat-hint>{{ 'asset_page.info_file' | translate }}</mat-hint>
           </mat-form-field>
 
           <!-- Temporal coverage -->
@@ -335,7 +350,7 @@
             *ngIf="form.advanced.controls.temporalCoverage; let ctrl"
             class="mt-[20px]"
             color="accent">
-            <mat-label>Temporal coverage</mat-label>
+            <mat-label>{{ 'general.coverage' | translate }}</mat-label>
             <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
               <input
                 matStartDate
@@ -358,7 +373,7 @@
 
           <!-- Conditions for use -->
           <mat-form-field class="mt-[20px]">
-            <mat-label>Conditions for use</mat-label>
+            <mat-label>{{ 'general.conditions' | translate }}</mat-label>
             <textarea
               class="h-28"
               matInput
@@ -366,10 +381,7 @@
               [formControl]="
                 form.advanced.controls.conditionsForUse
               "></textarea>
-            <mat-hint
-              >Additional not legally relevant usage instructions (e.g. how to
-              cite the dataset)</mat-hint
-            >
+            <mat-hint>{{ 'asset_page.instructions' | translate }}</mat-hint>
           </mat-form-field>
         </div>
       </form>
@@ -377,12 +389,16 @@
     <!-- Step: Datasource -->
     <mat-step *ngIf="form.datasource" [stepControl]="form.datasource">
       <form [formGroup]="form.datasource">
-        <ng-template matStepLabel>Datasource Information</ng-template>
-        <div class="form-section-title">Datasource</div>
+        <ng-template matStepLabel>{{
+          'asset_page.datasource_info' | translate
+        }}</ng-template>
+        <div class="form-section-title">
+          {{ 'asset_page.datasource' | translate }}
+        </div>
         <div class="flex flex-col mt-[10px]">
           <!-- Data Address Type -->
           <data-address-type-select
-            label="Type"
+            label="{{ 'general.type' | translate }}"
             mode="Datasource"
             [control]="
               form.datasource.controls.dataAddressType
@@ -395,7 +411,9 @@
                 form.datasource.controls.dataDestination;
               let ctrl
             ">
-            <mat-label>Custom Datasource Config (JSON)</mat-label>
+            <mat-label>{{
+              'asset_page.datasource_config' | translate
+            }}</mat-label>
             <textarea
               matInput
               placeholder='{"https://w3id.org/edc/v0.0.1/ns/type": "HttpData", ...}'
@@ -405,11 +423,12 @@
             </mat-error>
           </mat-form-field>
           <ng-container *ngIf="form.dataAddressType === 'Http'">
-            <div class="form-section-title">Method</div>
+            <div class="form-section-title">
+              {{ 'general.method' | translate }}
+            </div>
 
             <div *ngIf="form.proxyMethod" class="mb-[10px] px-[3px] text-sm">
-              The consuming side <b>must</b> provide a Custom HTTP Method with
-              method parameterization enabled.
+              {{ 'asset_page.provide' | translate }}
             </div>
 
             <!-- Method (Rest-Api) -->
@@ -417,7 +436,8 @@
               <mat-form-field
                 *ngIf="form.datasource.controls.httpMethod; let ctrl">
                 <mat-label>
-                  {{ form.proxyMethod ? 'Default' : '' }} Method
+                  {{ form.proxyMethod ? 'Default' : '' }}
+                  {{ 'general.method' | translate }}
                 </mat-label>
                 <mat-select [formControl]="ctrl">
                   <mat-option *ngFor="let method of methods" [value]="method">{{
@@ -435,16 +455,19 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Method Parameterization
+                {{
+                  ctrl.value
+                    ? ('general.disable' | translate)
+                    : ('general.enable' | translate)
+                }}
+                {{ 'general.method_para' | translate }}
               </button>
             </div>
 
             <div class="form-section-title">URL</div>
 
             <div *ngIf="form.proxyPath" class="mb-[10px] px-[3px] text-sm">
-              The consuming side <b>must</b> provide a Custom HTTP Subpath with
-              method parameterization is enabled. The Custom HTTP Subpath will
-              be appended to the base path.
+              {{ 'asset_page.http_subpath' | translate }}
             </div>
 
             <!-- Base Path (Rest-Api) -->
@@ -467,12 +490,18 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
+                {{
+                  ctrl.value
+                    ? ('general.disable' | translate)
+                    : ('general.enable' | translate)
+                }}
+                {{ 'asset_page.path_para' | translate }}
               </button>
             </div>
 
             <div class="form-section-title">
-              {{ form.proxyQueryParams ? 'Default' : '' }} Query Params
+              {{ form.proxyQueryParams ? 'Default' : '' }}
+              {{ 'asset_page.query_para' | translate }}
             </div>
 
             <div
@@ -483,7 +512,7 @@
               class="flex flex-row space-x-[10px]">
               <!-- Query Param Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>Query Param Name</mat-label>
+                <mat-label>{{ 'asset_page.query_name' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="key"
@@ -502,7 +531,7 @@
 
               <!-- Query Param Value -->
               <mat-form-field class="grow">
-                <mat-label>Value</mat-label>
+                <mat-label>{{ 'general.value' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="..."
@@ -523,16 +552,14 @@
                 color="warn"
                 style="height: 54px; margin-top: 4px; margin-left: 8px"
                 (click)="form.onHttpQueryParamsRemoveClick(i)">
-                Remove
+                {{ 'general.remove' | translate }}
               </button>
             </div>
 
             <div
               *ngIf="form.proxyQueryParams"
               class="text-sm mb-[10px] px-[3px]">
-              With query param parameterization enabled, the default query
-              params and the query params provided by the consumer will be
-              merged.
+              {{ 'asset_page.default_query' | translate }}
             </div>
 
             <div class="flex flex-row mb-[10px] space-x-[10px]">
@@ -541,7 +568,9 @@
                 mat-button
                 color="accent"
                 (click)="form.onHttpQueryParamsAddClick()">
-                Add {{ form.proxyQueryParams ? 'Default' : '' }} Query Param
+                {{ 'general.add' | translate }}
+                {{ form.proxyQueryParams ? 'Default' : '' }}
+                {{ 'asset_page.query_para' | translate }}
               </button>
 
               <!-- Toggle Proxy Query Param Parameterization Button -->
@@ -550,16 +579,20 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param
-                Parameterization
+                {{
+                  ctrl.value
+                    ? ('general.disable' | translate)
+                    : ('general.enable' | translate)
+                }}{{ 'asset_page.query_parameter' | translate }}
               </button>
             </div>
 
-            <div class="form-section-title">Request Body</div>
+            <div class="form-section-title">
+              {{ 'asset_page.request_body' | translate }}
+            </div>
 
             <div class="text-sm mb-[10px] px-[3px]">
-              The request body can only be set from the consumer side, if
-              parameterization is enabled.
+              {{ 'asset_page.info_body' | translate }}
             </div>
 
             <!-- Toggle Proxy Body Button -->
@@ -570,12 +603,18 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
-                Parameterization
+                {{
+                  ctrl.value
+                    ? ('general.disable' | translate)
+                    : ('general.enable' | translate)
+                }}
+                {{ 'asset_page.request_para' | translate }}
               </button>
             </div>
 
-            <div class="form-section-title">Authentication</div>
+            <div class="form-section-title">
+              {{ 'general.auth' | translate }}
+            </div>
 
             <!-- Add Authentication Button -->
             <div
@@ -591,7 +630,7 @@
                     'Vault-Secret'
                   )
                 ">
-                Add Authentication
+                {{ 'general.add_auth' | translate }}
               </button>
             </div>
 
@@ -601,13 +640,15 @@
                 form.datasource.controls.httpAuthHeaderType.value !== 'None'
               "
               class="grow">
-              <mat-label>Type</mat-label>
+              <mat-label>{{ 'general.type' | translate }}</mat-label>
               <mat-select
                 [formControl]="form.datasource.controls.httpAuthHeaderType">
                 <mat-option value="Vault-Secret">
-                  Header with Vault Secret
+                  {{ 'general.header_sec' | translate }}
                 </mat-option>
-                <mat-option value="Value">Header with Value</mat-option>
+                <mat-option value="Value">{{
+                  'general.header_val' | translate
+                }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div
@@ -617,7 +658,7 @@
               class="flex flex-row space-x-[10px]">
               <!-- Auth Header Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>Auth Header Name</mat-label>
+                <mat-label>{{ 'general.auth_header' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="Authorization"
@@ -631,7 +672,7 @@
                   form.datasource.controls.httpAuthHeaderType.value === 'Value'
                 "
                 class="grow">
-                <mat-label>Auth Header Value</mat-label>
+                <mat-label>{{ 'general.auth_value' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="Bearer ..."
@@ -647,7 +688,7 @@
                   'Vault-Secret'
                 "
                 class="grow">
-                <mat-label>Vault Secret Name</mat-label>
+                <mat-label>{{ 'general.vault_secret' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="MySecret123"
@@ -669,11 +710,13 @@
                 (click)="
                   form.datasource.controls.httpAuthHeaderType.setValue('None')
                 ">
-                Remove Authentication
+                {{ 'general.rem_auth' | translate }}
               </button>
             </div>
 
-            <div class="form-section-title">Additional Headers</div>
+            <div class="form-section-title">
+              {{ 'general.add_header' | translate }}
+            </div>
 
             <div
               *ngFor="
@@ -683,7 +726,7 @@
               class="flex flex-row space-x-[10px]">
               <!-- Header Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>Header Name</mat-label>
+                <mat-label>{{ 'general.header_name' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="Header"
@@ -693,7 +736,7 @@
 
               <!-- Header Value -->
               <mat-form-field class="grow">
-                <mat-label>Header Value</mat-label>
+                <mat-label>{{ 'general.header_value' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="..."
@@ -707,7 +750,7 @@
                 color="warn"
                 style="height: 54px; margin-top: 4px; margin-left: 8px"
                 (click)="form.onHttpHeadersRemoveClick(i)">
-                Remove
+                {{ 'general.remove' | translate }}
               </button>
             </div>
 
@@ -717,7 +760,7 @@
                 mat-button
                 color="accent"
                 (click)="form.onHttpHeadersAddClick()">
-                Add Additional Header
+                {{ 'general.add_add_header' | translate }}
               </button>
             </div>
           </ng-container>
@@ -733,7 +776,7 @@
     color="default"
     [mat-dialog-close]="null"
     [disabled]="loading">
-    Cancel
+    {{ 'general.cancel' | translate }}
   </button>
 
   <button
@@ -741,6 +784,10 @@
     color="primary"
     [disabled]="!form.all.valid || loading"
     (click)="onSave()">
-    {{ form.mode === 'CREATE' ? 'Create' : 'Update' }}
+    {{
+      form.mode === 'CREATE'
+        ? ('general.create' | translate)
+        : ('general.update' | translate)
+    }}
   </button>
 </mat-dialog-actions>

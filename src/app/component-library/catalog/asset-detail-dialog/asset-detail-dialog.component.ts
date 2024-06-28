@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Component, Inject, OnDestroy} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -6,6 +12,7 @@ import {
 } from '@angular/material/dialog';
 import {Observable, Subject, isObservable} from 'rxjs';
 import {filter, finalize, takeUntil} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {UiContractOffer} from '@sovity.de/edc-client';
 import {EdcApiService} from '../../../core/services/api/edc-api.service';
 import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
@@ -63,6 +70,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA)
     private _data: AssetDetailDialogData | Observable<AssetDetailDialogData>,
     public contractNegotiationService: ContractNegotiationService,
+    private translateService: TranslateService,
   ) {
     if (isObservable(this._data)) {
       this._data
@@ -114,7 +122,11 @@ export class AssetDetailDialogComponent implements OnDestroy {
   }
 
   private confirmDelete(): Observable<boolean> {
-    const dialogData = ConfirmDialogModel.forDelete('asset', this.asset.title);
+    const dialogData = ConfirmDialogModel.forDelete(
+      'asset',
+      this.asset.title,
+      this.translateService,
+    );
     const ref = this.matDialog.open(ConfirmationDialogComponent, {
       maxWidth: '20%',
       data: dialogData,

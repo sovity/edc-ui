@@ -63,9 +63,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   }
 
   private initializePage() {
-    const mdsIds = this.parseMdsId(
-      this.route.snapshot.queryParams,
-    );
+    const mdsIds = this.parseMdsId(this.route.snapshot.queryParams);
     this.store.dispatch(new CatalogPage.Reset(mdsIds));
 
     if (mdsIds.length) {

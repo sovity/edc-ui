@@ -1,5 +1,12 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -66,14 +73,19 @@ export class ConfirmDialogModel {
   public static forDelete(
     type: string,
     identifier: string,
+    translateService: TranslateService,
   ): ConfirmDialogModel {
     const dialogData = new ConfirmDialogModel(
-      'Deletion confirmation',
-      `Please confirm you want to delete ${type} ${identifier}. This action cannot be undone.`,
+      `${translateService.instant('component_library.delete_title')}`,
+      `${translateService.instant(
+        'component_library.delete_one',
+      )} ${type} ${identifier} ${translateService.instant(
+        'component_library.delete_two',
+      )}`,
     );
-    dialogData.confirmColor = 'warn';
-    dialogData.confirmText = 'Delete';
-    dialogData.cancelText = 'Cancel';
+    dialogData.confirmColor = translateService.instant('general.warn');
+    dialogData.confirmText = translateService.instant('general.delete');
+    dialogData.cancelText = translateService.instant('general.close');
     return dialogData;
   }
 }

@@ -49,9 +49,7 @@ export class CatalogPageState implements OnDestroy {
     state = DEFAULT_CATALOG_PAGE_STATE_MODEL;
     if (action.initialMdsIds?.length) {
       state = this._addFilterBoxes(state, [
-        this._buildMdsIdFilterBoxModel(
-          action.initialMdsIds,
-        ),
+        this._buildMdsIdFilterBoxModel(action.initialMdsIds),
       ]);
     }
     ctx.setState(state);
@@ -164,9 +162,7 @@ export class CatalogPageState implements OnDestroy {
     }
   }
 
-  private _buildMdsIdFilterBoxModel(
-    endpoints: string[],
-  ): FilterBoxModel {
+  private _buildMdsIdFilterBoxModel(endpoints: string[]): FilterBoxModel {
     const items: FilterBoxItem[] = endpoints.map((x) => ({
       type: 'ITEM',
       id: x,
