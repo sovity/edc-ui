@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {
   Component,
   EventEmitter,
@@ -9,6 +15,7 @@ import {
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {EMPTY, Subject} from 'rxjs';
 import {catchError, filter, tap} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {PolicyDefinitionDto} from '@sovity.de/edc-client';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
@@ -45,6 +52,7 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
     private assetDetailDialogService: AssetDetailDialogService,
     private matDialog: MatDialog,
     private notificationService: NotificationService,
+    private translateService: TranslateService,
   ) {}
 
   onPolicyClick(policyDefinition: PolicyDefinitionDto) {
@@ -78,6 +86,7 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
         confirmation: ConfirmDialogModel.forDelete(
           'contract definition',
           card.id,
+          this.translateService,
         ),
         action: () =>
           this.edcApiService.deleteContractDefinition(card.id).pipe(

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -8,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {TranslateModule} from '@ngx-translate/core';
 import {InitiateNegotiationConfirmTosDialogModule} from '../initiate-negotiation-confirm-tos-dialog/initiate-negotiation-confirm-tos-dialog.module';
 import {JsonDialogModule} from '../json-dialog/json-dialog.module';
 import {PipesAndDirectivesModule} from '../pipes-and-directives/pipes-and-directives.module';
@@ -50,6 +57,7 @@ import {TruncatedShortDescription} from './truncated-short-description/truncated
     PropertyGridModule,
     UiElementsModule,
     PipesAndDirectivesModule,
+    TranslateModule,
 
     InitiateNegotiationConfirmTosDialogModule,
   ],

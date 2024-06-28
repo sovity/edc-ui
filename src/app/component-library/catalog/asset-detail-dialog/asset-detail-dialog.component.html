@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <div class="flex flex-row justify-between space-x-[10px]">
   <div class="mat-card-header" mat-dialog-title removeClass="mat-dialog-title">
     <mat-icon
@@ -39,14 +46,14 @@
     <button
       *ngIf="data.showEditButton"
       mat-icon-button
-      matTooltip="Edit"
+      matTooltip="{{ 'general.edit' | translate }}"
       (click)="onEditClick()">
       <mat-icon class="mat-icon-[22px]">edit</mat-icon>
     </button>
     <button
       *ngIf="data.showDeleteButton"
       mat-icon-button
-      matTooltip="Delete"
+      matTooltip="{{ 'general.delete' | translate }}"
       (click)="onDeleteClick()">
       <mat-icon class="mat-icon-[22px]">delete</mat-icon>
     </button>
@@ -122,7 +129,7 @@
     <div
       class="flex flex-row flex-wrap property-grid-group-title"
       [style.margin-top.px]="30">
-      Transfer History
+      {{ 'component_library.t_history' | translate }}
     </div>
     <transfer-history-mini-list [contractAgreement]="data.contractAgreement!!">
     </transfer-history-mini-list>
@@ -171,7 +178,7 @@
 
     <div class="flex gap-1 items-center">
       <button mat-stroked-button [mat-dialog-close]="null" [disabled]="loading">
-        Close
+        {{ 'general.close' | translate }}
       </button>
 
       <ng-container
@@ -180,8 +187,8 @@
           *ngIf="data.asset.isOwnConnector"
           disabled
           mat-raised-button
-          matTooltip="Cannot negotiate contracts with your own connector.">
-          Negotiate
+          matTooltip="{{ 'tooltip.negotiate' | translate }}">
+          {{ 'component_library.negotiate' | translate }}
         </button>
 
         <button
@@ -199,12 +206,14 @@
             )
           "
           (click)="onNegotiateClick(data.dataOffer!.contractOffers[0])">
-          <ng-container *ngSwitchCase="'ready'">Negotiate</ng-container>
+          <ng-container *ngSwitchCase="'ready'">{{
+            'component_library.negotiate' | translate
+          }}</ng-container>
           <ng-container *ngSwitchCase="'negotiating'">
-            Negotiating...
+            {{ 'component_library.negotiating' | translate }}
           </ng-container>
           <ng-container *ngSwitchCase="'negotiated'">
-            Successfully Negotiated
+            {{ 'component_library.succ_negotiating' | translate }}
           </ng-container>
         </button>
       </ng-container>
@@ -229,7 +238,7 @@
         [matTooltip]="data.contractAgreement?.statusTooltipText ?? ''"
         [disabled]="!data.contractAgreement?.canTransfer"
         (click)="onTransferClick()">
-        Transfer
+        {{ 'component_library.transfer' | translate }}
       </button>
     </div>
   </div>

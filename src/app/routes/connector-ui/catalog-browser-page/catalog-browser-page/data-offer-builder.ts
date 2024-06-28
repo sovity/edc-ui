@@ -1,4 +1,11 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {UiContractOffer, UiDataOffer} from '@sovity.de/edc-client';
 import {PolicyPropertyFieldBuilder} from '../../../../component-library/catalog/asset-detail-dialog/policy-property-field-builder';
 import {AssetBuilder} from '../../../../core/services/asset-builder';
@@ -11,6 +18,7 @@ export class DataOfferBuilder {
   constructor(
     private assetBuilder: AssetBuilder,
     private policyPropertyFieldBuilder: PolicyPropertyFieldBuilder,
+    private translateService: TranslateService,
   ) {}
   buildDataOffer(dataOffer: UiDataOffer): DataOffer {
     const asset = this.assetBuilder.buildAsset(dataOffer.asset);
@@ -51,6 +59,9 @@ export class DataOfferBuilder {
   }
 
   private getGroupLabel(i: number, total: number) {
-    return `Contract Offer ${total > 1 ? i : ''}`;
+    const contract = this.translateService.instant(
+      'catalog_browser_page.contract',
+    );
+    return `${contract}  ${total > 1 ? i : ''}`;
   }
 }
