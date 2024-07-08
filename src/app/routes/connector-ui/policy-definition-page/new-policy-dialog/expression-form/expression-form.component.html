@@ -1,0 +1,96 @@
+<div [formGroup]="parentGroup">
+  <label for="expressionType">Expression Type:</label>
+
+  <ng-container [ngTemplateOutlet]="expressionTypeSelector"></ng-container>
+
+  <div *ngIf="constraints.controls.length > 0" formArrayName="constraints">
+    <div *ngFor="let constraint of constraints.controls; let i = index">
+      <input [formControlName]="i" />
+    </div>
+  </div>
+
+  <div *ngIf="subexpressions.length > 0" formArrayName="subexpressions">
+    <div
+      *ngFor="let subexpression of subexpressions.controls; let i = index"
+      [formGroupName]="i">
+      <app-expression-form
+        [parentGroup]="parentGroup"
+        (remove)="removeSubexpression(i)"></app-expression-form>
+    </div>
+    <button type="button" (click)="addSubexpression()">
+      Add Subexpression
+    </button>
+  </div>
+
+  <button type="button" (click)="remove.emit()">Remove</button>
+</div>
+
+<ng-template #expressionTypeSelector>
+  <mat-select
+    id="expressionType"
+    formControlName="expressionType"
+    (selectionChange)="onExpressionTypeChange()">
+    <mat-option value="constraint">Constraint</mat-option>
+    <mat-option value="AND">AND</mat-option>
+    <mat-option value="OR">OR</mat-option>
+    <mat-option value="XOR">XOR</mat-option>
+  </mat-select>
+</ng-template>
+
+<ng-template #constraintTypeSelector>
+  <mat-select id="constraintType" formControlName="constraintType">
+    <mat-option value="Time-Period-Restricted">
+      Time-Period-Restricted
+    </mat-option>
+    <mat-option value="Connector-Restricted-Usage">
+      Connector-Restricted-Usage
+    </mat-option>
+  </mat-select>
+
+  <mat-form-field>
+    <mat-label>Value</mat-label>
+    <input matInput formControlName="value" />
+  </mat-form-field>
+</ng-template>
+
+<ng-template #policyTypeTemplate>
+  <mat-form-field color="accent">
+    <mat-label>Type</mat-label>
+    <mat-select [formControl]="form.group.controls.policyType">
+      <mat-option value="Time-Period-Restricted"
+        >Time-Period-Restricted</mat-option
+      >
+      <mat-option value="Connector-Restricted-Usage"
+        >Connector-Restricted-Usage</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #timeIntervalTypeTemplate>
+  <ng-container *ngIf="form.policyType === 'Time-Period-Restricted'">
+    <mat-form-field
+      *ngIf="form.group.controls.range; let ctrl"
+      class="mt-[20px]"
+      color="accent">
+      <mat-label>Date Range</mat-label>
+      <mat-date-range-input required [formGroup]="ctrl" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input matEndDate formControlName="end" placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY – DD/MM/YYYY (optional)</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error *ngIf="ctrl.invalid">{{
+        validationMessages.invalidDateRangeMessage
+      }}</mat-error>
+    </mat-form-field>
+  </ng-container>
+</ng-template>
+
+<ng-template #participantIdsTemplate>
+  <participant-id-select
+    *ngIf="form.policyType == 'Connector-Restricted-Usage'"
+    [control]="form.group.controls.participantIds">
+  </participant-id-select>
+</ng-template>

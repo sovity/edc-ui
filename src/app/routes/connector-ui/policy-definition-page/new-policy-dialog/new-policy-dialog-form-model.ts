@@ -1,4 +1,7 @@
-import {FormControl, FormGroup, ɵFormGroupValue} from '@angular/forms';
+import {
+  FormControl, // FormGroup,
+  ɵFormGroupValue,
+} from '@angular/forms';
 
 /**
  * Form Value Type
@@ -11,14 +14,38 @@ export type NewPolicyDialogFormValue =
  */
 export interface NewPolicyDialogFormModel {
   id: FormControl<string>;
-  policyType: FormControl<PolicyType>;
-  range: FormGroup<{
-    start: FormControl<Date | null>;
-    end: FormControl<Date | null>;
-  }>;
-  participantIds: FormControl<string[]>;
+  expression: FormControl<UiPolicyExpression>;
+  // range: FormGroup<{
+  //   start: FormControl<Date | null>;
+  //   end: FormControl<Date | null>;
+  // }>;
+  // participantIds: FormControl<string[]>;
 }
 
-export type PolicyType =
+// export type PolicyType =
+//   | 'Time-Period-Restricted'
+//   | 'Connector-Restricted-Usage';
+
+type constraintExpression = {
+  expressionType: 'CONSTRAINT';
+  constraint: Constraint;
+};
+
+type operatorExpression = {
+  expressionType: ExressionType;
+  expressions: UiPolicyExpression[];
+};
+
+export type UiPolicyExpression = constraintExpression | operatorExpression;
+
+// export type UiPolicyExpression = {
+//   expressionType: ExressionType;
+//   expressions?: UiPolicyExpression[];
+//   constraint?: Constraint;
+// };
+
+export type Constraint =
   | 'Time-Period-Restricted'
   | 'Connector-Restricted-Usage';
+
+export type ExressionType = 'AND' | 'OR' | 'XOR' | 'CONSTRAINT';

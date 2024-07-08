@@ -14,7 +14,44 @@
     </mat-form-field>
 
     <!-- Policy Type -->
-    <mat-form-field color="accent">
+
+    <app-expression-form [parentGroup]="form.group"> </app-expression-form>
+
+    <!-- 
+    <ng-template [ngTemplateOutlet]="policyExressionType"></ng-template>
+
+    <div
+      *ngIf="
+        form.group.controls.expression.value.expressionType === 'CONSTRAINT'
+      ">
+      Constraint
+    </div>
+
+    <div
+      *ngIf="
+        form.group.controls.expression.value.expressionType !== 'CONSTRAINT'
+      ">
+      <div class="flex flex-row w-full">
+        <div class="bg-red-300 w-1/12 p-3">
+          {{ form.group.controls.expression.value.expressionType }}
+        </div>
+        <div class="bg-blue-500 w-11/12 p-3">
+          <mat-form-field color="accent">
+            <mat-label>Constraint Type</mat-label>
+            <mat-select>
+              <mat-option value="Time-Period-Restricted">
+                Time-Period-Restricted
+              </mat-option>
+              <mat-option value="Connector-Restricted-Usage">
+                Connector-Restricted-Usage
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <mat-form-field color="accent">
       <mat-label>Type</mat-label>
       <mat-select [formControl]="form.group.controls.policyType">
         <mat-option value="Time-Period-Restricted">
@@ -24,11 +61,11 @@
           Connector-Restricted-Usage
         </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <!-- Time Interval Type -->
-    <ng-container *ngIf="form.policyType === 'Time-Period-Restricted'">
-      <!-- Date Range -->
-      <mat-form-field
+    <!-- <ng-container *ngIf="form.policyType === 'Time-Period-Restricted'"> -->
+    <!-- Date Range -->
+    <!-- <mat-form-field
         *ngIf="form.group.controls.range; let ctrl"
         class="mt-[20px]"
         color="accent">
@@ -50,13 +87,13 @@
           validationMessages.invalidDateRangeMessage
         }}</mat-error>
       </mat-form-field>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Participant IDs -->
-    <participant-id-select
+    <!-- <participant-id-select
       *ngIf="form.policyType == 'Connector-Restricted-Usage'"
       [control]="form.group.controls.participantIds">
-    </participant-id-select>
+    </participant-id-select> -->
   </div>
 </mat-dialog-content>
 
@@ -73,3 +110,15 @@
     Create
   </button>
 </mat-dialog-actions>
+
+<ng-template #policyExressionType>
+  <mat-form-field color="accent">
+    <mat-label>Policy Expression Type</mat-label>
+    <mat-select [formControl]="form.group.controls.expression">
+      <mat-option value="CONSTRAINT"> Constraint </mat-option>
+      <mat-option value="AND"> AND </mat-option>
+      <mat-option value="OR"> OR </mat-option>
+      <mat-option value="XOR"> XOR </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>

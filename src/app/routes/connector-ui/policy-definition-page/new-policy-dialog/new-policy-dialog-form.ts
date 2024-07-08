@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {switchDisabledControls} from '../../../../core/utils/form-group-utils';
+// import {switchDisabledControls} from '../../../../core/utils/form-group-utils';
 import {noWhitespacesOrColonsValidator} from '../../../../core/validators/no-whitespaces-or-colons-validator';
-import {validDateRange} from '../../../../core/validators/valid-date-range';
+// import {validDateRange} from '../../../../core/validators/valid-date-range';
 import {
+  type Constraint, // PolicyType,
+  type ExressionType,
   NewPolicyDialogFormModel,
   NewPolicyDialogFormValue,
-  PolicyType,
+  UiPolicyExpression,
 } from './new-policy-dialog-form-model';
 
 /**
@@ -23,9 +25,9 @@ export class NewPolicyDialogForm {
     return this.group.value;
   }
 
-  get policyType(): PolicyType {
-    return this.group.controls.policyType.value;
-  }
+  // get policyType(): PolicyType {
+  //   return this.group.controls.policyType.value;
+  // }
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -33,36 +35,44 @@ export class NewPolicyDialogForm {
     const newPolicyFormGroup: FormGroup<NewPolicyDialogFormModel> =
       this.formBuilder.nonNullable.group({
         id: ['', [Validators.required, noWhitespacesOrColonsValidator]],
-        policyType: [
-          'Connector-Restricted-Usage' as PolicyType,
+
+        expression: [
+          {
+            expressionType: 'CONSTRAINT' as ExressionType,
+            constraint: 'Time-Period-Restricted' as Constraint,
+          } as UiPolicyExpression,
           Validators.required,
         ],
-        range: this.formBuilder.group(
-          {
-            start: null as Date | null,
-            end: null as Date | null,
-          },
-          {validators: validDateRange},
-        ),
-        participantIds: [new Array<string>(), Validators.required],
+        // policyType: [
+        //   'Connector-Restricted-Usage' as PolicyType,
+        //   Validators.required,
+        // ],
+        // range: this.formBuilder.group(
+        //   {
+        //     start: null as Date | null,
+        //     end: null as Date | null,
+        //   },
+        //   {validators: validDateRange},
+        // ),
+        // participantIds: [new Array<string>(), Validators.required],
       });
 
-    switchDisabledControls<NewPolicyDialogFormValue>(
-      newPolicyFormGroup,
-      (value) => {
-        const timePeriodRestricted =
-          value.policyType === 'Time-Period-Restricted';
-        const connecterRestrictedUsage =
-          value.policyType === 'Connector-Restricted-Usage';
+    // switchDisabledControls<NewPolicyDialogFormValue>(
+    //   newPolicyFormGroup,
+    //   (value) => {
+    //     const timePeriodRestricted =
+    //       value.policyType === 'Time-Period-Restricted';
+    //     const connecterRestrictedUsage =
+    //       value.policyType === 'Connector-Restricted-Usage';
 
-        return {
-          id: true,
-          policyType: true,
-          range: timePeriodRestricted,
-          participantIds: connecterRestrictedUsage,
-        };
-      },
-    );
+    //     return {
+    //       id: true,
+    //       policyType: true,
+    //       range: timePeriodRestricted,
+    //       participantIds: connecterRestrictedUsage,
+    //     };
+    //   },
+    // );
 
     return newPolicyFormGroup;
   }

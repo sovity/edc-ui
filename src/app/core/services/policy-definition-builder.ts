@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {
-  OperatorDto,
+  // OperatorDto,
   PolicyDefinitionCreateRequest,
   UiPolicyConstraint,
 } from '@sovity.de/edc-client';
-import {addDays} from 'date-fns';
+// import {addDays} from 'date-fns';
 import {NewPolicyDialogFormValue} from '../../routes/connector-ui/policy-definition-page/new-policy-dialog/new-policy-dialog-form-model';
 import {PolicyLeftExpressions} from './api/model/policy-type-ext';
 
@@ -31,75 +31,97 @@ export class PolicyDefinitionBuilder {
   private buildPolicyConstraints(
     formValue: NewPolicyDialogFormValue,
   ): UiPolicyConstraint[] {
-    const policyType = formValue.policyType;
-    switch (policyType) {
-      case 'Time-Period-Restricted':
-        return this.buildTimePeriodRestrictionPermissions(formValue);
-      case 'Connector-Restricted-Usage':
-        return [this.buildConnectorRestrictedConstraint(formValue)];
+    // const policyType = formValue.policyType;
+    // switch (policyType) {
+    //   case 'Time-Period-Restricted':
+    //     return this.buildTimePeriodRestrictionPermissions(formValue);
+    //   case 'Connector-Restricted-Usage':
+    //     return [this.buildConnectorRestrictedConstraint(formValue)];
+    //   default:
+    //     throw new Error(`Unknown policyType: ${policyType}`);
+    // }
+    const policyExpressionType = formValue.expression?.expressionType;
+    switch (policyExpressionType) {
+      case 'CONSTRAINT':
+        return [this.buildAtomicConstraint(formValue)];
       default:
-        throw new Error(`Unknown policyType: ${policyType}`);
+        throw new Error(
+          `Unknown policyExpressionType: ${policyExpressionType}`,
+        );
     }
   }
 
-  private buildConnectorRestrictedConstraint(
+  private buildAtomicConstraint(
     formValue: NewPolicyDialogFormValue,
-  ): UiPolicyConstraint {
-    return this.inOrEqIfOne(
-      PolicyLeftExpressions.ReferringConnector,
-      formValue.participantIds!,
-    );
-  }
-
-  private inOrEqIfOne(left: string, values: string[]): UiPolicyConstraint {
-    if (values.length === 1) {
-      const value = values[0];
-      return {
-        left,
-        operator: 'EQ',
-        right: {
-          type: 'STRING',
-          value,
-        },
-      };
-    }
-
-    return {
-      left,
-      operator: 'IN',
-      right: {
-        type: 'STRING_LIST',
-        valueList: values,
-      },
-    };
-  }
-
-  private buildTimePeriodRestrictionPermissions(
-    formValue: NewPolicyDialogFormValue,
-  ): UiPolicyConstraint[] {
-    const start = formValue.range!!.start!!;
-    const constraints: UiPolicyConstraint[] = [
-      this.evaluationTime('GEQ', start),
-    ];
-
-    const end = formValue.range!!.end;
-    if (end) {
-      constraints.push(this.evaluationTime('LT', addDays(end, 1)));
-    }
-    return constraints;
-  }
-
-  private evaluationTime(
-    operator: OperatorDto,
-    date: Date,
   ): UiPolicyConstraint {
     return {
       left: PolicyLeftExpressions.PolicyEvaluationTime,
-      operator,
+      operator: 'GEQ',
       right: {
         type: 'STRING',
-        value: date.toISOString()!,
+        value: new Date().toISOString(),
       },
     };
   }
+
+  // private buildConnectorRestrictedConstraint(
+  //   formValue: NewPolicyDialogFormValue,
+  // ): UiPolicyConstraint {
+  //   return this.inOrEqIfOne(
+  //     PolicyLeftExpressions.ReferringConnector,
+  //     formValue.participantIds!,
+  //   );
+  // }
+
+  // private inOrEqIfOne(left: string, values: string[]): UiPolicyConstraint {
+  //   if (values.length === 1) {
+  //     const value = values[0];
+  //     return {
+  //       left,
+  //       operator: 'EQ',
+  //       right: {
+  //         type: 'STRING',
+  //         value,
+  //       },
+  //     };
+  //   }
+
+  //   return {
+  //     left,
+  //     operator: 'IN',
+  //     right: {
+  //       type: 'STRING_LIST',
+  //       valueList: values,
+  //     },
+  //   };
+  // }
+
+  // private buildTimePeriodRestrictionPermissions(
+  //   formValue: NewPolicyDialogFormValue,
+  // ): UiPolicyConstraint[] {
+  //   const start = formValue.range!!.start!!;
+  //   const constraints: UiPolicyConstraint[] = [
+  //     this.evaluationTime('GEQ', start),
+  //   ];
+
+  //   const end = formValue.range!!.end;
+  //   if (end) {
+  //     constraints.push(this.evaluationTime('LT', addDays(end, 1)));
+  //   }
+  //   return constraints;
+  // }
+
+  // private evaluationTime(
+  //   operator: OperatorDto,
+  //   date: Date,
+  // ): UiPolicyConstraint {
+  //   return {
+  //     left: PolicyLeftExpressions.PolicyEvaluationTime,
+  //     operator,
+  //     right: {
+  //       type: 'STRING',
+  //       value: date.toISOString()!,
+  //     },
+  //   };
+  // }
 }
