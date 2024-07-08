@@ -1,0 +1,12 @@
+<form class="flex flex-col" [formGroup]="formGroup">
+  <label for="expressionType">Expression Type:</label>
+
+  <mat-form-field class="grow">
+    <mat-select id="expressionType" formControlName="expressionType">
+      <mat-option value="CONSTRAINT">CONSTRAINT</mat-option>
+      <mat-option value="AND">AND</mat-option>
+      <mat-option value="OR">OR</mat-option>
+      <mat-option value="XOR">XOR</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

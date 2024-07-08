@@ -19,6 +19,9 @@ import {RouterModule} from '@angular/router';
 import {JsonDialogModule} from '../../../component-library/json-dialog/json-dialog.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {ExpressionFormComponent} from './new-policy-dialog/expression-form/expression-form.component';
+import {ExpressionTypeSelectorComponent} from './new-policy-dialog/expression-form/expression-type-selector/expression-type-selector.component';
+import {LiteralConstraintComponent} from './new-policy-dialog/expression-form/literal-constraint/literal-constraint.component';
+import {OperatorConstraintComponent} from './new-policy-dialog/expression-form/operator-constraint/operator-constraint.component';
 import {NewPolicyDialogComponent} from './new-policy-dialog/new-policy-dialog.component';
 import {ParticipantIdSelectComponent} from './participant-id-select/participant-id-select.component';
 import {PolicyCardsComponent} from './policy-cards/policy-cards.component';
@@ -58,6 +61,9 @@ import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-def
     PolicyCardsComponent,
     PolicyDefinitionPageComponent,
     ExpressionFormComponent,
+    ExpressionTypeSelectorComponent,
+    LiteralConstraintComponent,
+    OperatorConstraintComponent,
   ],
   exports: [PolicyDefinitionPageComponent],
 })
