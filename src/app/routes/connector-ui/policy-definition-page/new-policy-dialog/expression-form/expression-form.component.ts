@@ -35,4 +35,15 @@ export class ExpressionFormComponent implements OnInit {
       this.expressionFormChange.emit(this.formGroup);
     }
   }
+
+  handleLiteralConstraintChange(formGroup: FormGroup) {
+    const constraintsControl: FormArray = this.formGroup.get(
+      'constraints',
+    ) as FormArray;
+    if (constraintsControl) {
+      constraintsControl.clear();
+      constraintsControl.push(formGroup);
+      // this.expressionFormChange.emit(this.formGroup);
+    }
+  }
 }

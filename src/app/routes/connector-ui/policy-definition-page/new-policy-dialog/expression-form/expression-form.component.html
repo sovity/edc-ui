@@ -1,3 +1,4 @@
+{{ formGroup.value | json }}
 <div>
   <app-expression-type-selector
     (expressionTypeChange)="
@@ -5,7 +6,10 @@
     "></app-expression-type-selector>
   <div *ngIf="formGroup.controls.expressionType.value === 'CONSTRAINT'">
     <!-- FormGroup: {{ formGroup.get('subexpressions')?.value | json }} -->
-    <app-literal-constraint></app-literal-constraint>
+    <app-literal-constraint
+      (literalConstraintChange)="
+        handleLiteralConstraintChange($event)
+      "></app-literal-constraint>
   </div>
   <div *ngIf="formGroup.controls.expressionType.value !== 'CONSTRAINT'">
     {{ formGroup.controls.expressionType.value }}

@@ -1,6 +1,20 @@
-LITERAL CONSTRAINT Parent FormGroup: {{ formGroup.value | json }}
+LITERAL CONSTRAINT <br />
+FormGroup: {{ formGroup.value | json }}
 
-<!-- 
+<div [formGroup]="formGroup">
+  <mat-form-field color="accent">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="constraint">
+      <mat-option value="Time-Period-Restricted">
+        Time-Period-Restricted
+      </mat-option>
+      <mat-option value="Connector-Restricted-Usage">
+        Connector-Restricted-Usage
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <!-- Policy Type -->
 <!-- <mat-form-field color="accent">
       <mat-label>Type</mat-label>
@@ -48,5 +62,3 @@ LITERAL CONSTRAINT Parent FormGroup: {{ formGroup.value | json }}
       *ngIf="form.policyType == 'Connector-Restricted-Usage'"
       [control]="form.group.controls.participantIds">
     </participant-id-select> -->
-
--->

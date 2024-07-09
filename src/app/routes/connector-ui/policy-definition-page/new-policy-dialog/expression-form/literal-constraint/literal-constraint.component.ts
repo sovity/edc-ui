@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 // import { constraintExpression } from '../../new-policy-dialog-form-model';
 
@@ -7,19 +8,29 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   selector: 'app-literal-constraint',
   templateUrl: './literal-constraint.component.html',
 })
-export class LiteralConstraintComponent {
+export class LiteralConstraintComponent implements OnDestroy {
   @Output() literalConstraintChange = new EventEmitter<FormGroup>();
 
-  formGroup: FormGroup = new FormGroup({});
+  formGroup: FormGroup = new FormGroup({
+    expressionType: new FormControl('CONSTRAINT', Validators.required),
+    constraint: new FormControl(
+      {type: 'Time-Period-Restricted', value: ''},
+      Validators.required,
+    ),
+  });
 
-  ngOnInit() {
-    this.formGroup = new FormGroup({
-      expressionType: new FormControl('CONSTRAINT', Validators.required),
-      constraint: new FormControl(
-        {type: 'Time-Period-Restricted', value: ''},
-        Validators.required,
-      ),
-    });
+  private constraintChangesSubscription: Subscription;
+
+  constructor() {
+    this.constraintChangesSubscription = this.formGroup.valueChanges.subscribe(
+      () => {
+        this.literalConstraintChange.emit(this.formGroup);
+      },
+    );
+  }
+
+  ngOnDestroy() {
+    this.constraintChangesSubscription.unsubscribe();
   }
 
   //////////////////////////////////////////
