@@ -33,6 +33,13 @@ export class LiteralConstraintComponent implements OnDestroy {
     this.constraintChangesSubscription.unsubscribe();
   }
 
+  changeType($event: any) {
+    console.log('changeType', $event);
+    this.formGroup.get('constraint')!.patchValue({
+      type: $event.value,
+    });
+  }
+
   //////////////////////////////////////////
   handleConstraintChange(formGroup: FormGroup) {
     // console.log(
