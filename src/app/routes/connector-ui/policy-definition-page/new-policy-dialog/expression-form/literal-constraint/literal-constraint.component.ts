@@ -40,6 +40,28 @@ export class LiteralConstraintComponent implements OnDestroy {
     });
   }
 
+  changeStartDate($event: any) {
+    console.log('changeDateRange', $event);
+    this.formGroup.get('constraint')!.patchValue({
+      type: this.formGroup.get('constraint')!.value.type,
+      value: {
+        ...this.formGroup.get('constraint')!.value.value,
+        start: $event.value,
+      },
+    });
+  }
+
+  changeEndDate($event: any) {
+    console.log('changeDateRange', $event);
+    this.formGroup.get('constraint')!.patchValue({
+      type: this.formGroup.get('constraint')!.value.type,
+      value: {
+        ...this.formGroup.get('constraint')!.value.value,
+        end: $event.value,
+      },
+    });
+  }
+
   //////////////////////////////////////////
   handleConstraintChange(formGroup: FormGroup) {
     // console.log(

@@ -1,7 +1,7 @@
 LITERAL CONSTRAINT <br />
 FormGroup: {{ formGroup.value | json }}
 
-<div>
+<div [formGroup]="formGroup">
   <mat-form-field color="accent">
     <mat-label>Type</mat-label>
     <mat-select (selectionChange)="changeType($event)">
@@ -14,23 +14,28 @@ FormGroup: {{ formGroup.value | json }}
     </mat-select>
   </mat-form-field>
 
-  {{ formGroup.controls.constraint.value.type === 'Time-Period-Restricted' }}
+  <!-- {{ formGroup.controls.constraint.value.type === 'Time-Period-Restricted' }} -->
 
-  <!-- <div
-    *nfIf="
+  <div
+    *ngIf="
       formGroup.controls.constraint.value.type === 'Time-Period-Restricted'
     ">
     <mat-form-field color="accent">
       <mat-label>Date Range</mat-label>
-      <mat-date-range-input>
-        <input matStartDate formControlName="start" placeholder="Start date" />
-        <input matEndDate formControlName="end" placeholder="End date" />
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="Start date"
+          (dateChange)="changeStartDate($event)" />
+        <input
+          matEndDate
+          placeholder="End date"
+          (dateChange)="changeEndDate($event)" />
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
   </div>
-</div> -->
 
   <!-- Policy Type -->
   <!-- <mat-form-field color="accent">
