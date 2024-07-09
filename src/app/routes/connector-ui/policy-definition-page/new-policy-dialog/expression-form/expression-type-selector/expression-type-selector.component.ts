@@ -8,19 +8,19 @@ type expressionType = 'AND' | 'OR' | 'XOR' | 'CONSTRAINT';
   templateUrl: './expression-type-selector.component.html',
 })
 export class ExpressionTypeSelectorComponent implements OnInit {
-  @Output() formValueChange = new EventEmitter<FormGroup>();
+  @Output() expressionTypeChange = new EventEmitter<FormGroup>();
   formGroup: FormGroup = new FormGroup({});
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      expressionType: new FormControl<expressionType>(
-        'CONSTRAINT',
+      expressionType: new FormControl<expressionType | null>(
+        null,
         Validators.required,
       ),
     });
 
-    this.formGroup.valueChanges.subscribe(() => {
-      this.formValueChange.emit(this.formGroup);
+    this.formGroup.valueChanges.subscribe((c) => {
+      this.expressionTypeChange.emit(this.formGroup);
     });
   }
 }

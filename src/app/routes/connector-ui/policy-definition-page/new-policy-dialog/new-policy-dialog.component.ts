@@ -1,4 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {finalize, takeUntil} from 'rxjs/operators';
@@ -26,8 +27,14 @@ export class NewPolicyDialogComponent implements OnDestroy {
     private policyDefinitionBuilder: PolicyDefinitionBuilder,
   ) {}
 
+  handleExpressionFormChange($event: FormGroup) {
+    console.log('handleExpressionFormChange', $event.value);
+  }
+
   onSave() {
     const formValue = this.form.value;
+    console.log('formValue: ', formValue);
+    return;
     const policyDefinition =
       this.policyDefinitionBuilder.buildPolicyDefinition(formValue);
     this.form.group.disable();

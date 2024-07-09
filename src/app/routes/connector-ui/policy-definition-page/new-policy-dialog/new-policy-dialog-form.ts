@@ -32,6 +32,7 @@ export class NewPolicyDialogForm {
   constructor(private formBuilder: FormBuilder) {}
 
   buildFormGroup(): FormGroup<NewPolicyDialogFormModel> {
+    console.log('buildFormGroup');
     const newPolicyFormGroup: FormGroup<NewPolicyDialogFormModel> =
       this.formBuilder.nonNullable.group({
         id: ['', [Validators.required, noWhitespacesOrColonsValidator]],

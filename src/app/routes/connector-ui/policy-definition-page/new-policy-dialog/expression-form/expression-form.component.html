@@ -1,10 +1,10 @@
 <div>
   <app-expression-type-selector
-    (formValueChange)="
-      handleFormValueChange($event)
+    (expressionTypeChange)="
+      handleExpressionTypeChange($event)
     "></app-expression-type-selector>
   <div *ngIf="formGroup.controls.expressionType.value === 'CONSTRAINT'">
-    Constraint
+    CONSTRAINT
   </div>
   <div *ngIf="formGroup.controls.expressionType.value !== 'CONSTRAINT'">
     {{ formGroup.controls.expressionType.value }}

@@ -15,7 +15,9 @@
 
     <!-- Policy Type -->
 
-    <app-expression-form> </app-expression-form>
+    <app-expression-form
+      (expressionFormChange)="handleExpressionFormChange($event)">
+    </app-expression-form>
 
     <!-- 
     <ng-template [ngTemplateOutlet]="policyExressionType"></ng-template>
@@ -110,15 +112,3 @@
     Create
   </button>
 </mat-dialog-actions>
-
-<ng-template #policyExressionType>
-  <mat-form-field color="accent">
-    <mat-label>Policy Expression Type</mat-label>
-    <mat-select [formControl]="form.group.controls.expression">
-      <mat-option value="CONSTRAINT"> Constraint </mat-option>
-      <mat-option value="AND"> AND </mat-option>
-      <mat-option value="OR"> OR </mat-option>
-      <mat-option value="XOR"> XOR </mat-option>
-    </mat-select>
-  </mat-form-field>
-</ng-template>

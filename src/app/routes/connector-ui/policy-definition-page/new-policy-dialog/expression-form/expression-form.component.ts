@@ -1,6 +1,8 @@
 import {
-  Component, // EventEmitter, Input, Output
+  Component,
+  EventEmitter, // EventEmitter, Input, Output
   OnInit,
+  Output,
 } from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -9,8 +11,7 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
   templateUrl: './expression-form.component.html',
 })
 export class ExpressionFormComponent implements OnInit {
-  //   @Input() formGroup!: FormGroup;
-  //   @Output() remove = new EventEmitter<void>();
+  @Output() expressionFormChange = new EventEmitter<FormGroup>();
 
   formGroup: FormGroup = new FormGroup({});
 
@@ -23,10 +24,15 @@ export class ExpressionFormComponent implements OnInit {
   }
 
   //////////////////////////////////////////
-  handleFormValueChange(formGroup: FormGroup) {
-    this.formGroup.setControl(
-      'expressionType',
-      formGroup.get('expressionType')!,
+  handleExpressionTypeChange(formGroup: FormGroup) {
+    console.log(
+      'handleExpressionTypeChange',
+      formGroup.get('expressionType')!.value,
     );
+    const expressionTypeControl = this.formGroup.get('expressionType');
+    if (expressionTypeControl) {
+      expressionTypeControl.setValue(formGroup.get('expressionType')!.value);
+      this.expressionFormChange.emit(this.formGroup);
+    }
   }
 }
