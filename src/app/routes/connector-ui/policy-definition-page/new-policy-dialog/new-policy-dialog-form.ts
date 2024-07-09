@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {noWhitespacesOrColonsValidator} from '../../../../core/validators/no-whitespaces-or-colons-validator';
 // import {validDateRange} from '../../../../core/validators/valid-date-range';
 import {
-  type Constraint, // PolicyType,
   type ExressionType,
   NewPolicyDialogFormModel,
   NewPolicyDialogFormValue,
@@ -40,7 +39,7 @@ export class NewPolicyDialogForm {
         expression: [
           {
             expressionType: 'CONSTRAINT' as ExressionType,
-            constraint: 'Time-Period-Restricted' as Constraint,
+            constraint: {type: 'Time-Period-Restricted', value: ''},
           } as UiPolicyExpression,
           Validators.required,
         ],

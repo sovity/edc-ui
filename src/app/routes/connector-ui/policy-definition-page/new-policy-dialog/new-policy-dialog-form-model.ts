@@ -26,12 +26,12 @@ export interface NewPolicyDialogFormModel {
 //   | 'Time-Period-Restricted'
 //   | 'Connector-Restricted-Usage';
 
-type constraintExpression = {
+export type constraintExpression = {
   expressionType: 'CONSTRAINT';
   constraint: Constraint;
 };
 
-type operatorExpression = {
+export type operatorExpression = {
   expressionType: ExressionType;
   expressions: UiPolicyExpression[];
 };
@@ -44,7 +44,12 @@ export type UiPolicyExpression = constraintExpression | operatorExpression;
 //   constraint?: Constraint;
 // };
 
-export type Constraint =
+export type Constraint = {
+  type: ConstraintType;
+  value: string;
+};
+
+export type ConstraintType =
   | 'Time-Period-Restricted'
   | 'Connector-Restricted-Usage';
 

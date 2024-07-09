@@ -1,1 +1,52 @@
-LITERAL CONSTRAINT
+LITERAL CONSTRAINT Parent FormGroup: {{ formGroup.value | json }}
+
+<!-- 
+<!-- Policy Type -->
+<!-- <mat-form-field color="accent">
+      <mat-label>Type</mat-label>
+      <mat-select [formControl]="form.group.controls.policyType">
+        <mat-option value="Time-Period-Restricted">
+  
+          Time-Period-Restricted
+        </mat-option>
+        <mat-option value="Connector-Restricted-Usage">
+          Connector-Restricted-Usage
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+<!-- Time Interval Type -->
+<!-- <ng-container *ngIf="form.policyType === 'Time-Period-Restricted'"> -->
+<!-- Date Range -->
+<!-- <mat-form-field
+        *ngIf="form.group.controls.range; let ctrl"
+        class="mt-[20px]"
+        color="accent">
+
+  
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input
+          required
+          [formGroup]="ctrl"
+          [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start"
+            placeholder="Start date" />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-hint>DD/MM/YYYY – DD/MM/YYYY (optional)</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error *ngIf="ctrl.invalid">{{
+          validationMessages.invalidDateRangeMessage
+        }}</mat-error>
+      </mat-form-field>
+    </ng-container> -->
+
+<!-- Participant IDs -->
+<!-- <participant-id-select
+      *ngIf="form.policyType == 'Connector-Restricted-Usage'"
+      [control]="form.group.controls.participantIds">
+    </participant-id-select> -->
+
+-->
