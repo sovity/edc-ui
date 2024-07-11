@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpDatasourceQueryParamFormValue} from '../../routes/connector-ui/asset-page/asset-edit-dialog/form/model/http-datasource-query-param-form-model';
-import {everythingAfter, everythingBefore} from '../utils/string-utils';
+import {
+  everythingAfter,
+  everythingBefore,
+  trimOrEmpty,
+} from '../utils/string-utils';
 
 @Injectable({providedIn: 'root'})
 export class QueryParamsMapper {
   getBaseUrlWithoutQueryParams(rawUrl: string): string {
-    return everythingBefore('?', this.trimOrEmpty(rawUrl));
+    return everythingBefore('?', trimOrEmpty(rawUrl));
   }
 
   /**
@@ -20,7 +24,7 @@ export class QueryParamsMapper {
     );
 
     return [
-      everythingAfter('?', this.trimOrEmpty(baseUrlWithQueryParams)),
+      everythingAfter('?', trimOrEmpty(baseUrlWithQueryParams)),
       ...queryParamSegments,
     ]
       .filter((it) => !!it)
@@ -28,13 +32,9 @@ export class QueryParamsMapper {
   }
 
   private encodeQueryParam(param: HttpDatasourceQueryParamFormValue): string {
-    const k = encodeURIComponent(this.trimOrEmpty(param.paramName));
-    const v = encodeURIComponent(this.trimOrEmpty(param.paramValue));
+    const k = encodeURIComponent(trimOrEmpty(param.paramName));
+    const v = encodeURIComponent(trimOrEmpty(param.paramValue));
     return this.buildQueryParam(k, v);
-  }
-
-  private trimOrEmpty(s: string | null | undefined): string {
-    return s?.trim() ?? '';
   }
 
   private buildQueryParam(name: string, value: string) {
