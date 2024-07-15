@@ -18,6 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
+- Adjusted data offer card/detail dialog UI to differentiate live and on request assets
+
 #### Patch
 
 ### Deployment Migration Notes
