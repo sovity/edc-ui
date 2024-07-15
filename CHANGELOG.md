@@ -16,6 +16,22 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Major
 
+#### Minor
+
+#### Patch
+
+#### Deployment Migration Notes
+
+## [v4.0.0] - 2024-07-15
+
+### Overview
+
+Broker UI removal refactoring, ToS dialog.
+
+### Detailed Changes
+
+#### Major
+
 - Removed the Broker UI, as it has been moved into the Authority Portal.
 
 #### Minor
@@ -23,9 +39,12 @@ the detailed section referring to by linking pull requests or issues.
 - Added Initiate Negotiation Confirm ToS Dialog
 - Support for creating "On Request" Data Offers
 
-#### Patch
-
 #### Deployment Migration Notes
+
+- Connector UI:
+  - _No special deployment migration steps required_
+- Broker UI:
+  - Can be undeployed, the Broker no longer exists as a stand-alone component.
 
 ## [v3.2.2] - 2024-04-20
 
