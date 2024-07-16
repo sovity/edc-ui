@@ -334,11 +334,6 @@ export class AssetPropertyGridGroupBuilder {
         label: 'Termination reason',
         ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.reason)
       })
-      properties.push({
-        icon: 'category',
-        label: 'Termination details',
-        ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.detail)
-      })
     }
 
     return {

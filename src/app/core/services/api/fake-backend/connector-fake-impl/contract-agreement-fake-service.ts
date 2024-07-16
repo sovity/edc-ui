@@ -168,7 +168,9 @@ let contractAgreements: ContractAgreementCard[] = [
     terminationInformation: {
       terminatedAt: new Date('2024-07-16T08:25:12.031Z'),
       reason: 'Creative termination reason',
-      detail: 'Creative termination details',
+      detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique facilisis ornare. Maecenas at facilisis dui, vel dapibus nisi. Nam dapibus, sapien ac iaculis sodales, tellus ante dictum libero, eu viverra metus lorem nec lectus. Donec cursus feugiat massa sed pharetra. Etiam nec lacus nisi. Etiam ut justo bibendum felis tincidunt tempor vel et sem. Suspendisse potenti. Nam volutpat ornare mi, at fringilla sapien accumsan congue. Maecenas ornare rutrum ipsum, quis fermentum risus. Proin vitae tortor nec metus tristique posuere. Cras ornare lobortis diam. Proin pellentesque, massa eu bibendum posuere, augue nibh porta libero, eu rhoncus ex enim vel nulla. Fusce eget dui non velit rutrum euismod.\n' +
+        '\n' +
+        'Mauris finibus vel lectus eu aliquam. Proin et leo sit amet turpis venenatis faucibus. Fusce nisl quam, malesuada sit amet feugiat at, vehicula id mauris. Phasellus aliquam libero quis lobortis viverra. Vivamus luctus purus et nibh pellentesque, eget tristique ipsum pretium. Nulla rhoncus lacus sed lectus elementum vulputate. Nunc massa mauris, viverra vitae magna nec, mollis molestie tellus. Donec accumsan massa sit amet ultricies mollis. Mauris dui nunc, eleifend vel risus vitae, convallis bibendum dolor. Aliquam felis quam, rhoncus non gravida a, bibendum feugiat nunc. Sed varius dictum nisi, id lacinia enim condimentum.',
       terminatedBy: "SELF"
     },
     terminationStatus: 'TERMINATED',

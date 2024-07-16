@@ -4,7 +4,7 @@
     trackByField="contractAgreementId"
     style="width: 400px; min-height: 120px">
     <mat-card-header>
-      <mat-icon mat-card-avatar>
+      <mat-icon mat-card-avatar [class.text-warn]="card.isTerminated">
         {{
           card.direction === 'PROVIDING'
             ? card.isTerminated

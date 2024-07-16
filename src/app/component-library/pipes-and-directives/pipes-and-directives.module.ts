@@ -9,6 +9,7 @@ import {TrackByFieldDirective} from './directives/track-by-field.directive';
 import {CompareByFieldPipe} from './pipes/compare-by-field.pipe';
 import {IsActiveFeaturePipe} from './pipes/is-active-feature.pipe';
 import {ValuesPipe} from './pipes/values.pipe';
+import {DateFormatPipe} from "./pipes/date-format.pipe";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {ValuesPipe} from './pipes/values.pipe';
   declarations: [
     AutofocusDirective,
     CompareByFieldPipe,
+    DateFormatPipe,
     ExternalLinkDirective,
     IsActiveFeaturePipe,
     RemoveClassDirective,
@@ -31,6 +33,7 @@ import {ValuesPipe} from './pipes/values.pipe';
   exports: [
     AutofocusDirective,
     CompareByFieldPipe,
+    DateFormatPipe,
     ExternalLinkDirective,
     IsActiveFeaturePipe,
     RemoveClassDirective,

@@ -20,6 +20,7 @@ import {
 import {PropertyGridGroup} from '../../property-grid/property-grid-group/property-grid-group';
 import {AssetDetailDialogData} from './asset-detail-dialog-data';
 import {AssetDetailDialogResult} from './asset-detail-dialog-result';
+import {formatDate, getLocaleId} from "@angular/common";
 
 /**
  * Asset Detail Dialog
@@ -113,6 +114,8 @@ export class AssetDetailDialogComponent implements OnDestroy {
     });
   }
 
+  onTerminateClick() {}
+
   private confirmDelete(): Observable<boolean> {
     const dialogData = ConfirmDialogModel.forDelete('asset', this.asset.title);
     const ref = this.matDialog.open(ConfirmationDialogComponent, {
@@ -163,4 +166,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
+
+  protected readonly formatDate = formatDate;
+  protected readonly getLocaleId = getLocaleId;
 }
