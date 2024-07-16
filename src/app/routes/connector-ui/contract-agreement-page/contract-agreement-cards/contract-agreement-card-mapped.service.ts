@@ -6,7 +6,8 @@ import {ContractAgreementCardMapped} from './contract-agreement-card-mapped';
 
 @Injectable({providedIn: 'root'})
 export class ContractAgreementCardMappedService {
-  constructor(private assetBuilder: AssetBuilder) {}
+  constructor(private assetBuilder: AssetBuilder) {
+  }
 
   /**
    * Replace the asset with the parsed asset and add the other required fields of the UI model
@@ -19,6 +20,7 @@ export class ContractAgreementCardMappedService {
     contractAgreement: ContractAgreementCard,
   ): ContractAgreementCardMapped {
     const asset = this.assetBuilder.buildAsset(contractAgreement.asset);
+    const isTerminated = contractAgreement.terminationStatus === 'TERMINATED';
 
     return {
       ...contractAgreement,
@@ -27,9 +29,11 @@ export class ContractAgreementCardMappedService {
         (it) => it.state.simplifiedState === 'RUNNING',
       ),
       isConsumingLimitsEnforced: false,
-      statusText: '',
+      isTerminated: isTerminated,
+      showStatus: isTerminated,
+      statusText: isTerminated ? 'Terminated' : '',
       statusTooltipText: '',
-      canTransfer: true,
+      canTransfer: !isTerminated,
       searchTargets: [
         contractAgreement.contractAgreementId,
         contractAgreement.counterPartyId,
@@ -50,16 +54,19 @@ export class ContractAgreementCardMappedService {
     maxConsumingContracts: number,
     agreements: ContractAgreementCardMapped[],
   ): ContractAgreementCardMapped[] {
-    return agreements.map((it, index) => ({
-      ...it,
-      isConsumingLimitsEnforced: true,
-      statusText: index < maxConsumingContracts ? 'Active' : 'Inactive',
-      statusTooltipText: this.getConsumingContractsInfoText(
-        index,
-        maxConsumingContracts,
-      ),
-      canTransfer: index < maxConsumingContracts,
-    }));
+    return agreements
+      .filter((it) => !it.isTerminated)
+      .map((it, index) => ({
+        ...it,
+        isConsumingLimitsEnforced: true,
+        showStatus: true,
+        statusText: index < maxConsumingContracts ? 'Active' : 'Inactive',
+        statusTooltipText: this.getConsumingContractsInfoText(
+          index,
+          maxConsumingContracts,
+        ),
+        canTransfer: index < maxConsumingContracts,
+      }));
   }
 
   private getConsumingContractsInfoText(
