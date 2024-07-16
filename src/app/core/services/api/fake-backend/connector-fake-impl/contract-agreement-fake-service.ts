@@ -126,6 +126,64 @@ let contractAgreements: ContractAgreementCard[] = [
       },
     ],
   },
+  {
+    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786759',
+    contractNegotiationId:
+      'my-test-asset-neg:6ebbc301-9b1e-4cd7-9f17-97b5b786759',
+    direction: 'CONSUMING',
+    counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
+    counterPartyId: 'MDSL1234XX.C1234XX',
+    contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
+    asset: TestAssets.toDummyAsset(TestAssets.full),
+    contractPolicy: TestPolicies.connectorRestricted,
+    terminationInformation: {
+      terminatedAt: new Date('2024-07-16T08:25:12.031Z'),
+      reason: 'Creative termination reason',
+      detail: 'Creative termination details',
+      terminatedBy: "COUNTERPARTY"
+    },
+    terminationStatus: 'TERMINATED',
+    transferProcesses: [
+      {
+        transferProcessId: '522138de-349d-4b68-9356-7e5929f053e0',
+        lastUpdatedDate: new Date('2023-04-24T12:32:43.027Z'),
+        state: {
+          code: 800,
+          name: 'COMPLETED',
+          simplifiedState: 'OK',
+        },
+      },
+    ],
+  },
+  {
+    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786758',
+    contractNegotiationId:
+      'my-test-asset-neg:6ebbc301-9b1e-4cd7-9f17-97b5b786758',
+    direction: 'PROVIDING',
+    counterPartyAddress: 'http://edc2:11003/api/v1/ids/data',
+    counterPartyId: 'MDSL1234XX.C1234XX',
+    contractSigningDate: new Date('2022-03-25T11:18:59.659Z'),
+    asset: TestAssets.toDummyAsset(TestAssets.boring),
+    contractPolicy: TestPolicies.connectorRestricted,
+    terminationInformation: {
+      terminatedAt: new Date('2024-07-16T08:25:12.031Z'),
+      reason: 'Creative termination reason',
+      detail: 'Creative termination details',
+      terminatedBy: "SELF"
+    },
+    terminationStatus: 'TERMINATED',
+    transferProcesses: [
+      {
+        transferProcessId: '522138de-349d-4b68-9356-7e5929f053e0',
+        lastUpdatedDate: new Date('2023-04-24T12:32:43.027Z'),
+        state: {
+          code: 800,
+          name: 'COMPLETED',
+          simplifiedState: 'OK',
+        },
+      },
+    ],
+  },
 ];
 export const contractAgreementPage = (): ContractAgreementPage => {
   return {

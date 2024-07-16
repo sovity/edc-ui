@@ -167,7 +167,7 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     })
 
     .url('pages/contract-agreement-page')
-    .on('GET', () => {
+    .on('POST', () => {
       const page = contractAgreementPage();
       return ok(ContractAgreementPageToJSON(page));
     })
