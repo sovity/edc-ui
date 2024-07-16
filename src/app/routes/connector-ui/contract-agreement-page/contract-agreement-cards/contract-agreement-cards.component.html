@@ -5,7 +5,15 @@
     style="width: 400px; min-height: 120px">
     <mat-card-header>
       <mat-icon mat-card-avatar>
-        {{ card.direction === 'PROVIDING' ? 'upload' : 'download' }}
+        {{
+          card.direction === 'PROVIDING'
+            ? card.isTerminated
+              ? 'file_upload_off'
+              : 'file_upload'
+            : card.isTerminated
+              ? 'file_download_off'
+              : 'file_download'
+        }}
       </mat-icon>
       <mat-card-title>
         <a
@@ -54,7 +62,7 @@
               class="link break-all"
               externalLink
               [attr.href]="card.counterPartyAddress"
-              >{{ card.counterPartyAddress }}</a
+            >{{ card.counterPartyAddress }}</a
             >
           </div>
         </div>

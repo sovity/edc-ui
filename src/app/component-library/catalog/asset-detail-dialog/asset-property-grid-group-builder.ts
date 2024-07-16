@@ -312,31 +312,30 @@ export class AssetPropertyGridGroupBuilder {
       });
     }
 
-    //TODO change the icons
     if (contractAgreement.isTerminated) {
       properties.push({
-        icon: 'cancel',
+        icon: 'content_paste_off',
         label: 'Contract status',
         text: contractAgreement.statusText,
         additionalClasses: 'text-warn',
       })
       properties.push({
-        icon: 'cancel',
+        icon: 'category',
         label: 'Terminated at',
         text: this.propertyGridUtils.formatDate(contractAgreement.terminationInformation?.terminatedAt)
       })
       properties.push({
-        icon: 'cancel',
+        icon: 'group_off',
         label: 'Terminated by',
         ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.terminatedBy)
       })
       properties.push({
-        icon: 'cancel',
+        icon: 'category',
         label: 'Termination reason',
         ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.reason)
       })
       properties.push({
-        icon: 'cancel',
+        icon: 'category',
         label: 'Termination details',
         ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.detail)
       })
