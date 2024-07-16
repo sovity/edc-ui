@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EdcUiFeature} from '../../core/config/profiles/edc-ui-feature';
+import {AssetCreatePageComponent} from './asset-create-page/asset-create-page/asset-create-page.component';
 import {AssetPageComponent} from './asset-page/asset-page/asset-page.component';
 import {CatalogBrowserPageComponent} from './catalog-browser-page/catalog-browser-page/catalog-browser-page.component';
 import {ConnectorUiComponent} from './connector-ui.component';
@@ -51,6 +52,11 @@ export const routes: Routes = [
     path: 'contract-definitions',
     component: ContractDefinitionPageComponent,
     data: {title: 'Contract Definitions', icon: 'rule'},
+  },
+  {
+    path: 'my-assets/create',
+    component: AssetCreatePageComponent,
+    data: {title: 'Create Asset', icon: 'data_usage', isNotShownInNavBar: true},
   },
   {
     path: 'logout',

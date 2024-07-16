@@ -19,6 +19,7 @@
         <mat-list-item
           *ngIf="
             route.component &&
+            !route.data?.isNotShownInNavBar &&
             (!route.data?.requiresFeature ||
               (route.data!.requiresFeature! | isActiveFeature))
           "
