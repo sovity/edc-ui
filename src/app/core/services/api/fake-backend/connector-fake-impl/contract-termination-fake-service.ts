@@ -1,4 +1,8 @@
-import {ContractAgreementCard, IdResponseDto, TerminateContractAgreementRequest,} from '@sovity.de/edc-client';
+import {
+  ContractAgreementCard,
+  IdResponseDto,
+  TerminateContractAgreementRequest,
+} from '@sovity.de/edc-client';
 import {updateAgreement} from './contract-agreement-fake-service';
 
 export const initiateContractTermination = (
@@ -9,16 +13,17 @@ export const initiateContractTermination = (
     lastUpdatedDate: new Date(),
   };
 
-  setTimeout(() => {
-    updateAgreement(request.contractAgreementId, (agremeent: ContractAgreementCard) => ({
+  updateAgreement(
+    request.contractAgreementId,
+    (agremeent: ContractAgreementCard) => ({
       terminationStatus: 'TERMINATED',
       terminationInformation: {
         terminatedAt: new Date(),
         terminatedBy: 'SELF',
         reason: request.contractTerminationRequest?.reason ?? '',
-        detail: request.contractTerminationRequest?.detail ?? ''
+        detail: request.contractTerminationRequest?.detail ?? '',
       },
-    }));
-  }, 4000);
+    }),
+  );
   return response;
 };

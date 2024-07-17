@@ -1,28 +1,33 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable, from} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {
   AssetPage,
   ConnectorLimits,
+  ContractAgreementCard,
   ContractAgreementPage,
   ContractDefinitionPage,
   ContractDefinitionRequest,
   ContractNegotiationRequest,
   DashboardPage,
   EdcClient,
+  GetContractAgreementPageRequest,
   IdResponseDto,
   InitiateCustomTransferRequest,
   InitiateTransferRequest,
   PolicyDefinitionCreateRequest,
   PolicyDefinitionPage,
+  TerminateContractAgreementRequest,
   TransferHistoryPage,
   UiAsset,
   UiAssetCreateRequest,
   UiAssetEditRequest,
   UiContractNegotiation,
   UiDataOffer,
-  buildEdcClient, TerminateContractAgreementRequest, GetContractAgreementPageRequest,
+  buildEdcClient,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
+import {throwIfNull} from '../../utils/rxjs-utils';
 import {EDC_FAKE_BACKEND} from './fake-backend/edc-fake-backend';
 
 @Injectable({providedIn: 'root'})
@@ -127,9 +132,13 @@ export class EdcApiService {
     );
   }
 
-  terminateContractAgreement(terminateContractAgreementRequest: TerminateContractAgreementRequest): Observable<IdResponseDto> {
+  terminateContractAgreement(
+    terminateContractAgreementRequest: TerminateContractAgreementRequest,
+  ): Observable<IdResponseDto> {
     return from(
-      this.edcClient.uiApi.terminateContractAgreement(terminateContractAgreementRequest)
+      this.edcClient.uiApi.terminateContractAgreement(
+        terminateContractAgreementRequest,
+      ),
     );
   }
 
@@ -141,8 +150,31 @@ export class EdcApiService {
     );
   }
 
-  getContractAgreementPage(getContractAgreementPageRequest: GetContractAgreementPageRequest): Observable<ContractAgreementPage> {
-    return from(this.edcClient.uiApi.getContractAgreementPage(getContractAgreementPageRequest));
+  getContractAgreementPage(
+    getContractAgreementPageRequest: GetContractAgreementPageRequest,
+  ): Observable<ContractAgreementPage> {
+    return from(
+      this.edcClient.uiApi.getContractAgreementPage(
+        getContractAgreementPageRequest,
+      ),
+    );
+  }
+
+  getContractAgreementById(
+    contractAgreementId: string,
+  ): Observable<ContractAgreementCard> {
+    return this.getContractAgreementPage({
+      contractAgreementPageQuery: {terminationStatus: undefined},
+    }).pipe(
+      map((page) =>
+        page.contractAgreements.find(
+          (it) => it.contractAgreementId === contractAgreementId,
+        ),
+      ),
+      throwIfNull(
+        `Contract Agreement with ID ${contractAgreementId} not found`,
+      ),
+    );
   }
 
   initiateTransfer(

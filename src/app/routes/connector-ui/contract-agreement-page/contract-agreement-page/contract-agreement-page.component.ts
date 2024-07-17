@@ -1,20 +1,28 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {BehaviorSubject, concat, distinctUntilChanged, Observable, of, share, Subject,} from 'rxjs';
-import {filter, map, takeUntil} from 'rxjs/operators';
 import {
-  AssetDetailDialogDataService
-} from 'src/app/component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
-import {
-  AssetDetailDialogService
-} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+  Subject,
+  distinctUntilChanged,
+  interval,
+  merge,
+  of,
+  share,
+  switchMap,
+} from 'rxjs';
+import {catchError, map, takeUntil} from 'rxjs/operators';
+import {ContractTerminationStatus} from '@sovity.de/edc-client';
+import {AssetDetailDialogDataService} from 'src/app/component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
+import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
+import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {value$} from '../../../../core/utils/form-group-utils';
-import {filterNotNull} from '../../../../core/utils/rxjs-utils';
 import {ContractAgreementCardMapped} from '../contract-agreement-cards/contract-agreement-card-mapped';
+import {ContractAgreementCardMappedService} from '../contract-agreement-cards/contract-agreement-card-mapped.service';
 import {ContractAgreementPageData} from './contract-agreement-page.data';
 import {ContractAgreementPageService} from './contract-agreement-page.service';
-import {ContractTerminationStatus} from "@sovity.de/edc-client";
 
 @Component({
   selector: 'app-contract-agreement-page',
@@ -35,6 +43,8 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
     private assetDetailDialogDataService: AssetDetailDialogDataService,
     private assetDetailDialogService: AssetDetailDialogService,
     private contractAgreementPageService: ContractAgreementPageService,
+    private contractAgreementCardMappedService: ContractAgreementCardMappedService,
+    private apiService: EdcApiService,
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +54,12 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
 
   fetchContracts() {
     this.page$ = this.contractAgreementPageService
-      .contractAgreementPageData$(this.fetch$, 5000, this.searchText$(), this.terminationFilter)
+      .contractAgreementPageData$(
+        this.fetch$,
+        5000,
+        this.searchText$(),
+        this.terminationFilter,
+      )
       .pipe(takeUntil(this.ngOnDestroy$), share());
     this.page$.subscribe((contractAgreementList) => {
       this.page = contractAgreementList;
@@ -55,41 +70,43 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
     if (this.terminationFilterControl.value === 'all') {
       this.terminationFilter = null;
     } else {
-      this.terminationFilter = this.terminationFilterControl.value as ContractTerminationStatus;
+      this.terminationFilter = this.terminationFilterControl
+        .value as ContractTerminationStatus;
     }
 
-    this.fetchContracts()
+    this.fetchContracts();
   }
 
   onContractAgreementClick(card: ContractAgreementCardMapped) {
-    const data$ = this.card$(card.contractAgreementId).pipe(
-      map((card) =>
-        this.assetDetailDialogDataService.contractAgreementDetails(card),
+    const refresh$ = new Subject();
+
+    const cardUpdates$ = merge(interval(5000), refresh$).pipe(
+      switchMap(() =>
+        this.apiService
+          .getContractAgreementById(card.contractAgreementId)
+          .pipe(catchError(() => EMPTY)),
+      ),
+      map((it) =>
+        this.contractAgreementCardMappedService.buildContractAgreementCardMapped(
+          it,
+        ),
       ),
     );
 
-    return this.assetDetailDialogService.open(data$, this.ngOnDestroy$);
+    const dialogData$ = merge(of(card), cardUpdates$).pipe(
+      map((card) =>
+        this.assetDetailDialogDataService.contractAgreementDetails(card, () =>
+          refresh$.next(undefined),
+        ),
+      ),
+    );
+
+    return this.assetDetailDialogService.open(dialogData$, this.ngOnDestroy$);
   }
 
   refresh() {
     this.fetch$.next(null);
   }
-
-  private card$(
-    contractAgreementId: string,
-  ): Observable<ContractAgreementCardMapped> {
-    return concat(of(this.page), this.page$).pipe(
-      filter((fetched) => fetched.isReady),
-      map((fetched) => fetched.data),
-      map((page) =>
-        page.contractAgreements.find(
-          (it) => it.contractAgreementId === contractAgreementId,
-        ),
-      ),
-      filterNotNull(),
-    );
-  }
-
   private searchText$(): Observable<string> {
     return (value$(this.searchText) as Observable<string>).pipe(
       map((it) => (it ?? '').trim()),

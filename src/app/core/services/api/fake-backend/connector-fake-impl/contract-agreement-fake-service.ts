@@ -1,7 +1,8 @@
 import {
   ContractAgreementCard,
   ContractAgreementPage,
-  ContractAgreementTransferProcess, GetContractAgreementPageRequest,
+  ContractAgreementTransferProcess,
+  GetContractAgreementPageRequest,
   IdResponseDto,
   InitiateTransferRequest,
 } from '@sovity.de/edc-client';
@@ -11,7 +12,7 @@ import {TestPolicies} from './data/test-policies';
 
 let contractAgreements: ContractAgreementCard[] = [
   {
-    contractAgreementId: 'my-own-asset-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3e',
+    contractAgreementId: 'my-own-asset-cd:f52a5d30-6356-4a55-a75a-3c45d7a88c3a',
     contractNegotiationId:
       'my-own-asset-neg:f52a5d30-6356-4a55-a75a-3c45d7a88c3e',
     direction: 'PROVIDING',
@@ -64,7 +65,7 @@ let contractAgreements: ContractAgreementCard[] = [
   },
   {
     contractAgreementId:
-      'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b7867531',
+      'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786753b',
     contractNegotiationId:
       'my-test-asset-neg:6ebbc301-9b1e-4cd7-9f17-97b5b7867531',
     direction: 'CONSUMING',
@@ -89,7 +90,7 @@ let contractAgreements: ContractAgreementCard[] = [
   },
   {
     contractAgreementId:
-      'my-test-asset-2-cd:6ebbc301-9b1e-4cd7-9f17-08b5b7867533',
+      'my-test-asset-2-cd:6ebbc301-9b1e-4cd7-9f17-08b5b786753c',
     contractNegotiationId:
       'my-test-asset-2-neg:6ebbc301-9b1e-4cd7-9f17-08b5b7867533',
     direction: 'CONSUMING',
@@ -103,7 +104,7 @@ let contractAgreements: ContractAgreementCard[] = [
     transferProcesses: [],
   },
   {
-    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786752',
+    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b78675d',
     contractNegotiationId:
       'my-test-asset-neg:6ebbc301-9b1e-4cd7-9f17-97b5b786752',
     direction: 'CONSUMING',
@@ -127,7 +128,7 @@ let contractAgreements: ContractAgreementCard[] = [
     ],
   },
   {
-    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786759',
+    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b78675e',
     contractNegotiationId:
       'my-test-asset-neg:6ebbc301-9b1e-4cd7-9f17-97b5b786759',
     direction: 'CONSUMING',
@@ -140,7 +141,7 @@ let contractAgreements: ContractAgreementCard[] = [
       terminatedAt: new Date('2024-07-16T08:25:12.031Z'),
       reason: 'Creative termination reason',
       detail: 'Creative termination details',
-      terminatedBy: "COUNTERPARTY"
+      terminatedBy: 'COUNTERPARTY',
     },
     terminationStatus: 'TERMINATED',
     transferProcesses: [
@@ -156,7 +157,8 @@ let contractAgreements: ContractAgreementCard[] = [
     ],
   },
   {
-    contractAgreementId: 'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786758',
+    contractAgreementId:
+      'my-test-asset-cd:6ebbc301-9b1e-4cd7-9f17-97b5b786758f',
     contractNegotiationId:
       'my-test-asset-neg:6ebbc301-9b1e-4cd7-9f17-97b5b786758',
     direction: 'PROVIDING',
@@ -168,10 +170,11 @@ let contractAgreements: ContractAgreementCard[] = [
     terminationInformation: {
       terminatedAt: new Date('2024-07-16T08:25:12.031Z'),
       reason: 'Creative termination reason',
-      detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique facilisis ornare. Maecenas at facilisis dui, vel dapibus nisi. Nam dapibus, sapien ac iaculis sodales, tellus ante dictum libero, eu viverra metus lorem nec lectus. Donec cursus feugiat massa sed pharetra. Etiam nec lacus nisi. Etiam ut justo bibendum felis tincidunt tempor vel et sem. Suspendisse potenti. Nam volutpat ornare mi, at fringilla sapien accumsan congue. Maecenas ornare rutrum ipsum, quis fermentum risus. Proin vitae tortor nec metus tristique posuere. Cras ornare lobortis diam. Proin pellentesque, massa eu bibendum posuere, augue nibh porta libero, eu rhoncus ex enim vel nulla. Fusce eget dui non velit rutrum euismod.\n' +
+      detail:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique facilisis ornare. Maecenas at facilisis dui, vel dapibus nisi. Nam dapibus, sapien ac iaculis sodales, tellus ante dictum libero, eu viverra metus lorem nec lectus. Donec cursus feugiat massa sed pharetra. Etiam nec lacus nisi. Etiam ut justo bibendum felis tincidunt tempor vel et sem. Suspendisse potenti. Nam volutpat ornare mi, at fringilla sapien accumsan congue. Maecenas ornare rutrum ipsum, quis fermentum risus. Proin vitae tortor nec metus tristique posuere. Cras ornare lobortis diam. Proin pellentesque, massa eu bibendum posuere, augue nibh porta libero, eu rhoncus ex enim vel nulla. Fusce eget dui non velit rutrum euismod.\n' +
         '\n' +
         'Mauris finibus vel lectus eu aliquam. Proin et leo sit amet turpis venenatis faucibus. Fusce nisl quam, malesuada sit amet feugiat at, vehicula id mauris. Phasellus aliquam libero quis lobortis viverra. Vivamus luctus purus et nibh pellentesque, eget tristique ipsum pretium. Nulla rhoncus lacus sed lectus elementum vulputate. Nunc massa mauris, viverra vitae magna nec, mollis molestie tellus. Donec accumsan massa sit amet ultricies mollis. Mauris dui nunc, eleifend vel risus vitae, convallis bibendum dolor. Aliquam felis quam, rhoncus non gravida a, bibendum feugiat nunc. Sed varius dictum nisi, id lacinia enim condimentum.',
-      terminatedBy: "SELF"
+      terminatedBy: 'SELF',
     },
     terminationStatus: 'TERMINATED',
     transferProcesses: [
@@ -187,11 +190,17 @@ let contractAgreements: ContractAgreementCard[] = [
     ],
   },
 ];
-export const contractAgreementPage = (request: GetContractAgreementPageRequest): ContractAgreementPage => {
+export const contractAgreementPage = (
+  request: GetContractAgreementPageRequest,
+): ContractAgreementPage => {
   return {
     contractAgreements: request.contractAgreementPageQuery?.terminationStatus
-      ? contractAgreements.filter((agreement) => agreement.terminationStatus === request.contractAgreementPageQuery!.terminationStatus)
-      : contractAgreements
+      ? contractAgreements.filter(
+          (agreement) =>
+            agreement.terminationStatus ===
+            request.contractAgreementPageQuery!.terminationStatus,
+        )
+      : contractAgreements,
   };
 };
 

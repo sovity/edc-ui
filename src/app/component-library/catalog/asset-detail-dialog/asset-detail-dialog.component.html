@@ -130,7 +130,7 @@
 
     <div class="flex gap-1 items-center">
       <button
-        *ngIf="data.type === 'contract-agreement'"
+        *ngIf="data.type === 'contract-agreement' && !data.contractAgreement?.isTerminated"
         mat-raised-button
         color="warn"
         [disabled]="data.contractAgreement?.isTerminated  ?? false"
@@ -186,7 +186,8 @@
       <button
         *ngIf="
           data.type === 'contract-agreement' &&
-          data.contractAgreement?.direction === 'CONSUMING'
+          data.contractAgreement?.direction === 'CONSUMING' &&
+          !data.contractAgreement?.isTerminated
         "
         mat-raised-button
         color="primary"
