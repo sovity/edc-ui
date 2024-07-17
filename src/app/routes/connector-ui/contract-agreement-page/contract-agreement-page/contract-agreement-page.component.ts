@@ -5,6 +5,8 @@ import {
   EMPTY,
   Observable,
   Subject,
+  combineLatest,
+  concat,
   distinctUntilChanged,
   interval,
   merge,
@@ -12,13 +14,14 @@ import {
   share,
   switchMap,
 } from 'rxjs';
-import {catchError, map, takeUntil} from 'rxjs/operators';
+import {catchError, filter, map, takeUntil} from 'rxjs/operators';
 import {ContractTerminationStatus} from '@sovity.de/edc-client';
 import {AssetDetailDialogDataService} from 'src/app/component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {value$} from '../../../../core/utils/form-group-utils';
+import {filterNotNull} from '../../../../core/utils/rxjs-utils';
 import {ContractAgreementCardMapped} from '../contract-agreement-cards/contract-agreement-card-mapped';
 import {ContractAgreementCardMappedService} from '../contract-agreement-cards/contract-agreement-card-mapped.service';
 import {ContractAgreementPageData} from './contract-agreement-page.data';
@@ -93,7 +96,21 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
       ),
     );
 
-    const dialogData$ = merge(of(card), cardUpdates$).pipe(
+    const cardUpdatesWithCorrectActive$ = combineLatest([
+      this.card$(card.contractAgreementId),
+      cardUpdates$,
+    ]).pipe(
+      map(([oldCard, newCard]) => ({
+        ...newCard,
+        isConsumingLimitsEnforced: oldCard.isConsumingLimitsEnforced,
+        statusText: oldCard.statusText,
+        showStatus: oldCard.showStatus,
+        canTransfer: oldCard.canTransfer,
+        statusTooltipText: oldCard.statusTooltipText,
+      })),
+    );
+
+    const dialogData$ = merge(of(card), cardUpdatesWithCorrectActive$).pipe(
       map((card) =>
         this.assetDetailDialogDataService.contractAgreementDetails(card, () =>
           refresh$.next(undefined),
@@ -104,9 +121,25 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
     return this.assetDetailDialogService.open(dialogData$, this.ngOnDestroy$);
   }
 
+  private card$(
+    contractAgreementId: string,
+  ): Observable<ContractAgreementCardMapped> {
+    return concat(of(this.page), this.page$).pipe(
+      filter((fetched) => fetched.isReady),
+      map((fetched) => fetched.data),
+      map((page) =>
+        page.contractAgreements.find(
+          (it) => it.contractAgreementId === contractAgreementId,
+        ),
+      ),
+      filterNotNull(),
+    );
+  }
+
   refresh() {
     this.fetch$.next(null);
   }
+
   private searchText$(): Observable<string> {
     return (value$(this.searchText) as Observable<string>).pipe(
       map((it) => (it ?? '').trim()),

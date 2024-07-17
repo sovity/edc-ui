@@ -6,8 +6,7 @@ import {ContractAgreementCardMapped} from './contract-agreement-card-mapped';
 
 @Injectable({providedIn: 'root'})
 export class ContractAgreementCardMappedService {
-  constructor(private assetBuilder: AssetBuilder) {
-  }
+  constructor(private assetBuilder: AssetBuilder) {}
 
   /**
    * Replace the asset with the parsed asset and add the other required fields of the UI model
@@ -54,19 +53,28 @@ export class ContractAgreementCardMappedService {
     maxConsumingContracts: number,
     agreements: ContractAgreementCardMapped[],
   ): ContractAgreementCardMapped[] {
-    return agreements
-      .filter((it) => !it.isTerminated)
-      .map((it, index) => ({
+    let activeContractCounter = 0;
+
+    return agreements.map((it) => {
+      if (it.isTerminated) {
+        return it;
+      }
+
+      const modifiedAgreement = {
         ...it,
         isConsumingLimitsEnforced: true,
         showStatus: true,
-        statusText: index < maxConsumingContracts ? 'Active' : 'Inactive',
+        statusText:
+          activeContractCounter < maxConsumingContracts ? 'Active' : 'Inactive',
         statusTooltipText: this.getConsumingContractsInfoText(
-          index,
+          activeContractCounter,
           maxConsumingContracts,
         ),
-        canTransfer: index < maxConsumingContracts,
-      }));
+        canTransfer: activeContractCounter < maxConsumingContracts,
+      };
+      activeContractCounter++;
+      return modifiedAgreement;
+    });
   }
 
   private getConsumingContractsInfoText(
