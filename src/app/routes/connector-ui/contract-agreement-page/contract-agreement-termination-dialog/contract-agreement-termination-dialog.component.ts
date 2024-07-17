@@ -1,11 +1,14 @@
 import {Component, Inject, OnDestroy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Subject} from 'rxjs';
-import {ValidationMessages} from '../../../../core/validators/validation-messages';
+import {Observable, Subject} from 'rxjs';
 import {ContractAgreementTerminationDialogData} from './contract-agreement-termination-dialog-data';
 import {ContractAgreementTerminationDialogForm} from './contract-agreement-termination-dialog-form';
 import {ContractAgreementTerminationDialogResult} from './contract-agreement-termination-dialog-result';
 import {MatCheckboxChange} from "@angular/material/checkbox";
+import {EdcApiService} from "../../../../core/services/api/edc-api.service";
+import {IdResponseDto} from "@sovity.de/edc-client";
+import {finalize} from "rxjs/operators";
+import {NotificationService} from "../../../../core/services/notification.service";
 
 @Component({
   selector: 'contract-agreement-transfer-dialog',
@@ -18,10 +21,9 @@ export class ContractAgreementTerminationDialogComponent implements OnDestroy {
 
   constructor(
     public form: ContractAgreementTerminationDialogForm,
-    public validationMessages: ValidationMessages,
     private dialogRef: MatDialogRef<ContractAgreementTerminationDialogComponent>,
-    //private edcApiService: EdcApiService,
-    //private notificationService: NotificationService,
+    private edcApiService: EdcApiService,
+    private notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: ContractAgreementTerminationDialogData,
   ) {}
 
@@ -33,9 +35,40 @@ export class ContractAgreementTerminationDialogComponent implements OnDestroy {
     if (this.loading && !this.form.all.valid) {
       return;
     }
-    this.close({contractId: '', lastUpdatedTime: null});
+
+    this.initiateTermination();
   }
 
+  private initiateTermination() {
+    this.loading = true;
+    this.form.all.disable();
+
+    const value = this.form.value
+    let request$: Observable<IdResponseDto>
+    request$ = this.edcApiService.terminateContractAgreement({
+      contractAgreementId: this.data.contractId,
+      contractTerminationRequest: {
+        reason: value.shortReason!,
+        detail: value.detailedReason!
+      }
+    });
+
+    request$.pipe(
+      finalize(() => {
+        this.loading = false;
+        this.form.all.enable();
+      })
+    )
+      .subscribe({
+        next: (response) => {
+          this.close({contractId: response.id, lastUpdatedTime: response.lastUpdatedDate});
+        },
+        error: (error) => {
+          this.notificationService.showError('Contract termination failed!');
+          console.error('Contract termination failed', error)
+        }
+      });
+  }
 
   private close(params: ContractAgreementTerminationDialogResult) {
     this.dialogRef.close(params);

@@ -20,7 +20,7 @@ import {
   UiAssetEditRequest,
   UiContractNegotiation,
   UiDataOffer,
-  buildEdcClient,
+  buildEdcClient, TerminateContractAgreementRequest,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
 import {EDC_FAKE_BACKEND} from './fake-backend/edc-fake-backend';
@@ -124,6 +124,12 @@ export class EdcApiService {
       this.edcClient.uiApi.initiateContractNegotiation({
         contractNegotiationRequest,
       }),
+    );
+  }
+
+  terminateContractAgreement(terminateContractAgreementRequest: TerminateContractAgreementRequest): Observable<IdResponseDto> {
+    return from(
+      this.edcClient.uiApi.terminateContractAgreement(terminateContractAgreementRequest)
     );
   }
 
