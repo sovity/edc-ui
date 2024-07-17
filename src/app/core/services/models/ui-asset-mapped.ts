@@ -1,6 +1,6 @@
 import {UiAsset} from '@sovity.de/edc-client';
-import {DataCategorySelectItem} from '../../../routes/connector-ui/asset-page/data-category-select/data-category-select-item';
-import {DataSubcategorySelectItem} from '../../../routes/connector-ui/asset-page/data-subcategory-select/data-subcategory-select-item';
+import {DataCategorySelectItem} from '../../../routes/connector-ui/asset-create-page/data-category-select/data-category-select-item';
+import {DataSubcategorySelectItem} from '../../../routes/connector-ui/asset-create-page/data-subcategory-select/data-subcategory-select-item';
 import {LanguageSelectItem} from '../../../routes/connector-ui/asset-page/language-select/language-select-item';
 import {TransportModeSelectItem} from '../../../routes/connector-ui/asset-page/transport-mode-select/transport-mode-select-item';
 

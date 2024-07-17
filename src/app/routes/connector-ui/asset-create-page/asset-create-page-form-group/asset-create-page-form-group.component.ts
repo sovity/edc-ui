@@ -12,9 +12,6 @@ export interface AssetList {
   styleUrls: ['./asset-create-page-form-group.component.scss'],
 })
 export class AssetCreatePageFormGroupComponent {
-  // @HostBinding('class.!border-b')
-  // @HostBinding('class.!border-gray-900/10')
-  // cls = true;
   @Input() title!: String;
   @Input() description!: String;
 }

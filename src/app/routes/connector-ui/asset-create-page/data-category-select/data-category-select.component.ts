@@ -1,0 +1,31 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {DATA_CATEGORY_SELECT_DATA} from './data-category-select-data';
+import {DataCategorySelectItem} from './data-category-select-item';
+
+@Component({
+  selector: 'data-category-select',
+  templateUrl: 'data-category-select.component.html',
+})
+export class DataCategorySelectComponent implements OnInit {
+  @Input()
+  label!: string;
+  id!: string;
+
+  ngOnInit(): void {
+    this.id = this.buildId();
+  }
+
+  @Input()
+  control!: FormControl<DataCategorySelectItem | null>;
+
+  items = DATA_CATEGORY_SELECT_DATA;
+
+  isRequired(): boolean {
+    return this.control.hasValidator(Validators.required);
+  }
+
+  private buildId(): string {
+    return `asset-create-form-${this.label.toLowerCase().replaceAll(' ', '-')}`;
+  }
+}

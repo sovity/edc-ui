@@ -4,8 +4,8 @@ import {
   FormGroup,
   ɵFormGroupValue,
 } from '@angular/forms';
-import {DataCategorySelectItem} from '../../../data-category-select/data-category-select-item';
-import {DataSubcategorySelectItem} from '../../../data-subcategory-select/data-subcategory-select-item';
+import {DataCategorySelectItem} from '../../../../asset-create-page/data-category-select/data-category-select-item';
+import {DataSubcategorySelectItem} from '../../../../asset-create-page/data-subcategory-select/data-subcategory-select-item';
 import {TransportModeSelectItem} from '../../../transport-mode-select/transport-mode-select-item';
 import {TemporalCoverageFormModel} from './temporal-coverage-form-model';
 

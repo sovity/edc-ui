@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DataAddressType} from '../../../../../component-library/data-address/data-address-type-select/data-address-type';
 import {ActiveFeatureSet} from '../../../../../core/config/active-feature-set';
-import {DataCategorySelectItem} from '../../data-category-select/data-category-select-item';
+import {DataCategorySelectItem} from '../../../asset-create-page/data-category-select/data-category-select-item';
 import {AssetEditDialogMode} from '../asset-edit-dialog-mode';
 import {AssetAdvancedFormBuilder} from './asset-advanced-form-builder';
 import {AssetDatasourceFormBuilder} from './asset-datasource-form-builder';

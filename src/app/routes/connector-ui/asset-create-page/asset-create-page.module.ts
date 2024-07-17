@@ -25,8 +25,12 @@ import {DataAddressModule} from '../../../component-library/data-address/data-ad
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {AssetCreatePageFormGroupComponent} from './asset-create-page-form-group/asset-create-page-form-group.component';
-import {AssetCreatePageFormInputFieldComponent} from './asset-create-page-form-input-field/asset-create-page-form-input-field.component';
+import {AssetCreatePageFormLabelComponent} from './asset-create-page-form-label/asset-create-page-form-label.component';
 import {AssetCreatePageComponent} from './asset-create-page/asset-create-page.component';
+import {DataCategorySelectComponent} from './data-category-select/data-category-select.component';
+import {DataSubcategoryItemsPipe} from './data-subcategory-select/data-subcategory-items.pipe';
+import {DataSubcategorySelectComponent} from './data-subcategory-select/data-subcategory-select.component';
+import {KeywordSelectComponent} from './keyword-select/keyword-select.component';
 
 @NgModule({
   imports: [
@@ -65,7 +69,11 @@ import {AssetCreatePageComponent} from './asset-create-page/asset-create-page.co
   declarations: [
     AssetCreatePageComponent,
     AssetCreatePageFormGroupComponent,
-    AssetCreatePageFormInputFieldComponent,
+    AssetCreatePageFormLabelComponent,
+    KeywordSelectComponent,
+    DataCategorySelectComponent,
+    DataSubcategorySelectComponent,
+    DataSubcategoryItemsPipe,
   ],
   exports: [AssetCreatePageComponent],
   providers: [],

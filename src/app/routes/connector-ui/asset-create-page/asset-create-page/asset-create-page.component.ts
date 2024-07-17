@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
-import {Subject} from 'rxjs';
+import {Component} from '@angular/core';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
+import {AssetCreateForm} from './form/asset-create-form';
+import {AssetCreateFormInitializer} from './form/asset-create-form-initializer';
+import {AssetGeneralFormBuilder} from './form/asset-general-form-builder';
 
 export interface AssetList {
   filteredAssets: UiAssetMapped[];
@@ -12,17 +13,21 @@ export interface AssetList {
   selector: 'asset-create-page',
   templateUrl: './asset-create-page.component.html',
   styleUrls: ['./asset-create-page.component.scss'],
+  providers: [
+    AssetCreateFormInitializer,
+    AssetCreateForm,
+    AssetGeneralFormBuilder,
+  ],
 })
-export class AssetCreatePageComponent implements OnInit, OnDestroy {
-  hey: FormControl<string> = this.formBuilder.nonNullable.control('');
+export class AssetCreatePageComponent {
+  constructor(
+    private assetCreateFormInitializer: AssetCreateFormInitializer,
+    public form: AssetCreateForm,
+  ) {
+    this.form.reset(this.assetCreateFormInitializer.forCreate());
+  }
 
-  constructor(private formBuilder: FormBuilder) {}
-
-  ngOnInit(): void {}
-
-  ngOnDestroy$ = new Subject();
-  ngOnDestroy() {
-    this.ngOnDestroy$.next(null);
-    this.ngOnDestroy$.complete();
+  onSubmit() {
+    console.log(this.form.value);
   }
 }

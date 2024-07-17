@@ -1,22 +1,86 @@
-<div class="p-5 max-w-[1600px] mx-auto">
-  <div class="flex flex-col gap-y-12 mt-6">
+<div id="asset-create-page" class="p-8 max-w-[1600px] mx-auto">
+  <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.general">
     <asset-create-page-form-group
       title="General Information"
       description="Fill out general information about the asset">
-      <asset-create-page-form-input-field
-        label="Name"></asset-create-page-form-input-field>
-      <asset-create-page-form-input-field
-        label="Version"></asset-create-page-form-input-field>
+      <!--
+      Todo:
+      - Fix data label in keyword select
+      - Maybe find a way to not have to w-full every form field
+      - Maybe give data category select and so on fixed ids
+      -->
+      <!-- Name -->
+      <div>
+        <asset-create-page-form-label
+          label="Name"
+          htmlFor="create-asset-form-name"
+          [ctrl]="form.general.controls.name"></asset-create-page-form-label>
+        <mat-form-field class="w-full mt-1">
+          <input
+            id="create-asset-form-name"
+            matInput
+            type="text"
+            placeholder="My Asset"
+            [formControl]="form.general.controls.name" />
+        </mat-form-field>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <asset-create-page-form-label
+          label="Description"
+          htmlFor="create-asset-form-description"
+          [ctrl]="
+            form.general.controls.description
+          "></asset-create-page-form-label>
+        <mat-form-field class="w-full">
+          <textarea
+            id="create-asset-form-description"
+            class="h-36"
+            matInput
+            [formControl]="form.general.controls.description"
+            [placeholder]="
+              '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
+            "></textarea>
+          <mat-hint class="flex flex-row items-center gap-1 mb-1">
+            The description uses
+            <a
+              class="link"
+              externalLink
+              href="https://www.markdownguide.org/basic-syntax/"
+              >Markdown syntax</a
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- Keywords -->
+      <keyword-select
+        label="Keywords"
+        [control]="form.general.controls.keywords"></keyword-select>
+
+      <!-- Data Category -->
+      <data-category-select
+        class="grow"
+        label="Data Category"
+        [control]="form.general.controls.dataCategory"></data-category-select>
+
+      <!-- Data Subcategory -->
+      <data-subcategory-select
+        class="grow"
+        label="Data Subcategory"
+        [dataCategory]="form.dataCategory"
+        [control]="
+          form.general.controls.dataSubcategory
+        "></data-subcategory-select>
     </asset-create-page-form-group>
-    <asset-create-page-form-group
-      title="Advanced"
-      description="Fill out advanced fields of the asset">
-      <asset-create-page-form-input-field
-        label="Publisher"></asset-create-page-form-input-field>
-      <asset-create-page-form-input-field
-        label="Unit"></asset-create-page-form-input-field>
-      <asset-create-page-form-input-field
-        label="Language"></asset-create-page-form-input-field>
-    </asset-create-page-form-group>
-  </div>
+    <button
+      class="w-32 self-end"
+      mat-raised-button
+      color="primary"
+      [disabled]="!form.all.valid"
+      (click)="onSubmit()">
+      Create
+    </button>
+  </form>
 </div>
