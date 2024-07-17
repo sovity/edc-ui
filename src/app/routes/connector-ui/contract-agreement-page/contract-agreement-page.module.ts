@@ -28,6 +28,9 @@ import {UiElementsModule} from '../../../component-library/ui-elements/ui-elemen
 import {ContractAgreementCardsComponent} from './contract-agreement-cards/contract-agreement-cards.component';
 import {ContractAgreementPageComponent} from './contract-agreement-page/contract-agreement-page.component';
 import {ContractAgreementTransferDialogComponent} from './contract-agreement-transfer-dialog/contract-agreement-transfer-dialog.component';
+import {
+  ContractAgreementTerminationDialogComponent
+} from "./contract-agreement-termination-dialog/contract-agreement-termination-dialog.component";
 
 @NgModule({
   imports: [
@@ -69,6 +72,7 @@ import {ContractAgreementTransferDialogComponent} from './contract-agreement-tra
   declarations: [
     ContractAgreementPageComponent,
     ContractAgreementCardsComponent,
+    ContractAgreementTerminationDialogComponent,
     ContractAgreementTransferDialogComponent,
   ],
   exports: [ContractAgreementPageComponent],
