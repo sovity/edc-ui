@@ -30,12 +30,7 @@ export const routes: Routes = [
   {
     path: 'contracts',
     component: ContractAgreementPageComponent,
-    data: {title: 'Active Contracts', icon: 'content_paste'},
-  },
-  {
-    path: 'terminated-contracts',
-    component: ContractAgreementPageComponent,
-    data: {title: 'Terminated Contracts', icon: 'content_paste_off'},
+    data: {title: 'Contracts', icon: 'assignment_turned_in'},
   },
   {
     path: 'transfer-history',
