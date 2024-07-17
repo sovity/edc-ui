@@ -9,16 +9,18 @@ import {EmptyStateComponent} from './empty-state/empty-state.component';
 import {ErrorStateComponent} from './error-state/error-state.component';
 import {HorizontalSectionDividerComponent} from './horizontal-section-divider/horizontal-section-divider.component';
 import {LoadingStateComponent} from './loading-state/loading-state.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
-  imports: [
-    // Angular
-    CommonModule,
+    imports: [
+        // Angular
+        CommonModule,
 
-    // Angular Material
-    MatIconModule,
-    MatProgressSpinnerModule,
-  ],
+        // Angular Material
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+    ],
   declarations: [
     AgoComponent,
     AgoPipe,

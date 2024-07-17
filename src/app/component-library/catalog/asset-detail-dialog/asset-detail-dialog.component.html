@@ -71,16 +71,15 @@
       </div>
       <div class="ml-3">
         <div class="text-base text-red-800">
-          This contract has been terminated
-          <ago [date]="data.contractAgreement!!.terminationInformation!!.terminatedAt"></ago>
-          by {{ data.contractAgreement!!.terminationInformation?.terminatedBy === 'SELF' ? 'you.' : 'the counter-party.' }}
+          Contract has been terminated
+
         </div>
         <div class="text-[0.9rem] text-red-700 mt-1">
           <p>
-            <b>Termination
-              date:</b> {{ data.contractAgreement!!.terminationInformation!!.terminatedAt | formatDate: 'yyyy-MM-dd HH:mm:ss' }}
+            Terminated <ago [date]="data.contractAgreement!!.terminationInformation!!.terminatedAt"></ago>
+            by {{ data.contractAgreement!!.terminationInformation?.terminatedBy === 'SELF' ? 'you.' : 'the counter-party.' }}
             <br>
-            <b>Reason:</b> {{ data.contractAgreement!!.terminationInformation!!.reason }}
+            <b>Reason:</b><br> {{ data.contractAgreement!!.terminationInformation!!.reason }}
           </p>
           <p>
             <b>Details:</b><br>
