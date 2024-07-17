@@ -31,44 +31,46 @@ import {ContractAgreementTransferDialogComponent} from './contract-agreement-tra
 import {
   ContractAgreementTerminationDialogComponent
 } from "./contract-agreement-termination-dialog/contract-agreement-termination-dialog.component";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
-  imports: [
-    // Angular
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
+    imports: [
+        // Angular
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
 
-    // Angular Material
-    MatBadgeModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatStepperModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatInputModule,
-    MatIconModule,
-    MatDialogModule,
+        // Angular Material
+        MatBadgeModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatStepperModule,
+        MatTooltipModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatInputModule,
+        MatIconModule,
+        MatDialogModule,
 
-    // Third Party
-    NgChartsModule,
-    NgxJsonViewerModule,
+        // Third Party
+        NgChartsModule,
+        NgxJsonViewerModule,
 
-    // EDC UI Modules
-    CatalogModule,
-    DataAddressModule,
-    PipesAndDirectivesModule,
-    UiElementsModule,
-  ],
+        // EDC UI Modules
+        CatalogModule,
+        DataAddressModule,
+        PipesAndDirectivesModule,
+        UiElementsModule,
+        MatButtonToggleModule,
+    ],
   declarations: [
     ContractAgreementPageComponent,
     ContractAgreementCardsComponent,

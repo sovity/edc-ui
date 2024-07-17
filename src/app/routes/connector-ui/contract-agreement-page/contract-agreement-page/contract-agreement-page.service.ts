@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable, combineLatest, concat, interval, of} from 'rxjs';
+import {combineLatest, concat, interval, Observable, of} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {
   ConnectorLimits,
   ContractAgreementCard,
   ContractAgreementPage,
+  ContractTerminationStatus,
 } from '@sovity.de/edc-client';
 import {ActiveFeatureSet} from '../../../../core/config/active-feature-set';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
@@ -25,12 +26,13 @@ export class ContractAgreementPageService {
     refresh$: Observable<any>,
     silentPollingInterval: number,
     searchText$: Observable<string>,
+    terminationStatusFilter?: ContractTerminationStatus,
   ): Observable<Fetched<ContractAgreementPageData>> {
     return combineLatest([
       refresh$.pipe(
         switchMap(() =>
           concat(
-            this.fetchData(),
+            this.fetchData(terminationStatusFilter),
             this.silentRefreshing(silentPollingInterval),
           ),
         ),
@@ -45,9 +47,11 @@ export class ContractAgreementPageService {
     );
   }
 
-  private fetchData(): Observable<Fetched<ContractAgreementPageData>> {
+  private fetchData(terminationStatusFilter?: ContractTerminationStatus): Observable<Fetched<ContractAgreementPageData>> {
+    const requestBody = {contractAgreementPageQuery: {terminationStatus: terminationStatusFilter}};
+
     return combineLatest([
-      this.edcApiService.getContractAgreementPage(),
+      this.edcApiService.getContractAgreementPage(requestBody),
       this.fetchLimits(),
     ]).pipe(
       map(([contractAgreementPage, connectorLimits]) =>

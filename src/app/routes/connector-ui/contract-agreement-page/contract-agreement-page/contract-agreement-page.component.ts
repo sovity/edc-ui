@@ -1,23 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  concat,
-  distinctUntilChanged,
-  of,
-  share,
-} from 'rxjs';
+import {BehaviorSubject, concat, distinctUntilChanged, Observable, of, share, Subject,} from 'rxjs';
 import {filter, map, takeUntil} from 'rxjs/operators';
-import {AssetDetailDialogDataService} from 'src/app/component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
-import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
+import {
+  AssetDetailDialogDataService
+} from 'src/app/component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
+import {
+  AssetDetailDialogService
+} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {value$} from '../../../../core/utils/form-group-utils';
 import {filterNotNull} from '../../../../core/utils/rxjs-utils';
 import {ContractAgreementCardMapped} from '../contract-agreement-cards/contract-agreement-card-mapped';
 import {ContractAgreementPageData} from './contract-agreement-page.data';
 import {ContractAgreementPageService} from './contract-agreement-page.service';
+import {ContractTerminationStatus} from "@sovity.de/edc-client";
 
 @Component({
   selector: 'app-contract-agreement-page',
@@ -39,8 +36,12 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.fetchContracts();
+  }
+
+  fetchContracts(filter?: ContractTerminationStatus) {
     this.page$ = this.contractAgreementPageService
-      .contractAgreementPageData$(this.fetch$, 5000, this.searchText$())
+      .contractAgreementPageData$(this.fetch$, 5000, this.searchText$(), filter)
       .pipe(takeUntil(this.ngOnDestroy$), share());
     this.page$.subscribe((contractAgreementList) => {
       this.page = contractAgreementList;

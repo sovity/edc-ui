@@ -20,7 +20,7 @@ import {
   UiAssetEditRequest,
   UiContractNegotiation,
   UiDataOffer,
-  buildEdcClient, TerminateContractAgreementRequest,
+  buildEdcClient, TerminateContractAgreementRequest, GetContractAgreementPageRequest,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
 import {EDC_FAKE_BACKEND} from './fake-backend/edc-fake-backend';
@@ -141,8 +141,8 @@ export class EdcApiService {
     );
   }
 
-  getContractAgreementPage(): Observable<ContractAgreementPage> {
-    return from(this.edcClient.uiApi.getContractAgreementPage());
+  getContractAgreementPage(getContractAgreementPageRequest: GetContractAgreementPageRequest): Observable<ContractAgreementPage> {
+    return from(this.edcClient.uiApi.getContractAgreementPage(getContractAgreementPageRequest));
   }
 
   initiateTransfer(
