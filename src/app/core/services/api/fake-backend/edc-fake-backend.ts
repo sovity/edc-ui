@@ -4,6 +4,7 @@ import {
   ContractDefinitionPageToJSON,
   ContractDefinitionRequestFromJSON,
   ContractNegotiationRequestFromJSON,
+  ContractTerminationRequestFromJSON,
   DashboardPageToJSON,
   FetchAPI,
   IdResponseDtoToJSON,
@@ -17,12 +18,7 @@ import {
   UiContractNegotiationToJSON,
   UiDataOfferToJSON,
 } from '@sovity.de/edc-client';
-import {
-  assetPage,
-  createAsset,
-  deleteAsset,
-  editAsset,
-} from './connector-fake-impl/asset-fake-service';
+import {assetPage, createAsset, deleteAsset, editAsset,} from './connector-fake-impl/asset-fake-service';
 import {getCatalogPageDataOffers} from './connector-fake-impl/catalog-fake-service';
 import {
   contractAgreementInitiateTransfer,
@@ -43,18 +39,11 @@ import {
   deletePolicyDefinition,
   policyDefinitionPage,
 } from './connector-fake-impl/policy-definition-fake-service';
-import {
-  transferHistoryPage,
-  transferProcessAsset,
-} from './connector-fake-impl/transfer-history-fake-service';
-import {
-  getBody,
-  getMethod,
-  getQueryParams,
-  getUrl,
-} from './utils/request-utils';
+import {transferHistoryPage, transferProcessAsset,} from './connector-fake-impl/transfer-history-fake-service';
+import {getBody, getMethod, getQueryParams, getUrl,} from './utils/request-utils';
 import {ok} from './utils/response-utils';
 import {UrlInterceptor} from './utils/url-interceptor';
+import {initiateContractTermination} from "./connector-fake-impl/contract-termination-fake-service";
 
 export const EDC_FAKE_BACKEND: FetchAPI = async (
   input: RequestInfo,
@@ -170,6 +159,13 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     .on('POST', () => {
       const page = contractAgreementPage();
       return ok(ContractAgreementPageToJSON(page));
+    })
+
+    .url('pages/content-agreement-page/*/terminate')
+    .on('POST', (contractAgreementId) => {
+      const request = ContractTerminationRequestFromJSON(body);
+      const response = initiateContractTermination({contractAgreementId: contractAgreementId, contractTerminationRequest: request});
+      return ok(IdResponseDtoToJSON(response));
     })
 
     .url('pages/contract-agreement-page/transfers')

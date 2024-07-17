@@ -223,7 +223,7 @@ export const contractAgreementInitiateTransfer = (
   return {id: transferProcessId, lastUpdatedDate: new Date(new Date())};
 };
 
-const updateAgreement = (
+export const updateAgreement = (
   contractAgreementId: string,
   patcher: Patcher<ContractAgreementCard>,
 ) => {
