@@ -69,22 +69,18 @@
                 clip-rule="evenodd"/>
         </svg>
       </div>
-      <div class="ml-3">
+      <div class="flex flex-col ml-3 grow">
         <div class="text-base text-red-800">
-          Contract has been terminated
-
+          {{ data.contractAgreement!!.terminationInformation!!.reason }}
         </div>
-        <div class="text-[0.9rem] text-red-700 mt-1">
-          <p>
-            Terminated <ago [date]="data.contractAgreement!!.terminationInformation!!.terminatedAt"></ago>
-            by {{ data.contractAgreement!!.terminationInformation?.terminatedBy === 'SELF' ? 'you.' : 'the counter-party.' }}
-            <br>
-            <b>Reason:</b><br> {{ data.contractAgreement!!.terminationInformation!!.reason }}
-          </p>
-          <p>
-            <b>Details:</b><br>
-            {{ data.contractAgreement!!.terminationInformation!!.detail }}
-          </p>
+        <div class="text-[0.9rem] text-red-700 mt-2">
+          {{ data.contractAgreement!!.terminationInformation!!.detail }}
+        </div>
+        <div class="text-xs text-red-700 mt-2">
+          <ago [date]="data.contractAgreement!!.terminationInformation!!.terminatedAt"></ago>
+          ·
+          terminated
+          by {{ data.contractAgreement!!.terminationInformation?.terminatedBy === 'SELF' ? 'you' : 'the counter-party' }}
         </div>
       </div>
     </div>
@@ -139,7 +135,7 @@
         color="warn"
         [disabled]="data.contractAgreement?.isTerminated  ?? false"
         (click)="onTerminateClick()">
-        Terminate Contract
+        Terminate
       </button>
     </div>
 

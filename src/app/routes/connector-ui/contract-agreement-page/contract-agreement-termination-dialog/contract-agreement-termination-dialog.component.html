@@ -1,9 +1,20 @@
 <h1 mat-dialog-title>Terminate Contract Agreement</h1>
 <mat-dialog-content class="w-[800px] h-fit">
   <form [formGroup]="form.all">
-    <div class="flex flex-col gap-2">
-      <div class="form-section-title">Reason</div>
+    <div class="flex flex-col gap-1">
+      <div>
+        By clicking the 'Terminate Contract' button, you will terminate the contract
+        agreement. New data transfers via this agreement will no longer be possible and current transfer processes
+        will
+        be canceled.
+      </div>
+      <div>
+        This action is irreversible.
+      </div>
+    </div>
 
+    <div class="flex flex-col gap-1 mt-6">
+      <div class="form-section-title !mt-0">Termination Details</div>
       <!-- Reason -->
       <mat-form-field class="grow">
         <mat-label>Reason</mat-label>
@@ -11,39 +22,33 @@
           matInput
           formControlName="shortReason"
           placeholder="Enter reason for termination"
-          maxlength="100"
-          required>
-        <mat-error *ngIf="form.all.controls.shortReason.hasError('required')">
-          Reason is required
-        </mat-error>
-        <mat-hint align="end">{{form.all.controls.shortReason.value.length}}/100 characters</mat-hint>
+          required
+        >
       </mat-form-field>
 
       <mat-form-field class="grow">
-        <mat-label>Details</mat-label>
+        <mat-label>Detailed reason</mat-label>
         <textarea
           matInput
           formControlName="detailedReason"
           placeholder="You can enter a detailed explanation here"
-          maxlength="1000"></textarea>
-        <mat-hint align="end">{{form.all.controls.detailedReason.value.length}}/1000 characters</mat-hint>
+          autofocus
+          rows="10"></textarea>
+        <mat-hint align="end">{{ form.all.controls.detailedReason.value.length }}/1000 characters</mat-hint>
+        <mat-error *ngIf="form.all.controls.detailedReason.hasError('maxlength')">
+          Maximum 1000 characters allowed.
+        </mat-error>
+        <mat-error *ngIf="form.all.controls.detailedReason.hasError('required')">
+          Field is required.
+        </mat-error>
       </mat-form-field>
     </div>
   </form>
 
   <!-- Confirmation box -->
   <div class="flex flex-col mt-[10px]">
-    <div class="form-section-title">Confirmation</div>
-    <div>
-      <p>
-        By clicking the 'Terminate Contract' button, you will terminate the contract
-        agreement. New data transfers via this agreement will no longer be possible and current transfer processes will
-        be canceled.<br>
-        This action is irreversible.
-      </p>
-    </div>
     <mat-checkbox [checked]="checkboxChecked" (change)="onCheckboxChange($event)">
-      I have read the information and want to terminate the contract agreement.
+      I understand the consequences of terminating a contract.
     </mat-checkbox>
   </div>
 </mat-dialog-content>
@@ -61,6 +66,6 @@
     color="warn"
     [disabled]="!form.all.valid || loading || !checkboxChecked"
     (click)="onSave()">
-    Terminate Contract
+    Terminate
   </button>
 </mat-dialog-actions>

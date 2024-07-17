@@ -312,30 +312,6 @@ export class AssetPropertyGridGroupBuilder {
       });
     }
 
-    if (contractAgreement.isTerminated) {
-      properties.push({
-        icon: 'content_paste_off',
-        label: 'Contract status',
-        text: contractAgreement.statusText,
-        additionalClasses: 'text-warn',
-      })
-      properties.push({
-        icon: 'category',
-        label: 'Terminated at',
-        text: this.propertyGridUtils.formatDate(contractAgreement.terminationInformation?.terminatedAt)
-      })
-      properties.push({
-        icon: 'group_off',
-        label: 'Terminated by',
-        ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.terminatedBy)
-      })
-      properties.push({
-        icon: 'category',
-        label: 'Termination reason',
-        ...this.propertyGridUtils.guessValue(contractAgreement.terminationInformation?.reason)
-      })
-    }
-
     return {
       groupLabel: 'Contract Agreement',
       properties,
