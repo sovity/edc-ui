@@ -25,7 +25,9 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
   page: Fetched<ContractAgreementPageData> = Fetched.empty();
   page$: Observable<Fetched<ContractAgreementPageData>> = new Subject();
   searchText = new FormControl<string>('');
-  deleteBusy = false;
+  terminationFilterControl: FormControl = new FormControl<string>('ONGOING');
+
+  terminationFilter: ContractTerminationStatus | null = 'ONGOING';
 
   private fetch$ = new BehaviorSubject(null);
 
@@ -36,16 +38,27 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    //this.terminationFilterControl.setValue('all')
     this.fetchContracts();
   }
 
-  fetchContracts(filter?: ContractTerminationStatus) {
+  fetchContracts() {
     this.page$ = this.contractAgreementPageService
-      .contractAgreementPageData$(this.fetch$, 5000, this.searchText$(), filter)
+      .contractAgreementPageData$(this.fetch$, 5000, this.searchText$(), this.terminationFilter)
       .pipe(takeUntil(this.ngOnDestroy$), share());
     this.page$.subscribe((contractAgreementList) => {
       this.page = contractAgreementList;
     });
+  }
+
+  onTerminationFilterChange() {
+    if (this.terminationFilterControl.value === 'all') {
+      this.terminationFilter = null;
+    } else {
+      this.terminationFilter = this.terminationFilterControl.value as ContractTerminationStatus;
+    }
+
+    this.fetchContracts()
   }
 
   onContractAgreementClick(card: ContractAgreementCardMapped) {
@@ -90,4 +103,6 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
+
+  protected readonly value$ = value$;
 }

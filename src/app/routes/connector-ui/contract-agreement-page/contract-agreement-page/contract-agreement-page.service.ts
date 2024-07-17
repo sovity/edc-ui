@@ -22,17 +22,20 @@ export class ContractAgreementPageService {
     private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
+  activeTerminationFilter?: ContractTerminationStatus | null;
+
   contractAgreementPageData$(
     refresh$: Observable<any>,
     silentPollingInterval: number,
     searchText$: Observable<string>,
-    terminationStatusFilter?: ContractTerminationStatus,
+    terminationStatusFilter?: ContractTerminationStatus | null,
   ): Observable<Fetched<ContractAgreementPageData>> {
+    this.activeTerminationFilter = terminationStatusFilter;
     return combineLatest([
       refresh$.pipe(
         switchMap(() =>
           concat(
-            this.fetchData(terminationStatusFilter),
+            this.fetchData(),
             this.silentRefreshing(silentPollingInterval),
           ),
         ),
@@ -47,8 +50,8 @@ export class ContractAgreementPageService {
     );
   }
 
-  private fetchData(terminationStatusFilter?: ContractTerminationStatus): Observable<Fetched<ContractAgreementPageData>> {
-    const requestBody = {contractAgreementPageQuery: {terminationStatus: terminationStatusFilter}};
+  private fetchData(): Observable<Fetched<ContractAgreementPageData>> {
+    const requestBody = this.activeTerminationFilter ? {contractAgreementPageQuery: {terminationStatus: this.activeTerminationFilter}} : {};
 
     return combineLatest([
       this.edcApiService.getContractAgreementPage(requestBody),

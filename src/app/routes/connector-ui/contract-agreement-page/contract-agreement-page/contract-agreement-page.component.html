@@ -19,10 +19,10 @@
 
     <!-- Terminiation status filter -->
     <div class="flex content-end h-[3.25rem] mt-[0.2rem]">
-      <mat-button-toggle-group name="terminationFilter" value="active">
-        <mat-button-toggle value="active" (change)="fetchContracts('ONGOING')">Active Contracts</mat-button-toggle>
-        <mat-button-toggle value="terminated" (change)="fetchContracts('TERMINATED')">Terminated Contracts</mat-button-toggle>
-        <mat-button-toggle value="all" (change)="fetchContracts()">All Contracts</mat-button-toggle>
+      <mat-button-toggle-group name="terminationFilter" [formControl]="terminationFilterControl">
+        <mat-button-toggle value="ONGOING" (change)="onTerminationFilterChange()">Active Contracts</mat-button-toggle>
+        <mat-button-toggle value="TERMINATED" (change)="onTerminationFilterChange()">Terminated Contracts</mat-button-toggle>
+        <mat-button-toggle value="all" (change)="onTerminationFilterChange()">All Contracts</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
 
