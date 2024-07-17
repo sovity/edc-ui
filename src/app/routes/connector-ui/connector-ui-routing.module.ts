@@ -56,7 +56,7 @@ export const routes: Routes = [
   {
     path: 'my-assets/create',
     component: AssetCreatePageComponent,
-    data: {title: 'Create Asset', icon: 'data_usage', isNotShownInNavBar: true},
+    data: {title: 'Create Asset', icon: 'data_usage'},
   },
   {
     path: 'logout',

@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 
@@ -13,7 +14,9 @@ export interface AssetList {
   styleUrls: ['./asset-create-page.component.scss'],
 })
 export class AssetCreatePageComponent implements OnInit, OnDestroy {
-  constructor() {}
+  hey: FormControl<string> = this.formBuilder.nonNullable.control('');
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
 
