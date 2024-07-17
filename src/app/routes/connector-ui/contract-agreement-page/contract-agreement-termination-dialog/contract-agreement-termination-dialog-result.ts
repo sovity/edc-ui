@@ -1,4 +1,4 @@
 export interface ContractAgreementTerminationDialogResult {
-  transferProcessId: string;
   contractId: string;
+  lastUpdatedTime: Date | null;
 }

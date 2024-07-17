@@ -21,6 +21,12 @@ import {PropertyGridGroup} from '../../property-grid/property-grid-group/propert
 import {AssetDetailDialogData} from './asset-detail-dialog-data';
 import {AssetDetailDialogResult} from './asset-detail-dialog-result';
 import {formatDate, getLocaleId} from "@angular/common";
+import {
+  ContractAgreementTerminationDialogData
+} from "../../../routes/connector-ui/contract-agreement-page/contract-agreement-termination-dialog/contract-agreement-termination-dialog-data";
+import {
+  ContractAgreementTerminationDialogComponent
+} from "../../../routes/connector-ui/contract-agreement-page/contract-agreement-termination-dialog/contract-agreement-termination-dialog.component";
 
 /**
  * Asset Detail Dialog
@@ -114,7 +120,13 @@ export class AssetDetailDialogComponent implements OnDestroy {
     });
   }
 
-  onTerminateClick() {}
+  onTerminateClick() {
+    const data: ContractAgreementTerminationDialogData = {
+      contractId: this.data.contractAgreement?.contractAgreementId!!,
+      asset: this.data.asset,
+    };
+    this.matDialog.open(ContractAgreementTerminationDialogComponent, {data})
+  }
 
   private confirmDelete(): Observable<boolean> {
     const dialogData = ConfirmDialogModel.forDelete('asset', this.asset.title);
