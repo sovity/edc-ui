@@ -6,6 +6,7 @@ import {
   ContractAgreementCard,
   ContractAgreementPage,
   ContractTerminationStatus,
+  GetContractAgreementPageRequest,
 } from '@sovity.de/edc-client';
 import {ActiveFeatureSet} from '../../../../core/config/active-feature-set';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
@@ -51,7 +52,7 @@ export class ContractAgreementPageService {
   }
 
   private fetchData(): Observable<Fetched<ContractAgreementPageData>> {
-    const requestBody = {
+    const requestBody: GetContractAgreementPageRequest = {
       contractAgreementPageQuery: {
         terminationStatus: this.activeTerminationFilter ?? undefined,
       },
