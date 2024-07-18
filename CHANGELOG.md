@@ -18,7 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
-- Added functionality to terminate contracts and a toggle to filter for active/terminated/all contracts
+- Both providers and consumers can now terminate contracts.
+- Contracts can be filtered by their termination status.
 
 #### Patch
 

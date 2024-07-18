@@ -51,13 +51,11 @@ export class ContractAgreementPageService {
   }
 
   private fetchData(): Observable<Fetched<ContractAgreementPageData>> {
-    const requestBody = this.activeTerminationFilter
-      ? {
-          contractAgreementPageQuery: {
-            terminationStatus: this.activeTerminationFilter,
-          },
-        }
-      : {};
+    const requestBody = {
+      contractAgreementPageQuery: {
+        terminationStatus: this.activeTerminationFilter ?? undefined,
+      },
+    };
 
     return combineLatest([
       this.edcApiService.getContractAgreementPage(requestBody),
