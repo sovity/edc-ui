@@ -1,4 +1,7 @@
-<label class="text-gray-700" [htmlFor]="label">{{ label }}</label>
+<asset-create-page-form-label
+  htmlFor="create-asset-form-keywords"
+  [ctrl]="control"
+  [label]="label"></asset-create-page-form-label>
 <mat-form-field class="w-full">
   <mat-chip-list
     #chipList
@@ -13,8 +16,8 @@
       </button>
     </mat-chip>
     <input
+      id="create-asset-form-keywords"
       placeholder="Add keyword..."
-      [id]="label"
       [matChipInputAddOnBlur]="true"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"

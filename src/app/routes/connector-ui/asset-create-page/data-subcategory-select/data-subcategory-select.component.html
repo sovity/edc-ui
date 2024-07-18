@@ -1,11 +1,11 @@
 <asset-create-page-form-label
+  htmlFor="create-asset-form-data-subcategory"
   [ctrl]="control"
-  [label]="label"
-  [htmlFor]="id"></asset-create-page-form-label>
+  [label]="label"></asset-create-page-form-label>
 <mat-form-field class="w-full" color="accent">
   <mat-select
+    id="create-asset-form-data-subcategory"
     placeholder="Select data subcategory..."
-    [id]="id"
     [formControl]="control"
     [compareWith]="'id' | compareByField">
     <mat-option [value]="null">-</mat-option>
