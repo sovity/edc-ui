@@ -5,7 +5,7 @@ import {AssetGeneralFormModel} from './asset-general-form-model';
 /**
  * Form Model for Edit Asset Form
  */
-export interface AssetCreateFormModel {
+export interface EditAssetFormModel {
   mode: FormControl<AssetEditDialogMode>;
   general: FormGroup<AssetGeneralFormModel>;
 }
@@ -13,4 +13,4 @@ export interface AssetCreateFormModel {
 /**
  * Form Value for Edit Asset Form
  */
-export type AssetCreateFormValue = ɵFormGroupValue<AssetCreateFormModel>;
+export type EditAssetFormValue = ɵFormGroupValue<EditAssetFormModel>;

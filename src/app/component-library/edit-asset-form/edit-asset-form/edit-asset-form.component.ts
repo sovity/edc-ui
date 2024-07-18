@@ -1,26 +1,22 @@
-import {Component} from '@angular/core';
-import {AssetCreateForm} from './form/asset-create-form';
-import {AssetCreateFormInitializer} from './form/asset-create-form-initializer';
+import {Component, Input, OnInit} from '@angular/core';
 import {AssetGeneralFormBuilder} from './form/asset-general-form-builder';
+import {EditAssetForm} from './form/edit-asset-form';
+import {EditAssetFormValue} from './form/model/edit-asset-form-model';
 
 @Component({
   selector: 'edit-asset-form',
   templateUrl: './edit-asset-form.component.html',
   styleUrls: ['./edit-asset-form.component.scss'],
-  providers: [
-    AssetCreateFormInitializer,
-    AssetCreateForm,
-    AssetGeneralFormBuilder,
-  ],
+  providers: [EditAssetForm, AssetGeneralFormBuilder],
 })
-export class EditAssetFormComponent {
+export class EditAssetFormComponent implements OnInit {
+  @Input() initialFormValue!: EditAssetFormValue;
   loading = false;
 
-  constructor(
-    private assetCreateFormInitializer: AssetCreateFormInitializer,
-    public form: AssetCreateForm,
-  ) {
-    this.form.reset(this.assetCreateFormInitializer.forCreate());
+  constructor(public form: EditAssetForm) {}
+
+  ngOnInit(): void {
+    this.form.reset(this.initialFormValue);
   }
 
   onSubmit() {

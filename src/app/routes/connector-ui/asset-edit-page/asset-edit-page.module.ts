@@ -25,7 +25,7 @@ import {DataAddressModule} from '../../../component-library/data-address/data-ad
 import {EditAssetFormModule} from '../../../component-library/edit-asset-form/edit-asset-form.module';
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
-import {AssetCreatePageComponent} from './asset-create-page/asset-create-page.component';
+import {AssetEditPageComponent} from './asset-edit-page/asset-edit-page.component';
 
 @NgModule({
   imports: [
@@ -62,8 +62,8 @@ import {AssetCreatePageComponent} from './asset-create-page/asset-create-page.co
     PipesAndDirectivesModule,
     UiElementsModule,
   ],
-  declarations: [AssetCreatePageComponent],
-  exports: [AssetCreatePageComponent],
+  declarations: [AssetEditPageComponent],
+  exports: [AssetEditPageComponent],
   providers: [],
 })
-export class AssetCreatePageModule {}
+export class AssetEditPageModule {}

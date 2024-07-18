@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {UiAssetMapped} from 'src/app/core/services/models/ui-asset-mapped';
-import {AssetCreateFormValue} from './model/asset-create-form-model';
+import {EditAssetFormValue} from './model/edit-asset-form-model';
 
 /**
  * Handles AngularForms for Edit Asset Form
  */
 @Injectable()
-export class AssetCreateFormInitializer {
+export class EditAssetFormInitializer {
   constructor() {}
 
-  forCreate(): AssetCreateFormValue {
+  forCreate(): EditAssetFormValue {
     return {
       mode: 'CREATE',
       general: {
@@ -23,7 +23,7 @@ export class AssetCreateFormInitializer {
     };
   }
 
-  forEdit(asset: UiAssetMapped): AssetCreateFormValue {
+  forEdit(asset: UiAssetMapped): EditAssetFormValue {
     return {
       mode: 'EDIT',
       general: {
