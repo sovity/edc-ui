@@ -1,25 +1,22 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AssetGeneralFormBuilder} from './form/asset-general-form-builder';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {ValidationMessages} from 'src/app/core/validators/validation-messages';
+import {DATA_SOURCE_HTTP_METHODS} from 'src/app/routes/connector-ui/asset-page/asset-edit-dialog/form/http-methods';
 import {EditAssetForm} from './form/edit-asset-form';
-import {EditAssetFormValue} from './form/model/edit-asset-form-model';
 
 @Component({
   selector: 'edit-asset-form',
   templateUrl: './edit-asset-form.component.html',
   styleUrls: ['./edit-asset-form.component.scss'],
-  providers: [EditAssetForm, AssetGeneralFormBuilder],
+  providers: [],
 })
-export class EditAssetFormComponent implements OnInit {
-  @Input() initialFormValue!: EditAssetFormValue;
+export class EditAssetFormComponent {
+  @Output() submit = new EventEmitter();
+
   loading = false;
+  methods = DATA_SOURCE_HTTP_METHODS;
 
-  constructor(public form: EditAssetForm) {}
-
-  ngOnInit(): void {
-    this.form.reset(this.initialFormValue);
-  }
-
-  onSubmit() {
-    console.log(this.form.value);
-  }
+  constructor(
+    public form: EditAssetForm,
+    public validationMessages: ValidationMessages,
+  ) {}
 }

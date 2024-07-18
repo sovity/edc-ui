@@ -1,4 +1,3 @@
-<button (click)="edit()">Edit</button>
 <div class="p-8 max-w-[1600px] mx-auto">
-  <edit-asset-form [initialFormValue]="initialFormValue"></edit-asset-form>
+  <edit-asset-form (submit)="onSubmit()"></edit-asset-form>
 </div>

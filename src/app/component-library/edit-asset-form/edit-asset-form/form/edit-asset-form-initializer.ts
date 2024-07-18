@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UiAssetMapped} from 'src/app/core/services/models/ui-asset-mapped';
+import {AssetDatasourceFormValue} from './model/asset-datasource-form-model';
 import {EditAssetFormValue} from './model/edit-asset-form-model';
 
 /**
@@ -20,6 +21,7 @@ export class EditAssetFormInitializer {
         dataCategory: null,
         dataSubcategory: null,
       },
+      datasource: this.emptyHttpDatasource(),
     };
   }
 
@@ -34,6 +36,29 @@ export class EditAssetFormInitializer {
         dataCategory: asset.dataCategory,
         dataSubcategory: asset.dataSubcategory,
       },
+    };
+  }
+
+  private emptyHttpDatasource(): AssetDatasourceFormValue {
+    return {
+      dataAddressType: 'Http',
+      dataDestination: '',
+
+      httpUrl: '',
+      httpMethod: 'GET',
+      httpAuthHeaderType: 'None',
+      httpAuthHeaderName: '',
+      httpAuthHeaderValue: '',
+      httpAuthHeaderSecretName: '',
+      httpQueryParams: [],
+
+      httpDefaultPath: '',
+      httpProxyMethod: false,
+      httpProxyPath: false,
+      httpProxyQueryParams: false,
+      httpProxyBody: false,
+
+      httpHeaders: [],
     };
   }
 }

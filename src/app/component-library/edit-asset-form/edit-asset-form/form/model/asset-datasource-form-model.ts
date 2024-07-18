@@ -5,7 +5,7 @@ import {
   ɵFormGroupValue,
 } from '@angular/forms';
 import {UiDataSourceHttpDataMethod} from '@sovity.de/edc-client';
-import {DataAddressType} from 'src/app/component-library/data-address/data-address-type-select/data-address-type';
+import {DataAddress} from './data-address';
 import {HttpDatasourceAuthHeaderType} from './http-datasource-auth-header-type';
 import {HttpDatasourceHeaderFormModel} from './http-datasource-header-form-model';
 import {HttpDatasourceQueryParamFormModel} from './http-datasource-query-param-form-model';
@@ -14,7 +14,7 @@ import {HttpDatasourceQueryParamFormModel} from './http-datasource-query-param-f
  * Form Model for Edit Asset Form > Datasource
  */
 export interface AssetDatasourceFormModel {
-  dataAddressType: FormControl<DataAddressType>;
+  dataAddressType: FormControl<DataAddress>;
 
   // Custom Datasource JSON
   dataDestination: FormControl<string>;
