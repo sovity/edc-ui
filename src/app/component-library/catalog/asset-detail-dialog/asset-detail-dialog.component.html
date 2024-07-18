@@ -7,7 +7,8 @@
     </mat-icon>
     <mat-icon
       *ngIf="data.type === 'contract-agreement'"
-      class="mat-card-avatar-icon">
+      class="mat-card-avatar-icon"
+      [class.text-warn]="data.contractAgreement?.terminationStatus === 'TERMINATED'">
       {{
         data.contractAgreement!!.direction === 'PROVIDING'
           ? data.contractAgreement!!.isTerminated

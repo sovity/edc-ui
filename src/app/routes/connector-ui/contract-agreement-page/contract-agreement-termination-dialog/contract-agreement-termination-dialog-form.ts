@@ -23,7 +23,7 @@ export class ContractAgreementTerminationDialogForm {
 
   buildFormGroup(): FormGroup<ContractAgreementTerminationDialogFormModel> {
     const formGroup = this.formBuilder.nonNullable.group({
-      shortReason: ['User terminated', Validators.required],
+      shortReason: ['Terminated by user', Validators.required],
       detailedReason: ['', [Validators.required, Validators.maxLength(1000)]],
     });
     formGroup.controls.shortReason.disable();
