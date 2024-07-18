@@ -1,15 +1,16 @@
-import {FormGroup, ɵFormGroupValue} from '@angular/forms';
+import {FormControl, FormGroup, ɵFormGroupValue} from '@angular/forms';
+import {AssetEditDialogMode} from './asset-edit-dialog-mode';
 import {AssetGeneralFormModel} from './asset-general-form-model';
 
 /**
- * Form Model for Asset Create Form
+ * Form Model for Edit Asset Form
  */
 export interface AssetCreateFormModel {
-  // datasource: FormGroup<AssetDatasourceFormModel>;
+  mode: FormControl<AssetEditDialogMode>;
   general: FormGroup<AssetGeneralFormModel>;
 }
 
 /**
- * Form Value for Asset Create Form
+ * Form Value for Edit Asset Form
  */
 export type AssetCreateFormValue = ɵFormGroupValue<AssetCreateFormModel>;

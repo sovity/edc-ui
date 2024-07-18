@@ -3,7 +3,7 @@ import {DataCategorySelectItem} from '../../../data-category-select/data-categor
 import {DataSubcategorySelectItem} from '../../../data-subcategory-select/data-subcategory-select-item';
 
 /**
- * Form Model for Asset Create Form > Datasource
+ * Form Model for Edit Asset Form > Datasource
  */
 export interface AssetGeneralFormModel {
   id: FormControl<string>;
@@ -15,6 +15,6 @@ export interface AssetGeneralFormModel {
 }
 
 /**
- * Form Value for Asset Create Form > Datasource
+ * Form Value for Edit Asset Form > Datasource
  */
 export type AssetGeneralFormValue = ɵFormGroupValue<AssetGeneralFormModel>;

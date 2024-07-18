@@ -69,12 +69,12 @@
         "></data-subcategory-select>
     </asset-create-page-form-group>
     <button
-      class="w-32 self-end"
+      class="w-40 h-10 self-end"
       mat-raised-button
       color="primary"
-      [disabled]="!form.all.valid"
+      [disabled]="!form.all.valid || loading"
       (click)="onSubmit()">
-      Create
+      {{ form.mode === 'CREATE' ? 'Create' : 'Update' }}
     </button>
   </form>
 </div>

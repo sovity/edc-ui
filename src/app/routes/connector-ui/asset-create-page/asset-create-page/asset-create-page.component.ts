@@ -20,6 +20,8 @@ export interface AssetList {
   ],
 })
 export class AssetCreatePageComponent {
+  loading = false;
+
   constructor(
     private assetCreateFormInitializer: AssetCreateFormInitializer,
     public form: AssetCreateForm,

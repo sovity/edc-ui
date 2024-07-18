@@ -11,7 +11,7 @@ import {HttpDatasourceHeaderFormModel} from './http-datasource-header-form-model
 import {HttpDatasourceQueryParamFormModel} from './http-datasource-query-param-form-model';
 
 /**
- * Form Model for Asset Create Form > Datasource
+ * Form Model for Edit Asset Form > Datasource
  */
 export interface AssetDatasourceFormModel {
   dataAddressType: FormControl<DataAddressType>;
@@ -41,7 +41,7 @@ export interface AssetDatasourceFormModel {
 }
 
 /**
- * Form Value for Asset Create Form > Datasource
+ * Form Value for Edit Asset Form > Datasource
  */
 export type AssetDatasourceFormValue =
   ɵFormGroupValue<AssetDatasourceFormModel>;

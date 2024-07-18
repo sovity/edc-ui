@@ -6,10 +6,11 @@ import {
   AssetCreateFormModel,
   AssetCreateFormValue,
 } from './model/asset-create-form-model';
+import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
 import {AssetGeneralFormModel} from './model/asset-general-form-model';
 
 /**
- * Handles AngularForms for Asset Create Form
+ * Handles AngularForms for Edit Asset Form
  */
 @Injectable()
 export class AssetCreateForm {
@@ -19,6 +20,10 @@ export class AssetCreateForm {
 
   get value(): AssetCreateFormValue {
     return this.all.value;
+  }
+
+  get mode(): AssetEditDialogMode {
+    return this.all.controls.mode.value;
   }
 
   get dataCategory(): DataCategorySelectItem | null {
@@ -39,10 +44,14 @@ export class AssetCreateForm {
     initial: AssetCreateFormValue,
   ): FormGroup<AssetCreateFormModel> {
     const general: FormGroup<AssetGeneralFormModel> =
-      this.assetGeneralFormBuilder.buildFormGroup(initial.general!);
+      this.assetGeneralFormBuilder.buildFormGroup(
+        initial.general!,
+        initial.mode!,
+      );
 
     const formGroup: FormGroup<AssetCreateFormModel> =
       this.formBuilder.nonNullable.group({
+        mode: [initial.mode as AssetEditDialogMode],
         general,
       });
 

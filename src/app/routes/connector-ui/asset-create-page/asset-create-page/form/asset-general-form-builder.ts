@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {value$} from '../../../../../core/utils/form-group-utils';
 import {noWhitespacesOrColonsValidator} from '../../../../../core/validators/no-whitespaces-or-colons-validator';
 import {AssetsIdValidatorBuilder} from '../assets-id-validator-builder';
+import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
 import {
   AssetGeneralFormModel,
   AssetGeneralFormValue,
@@ -19,6 +20,7 @@ export class AssetGeneralFormBuilder {
 
   buildFormGroup(
     initial: AssetGeneralFormValue,
+    mode: AssetEditDialogMode,
   ): FormGroup<AssetGeneralFormModel> {
     const general: FormGroup<AssetGeneralFormModel> =
       this.formBuilder.nonNullable.group({
@@ -34,7 +36,11 @@ export class AssetGeneralFormBuilder {
         dataSubcategory: [initial.dataSubcategory || null],
       });
 
-    this.initIdGeneration(general.controls.id, general.controls.name);
+    if (mode === 'CREATE') {
+      this.initIdGeneration(general.controls.id, general.controls.name);
+    } else {
+      general.controls.id.disable();
+    }
 
     return general;
   }

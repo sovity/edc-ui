@@ -1,7 +1,7 @@
 import {FormControl, ɵFormGroupValue} from '@angular/forms';
 
 /**
- * Form Model for Asset Create Form > Datasource > HTTP/REST > Header
+ * Form Model for Edit Asset Form > Datasource > HTTP/REST > Header
  */
 export interface HttpDatasourceHeaderFormModel {
   headerName: FormControl<string>;
@@ -9,7 +9,7 @@ export interface HttpDatasourceHeaderFormModel {
 }
 
 /**
- * Form Value for Asset Create Form > Datasource > HTTP/REST > Header
+ * Form Value for Edit Asset Form > Datasource > HTTP/REST > Header
  */
 export type HttpDatasourceHeaderFormValue =
   ɵFormGroupValue<HttpDatasourceHeaderFormModel>;
