@@ -13,13 +13,6 @@ export const dataAddressTypeSelectItems = (
     });
   }
 
-  if (type.startsWith('Datasource')) {
-    items.push({
-      id: 'On-Request',
-      label: '"On Request" Data Offer',
-    });
-  }
-
   items.push(
     {
       id: 'Http',

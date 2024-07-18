@@ -284,6 +284,18 @@ body {
   }
 }
 
-#asset-create-page .mat-form-field-infix {
+#edit-asset-form .mat-form-field-infix {
   border-top: 0.3em solid transparent !important;
+}
+
+.normal-form-field .mat-form-field-infix {
+  border-top: 0.85em solid transparent !important;
+}
+
+#edit-asset-form .mat-form-field-subscript-wrapper {
+  font-size: 100%;
+}
+
+#edit-asset-form .mat-hint {
+  font-size: 12px;
 }

@@ -21,7 +21,7 @@ export class EditAssetFormInitializer {
         dataCategory: null,
         dataSubcategory: null,
       },
-      datasource: this.emptyHttpDatasource(),
+      datasource: this.onRequestDatasource(),
     };
   }
 
@@ -39,8 +39,12 @@ export class EditAssetFormInitializer {
     };
   }
 
-  private emptyHttpDatasource(): AssetDatasourceFormValue {
+  private onRequestDatasource(): AssetDatasourceFormValue {
     return {
+      datasourceType: 'On-Request',
+      contactEmail: '',
+      contactPreferredEmailSubject: '',
+
       dataAddressType: 'Http',
       dataDestination: '',
 

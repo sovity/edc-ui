@@ -15,18 +15,19 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
 import {CatalogModule} from '../catalog/catalog.module';
-import {DataAddressModule} from '../data-address/data-address.module';
 import {PipesAndDirectivesModule} from '../pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../ui-elements/ui-elements.module';
 import {DataCategorySelectComponent} from './data-category-select/data-category-select.component';
 import {DataSubcategoryItemsPipe} from './data-subcategory-select/data-subcategory-items.pipe';
 import {DataSubcategorySelectComponent} from './data-subcategory-select/data-subcategory-select.component';
+import {EditAssetFormDataAddressTypeSelectComponent} from './edit-asset-form-data-address-type-select/edit-asset-form-data-address-type-select.component';
 import {EditAssetFormGroupComponent} from './edit-asset-form-group/edit-asset-form-group.component';
 import {EditAssetFormLabelComponent} from './edit-asset-form-label/edit-asset-form-label.component';
 import {EditAssetFormComponent} from './edit-asset-form/edit-asset-form.component';
@@ -56,13 +57,13 @@ import {KeywordSelectComponent} from './keyword-select/keyword-select.component'
     MatTooltipModule,
     MatPaginatorModule,
     MatInputModule,
+    MatRadioModule,
     MatIconModule,
     MatDialogModule,
     MatNativeDateModule,
 
     // EDC UI Modules
     CatalogModule,
-    DataAddressModule,
     PipesAndDirectivesModule,
     UiElementsModule,
   ],
@@ -74,8 +75,9 @@ import {KeywordSelectComponent} from './keyword-select/keyword-select.component'
     DataCategorySelectComponent,
     DataSubcategorySelectComponent,
     DataSubcategoryItemsPipe,
+    EditAssetFormDataAddressTypeSelectComponent,
   ],
-  exports: [EditAssetFormComponent],
+  exports: [EditAssetFormComponent, EditAssetFormLabelComponent],
   providers: [],
 })
 export class EditAssetFormModule {}

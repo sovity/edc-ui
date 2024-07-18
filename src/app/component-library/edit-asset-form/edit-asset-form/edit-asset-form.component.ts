@@ -10,7 +10,7 @@ import {EditAssetForm} from './form/edit-asset-form';
   providers: [],
 })
 export class EditAssetFormComponent {
-  @Output() submit = new EventEmitter();
+  @Output() submitClicked = new EventEmitter();
 
   loading = false;
   methods = DATA_SOURCE_HTTP_METHODS;

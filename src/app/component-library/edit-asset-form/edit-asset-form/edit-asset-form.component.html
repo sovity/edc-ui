@@ -1,384 +1,441 @@
 <div id="edit-asset-form">
-  <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.general">
+  <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.all">
     <edit-asset-form-group
       *ngIf="form.datasource"
       title="Datasource"
-      description="Define the API where your data is sourced from">
-      <!-- Data Address Type -->
-      <data-address-type-select
-        label="Type"
-        [mode]="form.mode === 'EDIT' ? 'Datasource-Edit' : 'Datasource-Create'"
-        [control]="
-          form.datasource.controls.dataAddressType
-        "></data-address-type-select>
+      description="Define the datasource API resource">
+      <!-- Datasource Type -->
+      <div>
+        <edit-asset-form-label
+          label="Datasource Type"
+          htmlFor="create-asset-form-datasource-type"
+          [ctrl]="
+            form.datasource.controls.datasourceType
+          "></edit-asset-form-label>
+        <mat-radio-group
+          class="!flex !flex-col !gap-1 w-full mt-2"
+          aria-label="Select an option"
+          [formControl]="form.datasource.controls.datasourceType">
+          <mat-radio-button value="On-Request"
+            >I do not have a data source.</mat-radio-button
+          >
+          <mat-radio-button value="Datasource"
+            >I want to connect to a data source.</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
 
-      <!-- Data Source Type CUSTOM -->
-      <mat-form-field
-        *ngIf="
-          form.dataAddressType === 'Custom-Data-Address-Json' &&
-            form.datasource.controls.dataDestination;
-          let ctrl
-        ">
-        <mat-label>Custom Datasource Config (JSON)</mat-label>
-        <textarea
-          matInput
-          placeholder='{"https://w3id.org/edc/v0.0.1/ns/type": "HttpData", ...}'
-          [formControl]="ctrl"></textarea>
-        <mat-error *ngIf="ctrl.invalid && ctrl.errors?.jsonInvalid">
-          {{ validationMessages.invalidJsonMessage }}
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Data Source Type ON_REQUEST -->
-      <ng-container>
-        <!-- Contact E-Mail -->
-        <div class="form-section-title">Contact E-Mail</div>
-
-        <div class="mb-[10px] px-[3px] text-sm">
-          This email address will be offered to potential consumers for
-          contacting you. This is done in place of having an actual data source
-          connected.
+      <ng-container
+        *ngIf="form.datasource.value.datasourceType === 'On-Request'">
+        <!-- Contact E-Mail for On Request Assets -->
+        <div class="mt-2">
+          <edit-asset-form-label
+            label="Contact E-Mail"
+            htmlFor="create-asset-form-contact-email"
+            [ctrl]="
+              form.datasource.controls.contactEmail
+            "></edit-asset-form-label>
+          <mat-form-field
+            *ngIf="form.datasource.controls.contactEmail; let ctrl"
+            class="w-full mt-1">
+            <input
+              id="create-asset-form-contact-email"
+              matInput
+              [formControl]="ctrl"
+              [placeholder]="'contact@my-org.com'" />
+            <mat-error *ngIf="ctrl.invalid && ctrl.errors?.email">
+              {{ validationMessages.invalidEmailMessage }}
+            </mat-error>
+            <mat-hint class="">
+              This email address will be offered to potential consumers for
+              contacting you. This is done in place of having an actual data
+              source connected.
+            </mat-hint>
+          </mat-form-field>
         </div>
 
-        <mat-form-field
-          *ngIf="form.datasource.controls.contactEmail; let ctrl"
-          class="grow">
-          <mat-label>Contact E-Mail</mat-label>
-          <input
-            matInput
-            [formControl]="ctrl"
-            [placeholder]="'contact@my-org.com'" />
-          <mat-error *ngIf="ctrl.invalid && ctrl.errors?.email">
-            {{ validationMessages.invalidEmailMessage }}
-          </mat-error>
-        </mat-form-field>
-
-        <!-- Contact E-Mail Preferred Subject -->
-        <div class="form-section-title">Preferred E-Mail Subject</div>
-
-        <div class="mb-[10px] px-[3px] text-sm">
-          Will be added to the mailto-link and displayed to potential consumers
-          to use.
+        <!-- Contact E-Mail Subject for On Request Assets -->
+        <div class="mt-5">
+          <edit-asset-form-label
+            label="Preferred E-Mail Subject"
+            htmlFor="create-asset-form-contact-subject"
+            [ctrl]="
+              form.datasource.controls.contactPreferredEmailSubject
+            "></edit-asset-form-label>
+          <mat-form-field
+            *ngIf="
+              form.datasource.controls.contactPreferredEmailSubject;
+              let ctrl
+            "
+            class="w-full mt-1">
+            <input
+              id="create-asset-form-contact-subject"
+              matInput
+              [formControl]="ctrl"
+              [placeholder]="'Data Offer \'xyz\''" />
+            <mat-hint class="">
+              Will be added to the mailto-link and displayed to potential
+              consumers to use.
+            </mat-hint>
+          </mat-form-field>
         </div>
-
-        <mat-form-field
-          *ngIf="
-            form.datasource.controls.contactPreferredEmailSubject;
-            let ctrl
-          "
-          class="grow">
-          <mat-label>Preferred E-Mail Subject</mat-label>
-          <input
-            matInput
-            [formControl]="ctrl"
-            [placeholder]="'Data Offer \'xyz\''" />
-        </mat-form-field>
       </ng-container>
 
-      <!-- Data Source Type HTTP -->
-      <ng-container *ngIf="form.dataAddressType === 'Http'">
-        <div class="form-section-title">Method</div>
-
-        <div *ngIf="form.proxyMethod" class="mb-[10px] px-[3px] text-sm">
-          The consuming side <b>must</b> provide a Custom HTTP Method with
-          method parameterization enabled.
+      <ng-container
+        *ngIf="this.form.datasource.value.datasourceType === 'Datasource'">
+        <!-- Data Address Type -->
+        <div class="mt-5">
+          <edit-asset-form-data-address-type-select
+            label="Type"
+            [mode]="
+              form.mode === 'EDIT' ? 'Datasource-Edit' : 'Datasource-Create'
+            "
+            [control]="form.datasource.controls.dataAddressType">
+          </edit-asset-form-data-address-type-select>
         </div>
 
-        <!-- Method (Rest-Api) -->
-        <ng-container *ngIf="!form.proxyMethod">
-          <mat-form-field *ngIf="form.datasource.controls.httpMethod; let ctrl">
-            <mat-label>
-              {{ form.proxyMethod ? 'Default' : '' }} Method
-            </mat-label>
-            <mat-select [formControl]="ctrl">
-              <mat-option *ngFor="let method of methods" [value]="method"
-                >{{ method }}
-              </mat-option>
-            </mat-select>
+        <!-- Data Source Type CUSTOM -->
+        <div
+          *ngIf="
+            form.dataAddressType === 'Custom-Data-Address-Json' &&
+              form.datasource.controls.dataDestination;
+            let ctrl
+          ">
+          <edit-asset-form-label
+            label="Custom Datasource Config (JSON)"
+            htmlFor="create-asset-form-custom-datasource-json"
+            [ctrl]="ctrl"></edit-asset-form-label>
+          <mat-form-field class="w-full mt-1">
+            <textarea
+              id="create-asset-form-custom-datasource-json"
+              class="h-36"
+              matInput
+              placeholder='{"https://w3id.org/edc/v0.0.1/ns/type": "HttpData", ...}'
+              [formControl]="ctrl"></textarea>
+            <mat-error *ngIf="ctrl.invalid && ctrl.errors?.jsonInvalid">
+              {{ validationMessages.invalidJsonMessage }}
+            </mat-error>
           </mat-form-field>
+        </div>
+
+        <!-- Data Source Type HTTP -->
+        <ng-container *ngIf="form.dataAddressType === 'Http'">
+          <!-- Method (Rest-Api) -->
+          <div>
+            <edit-asset-form-label
+              label="Http Method"
+              htmlFor="create-asset-form-http-method"
+              [ctrl]="
+                form.datasource.controls.httpMethod
+              "></edit-asset-form-label>
+            <mat-form-field
+              *ngIf="form.datasource.controls.httpMethod; let ctrl"
+              class="w-full">
+              <mat-select
+                id="create-asset-form-http-method"
+                [formControl]="ctrl">
+                <mat-option *ngFor="let method of methods" [value]="method"
+                  >{{ method }}
+                </mat-option>
+              </mat-select>
+              <mat-hint class="mat-hint">
+                The consuming side <b>must</b> provide a Custom HTTP Method with
+                method parameterization enabled.</mat-hint
+              >
+            </mat-form-field>
+            <!-- Toggle Method Parametrization Button -->
+            <div
+              *ngIf="form.datasource.controls.httpProxyMethod; let ctrl"
+              class="mt-1 flex flex-col gap-1">
+              <button
+                class="w-min"
+                mat-button
+                [color]="ctrl.value ? 'warn' : 'accent'"
+                (click)="ctrl.setValue(!ctrl.value)">
+                {{ ctrl.value ? 'Disable' : 'Enable' }}
+                Method Parameterization
+              </button>
+            </div>
+          </div>
+
+          <!-- Base Path (Rest-Api) -->
+          <div *ngIf="form.datasource.controls.httpUrl; let ctrl" class="mt-4">
+            <edit-asset-form-label
+              htmlFor="create-asset-form-url"
+              [label]="form.proxyPath ? 'Base URL' : 'URL'"
+              [ctrl]="ctrl"></edit-asset-form-label>
+            <mat-form-field class="w-full mt-1">
+              <input matInput [formControl]="ctrl" [placeholder]="'https://'" />
+              <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
+                {{ validationMessages.invalidUrlMessage }}
+              </mat-error>
+              <mat-hint *ngIf="form.proxyPath">
+                The consuming side <b>must</b> provide a Custom HTTP Subpath
+                with method parameterization enabled. The Custom HTTP Subpath
+                will be appended to the base path.
+              </mat-hint>
+            </mat-form-field>
+            <!-- Toggle Proxy Path Button -->
+            <div
+              *ngIf="form.datasource.controls.httpProxyPath; let ctrl"
+              [ngClass]="ctrl.value ? 'mt-4' : '-mt-2'">
+              <button
+                mat-button
+                [color]="ctrl.value ? 'warn' : 'accent'"
+                (click)="ctrl.setValue(!ctrl.value)">
+                {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <edit-asset-form-label
+              [label]="
+                (form.proxyQueryParams ? 'Default' : '') + ' Query Params'
+              "></edit-asset-form-label>
+            <div class="mt-4"></div>
+            <div
+              *ngFor="
+                let header of form.datasource.controls.httpQueryParams.controls;
+                let i = index
+              "
+              class="flex flex-row space-x-[10px]">
+              <!-- Query Param Name -->
+              <mat-form-field class="w-1/3">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  placeholder="key"
+                  required
+                  autocomplete="new-query-param-name"
+                  [formControl]="header.controls.paramName" />
+                {{ header.errors }}
+                <mat-error
+                  *ngIf="
+                    header.controls.paramName.invalid &&
+                    header.controls.paramName.errors?.invalidQueryParam
+                  "
+                  >{{ validationMessages.invalidQueryParam }}
+                </mat-error>
+              </mat-form-field>
+              <!-- Query Param Value -->
+              <mat-form-field class="grow">
+                <mat-label>Value</mat-label>
+                <input
+                  matInput
+                  placeholder="..."
+                  autocomplete="new-query-param-value"
+                  [formControl]="header.controls.paramValue" />
+                <mat-error
+                  *ngIf="
+                    header.controls.paramValue.invalid &&
+                    header.controls.paramValue.errors?.invalidQueryParam
+                  "
+                  >{{ validationMessages.invalidQueryParam }}
+                </mat-error>
+              </mat-form-field>
+              <!-- Query Param Delete Button -->
+              <button
+                class="shrink"
+                mat-button
+                color="warn"
+                style="height: 42px; margin-top: 4px; margin-left: 8px"
+                (click)="form.onHttpQueryParamsRemoveClick(i)">
+                Remove
+              </button>
+            </div>
+            <mat-hint *ngIf="form.proxyQueryParams" class="mat-hint">
+              With query param parameterization enabled, the default query
+              params and the query params provided by the consumer will be
+              merged.
+            </mat-hint>
+            <div class="flex flex-row mb-[10px] space-x-[10px] mt-2">
+              <!-- Add Query Param Button -->
+              <button
+                mat-button
+                color="accent"
+                (click)="form.onHttpQueryParamsAddClick()">
+                Add {{ form.proxyQueryParams ? 'Default' : '' }} Query Param
+              </button>
+              <!-- Toggle Proxy Query Param Parameterization Button -->
+              <button
+                *ngIf="form.datasource.controls.httpProxyQueryParams; let ctrl"
+                mat-button
+                [color]="ctrl.value ? 'warn' : 'accent'"
+                (click)="ctrl.setValue(!ctrl.value)">
+                {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param
+                Parameterization
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1 mt-3">
+            <edit-asset-form-label label="Request Body"></edit-asset-form-label>
+            <mat-hint class="mat-hint">
+              The request body can only be set from the consumer side, if
+              parameterization is enabled.
+            </mat-hint>
+            <!-- Toggle Proxy Body Button -->
+            <div
+              *ngIf="form.datasource.controls.httpProxyBody; let ctrl"
+              class="flex flex-row mb-[10px]">
+              <button
+                mat-button
+                [color]="ctrl.value ? 'warn' : 'accent'"
+                (click)="ctrl.setValue(!ctrl.value)">
+                {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
+                Parameterization
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1 mt-3">
+            <edit-asset-form-label
+              label="Authentication"></edit-asset-form-label>
+            <!-- Add Authentication Button -->
+            <div
+              *ngIf="
+                form.datasource.controls.httpAuthHeaderType.value === 'None'
+              "
+              class="flex flex-row">
+              <button
+                mat-button
+                color="accent"
+                (click)="
+                  form.datasource.controls.httpAuthHeaderType.setValue(
+                    'Vault-Secret'
+                  )
+                ">
+                Add Authentication
+              </button>
+            </div>
+            <!-- Auth Header Value Type -->
+            <mat-form-field
+              *ngIf="
+                form.datasource.controls.httpAuthHeaderType.value !== 'None'
+              "
+              class="grow mt-4">
+              <mat-label>Type</mat-label>
+              <mat-select
+                [formControl]="form.datasource.controls.httpAuthHeaderType">
+                <mat-option value="Vault-Secret">
+                  Header with Vault Secret
+                </mat-option>
+                <mat-option value="Value">Header with Value</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.datasource.controls.httpAuthHeaderType.value !== 'None'
+              "
+              class="flex flex-row space-x-[10px] -mt-3">
+              <!-- Auth Header Name -->
+              <mat-form-field class="w-1/3">
+                <mat-label>Auth Header Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Authorization"
+                  autocomplete="new-auth-header-name"
+                  [formControl]="form.datasource.controls.httpAuthHeaderName" />
+              </mat-form-field>
+              <!-- Auth Header Value -->
+              <mat-form-field
+                *ngIf="
+                  form.datasource.controls.httpAuthHeaderType.value === 'Value'
+                "
+                class="grow">
+                <mat-label>Auth Header Value</mat-label>
+                <input
+                  matInput
+                  placeholder="Bearer ..."
+                  [formControl]="
+                    form.datasource.controls.httpAuthHeaderValue
+                  " />
+              </mat-form-field>
+              <!-- Auth Header Secret Name -->
+              <mat-form-field
+                *ngIf="
+                  form.datasource.controls.httpAuthHeaderType.value ===
+                  'Vault-Secret'
+                "
+                class="grow">
+                <mat-label>Vault Secret Name</mat-label>
+                <input
+                  matInput
+                  placeholder="MySecret123"
+                  [formControl]="
+                    form.datasource.controls.httpAuthHeaderSecretName
+                  " />
+              </mat-form-field>
+            </div>
+            <!-- Remove Authentication Button -->
+            <div
+              *ngIf="
+                form.datasource.controls.httpAuthHeaderType.value !== 'None'
+              "
+              class="flex flex-row -mt-4">
+              <button
+                mat-button
+                color="warn"
+                (click)="
+                  form.datasource.controls.httpAuthHeaderType.setValue('None')
+                ">
+                Remove Authentication
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <edit-asset-form-label
+              label="Additional Headers"></edit-asset-form-label>
+            <div class="mt-8"></div>
+            <div
+              *ngFor="
+                let header of form.datasource.controls.httpHeaders.controls;
+                let i = index
+              "
+              class="flex flex-row space-x-[10px] -mt-4">
+              <!-- Header Name -->
+              <mat-form-field class="w-1/3">
+                <mat-label>Header Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Header"
+                  autocomplete="new-header-name"
+                  [formControl]="header.controls.headerName" />
+              </mat-form-field>
+              <!-- Header Value -->
+              <mat-form-field class="grow">
+                <mat-label>Header Value</mat-label>
+                <input
+                  matInput
+                  placeholder="..."
+                  autocomplete="new-header-value"
+                  [formControl]="header.controls.headerValue" />
+              </mat-form-field>
+              <!-- Header Delete Button -->
+              <button
+                mat-button
+                color="warn"
+                style="height: 42px; margin-top: 4px; margin-left: 8px"
+                (click)="form.onHttpHeadersRemoveClick(i)">
+                Remove
+              </button>
+            </div>
+            <!-- Add Header Button -->
+            <div class="flex flex-row -mt-3">
+              <button
+                mat-button
+                color="accent"
+                (click)="form.onHttpHeadersAddClick()">
+                Add Additional Header
+              </button>
+            </div>
+          </div>
         </ng-container>
-
-        <!-- Toggle Proxy Method Button -->
-        <div
-          *ngIf="form.datasource.controls.httpProxyMethod; let ctrl"
-          class="flex flex-row mb-[10px]">
-          <button
-            mat-button
-            [color]="ctrl.value ? 'warn' : 'accent'"
-            (click)="ctrl.setValue(!ctrl.value)">
-            {{ ctrl.value ? 'Disable' : 'Enable' }} Method Parameterization
-          </button>
-        </div>
-
-        <div class="form-section-title">URL</div>
-
-        <div *ngIf="form.proxyPath" class="mb-[10px] px-[3px] text-sm">
-          The consuming side <b>must</b> provide a Custom HTTP Subpath with
-          method parameterization is enabled. The Custom HTTP Subpath will be
-          appended to the base path.
-        </div>
-
-        <!-- Base Path (Rest-Api) -->
-        <mat-form-field
-          *ngIf="form.datasource.controls.httpUrl; let ctrl"
-          class="grow">
-          <mat-label *ngIf="!form.proxyPath">URL</mat-label>
-          <mat-label *ngIf="form.proxyPath">Base URL</mat-label>
-          <input matInput [formControl]="ctrl" [placeholder]="'https://'" />
-          <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
-            {{ validationMessages.invalidUrlMessage }}
-          </mat-error>
-        </mat-form-field>
-
-        <!-- Toggle Proxy Path Button -->
-        <div
-          *ngIf="form.datasource.controls.httpProxyPath; let ctrl"
-          class="flex flex-row mb-[10px]">
-          <button
-            mat-button
-            [color]="ctrl.value ? 'warn' : 'accent'"
-            (click)="ctrl.setValue(!ctrl.value)">
-            {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
-          </button>
-        </div>
-
-        <div class="form-section-title">
-          {{ form.proxyQueryParams ? 'Default' : '' }} Query Params
-        </div>
-
-        <div
-          *ngFor="
-            let header of form.datasource.controls.httpQueryParams.controls;
-            let i = index
-          "
-          class="flex flex-row space-x-[10px]">
-          <!-- Query Param Name -->
-          <mat-form-field class="w-1/3">
-            <mat-label>Query Param Name</mat-label>
-            <input
-              matInput
-              placeholder="key"
-              required
-              autocomplete="new-query-param-name"
-              [formControl]="header.controls.paramName" />
-            {{ header.errors }}
-            <mat-error
-              *ngIf="
-                header.controls.paramName.invalid &&
-                header.controls.paramName.errors?.invalidQueryParam
-              "
-              >{{ validationMessages.invalidQueryParam }}
-            </mat-error>
-          </mat-form-field>
-
-          <!-- Query Param Value -->
-          <mat-form-field class="grow">
-            <mat-label>Value</mat-label>
-            <input
-              matInput
-              placeholder="..."
-              autocomplete="new-query-param-value"
-              [formControl]="header.controls.paramValue" />
-            <mat-error
-              *ngIf="
-                header.controls.paramValue.invalid &&
-                header.controls.paramValue.errors?.invalidQueryParam
-              "
-              >{{ validationMessages.invalidQueryParam }}
-            </mat-error>
-          </mat-form-field>
-
-          <!-- Query Param Delete Button -->
-          <button
-            mat-button
-            color="warn"
-            style="height: 54px; margin-top: 4px; margin-left: 8px"
-            (click)="form.onHttpQueryParamsRemoveClick(i)">
-            Remove
-          </button>
-        </div>
-
-        <div *ngIf="form.proxyQueryParams" class="text-sm mb-[10px] px-[3px]">
-          With query param parameterization enabled, the default query params
-          and the query params provided by the consumer will be merged.
-        </div>
-
-        <div class="flex flex-row mb-[10px] space-x-[10px]">
-          <!-- Add Query Param Button -->
-          <button
-            mat-button
-            color="accent"
-            (click)="form.onHttpQueryParamsAddClick()">
-            Add {{ form.proxyQueryParams ? 'Default' : '' }} Query Param
-          </button>
-
-          <!-- Toggle Proxy Query Param Parameterization Button -->
-          <button
-            *ngIf="form.datasource.controls.httpProxyQueryParams; let ctrl"
-            mat-button
-            [color]="ctrl.value ? 'warn' : 'accent'"
-            (click)="ctrl.setValue(!ctrl.value)">
-            {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param Parameterization
-          </button>
-        </div>
-
-        <div class="form-section-title">Request Body</div>
-
-        <div class="text-sm mb-[10px] px-[3px]">
-          The request body can only be set from the consumer side, if
-          parameterization is enabled.
-        </div>
-
-        <!-- Toggle Proxy Body Button -->
-        <div
-          *ngIf="form.datasource.controls.httpProxyBody; let ctrl"
-          class="flex flex-row mb-[10px]">
-          <button
-            mat-button
-            [color]="ctrl.value ? 'warn' : 'accent'"
-            (click)="ctrl.setValue(!ctrl.value)">
-            {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
-            Parameterization
-          </button>
-        </div>
-
-        <div class="form-section-title">Authentication</div>
-
-        <!-- Add Authentication Button -->
-        <div
-          *ngIf="form.datasource.controls.httpAuthHeaderType.value === 'None'"
-          class="flex flex-row mb-[10px]">
-          <button
-            mat-button
-            color="accent"
-            (click)="
-              form.datasource.controls.httpAuthHeaderType.setValue(
-                'Vault-Secret'
-              )
-            ">
-            Add Authentication
-          </button>
-        </div>
-
-        <!-- Auth Header Value Type -->
-        <mat-form-field
-          *ngIf="form.datasource.controls.httpAuthHeaderType.value !== 'None'"
-          class="grow">
-          <mat-label>Type</mat-label>
-          <mat-select
-            [formControl]="form.datasource.controls.httpAuthHeaderType">
-            <mat-option value="Vault-Secret">
-              Header with Vault Secret
-            </mat-option>
-            <mat-option value="Value">Header with Value</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div
-          *ngIf="form.datasource.controls.httpAuthHeaderType.value !== 'None'"
-          class="flex flex-row space-x-[10px]">
-          <!-- Auth Header Name -->
-          <mat-form-field class="w-1/3">
-            <mat-label>Auth Header Name</mat-label>
-            <input
-              matInput
-              placeholder="Authorization"
-              autocomplete="new-auth-header-name"
-              [formControl]="form.datasource.controls.httpAuthHeaderName" />
-          </mat-form-field>
-
-          <!-- Auth Header Value -->
-          <mat-form-field
-            *ngIf="
-              form.datasource.controls.httpAuthHeaderType.value === 'Value'
-            "
-            class="grow">
-            <mat-label>Auth Header Value</mat-label>
-            <input
-              matInput
-              placeholder="Bearer ..."
-              [formControl]="form.datasource.controls.httpAuthHeaderValue" />
-          </mat-form-field>
-
-          <!-- Auth Header Secret Name -->
-          <mat-form-field
-            *ngIf="
-              form.datasource.controls.httpAuthHeaderType.value ===
-              'Vault-Secret'
-            "
-            class="grow">
-            <mat-label>Vault Secret Name</mat-label>
-            <input
-              matInput
-              placeholder="MySecret123"
-              [formControl]="
-                form.datasource.controls.httpAuthHeaderSecretName
-              " />
-          </mat-form-field>
-        </div>
-
-        <!-- Remove Authentication Button -->
-        <div
-          *ngIf="form.datasource.controls.httpAuthHeaderType.value !== 'None'"
-          class="flex flex-row mb-[10px]">
-          <button
-            mat-button
-            color="warn"
-            (click)="
-              form.datasource.controls.httpAuthHeaderType.setValue('None')
-            ">
-            Remove Authentication
-          </button>
-        </div>
-
-        <div class="form-section-title">Additional Headers</div>
-
-        <div
-          *ngFor="
-            let header of form.datasource.controls.httpHeaders.controls;
-            let i = index
-          "
-          class="flex flex-row space-x-[10px]">
-          <!-- Header Name -->
-          <mat-form-field class="w-1/3">
-            <mat-label>Header Name</mat-label>
-            <input
-              matInput
-              placeholder="Header"
-              autocomplete="new-header-name"
-              [formControl]="header.controls.headerName" />
-          </mat-form-field>
-
-          <!-- Header Value -->
-          <mat-form-field class="grow">
-            <mat-label>Header Value</mat-label>
-            <input
-              matInput
-              placeholder="..."
-              autocomplete="new-header-value"
-              [formControl]="header.controls.headerValue" />
-          </mat-form-field>
-
-          <!-- Header Delete Button -->
-          <button
-            mat-button
-            color="warn"
-            style="height: 54px; margin-top: 4px; margin-left: 8px"
-            (click)="form.onHttpHeadersRemoveClick(i)">
-            Remove
-          </button>
-        </div>
-
-        <!-- Add Header Button -->
-        <div class="flex flex-row mb-[10px]">
-          <button
-            mat-button
-            color="accent"
-            (click)="form.onHttpHeadersAddClick()">
-            Add Additional Header
-          </button>
-        </div>
       </ng-container>
     </edit-asset-form-group>
+
     <edit-asset-form-group
       title="General Information"
       description="Fill out general information about the asset">
@@ -426,9 +483,11 @@
       </div>
 
       <!-- Keywords -->
-      <keyword-select
-        label="Keywords"
-        [control]="form.general.controls.keywords"></keyword-select>
+      <div class="mt-3">
+        <keyword-select
+          label="Keywords"
+          [control]="form.general.controls.keywords"></keyword-select>
+      </div>
 
       <!-- Data Category -->
       <data-category-select
@@ -450,7 +509,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!form.all.valid || loading"
-      (click)="submit.emit()">
+      (click)="submitClicked.emit()">
       {{ form.mode === 'CREATE' ? 'Create' : 'Update' }}
     </button>
   </form>

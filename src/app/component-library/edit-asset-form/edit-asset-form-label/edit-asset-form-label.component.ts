@@ -8,10 +8,10 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class EditAssetFormLabelComponent {
   @Input() label!: string;
-  @Input() htmlFor!: string;
-  @Input() ctrl!: FormControl<any>;
+  @Input() htmlFor?: string;
+  @Input() ctrl?: FormControl<any>;
 
   isRequired(): boolean {
-    return this.ctrl.hasValidator(Validators.required);
+    return this.ctrl?.hasValidator(Validators.required) || false;
   }
 }

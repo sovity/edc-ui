@@ -4,7 +4,7 @@ import {switchDisabledControls} from 'src/app/core/utils/form-group-utils';
 import {jsonValidator} from 'src/app/core/validators/json-validator';
 import {urlValidator} from 'src/app/core/validators/url-validator';
 import {validQueryParam} from 'src/app/core/validators/valid-query-param';
-import {assetDatasourceFormEnabledCtrls} from 'src/app/routes/connector-ui/asset-page/asset-edit-dialog/form/model/asset-datasource-form-enabled-ctrls';
+import {assetDatasourceFormEnabledCtrls} from './model/asset-datasource-form-enabled-ctrls';
 import {
   AssetDatasourceFormModel,
   AssetDatasourceFormValue,
@@ -27,6 +27,8 @@ export class AssetDatasourceFormBuilder {
   ): FormGroup<AssetDatasourceFormModel> {
     const datasource: FormGroup<AssetDatasourceFormModel> =
       this.formBuilder.nonNullable.group({
+        datasourceType: initial?.datasourceType!,
+
         dataAddressType: initial?.dataAddressType!,
         dataDestination: [
           initial?.dataDestination!,
