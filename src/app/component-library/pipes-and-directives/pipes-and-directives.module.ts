@@ -7,7 +7,6 @@ import {ExternalLinkDirective} from './directives/external-link.directive';
 import {RemoveClassDirective} from './directives/remove-class.directive';
 import {TrackByFieldDirective} from './directives/track-by-field.directive';
 import {CompareByFieldPipe} from './pipes/compare-by-field.pipe';
-import {DateFormatPipe} from './pipes/date-format.pipe';
 import {IsActiveFeaturePipe} from './pipes/is-active-feature.pipe';
 import {ValuesPipe} from './pipes/values.pipe';
 
@@ -23,7 +22,6 @@ import {ValuesPipe} from './pipes/values.pipe';
   declarations: [
     AutofocusDirective,
     CompareByFieldPipe,
-    DateFormatPipe,
     ExternalLinkDirective,
     IsActiveFeaturePipe,
     RemoveClassDirective,
@@ -33,7 +31,6 @@ import {ValuesPipe} from './pipes/values.pipe';
   exports: [
     AutofocusDirective,
     CompareByFieldPipe,
-    DateFormatPipe,
     ExternalLinkDirective,
     IsActiveFeaturePipe,
     RemoveClassDirective,

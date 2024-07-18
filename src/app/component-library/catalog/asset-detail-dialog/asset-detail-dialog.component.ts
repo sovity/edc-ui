@@ -1,4 +1,3 @@
-import {formatDate, getLocaleId} from '@angular/common';
 import {Component, Inject, OnDestroy} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -199,7 +198,4 @@ export class AssetDetailDialogComponent implements OnDestroy {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
-
-  protected readonly formatDate = formatDate;
-  protected readonly getLocaleId = getLocaleId;
 }

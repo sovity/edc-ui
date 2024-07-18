@@ -51,7 +51,6 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    //this.terminationFilterControl.setValue('all')
     this.fetchContracts();
   }
 
@@ -153,6 +152,4 @@ export class ContractAgreementPageComponent implements OnInit, OnDestroy {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
-
-  protected readonly value$ = value$;
 }
