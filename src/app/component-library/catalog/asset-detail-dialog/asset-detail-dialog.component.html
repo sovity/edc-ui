@@ -14,8 +14,8 @@
             ? 'file_upload_off'
             : 'file_upload'
           : data.contractAgreement!!.isTerminated
-            ? 'file_download_off'
-            : 'file_download'
+          ? 'file_download_off'
+          : 'file_download'
       }}
     </mat-icon>
     <contract-offer-icon
@@ -60,13 +60,20 @@
     mode="indeterminate"></mat-progress-bar>
 
   <!-- Termination notice -->
-  <div *ngIf="data.contractAgreement?.isTerminated" class="rounded-md bg-red-50 p-4">
+  <div
+    *ngIf="data.contractAgreement?.isTerminated"
+    class="rounded-md bg-red-50 p-4">
     <div class="flex">
       <div class="flex-shrink-0">
-        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-                clip-rule="evenodd"/>
+        <svg
+          class="h-5 w-5 text-red-400"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+            clip-rule="evenodd" />
         </svg>
       </div>
       <div class="flex flex-col ml-3 grow">
@@ -77,10 +84,17 @@
           {{ data.contractAgreement!!.terminationInformation!!.detail }}
         </div>
         <div class="text-xs text-red-700 mt-2">
-          <ago [date]="data.contractAgreement!!.terminationInformation!!.terminatedAt"></ago>
-          ·
-          terminated
-          by {{ data.contractAgreement!!.terminationInformation?.terminatedBy === 'SELF' ? 'you' : 'the counter-party' }}
+          <ago
+            [date]="
+              data.contractAgreement!!.terminationInformation!!.terminatedAt
+            "></ago>
+          · terminated by
+          {{
+            data.contractAgreement!!.terminationInformation?.terminatedBy ===
+            'SELF'
+              ? 'you'
+              : 'the counter-party'
+          }}
         </div>
       </div>
     </div>
@@ -92,7 +106,7 @@
     [description]="asset.description"></markdown-description>
 
   <div>
-    <hr class="h-px my-5 bg-gray-200 border-0"/>
+    <hr class="h-px my-5 bg-gray-200 border-0" />
   </div>
 
   <!-- Tag List -->
@@ -127,13 +141,15 @@
 
 <mat-dialog-actions>
   <div class="w-full flex flex-row justify-between">
-
     <div class="flex gap-1 items-center">
       <button
-        *ngIf="data.type === 'contract-agreement' && !data.contractAgreement?.isTerminated"
+        *ngIf="
+          data.type === 'contract-agreement' &&
+          !data.contractAgreement?.isTerminated
+        "
         mat-raised-button
         color="warn"
-        [disabled]="data.contractAgreement?.isTerminated  ?? false"
+        [disabled]="data.contractAgreement?.isTerminated ?? false"
         (click)="onTerminateClick()">
         Terminate
       </button>

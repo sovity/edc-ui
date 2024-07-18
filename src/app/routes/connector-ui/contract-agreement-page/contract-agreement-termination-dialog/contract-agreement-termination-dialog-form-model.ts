@@ -1,4 +1,4 @@
-import {FormControl, ɵFormGroupValue,} from '@angular/forms';
+import {FormControl, ɵFormGroupValue} from '@angular/forms';
 
 /**
  * Form Value Type

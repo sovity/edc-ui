@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {combineLatest, concat, interval, Observable, of} from 'rxjs';
+import {Observable, combineLatest, concat, interval, of} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {
   ConnectorLimits,
@@ -51,7 +51,13 @@ export class ContractAgreementPageService {
   }
 
   private fetchData(): Observable<Fetched<ContractAgreementPageData>> {
-    const requestBody = this.activeTerminationFilter ? {contractAgreementPageQuery: {terminationStatus: this.activeTerminationFilter}} : {};
+    const requestBody = this.activeTerminationFilter
+      ? {
+          contractAgreementPageQuery: {
+            terminationStatus: this.activeTerminationFilter,
+          },
+        }
+      : {};
 
     return combineLatest([
       this.edcApiService.getContractAgreementPage(requestBody),
