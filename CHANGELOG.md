@@ -18,6 +18,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Minor
 
+- Added functionality to terminate contracts and a toggle to filter for active/terminated/all contracts
+
 #### Patch
 
 ### Deployment Migration Notes
