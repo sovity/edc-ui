@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {combineLatest, distinctUntilChanged, pairwise} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {value$} from '../../../../../core/utils/form-group-utils';
-import {noWhitespacesOrColonsValidator} from '../../../../../core/validators/no-whitespaces-or-colons-validator';
+import {value$} from 'src/app/core/utils/form-group-utils';
+import {noWhitespacesOrColonsValidator} from 'src/app/core/validators/no-whitespaces-or-colons-validator';
 import {AssetsIdValidatorBuilder} from '../assets-id-validator-builder';
 import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
 import {

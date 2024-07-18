@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {associateBy, groupedBy} from '../../../../core/utils/map-utils';
+import {associateBy, groupedBy} from 'src/app/core/utils/map-utils';
 import {DataCategorySelectItem} from '../data-category-select/data-category-select-item';
 import {DATA_SUBCATEGORY_SELECT_DATA} from './data-subcategory-select-data';
 import {DataSubcategorySelectItem} from './data-subcategory-select-item';

@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {AssetService} from '../../../../core/services/asset.service';
+import {AssetService} from 'src/app/core/services/asset.service';
 
 @Injectable({
   providedIn: 'root',

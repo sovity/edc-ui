@@ -2,7 +2,7 @@ import {COMMA, ENTER, SEMICOLON} from '@angular/cdk/keycodes';
 import {Component, Input} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {removeOnce} from '../../../../core/utils/array-utils';
+import {removeOnce} from 'src/app/core/utils/array-utils';
 
 @Component({
   selector: 'keyword-select',

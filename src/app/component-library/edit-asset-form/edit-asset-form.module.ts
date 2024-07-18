@@ -20,12 +20,17 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
-import {CatalogModule} from '../../../component-library/catalog/catalog.module';
-import {DataAddressModule} from '../../../component-library/data-address/data-address.module';
-import {EditAssetFormModule} from '../../../component-library/edit-asset-form/edit-asset-form.module';
-import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
-import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
-import {AssetCreatePageComponent} from './asset-create-page/asset-create-page.component';
+import {CatalogModule} from '../catalog/catalog.module';
+import {DataAddressModule} from '../data-address/data-address.module';
+import {PipesAndDirectivesModule} from '../pipes-and-directives/pipes-and-directives.module';
+import {UiElementsModule} from '../ui-elements/ui-elements.module';
+import {DataCategorySelectComponent} from './data-category-select/data-category-select.component';
+import {DataSubcategoryItemsPipe} from './data-subcategory-select/data-subcategory-items.pipe';
+import {DataSubcategorySelectComponent} from './data-subcategory-select/data-subcategory-select.component';
+import {EditAssetFormGroupComponent} from './edit-asset-form-group/edit-asset-form-group.component';
+import {EditAssetFormLabelComponent} from './edit-asset-form-label/edit-asset-form-label.component';
+import {EditAssetFormComponent} from './edit-asset-form/edit-asset-form.component';
+import {KeywordSelectComponent} from './keyword-select/keyword-select.component';
 
 @NgModule({
   imports: [
@@ -56,15 +61,21 @@ import {AssetCreatePageComponent} from './asset-create-page/asset-create-page.co
     MatNativeDateModule,
 
     // EDC UI Modules
-    EditAssetFormModule,
     CatalogModule,
     DataAddressModule,
     PipesAndDirectivesModule,
     UiElementsModule,
-    EditAssetFormModule,
   ],
-  declarations: [AssetCreatePageComponent],
-  exports: [AssetCreatePageComponent],
+  declarations: [
+    EditAssetFormComponent,
+    EditAssetFormGroupComponent,
+    EditAssetFormLabelComponent,
+    KeywordSelectComponent,
+    DataCategorySelectComponent,
+    DataSubcategorySelectComponent,
+    DataSubcategoryItemsPipe,
+  ],
+  exports: [EditAssetFormComponent],
   providers: [],
 })
-export class AssetCreatePageModule {}
+export class EditAssetFormModule {}
