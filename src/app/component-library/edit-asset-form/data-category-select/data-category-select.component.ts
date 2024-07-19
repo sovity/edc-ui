@@ -14,6 +14,9 @@ export class DataCategorySelectComponent {
   @Input()
   control!: FormControl<DataCategorySelectItem | null>;
 
+  @Input()
+  allTouched = false;
+
   items = DATA_CATEGORY_SELECT_DATA;
 
   isRequired(): boolean {

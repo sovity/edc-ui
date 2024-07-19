@@ -9,6 +9,7 @@
         <edit-asset-form-label
           label="Datasource Type"
           htmlFor="create-asset-form-datasource-type"
+          [allTouched]="form.all.touched"
           [ctrl]="
             form.datasource.controls.datasourceType
           "></edit-asset-form-label>
@@ -32,6 +33,7 @@
           <edit-asset-form-label
             label="Contact E-Mail"
             htmlFor="create-asset-form-contact-email"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.datasource.controls.contactEmail
             "></edit-asset-form-label>
@@ -59,6 +61,7 @@
           <edit-asset-form-label
             label="Preferred E-Mail Subject"
             htmlFor="create-asset-form-contact-subject"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.datasource.controls.contactPreferredEmailSubject
             "></edit-asset-form-label>
@@ -104,6 +107,7 @@
           <edit-asset-form-label
             label="Custom Datasource Config (JSON)"
             htmlFor="create-asset-form-custom-datasource-json"
+            [allTouched]="form.all.touched"
             [ctrl]="ctrl"></edit-asset-form-label>
           <mat-form-field class="w-full mt-1">
             <textarea
@@ -125,6 +129,7 @@
             <edit-asset-form-label
               label="Http Method"
               htmlFor="create-asset-form-http-method"
+              [allTouched]="form.all.touched"
               [ctrl]="
                 form.datasource.controls.httpMethod
               "></edit-asset-form-label>
@@ -151,7 +156,9 @@
                 class="w-min"
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="ctrl.setValue(!ctrl.value)">
+                (click)="
+                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
+                ">
                 {{ ctrl.value ? 'Disable' : 'Enable' }}
                 Method Parameterization
               </button>
@@ -163,6 +170,7 @@
             <edit-asset-form-label
               htmlFor="create-asset-form-url"
               [label]="form.proxyPath ? 'Base URL' : 'URL'"
+              [allTouched]="form.all.touched"
               [ctrl]="ctrl"></edit-asset-form-label>
             <mat-form-field class="w-full mt-1">
               <input
@@ -186,7 +194,9 @@
               <button
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="ctrl.setValue(!ctrl.value)">
+                (click)="
+                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
+                ">
                 {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
               </button>
             </div>
@@ -266,7 +276,9 @@
                 *ngIf="form.datasource.controls.httpProxyQueryParams; let ctrl"
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="ctrl.setValue(!ctrl.value)">
+                (click)="
+                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
+                ">
                 {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param
                 Parameterization
               </button>
@@ -286,7 +298,9 @@
               <button
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="ctrl.setValue(!ctrl.value)">
+                (click)="
+                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
+                ">
                 {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
                 Parameterization
               </button>
@@ -448,6 +462,7 @@
         <edit-asset-form-label
           label="Name"
           htmlFor="create-asset-form-name"
+          [allTouched]="form.all.touched"
           [ctrl]="form.general.controls.name"></edit-asset-form-label>
         <mat-form-field class="w-full">
           <input
@@ -464,6 +479,7 @@
         <edit-asset-form-label
           label="Description"
           htmlFor="create-asset-form-description"
+          [allTouched]="form.all.touched"
           [ctrl]="form.general.controls.description"></edit-asset-form-label>
         <mat-form-field class="w-full">
           <textarea
@@ -498,6 +514,7 @@
         *ngIf="form.general.controls.dataCategory"
         class="grow"
         label="Data Category"
+        [allTouched]="form.all.touched"
         [control]="form.general.controls.dataCategory"></data-category-select>
 
       <!-- Data Subcategory -->
@@ -524,6 +541,7 @@
         <edit-asset-form-label
           label="Version"
           htmlFor="create-asset-form-version"
+          [allTouched]="form.all.touched"
           [ctrl]="form.general.controls.version"></edit-asset-form-label>
         <mat-form-field class="w-full">
           <input
@@ -540,6 +558,7 @@
         <edit-asset-form-label
           label="Content Type"
           htmlFor="create-asset-form-content-type"
+          [allTouched]="form.all.touched"
           [ctrl]="form.general.controls.contentType"></edit-asset-form-label>
         <mat-form-field class="w-full">
           <input
@@ -563,6 +582,7 @@
         <edit-asset-form-label
           label="Publisher"
           htmlFor="create-asset-form-publisher"
+          [allTouched]="form.all.touched"
           [ctrl]="form.general.controls.publisher"></edit-asset-form-label>
         <mat-form-field class="w-full">
           <input
@@ -579,6 +599,7 @@
         <edit-asset-form-label
           label="Endpoint Documentation"
           htmlFor="create-asset-form-endpoint-documentation"
+          [allTouched]="form.all.touched"
           [ctrl]="
             form.general.controls.endpointDocumentation
           "></edit-asset-form-label>
@@ -597,6 +618,7 @@
         <edit-asset-form-label
           label="Standard License"
           htmlFor="create-asset-form-standard-license"
+          [allTouched]="form.all.touched"
           [ctrl]="
             form.general.controls.standardLicense
           "></edit-asset-form-label>
@@ -616,6 +638,7 @@
           <edit-asset-form-label
             label="Data Model"
             htmlFor="create-asset-form-data-model"
+            [allTouched]="form.all.touched"
             [ctrl]="form.advanced.controls.dataModel"></edit-asset-form-label>
           <mat-form-field class="w-full">
             <input
@@ -638,6 +661,7 @@
           <edit-asset-form-label
             label="Geo reference method"
             htmlFor="create-asset-form-geo-ref-method"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.advanced.controls.geoReferenceMethod
             "></edit-asset-form-label>
@@ -655,6 +679,7 @@
           <edit-asset-form-label
             label="Sovereign"
             htmlFor="create-asset-form-sovereign"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.advanced.controls.sovereignLegalName
             "></edit-asset-form-label>
@@ -673,6 +698,7 @@
           <edit-asset-form-label
             label="Data update frequency"
             htmlFor="create-asset-form-data-update-frequency"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.advanced.controls.dataUpdateFrequency
             "></edit-asset-form-label>
@@ -690,6 +716,7 @@
           <edit-asset-form-label
             label="Geo location"
             htmlFor="create-asset-form-geo-location"
+            [allTouched]="form.all.touched"
             [ctrl]="form.advanced.controls.geoLocation"></edit-asset-form-label>
           <mat-form-field class="w-full">
             <input
@@ -810,6 +837,7 @@
           <edit-asset-form-label
             label="Reference files description"
             htmlFor="edit-asset-form-reference-files-description"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.advanced.controls.referenceFilesDescription
             "></edit-asset-form-label>
@@ -861,6 +889,7 @@
           <edit-asset-form-label
             label="Conditions for use"
             htmlFor="create-asset-form-conditions-for-use"
+            [allTouched]="form.all.touched"
             [ctrl]="
               form.advanced.controls.conditionsForUse
             "></edit-asset-form-label>

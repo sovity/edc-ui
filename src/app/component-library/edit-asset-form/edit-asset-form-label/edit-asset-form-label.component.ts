@@ -10,6 +10,7 @@ export class EditAssetFormLabelComponent {
   @Input() label!: string;
   @Input() htmlFor?: string;
   @Input() ctrl?: FormControl<any>;
+  @Input() allTouched = false;
 
   isRequired(): boolean {
     return this.ctrl?.hasValidator(Validators.required) || false;

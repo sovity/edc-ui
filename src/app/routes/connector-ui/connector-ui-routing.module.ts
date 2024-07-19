@@ -25,6 +25,11 @@ export const routes: Routes = [
     data: {title: 'Dashboard', icon: 'data_usage'},
   },
   {
+    path: 'create-asset',
+    component: AssetCreatePageComponent,
+    data: {title: 'Create Asset', icon: 'post_add'},
+  },
+  {
     path: 'catalog-browser',
     component: CatalogBrowserPageComponent,
     data: {title: 'Catalog Browser', icon: 'sim_card'},
@@ -55,12 +60,7 @@ export const routes: Routes = [
     data: {title: 'Contract Definitions', icon: 'rule'},
   },
   {
-    path: 'my-assets/create',
-    component: AssetCreatePageComponent,
-    data: {title: 'Create Asset', icon: 'data_usage'},
-  },
-  {
-    path: 'my-assets/edit',
+    path: 'edit-asset',
     component: AssetEditPageComponent,
     data: {title: 'Edit Asset', icon: 'data_usage', isNotShownInNavBar: true},
   },

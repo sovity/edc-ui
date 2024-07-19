@@ -100,6 +100,7 @@ export class EditAssetForm {
   }
 
   onHttpHeadersAddClick() {
+    this.all.markAllAsTouched();
     this.datasource!.controls.httpHeaders.push(
       this.assetDatasourceFormBuilder.buildHeaderFormGroup({
         headerName: '',
@@ -109,10 +110,12 @@ export class EditAssetForm {
   }
 
   onHttpHeadersRemoveClick(index: number) {
+    this.all.markAllAsTouched();
     this.datasource!.controls.httpHeaders.removeAt(index);
   }
 
   onHttpQueryParamsAddClick() {
+    this.all.markAllAsTouched();
     this.datasource!.controls.httpQueryParams.push(
       this.assetDatasourceFormBuilder.buildQueryParamFormGroup({
         paramName: '',
@@ -121,37 +124,45 @@ export class EditAssetForm {
     );
   }
 
+  // markAllAsTouched added as a workaround to get labels outside of mat-form-field to show invalid state correctly
   onHttpQueryParamsRemoveClick(index: number) {
+    this.all.markAllAsTouched();
     this.datasource!.controls.httpQueryParams.removeAt(index);
   }
 
   onNutsLocationsAddClick() {
+    this.all.markAllAsTouched();
     this.advanced!.controls.nutsLocations.push(
       this.assetAdvancedFormBuilder.buildRequiredString(''),
     );
   }
 
   onNutsLocationsRemoveClick(index: number) {
+    this.all.markAllAsTouched();
     this.advanced!.controls.nutsLocations.removeAt(index);
   }
 
   onDataSampleUrlsAddClick() {
+    this.all.markAllAsTouched();
     this.advanced!.controls.dataSampleUrls.push(
       this.assetAdvancedFormBuilder.buildRequiredUrl(''),
     );
   }
 
   onDataSampleUrlsRemoveClick(index: number) {
+    this.all.markAllAsTouched();
     this.advanced!.controls.dataSampleUrls.removeAt(index);
   }
 
   onReferenceFileUrlsAddClick() {
+    this.all.markAllAsTouched();
     this.advanced!.controls.referenceFileUrls.push(
       this.assetAdvancedFormBuilder.buildRequiredUrl(''),
     );
   }
 
   onReferenceFileUrlsRemoveClick(index: number) {
+    this.all.markAllAsTouched();
     this.advanced!.controls.referenceFileUrls.removeAt(index);
   }
 }
