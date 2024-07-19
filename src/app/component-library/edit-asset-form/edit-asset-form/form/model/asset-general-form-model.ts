@@ -1,7 +1,7 @@
 import {FormControl, ɵFormGroupValue} from '@angular/forms';
-import {LanguageSelectItem} from 'src/app/routes/connector-ui/asset-page/language-select/language-select-item';
 import {DataCategorySelectItem} from '../../../data-category-select/data-category-select-item';
 import {DataSubcategorySelectItem} from '../../../data-subcategory-select/data-subcategory-select-item';
+import {LanguageSelectItem} from '../../../language-select/language-select-item';
 
 /**
  * Form Model for Edit Asset Form > Datasource

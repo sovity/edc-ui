@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {associateBy} from '../../../../core/utils/map-utils';
+import {associateBy} from 'src/app/core/utils/map-utils';
 import {TRANSPORT_MODE_SELECT_DATA} from './transport-mode-select-data';
 import {TransportModeSelectItem} from './transport-mode-select-item';
 

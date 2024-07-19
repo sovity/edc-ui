@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UiAssetMapped} from 'src/app/core/services/models/ui-asset-mapped';
-import {LanguageSelectItemService} from 'src/app/routes/connector-ui/asset-page/language-select/language-select-item.service';
+import {LanguageSelectItemService} from '../../language-select/language-select-item.service';
 import {AssetDatasourceFormValue} from './model/asset-datasource-form-model';
 import {EditAssetFormValue} from './model/edit-asset-form-model';
 
@@ -27,6 +27,7 @@ export class EditAssetFormInitializer {
         publisher: '',
         standardLicense: '',
         endpointDocumentation: '',
+        showAdvancedFields: false,
       },
       advanced: {
         dataModel: '',
@@ -42,7 +43,7 @@ export class EditAssetFormInitializer {
         referenceFilesDescription: '',
         temporalCoverage: {from: null, toInclusive: null},
       },
-      datasource: this.onRequestDatasource(),
+      datasource: this.emptyHttpDatasource(),
     };
   }
 
@@ -56,11 +57,36 @@ export class EditAssetFormInitializer {
         keywords: asset.keywords,
         dataCategory: asset.dataCategory,
         dataSubcategory: asset.dataSubcategory,
+        version: asset.version,
+        contentType: asset.mediaType,
+        language: asset.language,
+        publisher: asset.publisherHomepage,
+        standardLicense: asset.licenseUrl,
+        endpointDocumentation: asset.landingPageUrl,
+        showAdvancedFields: true,
       },
+      advanced: {
+        dataModel: asset.dataModel,
+        transportMode: asset.transportMode,
+        geoReferenceMethod: asset.geoReferenceMethod,
+        sovereignLegalName: asset.sovereignLegalName,
+        geoLocation: asset.geoLocation,
+        nutsLocations: asset.nutsLocations,
+        dataSampleUrls: asset.dataSampleUrls,
+        referenceFileUrls: asset.referenceFileUrls,
+        referenceFilesDescription: asset.referenceFilesDescription,
+        conditionsForUse: asset.conditionsForUse,
+        dataUpdateFrequency: asset.dataUpdateFrequency,
+        temporalCoverage: {
+          from: asset.temporalCoverageFrom,
+          toInclusive: asset.temporalCoverageToInclusive,
+        },
+      },
+      datasource: this.emptyEditDatasource(),
     };
   }
 
-  private onRequestDatasource(): AssetDatasourceFormValue {
+  private emptyHttpDatasource(): AssetDatasourceFormValue {
     return {
       datasourceType: 'On-Request',
       contactEmail: '',
@@ -84,6 +110,13 @@ export class EditAssetFormInitializer {
       httpProxyBody: false,
 
       httpHeaders: [],
+    };
+  }
+
+  private emptyEditDatasource(): AssetDatasourceFormValue {
+    return {
+      ...this.emptyHttpDatasource(),
+      dataAddressType: 'Unchanged',
     };
   }
 }

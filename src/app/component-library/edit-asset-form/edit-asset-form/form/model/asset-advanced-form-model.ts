@@ -4,7 +4,7 @@ import {
   FormGroup,
   ɵFormGroupValue,
 } from '@angular/forms';
-import {TransportModeSelectItem} from 'src/app/routes/connector-ui/asset-page/transport-mode-select/transport-mode-select-item';
+import {TransportModeSelectItem} from '../../../transport-mode-select/transport-mode-select-item';
 import {TemporalCoverageFormModel} from './temporal-coverage-form-model';
 
 /**

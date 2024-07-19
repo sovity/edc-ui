@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {BehaviorSubject, Subject, merge} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {OnAssetEditClickFn} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data';
@@ -7,8 +8,6 @@ import {AssetDetailDialogService} from '../../../../component-library/catalog/as
 import {AssetService} from '../../../../core/services/asset.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
-import {filterNotNull} from '../../../../core/utils/rxjs-utils';
-import {AssetEditDialogService} from '../asset-edit-dialog/asset-edit-dialog.service';
 
 export interface AssetList {
   filteredAssets: UiAssetMapped[];
@@ -28,9 +27,9 @@ export class AssetPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private assetServiceMapped: AssetService,
-    private assetEditDialogService: AssetEditDialogService,
     private assetDetailDialogDataService: AssetDetailDialogDataService,
     private assetDetailDialogService: AssetDetailDialogService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -61,24 +60,12 @@ export class AssetPageComponent implements OnInit, OnDestroy {
   }
 
   onCreate() {
-    this.assetEditDialogService
-      .showCreateDialog(this.ngOnDestroy$)
-      .subscribe((result) => {
-        if (result?.refreshedList) {
-          this.assetListUpdater$.next(result.refreshedList);
-        }
-      });
+    this.router.navigate(['/edit-asset']);
   }
 
   onAssetClick(asset: UiAssetMapped) {
     const onAssetEditClick: OnAssetEditClickFn = (asset, onAssetUpdated) => {
-      this.assetEditDialogService
-        .showEditDialog(asset, this.ngOnDestroy$)
-        .pipe(filterNotNull())
-        .subscribe((result) => {
-          this.assetListUpdater$.next(result.refreshedList);
-          onAssetUpdated(buildDialogData(result.asset));
-        });
+      this.router.navigate(['/edit-asset'], {state: {uiAssetMapped: asset}});
     };
 
     const buildDialogData = (asset: UiAssetMapped) =>
