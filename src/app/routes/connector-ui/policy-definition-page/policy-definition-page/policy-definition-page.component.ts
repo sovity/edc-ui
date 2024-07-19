@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {BehaviorSubject} from 'rxjs';
 import {first, map, switchMap} from 'rxjs/operators';
-import {PolicyDefinitionDto, PolicyDefinitionPage} from '@sovity.de/edc-client';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {search} from '../../../../core/utils/search-utils';
@@ -40,12 +39,13 @@ export class PolicyDefinitionPageComponent implements OnInit {
           return this.edcApiService.getPolicyDefinitionPage().pipe(
             map(
               (policyDefinitionPage): PolicyList => ({
-                policyCards: this.policyCardBuilder.buildPolicyCards(
-                  this.filterPolicies(policyDefinitionPage),
-                ),
+                policyCards:
+                  this.policyCardBuilder.buildPolicyCards(policyDefinitionPage),
+
                 numTotalPolicies: policyDefinitionPage.policies.length,
               }),
             ),
+            map((policyList) => this.filterPolicies(policyList)),
             Fetched.wrap({
               failureMessage: 'Failed fetching policies.',
             }),
@@ -75,23 +75,20 @@ export class PolicyDefinitionPageComponent implements OnInit {
     this.fetch$.next(null);
   }
 
-  private filterPolicies(
-    policyDefinitionPage: PolicyDefinitionPage,
-  ): PolicyDefinitionPage {
+  private filterPolicies(policyList: PolicyList): PolicyList {
+    const policyCards = search(
+      policyList.policyCards,
+      this.searchText,
+      (policyCard: PolicyCard) => [
+        policyCard.id,
+        ...policyCard.irregularities,
+        policyCard.searchText,
+      ],
+    );
+
     return {
-      ...policyDefinitionPage,
-      policies: search(
-        policyDefinitionPage.policies,
-        this.searchText,
-        (policyDefinition: PolicyDefinitionDto) => {
-          return [
-            policyDefinition.policyDefinitionId,
-            ...policyDefinition.policy.errors,
-            ...(policyDefinition.policy.constraints?.map((it) => it.left) ??
-              []),
-          ].filter((it) => !!it);
-        },
-      ),
+      policyCards,
+      numTotalPolicies: policyCards.length,
     };
   }
 }

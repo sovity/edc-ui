@@ -33,7 +33,13 @@ export const createPolicyDefinition = (
   const newPolicyDefinition: PolicyDefinitionDto = {
     policyDefinitionId: request.policyDefinitionId,
     policy: {
-      constraints: request.policy.constraints,
+      expression: {
+        type: 'AND',
+        expressions: (request.policy.constraints ?? []).map((it) => ({
+          type: 'CONSTRAINT',
+          constraint: it,
+        })),
+      },
       errors: [],
       policyJsonLd: '{"example-policy-jsonld": true}',
     },

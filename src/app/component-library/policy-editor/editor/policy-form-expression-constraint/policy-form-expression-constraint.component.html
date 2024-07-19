@@ -1,0 +1,42 @@
+<div [matTooltip]="expr.verb!.operandLeftDescription">
+  {{ verb.operandLeftTitle }}
+</div>
+
+<div>
+  <policy-operator-select
+    [operators]="expr.supportedOperators!"
+    [control]="
+      expressionFormHandler.controls.getOperatorFormControl(treeNode)
+    "></policy-operator-select>
+</div>
+
+<mat-form-field
+  *ngIf="verb.operandRightType === 'TEXT'"
+  class="mat-form-field-without-margin-bottom grow">
+  <mat-label>{{ verb.operandLeftTitle }}</mat-label>
+  <input
+    matInput
+    [placeholder]="verb.operandRightPlaceholder ?? '...'"
+    [formControl]="
+      expressionFormHandler.controls.getValueFormControl(treeNode)
+    " />
+  <mat-hint>{{ verb.operandRightHint }}</mat-hint>
+</mat-form-field>
+
+<mat-form-field
+  *ngIf="verb.operandRightType === 'DATE'"
+  class="mat-form-field-without-margin-bottom grow">
+  <mat-label>{{ verb.operandLeftTitle }}</mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [placeholder]="verb.operandRightPlaceholder ?? '...'"
+    [formControl]="
+      expressionFormHandler.controls.getValueFormControl(treeNode)
+    " />
+  <mat-hint>{{ verb.operandRightHint }}</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<policy-form-remove-button [treeNode]="treeNode"></policy-form-remove-button>
