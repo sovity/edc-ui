@@ -32,6 +32,8 @@ import {EditAssetFormGroupComponent} from './edit-asset-form-group/edit-asset-fo
 import {EditAssetFormLabelComponent} from './edit-asset-form-label/edit-asset-form-label.component';
 import {EditAssetFormComponent} from './edit-asset-form/edit-asset-form.component';
 import {KeywordSelectComponent} from './keyword-select/keyword-select.component';
+import {LanguageSelectComponent} from './language-select/language-select.component';
+import {TransportModeSelectComponent} from './transport-mode-select/transport-mode-select.component';
 
 @NgModule({
   imports: [
@@ -76,6 +78,8 @@ import {KeywordSelectComponent} from './keyword-select/keyword-select.component'
     DataSubcategorySelectComponent,
     DataSubcategoryItemsPipe,
     EditAssetFormDataAddressTypeSelectComponent,
+    TransportModeSelectComponent,
+    LanguageSelectComponent,
   ],
   exports: [EditAssetFormComponent, EditAssetFormLabelComponent],
   providers: [],

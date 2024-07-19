@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
 import {DataCategorySelectItem} from '../../data-category-select/data-category-select-item';
+import {AssetAdvancedFormBuilder} from './asset-advanced-form-builder';
 import {AssetDatasourceFormBuilder} from './asset-datasource-form-builder';
 import {AssetGeneralFormBuilder} from './asset-general-form-builder';
+import {AssetAdvancedFormModel} from './model/asset-advanced-form-model';
 import {AssetDatasourceFormModel} from './model/asset-datasource-form-model';
 import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
 import {AssetGeneralFormModel} from './model/asset-general-form-model';
@@ -23,6 +26,8 @@ export class EditAssetForm {
 
   datasource!: EditAssetFormModel['datasource'];
 
+  advanced!: EditAssetFormModel['advanced'];
+
   get value(): EditAssetFormValue {
     return this.all.value;
   }
@@ -36,7 +41,7 @@ export class EditAssetForm {
   }
 
   get dataCategory(): DataCategorySelectItem | null {
-    return this.general.controls.dataCategory.value;
+    return this.general.controls.dataCategory!.value;
   }
 
   get proxyMethod(): boolean {
@@ -55,12 +60,15 @@ export class EditAssetForm {
     private formBuilder: FormBuilder,
     private assetGeneralFormBuilder: AssetGeneralFormBuilder,
     private assetDatasourceFormBuilder: AssetDatasourceFormBuilder,
+    private assetAdvancedFormBuilder: AssetAdvancedFormBuilder,
+    private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
   reset(initial: EditAssetFormValue) {
     this.all = this.buildFormGroup(initial);
     this.general = this.all.controls.general;
     this.datasource = this.all.controls.datasource;
+    this.advanced = this.all.controls.advanced;
   }
 
   buildFormGroup(initial: EditAssetFormValue): FormGroup<EditAssetFormModel> {
@@ -75,6 +83,12 @@ export class EditAssetForm {
         mode: [initial.mode as AssetEditDialogMode],
         general,
       });
+
+    if (this.activeFeatureSet.hasMdsFields()) {
+      const advanced: FormGroup<AssetAdvancedFormModel> =
+        this.assetAdvancedFormBuilder.buildFormGroup(initial.advanced!);
+      formGroup.addControl('advanced', advanced);
+    }
 
     if (initial.mode !== 'EDIT') {
       const datasource: FormGroup<AssetDatasourceFormModel> =
@@ -111,33 +125,33 @@ export class EditAssetForm {
     this.datasource!.controls.httpQueryParams.removeAt(index);
   }
 
-  // onNutsLocationsAddClick() {
-  //   this.advanced!.controls.nutsLocations.push(
-  //     this.assetAdvancedFormBuilder.buildRequiredString(''),
-  //   );
-  // }
+  onNutsLocationsAddClick() {
+    this.advanced!.controls.nutsLocations.push(
+      this.assetAdvancedFormBuilder.buildRequiredString(''),
+    );
+  }
 
-  // onNutsLocationsRemoveClick(index: number) {
-  //   this.advanced!.controls.nutsLocations.removeAt(index);
-  // }
+  onNutsLocationsRemoveClick(index: number) {
+    this.advanced!.controls.nutsLocations.removeAt(index);
+  }
 
-  // onDataSampleUrlsAddClick() {
-  //   this.advanced!.controls.dataSampleUrls.push(
-  //     this.assetAdvancedFormBuilder.buildRequiredUrl(''),
-  //   );
-  // }
+  onDataSampleUrlsAddClick() {
+    this.advanced!.controls.dataSampleUrls.push(
+      this.assetAdvancedFormBuilder.buildRequiredUrl(''),
+    );
+  }
 
-  // onDataSampleUrlsRemoveClick(index: number) {
-  //   this.advanced!.controls.dataSampleUrls.removeAt(index);
-  // }
+  onDataSampleUrlsRemoveClick(index: number) {
+    this.advanced!.controls.dataSampleUrls.removeAt(index);
+  }
 
-  // onReferenceFileUrlsAddClick() {
-  //   this.advanced!.controls.referenceFileUrls.push(
-  //     this.assetAdvancedFormBuilder.buildRequiredUrl(''),
-  //   );
-  // }
+  onReferenceFileUrlsAddClick() {
+    this.advanced!.controls.referenceFileUrls.push(
+      this.assetAdvancedFormBuilder.buildRequiredUrl(''),
+    );
+  }
 
-  // onReferenceFileUrlsRemoveClick(index: number) {
-  //   this.advanced!.controls.referenceFileUrls.removeAt(index);
-  // }
+  onReferenceFileUrlsRemoveClick(index: number) {
+    this.advanced!.controls.referenceFileUrls.removeAt(index);
+  }
 }

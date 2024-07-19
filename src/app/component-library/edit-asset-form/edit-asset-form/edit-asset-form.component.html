@@ -197,7 +197,7 @@
               [label]="
                 (form.proxyQueryParams ? 'Default' : '') + ' Query Params'
               "></edit-asset-form-label>
-            <div class="mt-4"></div>
+            <div class="mt-6"></div>
             <div
               *ngFor="
                 let header of form.datasource.controls.httpQueryParams.controls;
@@ -449,7 +449,7 @@
           label="Name"
           htmlFor="create-asset-form-name"
           [ctrl]="form.general.controls.name"></edit-asset-form-label>
-        <mat-form-field class="w-full mt-1">
+        <mat-form-field class="w-full">
           <input
             id="create-asset-form-name"
             matInput
@@ -495,18 +495,391 @@
 
       <!-- Data Category -->
       <data-category-select
+        *ngIf="form.general.controls.dataCategory"
         class="grow"
         label="Data Category"
         [control]="form.general.controls.dataCategory"></data-category-select>
 
       <!-- Data Subcategory -->
       <data-subcategory-select
+        *ngIf="form.general.controls.dataSubcategory"
         class="grow"
         label="Data Subcategory"
         [dataCategory]="form.dataCategory"
         [control]="
           form.general.controls.dataSubcategory
         "></data-subcategory-select>
+
+      <!-- Show Advanced Fields -->
+      <mat-checkbox [formControl]="form.general.controls.showAdvancedFields"
+        >Show Advanced Fields</mat-checkbox
+      >
+    </edit-asset-form-group>
+    <edit-asset-form-group
+      *ngIf="form.general.value.showAdvancedFields"
+      title="Advanced"
+      description="Fill out advanced fields of the asset">
+      <!-- Version -->
+      <div class="mt-1">
+        <edit-asset-form-label
+          label="Version"
+          htmlFor="create-asset-form-version"
+          [ctrl]="form.general.controls.version"></edit-asset-form-label>
+        <mat-form-field class="w-full">
+          <input
+            id="create-asset-form-version"
+            matInput
+            type="text"
+            placeholder="1.0.0"
+            [formControl]="form.general.controls.version" />
+        </mat-form-field>
+      </div>
+
+      <!-- Content Type -->
+      <div>
+        <edit-asset-form-label
+          label="Content Type"
+          htmlFor="create-asset-form-content-type"
+          [ctrl]="form.general.controls.contentType"></edit-asset-form-label>
+        <mat-form-field class="w-full">
+          <input
+            id="create-asset-form-content-type"
+            matInput
+            type="text"
+            placeholder="application/json"
+            [formControl]="form.general.controls.contentType" />
+        </mat-form-field>
+      </div>
+
+      <!-- Language -->
+      <div>
+        <language-select
+          label="Language"
+          [control]="form.general.controls.language"></language-select>
+      </div>
+
+      <!-- Publisher -->
+      <div>
+        <edit-asset-form-label
+          label="Publisher"
+          htmlFor="create-asset-form-publisher"
+          [ctrl]="form.general.controls.publisher"></edit-asset-form-label>
+        <mat-form-field class="w-full">
+          <input
+            id="create-asset-form-publisher"
+            matInput
+            type="text"
+            placeholder="https://"
+            [formControl]="form.general.controls.publisher" />
+        </mat-form-field>
+      </div>
+
+      <!-- Endpoint Documentation -->
+      <div>
+        <edit-asset-form-label
+          label="Endpoint Documentation"
+          htmlFor="create-asset-form-endpoint-documentation"
+          [ctrl]="
+            form.general.controls.endpointDocumentation
+          "></edit-asset-form-label>
+        <mat-form-field class="w-full">
+          <input
+            id="create-asset-form-endpoint-documentation"
+            matInput
+            type="text"
+            placeholder="https://"
+            [formControl]="form.general.controls.endpointDocumentation" />
+        </mat-form-field>
+      </div>
+
+      <!-- Standard License -->
+      <div>
+        <edit-asset-form-label
+          label="Standard License"
+          htmlFor="create-asset-form-standard-license"
+          [ctrl]="
+            form.general.controls.standardLicense
+          "></edit-asset-form-label>
+        <mat-form-field class="w-full">
+          <input
+            id="create-asset-form-standard-license"
+            matInput
+            type="text"
+            placeholder="https://"
+            [formControl]="form.general.controls.standardLicense" />
+        </mat-form-field>
+      </div>
+
+      <ng-container *ngIf="form.advanced">
+        <!-- Data Model -->
+        <div>
+          <edit-asset-form-label
+            label="Data Model"
+            htmlFor="create-asset-form-data-model"
+            [ctrl]="form.advanced.controls.dataModel"></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <input
+              id="create-asset-form-data-model"
+              matInput
+              placeholder="unspecified"
+              [formControl]="form.advanced.controls.dataModel" />
+          </mat-form-field>
+        </div>
+
+        <!-- Transport Mode -->
+        <transport-mode-select
+          label="Transport Mode"
+          [control]="
+            form.advanced.controls.transportMode
+          "></transport-mode-select>
+
+        <!-- Geo reference method -->
+        <div>
+          <edit-asset-form-label
+            label="Geo reference method"
+            htmlFor="create-asset-form-geo-ref-method"
+            [ctrl]="
+              form.advanced.controls.geoReferenceMethod
+            "></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <input
+              id="create-asset-form-geo-ref-method"
+              matInput
+              placeholder="Lat/Lon"
+              [formControl]="form.advanced.controls.geoReferenceMethod" />
+          </mat-form-field>
+        </div>
+
+        <!-- Sovereign legal name -->
+        <div>
+          <edit-asset-form-label
+            label="Sovereign"
+            htmlFor="create-asset-form-sovereign"
+            [ctrl]="
+              form.advanced.controls.sovereignLegalName
+            "></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <input
+              id="create-asset-form-sovereign"
+              matInput
+              placeholder="Data Owning Company GMBH"
+              [formControl]="form.advanced.controls.sovereignLegalName" />
+            <mat-hint>Legal name of the data owner</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!-- Data update frequency -->
+        <div class="mt-3">
+          <edit-asset-form-label
+            label="Data update frequency"
+            htmlFor="create-asset-form-data-update-frequency"
+            [ctrl]="
+              form.advanced.controls.dataUpdateFrequency
+            "></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <input
+              id="create-asset-form-data-update-frequency"
+              matInput
+              placeholder="every month"
+              [formControl]="form.advanced.controls.dataUpdateFrequency" />
+          </mat-form-field>
+        </div>
+
+        <!-- Geo location -->
+        <div>
+          <edit-asset-form-label
+            label="Geo location"
+            htmlFor="create-asset-form-geo-location"
+            [ctrl]="form.advanced.controls.geoLocation"></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <input
+              id="create-asset-form-geo-location"
+              matInput
+              placeholder="40.741895,-73.989308"
+              [formControl]="form.advanced.controls.geoLocation" />
+          </mat-form-field>
+        </div>
+
+        <!-- NUTS locations -->
+        <div>
+          <edit-asset-form-label label="NUTS locations"></edit-asset-form-label>
+          <div class="mt-6"></div>
+          <div
+            *ngFor="
+              let location of form.advanced.controls.nutsLocations.controls;
+              let i = index
+            "
+            class="flex flex-row space-x-2 -mt-2">
+            <mat-form-field class="grow">
+              <mat-label>NUTS location</mat-label>
+              <input matInput placeholder="DE929" [formControl]="location" />
+            </mat-form-field>
+            <button
+              mat-button
+              color="warn"
+              style="height: 42px; margin-top: 4px; margin-left: 8px"
+              (click)="form.onNutsLocationsRemoveClick(i)">
+              Remove
+            </button>
+          </div>
+          <div class="-mt-2">
+            <button
+              mat-button
+              color="accent"
+              (click)="form.onNutsLocationsAddClick()">
+              Add location
+            </button>
+          </div>
+        </div>
+
+        <!-- Data sample URLs -->
+        <div class="mt-4">
+          <edit-asset-form-label label="Data samples"></edit-asset-form-label>
+          <div class="mt-6"></div>
+          <div
+            *ngFor="
+              let sample of form.advanced.controls.dataSampleUrls.controls;
+              let i = index
+            "
+            class="flex flex-row space-x-2 -mt-2">
+            <mat-form-field class="grow">
+              <mat-label>URL</mat-label>
+              <input
+                matInput
+                placeholder="https://my-org.com/my-data-offer/samples/1"
+                [formControl]="sample" />
+            </mat-form-field>
+            <button
+              mat-button
+              color="warn"
+              style="height: 42px; margin-top: 4px; margin-left: 8px"
+              (click)="form.onDataSampleUrlsRemoveClick(i)">
+              Remove
+            </button>
+          </div>
+          <div class="-mt-2">
+            <button
+              mat-button
+              color="accent"
+              (click)="form.onDataSampleUrlsAddClick()">
+              Add data sample
+            </button>
+          </div>
+        </div>
+
+        <!-- Reference file URLs -->
+        <div class="mt-4">
+          <edit-asset-form-label
+            label="Reference files"></edit-asset-form-label>
+          <div class="mt-6"></div>
+          <div
+            *ngFor="
+              let file of form.advanced.controls.referenceFileUrls.controls;
+              let i = index
+            "
+            class="flex flex-row space-x-2 -mt-2">
+            <mat-form-field class="grow">
+              <mat-label>URL</mat-label>
+              <input
+                matInput
+                placeholder="https://my-org.com/my-data-offer/documentation/api-reference"
+                [formControl]="file" />
+            </mat-form-field>
+            <button
+              mat-button
+              color="warn"
+              style="height: 42px; margin-top: 4px; margin-left: 8px"
+              (click)="form.onReferenceFileUrlsRemoveClick(i)">
+              Remove
+            </button>
+          </div>
+          <div class="-mt-2">
+            <button
+              mat-button
+              color="accent"
+              (click)="form.onReferenceFileUrlsAddClick()">
+              Add reference file
+            </button>
+          </div>
+        </div>
+
+        <!-- Reference files description -->
+        <div
+          *ngIf="form.advanced.controls.referenceFileUrls.length"
+          class="mt-2">
+          <edit-asset-form-label
+            label="Reference files description"
+            htmlFor="edit-asset-form-reference-files-description"
+            [ctrl]="
+              form.advanced.controls.referenceFilesDescription
+            "></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <textarea
+              id="edit-asset-form-reference-files-description"
+              class="h-28"
+              matInput
+              placeholder="..."
+              [formControl]="
+                form.advanced.controls.referenceFilesDescription
+              "></textarea>
+            <mat-hint
+              >Additional information regarding the reference files
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!-- Temporal coverage -->
+        <div
+          *ngIf="form.advanced.controls.temporalCoverage; let ctrl"
+          class="mt-4">
+          <edit-asset-form-label
+            label="Temporal coverage"></edit-asset-form-label>
+          <mat-form-field class="w-full" color="accent">
+            <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
+              <input
+                matStartDate
+                formControlName="from"
+                placeholder="Start date" />
+              <input
+                matEndDate
+                formControlName="toInclusive"
+                placeholder="End date (inclusive)" />
+            </mat-date-range-input>
+            <mat-hint>DD/MM/YYYY (optional) – DD/MM/YYYY (optional)</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="ctrl.invalid"
+              >{{ validationMessages.invalidDateRangeMessage }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Conditions for use -->
+        <div class="mt-3">
+          <edit-asset-form-label
+            label="Conditions for use"
+            htmlFor="create-asset-form-conditions-for-use"
+            [ctrl]="
+              form.advanced.controls.conditionsForUse
+            "></edit-asset-form-label>
+          <mat-form-field class="w-full">
+            <textarea
+              id="create-asset-form-conditions-for-use"
+              class="h-28"
+              matInput
+              placeholder="Please cite the dataset as..."
+              [formControl]="
+                form.advanced.controls.conditionsForUse
+              "></textarea>
+            <mat-hint
+              >Additional not legally relevant usage instructions (e.g. how to
+              cite the dataset)
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </ng-container>
     </edit-asset-form-group>
     <button
       class="w-40 h-10 self-end"

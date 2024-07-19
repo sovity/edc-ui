@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {combineLatest, distinctUntilChanged, pairwise} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
 import {value$} from 'src/app/core/utils/form-group-utils';
 import {noWhitespacesOrColonsValidator} from 'src/app/core/validators/no-whitespaces-or-colons-validator';
 import {AssetsIdValidatorBuilder} from '../assets-id-validator-builder';
@@ -16,6 +17,7 @@ export class AssetGeneralFormBuilder {
   constructor(
     private formBuilder: FormBuilder,
     private assetsIdValidatorBuilder: AssetsIdValidatorBuilder,
+    private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
   buildFormGroup(
@@ -32,9 +34,28 @@ export class AssetGeneralFormBuilder {
         name: [initial.name!, Validators.required],
         description: [initial.description!],
         keywords: [initial.keywords!],
-        dataCategory: [initial.dataCategory || null, Validators.required],
-        dataSubcategory: [initial.dataSubcategory || null],
+        showAdvancedFields: [initial.showAdvancedFields || false],
+        version: [initial.version!],
+        contentType: [initial.contentType!],
+        language: [initial.language || null],
+        publisher: [initial.publisher!],
+        standardLicense: [initial.standardLicense!],
+        endpointDocumentation: [initial.endpointDocumentation!],
       });
+
+    if (this.activeFeatureSet.hasMdsFields()) {
+      general.addControl(
+        'dataCategory',
+        this.formBuilder.control(
+          initial.dataCategory || null,
+          Validators.required,
+        ),
+      );
+      general.addControl(
+        'dataSubcategory',
+        this.formBuilder.control(initial.dataSubcategory || null),
+      );
+    }
 
     if (mode === 'CREATE') {
       this.initIdGeneration(general.controls.id, general.controls.name);

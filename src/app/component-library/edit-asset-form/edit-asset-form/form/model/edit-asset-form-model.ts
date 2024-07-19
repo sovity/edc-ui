@@ -1,4 +1,5 @@
 import {FormControl, FormGroup, ɵFormGroupValue} from '@angular/forms';
+import {AssetAdvancedFormModel} from './asset-advanced-form-model';
 import {AssetDatasourceFormModel} from './asset-datasource-form-model';
 import {AssetEditDialogMode} from './asset-edit-dialog-mode';
 import {AssetGeneralFormModel} from './asset-general-form-model';
@@ -8,8 +9,9 @@ import {AssetGeneralFormModel} from './asset-general-form-model';
  */
 export interface EditAssetFormModel {
   mode: FormControl<AssetEditDialogMode>;
-  datasource?: FormGroup<AssetDatasourceFormModel>;
   general: FormGroup<AssetGeneralFormModel>;
+  datasource?: FormGroup<AssetDatasourceFormModel>;
+  advanced?: FormGroup<AssetAdvancedFormModel>;
 }
 
 /**

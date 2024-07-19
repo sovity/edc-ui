@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UiAssetMapped} from 'src/app/core/services/models/ui-asset-mapped';
+import {LanguageSelectItemService} from 'src/app/routes/connector-ui/asset-page/language-select/language-select-item.service';
 import {AssetDatasourceFormValue} from './model/asset-datasource-form-model';
 import {EditAssetFormValue} from './model/edit-asset-form-model';
 
@@ -8,7 +9,7 @@ import {EditAssetFormValue} from './model/edit-asset-form-model';
  */
 @Injectable()
 export class EditAssetFormInitializer {
-  constructor() {}
+  constructor(private languageSelectItemService: LanguageSelectItemService) {}
 
   forCreate(): EditAssetFormValue {
     return {
@@ -20,6 +21,26 @@ export class EditAssetFormInitializer {
         keywords: [],
         dataCategory: null,
         dataSubcategory: null,
+        version: '',
+        contentType: '',
+        language: this.languageSelectItemService.english(),
+        publisher: '',
+        standardLicense: '',
+        endpointDocumentation: '',
+      },
+      advanced: {
+        dataModel: '',
+        transportMode: null,
+        geoReferenceMethod: '',
+        conditionsForUse: '',
+        dataUpdateFrequency: '',
+        sovereignLegalName: '',
+        geoLocation: '',
+        nutsLocations: [],
+        dataSampleUrls: [],
+        referenceFileUrls: [],
+        referenceFilesDescription: '',
+        temporalCoverage: {from: null, toInclusive: null},
       },
       datasource: this.onRequestDatasource(),
     };

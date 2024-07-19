@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AssetAdvancedFormBuilder} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/asset-advanced-form-builder';
 import {AssetDatasourceFormBuilder} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/asset-datasource-form-builder';
 import {AssetGeneralFormBuilder} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/asset-general-form-builder';
 import {EditAssetForm} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/edit-asset-form';
@@ -12,6 +13,7 @@ import {EditAssetFormInitializer} from 'src/app/component-library/edit-asset-for
     EditAssetForm,
     AssetGeneralFormBuilder,
     AssetDatasourceFormBuilder,
+    AssetAdvancedFormBuilder,
   ],
 })
 export class AssetCreatePageComponent {
