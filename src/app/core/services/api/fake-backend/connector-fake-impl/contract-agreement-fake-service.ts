@@ -3,7 +3,6 @@ import {
   ContractAgreementPage,
   ContractAgreementTransferProcess,
   ContractTerminationStatus,
-  GetContractAgreementPageRequest,
   IdResponseDto,
   InitiateTransferRequest,
 } from '@sovity.de/edc-client';
