@@ -57,7 +57,7 @@ export class AssetPageComponent implements OnInit, OnDestroy {
   }
 
   onCreate() {
-    this.router.navigate(['/edit-asset']);
+    this.router.navigate(['/create-asset']);
   }
 
   onAssetClick(asset: UiAssetMapped) {
