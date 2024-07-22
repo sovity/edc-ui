@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
 import {UiPolicy} from '@sovity.de/edc-client';
 import {JsonDialogService} from '../../json-dialog/json-dialog/json-dialog.service';
+import {PolicyMapper} from '../../policy-editor/model/policy-mapper';
 import {PropertyGridField} from '../../property-grid/property-grid/property-grid-field';
 
 @Injectable()
 export class PolicyPropertyFieldBuilder {
-  constructor(private jsonDialogService: JsonDialogService) {}
+  constructor(
+    private jsonDialogService: JsonDialogService,
+    private policyMapper: PolicyMapper,
+  ) {}
 
   buildPolicyPropertyFields(
     policy: UiPolicy,
@@ -16,8 +20,8 @@ export class PolicyPropertyFieldBuilder {
       {
         icon: 'policy',
         label: 'Policy',
-        additionalClasses: 'whitespace-pre-line',
-        text: 'TODO',
+        policy: this.policyMapper.buildPolicy(policy.expression!),
+        policyErrors: policy.errors || [],
       },
       {
         icon: 'policy',
