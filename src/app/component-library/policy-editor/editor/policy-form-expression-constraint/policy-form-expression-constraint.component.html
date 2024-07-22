@@ -12,9 +12,7 @@
     "></policy-operator-select>
 </div>
 
-<mat-form-field
-  *ngIf="verb.operandRightType === 'TEXT'"
-  class="mat-form-field-without-margin-bottom2 grow">
+<mat-form-field *ngIf="verb.operandRightType === 'TEXT'" class="grow">
   <mat-label>{{ verb.operandLeftTitle }}</mat-label>
   <input
     matInput
@@ -25,9 +23,7 @@
   <mat-hint>{{ verb.operandRightHint }}</mat-hint>
 </mat-form-field>
 
-<mat-form-field
-  *ngIf="verb.operandRightType === 'DATE'"
-  class="mat-form-field-without-margin-bottom2 grow">
+<mat-form-field *ngIf="verb.operandRightType === 'DATE'" class="grow">
   <mat-label>{{ verb.operandLeftTitle }}</mat-label>
   <input
     matInput
