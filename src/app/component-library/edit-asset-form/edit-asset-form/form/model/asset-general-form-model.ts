@@ -4,7 +4,7 @@ import {DataSubcategorySelectItem} from '../../../data-subcategory-select/data-s
 import {LanguageSelectItem} from '../../../language-select/language-select-item';
 
 /**
- * Form Model for Edit Asset Form > Datasource
+ * Form Model for Edit Asset Form > General
  */
 export interface AssetGeneralFormModel {
   id: FormControl<string>;
@@ -23,6 +23,6 @@ export interface AssetGeneralFormModel {
 }
 
 /**
- * Form Value for Edit Asset Form > Datasource
+ * Form Value for Edit Asset Form > General
  */
 export type AssetGeneralFormValue = ɵFormGroupValue<AssetGeneralFormModel>;

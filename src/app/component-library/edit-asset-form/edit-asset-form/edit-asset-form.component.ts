@@ -6,7 +6,6 @@ import {DATA_SOURCE_HTTP_METHODS} from './form/http-methods';
 @Component({
   selector: 'edit-asset-form',
   templateUrl: './edit-asset-form.component.html',
-  styleUrls: ['./edit-asset-form.component.scss'],
   providers: [],
 })
 export class EditAssetFormComponent {

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {DataCategorySelectItem} from '../data-category-select/data-category-select-item';
 import {DataSubcategorySelectItem} from './data-subcategory-select-item';
 
@@ -21,10 +21,6 @@ export class DataSubcategorySelectComponent {
 
   @Input()
   control!: FormControl<DataSubcategorySelectItem | null>;
-
-  isRequired(): boolean {
-    return this.control.hasValidator(Validators.required);
-  }
 
   private buildId(): string {
     return `asset-create-form-${this.label.toLowerCase().replaceAll(' ', '-')}`;

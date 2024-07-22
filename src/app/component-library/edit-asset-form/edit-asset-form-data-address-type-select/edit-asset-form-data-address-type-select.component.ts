@@ -4,7 +4,6 @@ import {SimpleChangesTyped} from '../../../core/utils/angular-utils';
 import {DataAddressType} from '../../data-address/data-address-type-select/data-address-type';
 import {dataAddressTypeSelectItems} from '../../data-address/data-address-type-select/data-address-type-select-items';
 import {DataAddressTypeSelectMode} from '../../data-address/data-address-type-select/data-address-type-select-mode';
-import {DataAddressTypeSelectComponent} from '../../data-address/data-address-type-select/data-address-type-select.component';
 
 @Component({
   selector: 'edit-asset-form-data-address-type-select',
@@ -21,7 +20,9 @@ export class EditAssetFormDataAddressTypeSelectComponent implements OnChanges {
   mode: DataAddressTypeSelectMode = 'Datasource-Create';
 
   items = dataAddressTypeSelectItems(this.mode);
-  ngOnChanges(changes: SimpleChangesTyped<DataAddressTypeSelectComponent>) {
+  ngOnChanges(
+    changes: SimpleChangesTyped<EditAssetFormDataAddressTypeSelectComponent>,
+  ) {
     if (changes.mode) {
       this.items = dataAddressTypeSelectItems(this.mode);
     }
