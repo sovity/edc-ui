@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import {BehaviorSubject} from 'rxjs';
-import {first, map, switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {search} from '../../../../core/utils/search-utils';
-import {NewPolicyDialogResult} from '../new-policy-dialog/new-policy-dialog-result';
-import {NewPolicyDialogComponent} from '../new-policy-dialog/new-policy-dialog.component';
 import {PolicyCard} from '../policy-cards/policy-card';
 import {PolicyCardBuilder} from '../policy-cards/policy-card-builder';
 
@@ -29,7 +26,6 @@ export class PolicyDefinitionPageComponent implements OnInit {
   constructor(
     private edcApiService: EdcApiService,
     private policyCardBuilder: PolicyCardBuilder,
-    private readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -57,18 +53,6 @@ export class PolicyDefinitionPageComponent implements OnInit {
 
   onSearch() {
     this.refresh();
-  }
-
-  onCreate() {
-    const dialogRef = this.dialog.open(NewPolicyDialogComponent);
-    dialogRef
-      .afterClosed()
-      .pipe(first())
-      .subscribe((result: NewPolicyDialogResult) => {
-        if (result.refreshList) {
-          this.refresh();
-        }
-      });
   }
 
   refresh() {

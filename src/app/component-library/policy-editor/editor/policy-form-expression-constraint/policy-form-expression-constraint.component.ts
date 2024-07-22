@@ -10,8 +10,6 @@ import {TreeNode} from '../tree';
 })
 export class PolicyFormExpressionConstraintComponent {
   @HostBinding('class.flex')
-  @HostBinding('class.h-[5rem]')
-  @HostBinding('class.items-center')
   @HostBinding('class.gap-4')
   cls = true;
 

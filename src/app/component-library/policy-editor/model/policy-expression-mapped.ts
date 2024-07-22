@@ -12,5 +12,6 @@ export interface PolicyExpressionMapped {
   verb?: PolicyVerbConfig;
   operator?: PolicyOperatorConfig;
   valueRaw?: UiPolicyLiteral;
+  valueJson?: string;
   displayValue?: string;
 }

@@ -3,7 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {UiPolicyExpression} from '@sovity.de/edc-client';
-import {validDateRangeOptionalEnd} from '../../../../../core/validators/valid-date-range-optional-end';
+import {validDateRange} from '../../../../../core/validators/valid-date-range-optional-end';
 import {ValidationMessages} from '../../../../../core/validators/validation-messages';
 import {buildTimespanRestriction} from './timespan-restriction-expression';
 
@@ -18,7 +18,7 @@ export class TimespanRestrictionDialogComponent implements OnDestroy {
         start: null as Date | null,
         end: null as Date | null,
       },
-      {validators: validDateRangeOptionalEnd},
+      {validators: validDateRange},
     ),
   });
 

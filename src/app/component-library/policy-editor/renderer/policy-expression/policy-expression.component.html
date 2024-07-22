@@ -44,7 +44,7 @@
     {{ expression.operator!.title }}
   </span>
 
-  <span [matTooltip]="expression.valueRaw | json">{{
+  <span class="break-all" [matTooltip]="expression.valueJson ?? ''">{{
     expression.displayValue
   }}</span>
 </div>

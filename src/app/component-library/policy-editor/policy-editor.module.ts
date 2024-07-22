@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
@@ -12,6 +13,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {PipesAndDirectivesModule} from '../pipes-and-directives/pipes-and-directives.module';
+import {ParticipantIdSelectComponent} from './editor/controls/participant-id-select/participant-id-select.component';
 import {PolicyFormAddMenuComponent} from './editor/policy-form-add-menu/policy-form-add-menu.component';
 import {PolicyFormExpressionConstraintComponent} from './editor/policy-form-expression-constraint/policy-form-expression-constraint.component';
 import {PolicyFormExpressionEmptyComponent} from './editor/policy-form-expression-empty/policy-form-expression-empty.component';
@@ -32,6 +34,7 @@ import {PolicyRendererComponent} from './renderer/policy-renderer/policy-rendere
     ReactiveFormsModule,
 
     // Angular Material
+    MatChipsModule,
     MatTooltipModule,
     MatButtonModule,
     MatDialogModule,
@@ -56,6 +59,9 @@ import {PolicyRendererComponent} from './renderer/policy-renderer/policy-rendere
     PolicyFormExpressionMultiComponent,
     PolicyFormRemoveButton,
     PolicyOperatorSelectComponent,
+
+    // ./editor/controls
+    ParticipantIdSelectComponent,
 
     // ./editor/recipes
     TimespanRestrictionDialogComponent,

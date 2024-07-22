@@ -22,7 +22,10 @@ export class ExpressionFormControls {
 
   getValue(node: TreeNode<ExpressionFormValue>): UiPolicyLiteral {
     const formValue = this.getValueFormControl(node).value;
-    return node.value.verb!.buildValueFn(formValue, this.getOperator(node));
+    return node.value.verb!.adapter.buildValueFn(
+      formValue,
+      this.getOperator(node),
+    );
   }
 
   getOperator(node: TreeNode<ExpressionFormValue>): PolicyOperatorConfig {
@@ -46,8 +49,8 @@ export class ExpressionFormControls {
 
     const operatorControl = new UntypedFormControl(operatorConfig);
 
-    const valueControl = expr.verb!.fromControlFactory();
-    valueControl.reset(expr.verb!.buildFormValueFn(value));
+    const valueControl = expr.verb!.adapter.fromControlFactory();
+    valueControl.reset(expr.verb!.adapter.buildFormValueFn(value));
 
     this.formGroup.addControl(`${nodeId}-value`, valueControl);
     this.formGroup.addControl(`${nodeId}-op`, operatorControl);

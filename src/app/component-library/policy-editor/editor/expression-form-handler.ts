@@ -40,8 +40,7 @@ export class ExpressionFormHandler {
       type: 'CONSTRAINT',
       constraint: {
         left: verb.operandLeftId,
-        operator: verb.supportedOperators[0],
-        right: verb.emptyValue(),
+        ...verb.adapter.emptyConstraintValue(),
       },
     };
 
@@ -117,5 +116,30 @@ export class ExpressionFormHandler {
       verb: original.verb,
       supportedOperators,
     };
+  }
+
+  toUiPolicyExpression() {
+    const visit = (node: TreeNode<ExpressionFormValue>): UiPolicyExpression => {
+      const value = node.value;
+      if (value.type === 'EMPTY') {
+        return {type: 'EMPTY'};
+      } else if (value.type === 'MULTI') {
+        return {
+          type: value.multiExpression!.expressionType,
+          expressions: node.children.map((it) => visit(it)),
+        };
+      } else {
+        return {
+          type: 'CONSTRAINT',
+          constraint: {
+            left: value.verb!.operandLeftId,
+            operator: this.controls.getOperator(node).id,
+            right: this.controls.getValue(node),
+          },
+        };
+      }
+    };
+
+    return visit(this.tree.root);
   }
 }

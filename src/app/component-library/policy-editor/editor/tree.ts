@@ -16,19 +16,6 @@ export class Tree<T> {
     });
   }
 
-  replaceValue(path: string[], newValue: T): void {
-    this.transform((node) => {
-      if (!this.isEqualPath(node, path)) {
-        return node;
-      }
-
-      return {
-        ...node,
-        value: newValue,
-      };
-    });
-  }
-
   replaceTree<I>(
     path: string[],
     value: I,
@@ -116,18 +103,6 @@ export class Tree<T> {
 
   private nextId() {
     return String(this._nextId++);
-  }
-
-  static empty<T>(rootValue: T): Tree<T> {
-    return new Tree<T>(
-      {
-        path: ['0'],
-        id: '0',
-        children: [],
-        value: rootValue,
-      },
-      1,
-    );
   }
 
   static ofTreeLikeStructure<T, R>(opts: {

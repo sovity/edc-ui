@@ -1,5 +1,7 @@
-<div [matTooltip]="expr.verb!.operandLeftDescription">
-  {{ verb.operandLeftTitle }}
+<div
+  class="flex items-center h-[4rem]"
+  [matTooltip]="expr.verb!.operandLeftDescription">
+  <span>{{ verb.operandLeftTitle }}</span>
 </div>
 
 <div>
@@ -12,7 +14,7 @@
 
 <mat-form-field
   *ngIf="verb.operandRightType === 'TEXT'"
-  class="mat-form-field-without-margin-bottom grow">
+  class="mat-form-field-without-margin-bottom2 grow">
   <mat-label>{{ verb.operandLeftTitle }}</mat-label>
   <input
     matInput
@@ -25,7 +27,7 @@
 
 <mat-form-field
   *ngIf="verb.operandRightType === 'DATE'"
-  class="mat-form-field-without-margin-bottom grow">
+  class="mat-form-field-without-margin-bottom2 grow">
   <mat-label>{{ verb.operandLeftTitle }}</mat-label>
   <input
     matInput
@@ -39,4 +41,12 @@
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<policy-form-remove-button [treeNode]="treeNode"></policy-form-remove-button>
+<participant-id-select
+  *ngIf="verb.operandRightType === 'PARTICIPANT_ID'"
+  class="grow"
+  [control]="
+    expressionFormHandler.controls.getValueFormControl(treeNode)
+  "></participant-id-select>
+<div class="flex items-center h-[4rem]">
+  <policy-form-remove-button [treeNode]="treeNode"></policy-form-remove-button>
+</div>

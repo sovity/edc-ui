@@ -55,6 +55,7 @@ export class PolicyMapper {
       verb,
       operator,
       valueRaw: value,
+      valueJson: this.formatJson(value!),
       displayValue: this.formatValue(value, verb) ?? 'null',
     };
   }
@@ -113,13 +114,19 @@ export class PolicyMapper {
     if (value == null) {
       return '';
     }
-    switch (value.type) {
-      case 'STRING':
-        return verbConfig.operandRightDisplayTextFn(value.value);
-      case 'STRING_LIST':
-        return value.valueList?.join(', ');
-      default:
-        return JSON.stringify(value.value);
+
+    return verbConfig.adapter.displayText(value);
+  }
+
+  private formatJson(value: UiPolicyLiteral): string {
+    if (value.type === 'STRING_LIST') {
+      return JSON.stringify(value.valueList);
     }
+
+    if (value.type === 'JSON') {
+      return value.value ?? '';
+    }
+
+    return JSON.stringify(value.value);
   }
 }
