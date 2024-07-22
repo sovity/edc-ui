@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ValidationMessages} from 'src/app/core/validators/validation-messages';
 import {EditAssetForm} from './form/edit-asset-form';
 import {DATA_SOURCE_HTTP_METHODS} from './form/http-methods';
@@ -10,15 +10,13 @@ import {DATA_SOURCE_HTTP_METHODS} from './form/http-methods';
   providers: [],
 })
 export class EditAssetFormComponent {
+  @Input() isLoading!: boolean;
   @Output() submitClicked = new EventEmitter();
 
-  loading = false;
   methods = DATA_SOURCE_HTTP_METHODS;
 
   constructor(
     public form: EditAssetForm,
     public validationMessages: ValidationMessages,
-  ) {
-    console.log(form.value);
-  }
+  ) {}
 }

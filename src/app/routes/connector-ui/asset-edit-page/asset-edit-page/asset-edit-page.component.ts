@@ -20,6 +20,8 @@ import {AssetRequestBuilder} from 'src/app/core/services/asset-request-builder';
   ],
 })
 export class AssetEditPageComponent {
+  isLoading = false;
+
   constructor(
     private editAssetFormInitializer: EditAssetFormInitializer,
     private form: EditAssetForm,
@@ -35,6 +37,8 @@ export class AssetEditPageComponent {
   }
 
   onSubmit() {
+    this.form.all.disable();
+
     const formValue = this.form.value;
     const mode = this.form.mode;
 
@@ -43,23 +47,19 @@ export class AssetEditPageComponent {
       formValue.general!.id = this.form.general.controls.id.getRawValue();
     }
 
-    console.log('formValue', formValue);
-
     if (mode === 'CREATE') {
       const createRequest =
         this.assetRequestBuilder.buildAssetCreateRequest(formValue);
-      return this.edcApiService.createAsset(createRequest);
+      this.edcApiService.createAsset(createRequest);
     }
 
     if (mode === 'EDIT') {
       const assetId = formValue.general?.id!;
       const editRequest =
         this.assetRequestBuilder.buildAssetEditRequest(formValue);
-      return this.edcApiService.editAsset(assetId, editRequest);
+      this.edcApiService.editAsset(assetId, editRequest);
     }
 
     this.router.navigate(['my-assets']);
-
-    throw new Error(`Unsupported mode: ${mode}`);
   }
 }

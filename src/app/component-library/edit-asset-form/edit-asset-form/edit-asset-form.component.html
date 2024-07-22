@@ -2,7 +2,7 @@
   <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.all">
     <edit-asset-form-group
       *ngIf="form.datasource"
-      title="Datasource"
+      myTitle="Datasource"
       description="Define the datasource API resource">
       <!-- Datasource Type -->
       <div>
@@ -455,7 +455,7 @@
     </edit-asset-form-group>
 
     <edit-asset-form-group
-      title="General Information"
+      myTitle="General Information"
       description="Fill out general information about the asset">
       <!-- Name -->
       <div>
@@ -534,7 +534,7 @@
     </edit-asset-form-group>
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields"
-      title="Advanced"
+      myTitle="Advanced"
       description="Fill out advanced fields of the asset">
       <!-- Version -->
       <div class="mt-1">
@@ -914,7 +914,7 @@
       class="w-40 h-10 self-end"
       mat-raised-button
       color="primary"
-      [disabled]="!form.all.valid || loading"
+      [disabled]="!form.all.valid || isLoading"
       (click)="submitClicked.emit()">
       {{ form.mode === 'CREATE' ? 'Create' : 'Update' }}
     </button>

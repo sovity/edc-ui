@@ -6,6 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./edit-asset-form-group.component.scss'],
 })
 export class EditAssetFormGroupComponent {
-  @Input() title!: String;
+  @Input() myTitle!: String;
   @Input() description!: String;
 }
