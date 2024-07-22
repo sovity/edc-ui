@@ -78,7 +78,6 @@ export class AssetEditPageComponent implements OnInit {
 
   onSubmit() {
     const formValue = this.form.value;
-    console.log('formValue', formValue);
 
     // Workaround around disabled controls not being included in the form value
     if (formValue.mode !== 'CREATE') {
