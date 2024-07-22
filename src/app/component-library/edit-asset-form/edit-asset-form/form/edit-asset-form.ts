@@ -99,8 +99,8 @@ export class EditAssetForm {
     return formGroup;
   }
 
-  onHttpHeadersAddClick() {
-    this.all.markAllAsTouched();
+  onHttpHeadersAddClick(buttonClickedEvent: Event) {
+    buttonClickedEvent.preventDefault();
     this.datasource!.controls.httpHeaders.push(
       this.assetDatasourceFormBuilder.buildHeaderFormGroup({
         headerName: '',
@@ -109,13 +109,13 @@ export class EditAssetForm {
     );
   }
 
-  onHttpHeadersRemoveClick(index: number) {
-    this.all.markAllAsTouched();
+  onHttpHeadersRemoveClick(buttonClickedEvent: Event, index: number) {
+    buttonClickedEvent.preventDefault();
     this.datasource!.controls.httpHeaders.removeAt(index);
   }
 
-  onHttpQueryParamsAddClick() {
-    this.all.markAllAsTouched();
+  onHttpQueryParamsAddClick(buttonClickedEvent: Event) {
+    buttonClickedEvent.preventDefault();
     this.datasource!.controls.httpQueryParams.push(
       this.assetDatasourceFormBuilder.buildQueryParamFormGroup({
         paramName: '',
@@ -125,44 +125,44 @@ export class EditAssetForm {
   }
 
   // markAllAsTouched added as a workaround to get labels outside of mat-form-field to show invalid state correctly
-  onHttpQueryParamsRemoveClick(index: number) {
-    this.all.markAllAsTouched();
+  onHttpQueryParamsRemoveClick(buttonClickedEvent: Event, index: number) {
+    buttonClickedEvent.preventDefault();
     this.datasource!.controls.httpQueryParams.removeAt(index);
   }
 
-  onNutsLocationsAddClick() {
-    this.all.markAllAsTouched();
+  onNutsLocationsAddClick(buttonClickedEvent: Event) {
+    buttonClickedEvent.preventDefault();
     this.advanced!.controls.nutsLocations.push(
       this.assetAdvancedFormBuilder.buildRequiredString(''),
     );
   }
 
-  onNutsLocationsRemoveClick(index: number) {
-    this.all.markAllAsTouched();
+  onNutsLocationsRemoveClick(buttonClickedEvent: Event, index: number) {
+    buttonClickedEvent.preventDefault();
     this.advanced!.controls.nutsLocations.removeAt(index);
   }
 
-  onDataSampleUrlsAddClick() {
-    this.all.markAllAsTouched();
+  onDataSampleUrlsAddClick(buttonClickedEvent: Event) {
+    buttonClickedEvent.preventDefault();
     this.advanced!.controls.dataSampleUrls.push(
       this.assetAdvancedFormBuilder.buildRequiredUrl(''),
     );
   }
 
-  onDataSampleUrlsRemoveClick(index: number) {
-    this.all.markAllAsTouched();
+  onDataSampleUrlsRemoveClick(buttonClickedEvent: Event, index: number) {
+    buttonClickedEvent.preventDefault();
     this.advanced!.controls.dataSampleUrls.removeAt(index);
   }
 
-  onReferenceFileUrlsAddClick() {
-    this.all.markAllAsTouched();
+  onReferenceFileUrlsAddClick(buttonClickedEvent: Event) {
+    buttonClickedEvent.preventDefault();
     this.advanced!.controls.referenceFileUrls.push(
       this.assetAdvancedFormBuilder.buildRequiredUrl(''),
     );
   }
 
-  onReferenceFileUrlsRemoveClick(index: number) {
-    this.all.markAllAsTouched();
+  onReferenceFileUrlsRemoveClick(buttonClickedEvent: Event, index: number) {
+    buttonClickedEvent.preventDefault();
     this.advanced!.controls.referenceFileUrls.removeAt(index);
   }
 }

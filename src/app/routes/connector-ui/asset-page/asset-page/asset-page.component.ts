@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {BehaviorSubject, Subject, merge} from 'rxjs';
-import {filter, map, switchMap} from 'rxjs/operators';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {filter, switchMap} from 'rxjs/operators';
 import {OnAssetEditClickFn} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
@@ -21,7 +21,6 @@ export interface AssetList {
 })
 export class AssetPageComponent implements OnInit, OnDestroy {
   assetList: Fetched<AssetList> = Fetched.empty();
-  assetListUpdater$ = new Subject<UiAssetMapped[]>();
   searchText = '';
   private fetch$ = new BehaviorSubject(null);
 
@@ -33,15 +32,13 @@ export class AssetPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    merge(
-      this.fetch$.pipe(
+    this.fetch$
+      .pipe(
         switchMap(() => this.assetServiceMapped.fetchAssets()),
         Fetched.wrap({
           failureMessage: 'Failed fetching asset list.',
         }),
-      ),
-      this.assetListUpdater$.pipe(map(Fetched.ready)),
-    )
+      )
       .pipe(
         Fetched.map(
           (assets): AssetList => ({
@@ -65,7 +62,7 @@ export class AssetPageComponent implements OnInit, OnDestroy {
 
   onAssetClick(asset: UiAssetMapped) {
     const onAssetEditClick: OnAssetEditClickFn = (asset, onAssetUpdated) => {
-      this.router.navigate(['/edit-asset'], {state: {uiAssetMapped: asset}});
+      this.router.navigate(['/edit-asset', asset.assetId]);
     };
 
     const buildDialogData = (asset: UiAssetMapped) =>

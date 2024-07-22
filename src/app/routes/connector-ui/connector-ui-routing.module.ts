@@ -24,9 +24,14 @@ export const routes: Routes = [
     data: {title: 'Dashboard', icon: 'data_usage'},
   },
   {
-    path: 'edit-asset',
+    path: 'create-asset',
     component: AssetEditPageComponent,
-    data: {title: 'Edit Asset', icon: 'post_add'},
+    data: {title: 'Create Asset', icon: 'post_add'},
+  },
+  {
+    path: 'edit-asset/:id',
+    component: AssetEditPageComponent,
+    data: {title: 'Edit Asset', icon: 'post_add', isNotShownInNavBar: true},
   },
   {
     path: 'catalog-browser',

@@ -156,9 +156,7 @@
                 class="w-min"
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="
-                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
-                ">
+                (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
                 {{ ctrl.value ? 'Disable' : 'Enable' }}
                 Method Parameterization
               </button>
@@ -194,9 +192,7 @@
               <button
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="
-                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
-                ">
+                (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
                 {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
               </button>
             </div>
@@ -254,7 +250,7 @@
                 mat-button
                 color="warn"
                 style="height: 42px; margin-top: 4px; margin-left: 8px"
-                (click)="form.onHttpQueryParamsRemoveClick(i)">
+                (click)="form.onHttpQueryParamsRemoveClick($event, i)">
                 Remove
               </button>
             </div>
@@ -268,7 +264,7 @@
               <button
                 mat-button
                 color="accent"
-                (click)="form.onHttpQueryParamsAddClick()">
+                (click)="form.onHttpQueryParamsAddClick($event)">
                 Add {{ form.proxyQueryParams ? 'Default' : '' }} Query Param
               </button>
               <!-- Toggle Proxy Query Param Parameterization Button -->
@@ -276,9 +272,7 @@
                 *ngIf="form.datasource.controls.httpProxyQueryParams; let ctrl"
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="
-                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
-                ">
+                (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
                 {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param
                 Parameterization
               </button>
@@ -298,9 +292,7 @@
               <button
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
-                (click)="
-                  ctrl.setValue(!ctrl.value); form.all.markAllAsTouched()
-                ">
+                (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
                 {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
                 Parameterization
               </button>
@@ -436,7 +428,7 @@
                 mat-button
                 color="warn"
                 style="height: 42px; margin-top: 4px; margin-left: 8px"
-                (click)="form.onHttpHeadersRemoveClick(i)">
+                (click)="form.onHttpHeadersRemoveClick($event, i)">
                 Remove
               </button>
             </div>
@@ -445,7 +437,7 @@
               <button
                 mat-button
                 color="accent"
-                (click)="form.onHttpHeadersAddClick()">
+                (click)="form.onHttpHeadersAddClick($event)">
                 Add Additional Header
               </button>
             </div>
@@ -745,7 +737,7 @@
               mat-button
               color="warn"
               style="height: 42px; margin-top: 4px; margin-left: 8px"
-              (click)="form.onNutsLocationsRemoveClick(i)">
+              (click)="form.onNutsLocationsRemoveClick($event, i)">
               Remove
             </button>
           </div>
@@ -753,7 +745,7 @@
             <button
               mat-button
               color="accent"
-              (click)="form.onNutsLocationsAddClick()">
+              (click)="form.onNutsLocationsAddClick($event)">
               Add location
             </button>
           </div>
@@ -780,7 +772,7 @@
               mat-button
               color="warn"
               style="height: 42px; margin-top: 4px; margin-left: 8px"
-              (click)="form.onDataSampleUrlsRemoveClick(i)">
+              (click)="form.onDataSampleUrlsRemoveClick($event, i)">
               Remove
             </button>
           </div>
@@ -788,7 +780,7 @@
             <button
               mat-button
               color="accent"
-              (click)="form.onDataSampleUrlsAddClick()">
+              (click)="form.onDataSampleUrlsAddClick($event)">
               Add data sample
             </button>
           </div>
@@ -816,7 +808,7 @@
               mat-button
               color="warn"
               style="height: 42px; margin-top: 4px; margin-left: 8px"
-              (click)="form.onReferenceFileUrlsRemoveClick(i)">
+              (click)="form.onReferenceFileUrlsRemoveClick($event, i)">
               Remove
             </button>
           </div>
@@ -824,7 +816,7 @@
             <button
               mat-button
               color="accent"
-              (click)="form.onReferenceFileUrlsAddClick()">
+              (click)="form.onReferenceFileUrlsAddClick($event)">
               Add reference file
             </button>
           </div>
@@ -915,7 +907,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!form.all.valid || isLoading"
-      (click)="submitClicked.emit()">
+      (click)="$event.preventDefault(); submitClicked.emit()">
       {{ form.mode === 'CREATE' ? 'Create' : 'Update' }}
     </button>
   </form>
