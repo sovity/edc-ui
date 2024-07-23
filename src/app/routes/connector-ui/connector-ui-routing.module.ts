@@ -61,7 +61,7 @@ export const routes: Routes = [
   {
     path: 'policies/create',
     component: PolicyDefinitionCreatePageComponent,
-    data: {title: 'Create Policy', icon: 'policy', skipNavItem: true},
+    data: {title: 'Create Policy'},
   },
   {
     path: 'contract-definitions',
