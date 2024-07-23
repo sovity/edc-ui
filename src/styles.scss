@@ -296,7 +296,9 @@ body {
 }
 
 .mat-icon-button {
-  @apply hover:!bg-[#EDEDED];
+  &:hover {
+    background: #ededed !important;
+  }
 
   mat-icon {
     margin-top: -1px;
