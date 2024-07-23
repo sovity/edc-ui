@@ -5,8 +5,6 @@ import {removeUndefinedValues} from '../utils/record-utils';
 export class MailtoLinkBuilder {
   private readonly MAILTO = 'mailto:';
 
-  constructor() {}
-
   buildMailtoUrl(
     email: string,
     subject?: string,
