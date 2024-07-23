@@ -27,6 +27,11 @@ export interface PropertyGridField {
   additionalClasses?: string;
 
   /**
+   * Additional classes for the container
+   */
+  additionalContainerClasses?: string;
+
+  /**
    * Additional classes for the icon.
    */
   additionalIconClasses?: string;

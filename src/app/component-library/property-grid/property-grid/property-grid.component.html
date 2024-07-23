@@ -5,7 +5,7 @@
 <div
   *ngFor="let prop of props; trackBy: trackByIndex"
   class="flex flex-row space-x-[10px] overflow-hidden"
-  [style.width]="'calc(100% / ' + columns + ' - ' + (columns - 1) * 10 + 'px)'">
+  [ngClass]="prop.additionalContainerClasses">
   <!-- Property Icon -->
   <mat-icon
     style="flex-shrink: 0; margin-top: 6px"

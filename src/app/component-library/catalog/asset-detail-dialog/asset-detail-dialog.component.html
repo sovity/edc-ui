@@ -38,7 +38,6 @@
     class="flex flex-row">
     <button
       *ngIf="data.showEditButton"
-      class="hover:!bg-[#EDEDED]"
       mat-icon-button
       matTooltip="Edit"
       (click)="onEditClick()">
@@ -46,7 +45,6 @@
     </button>
     <button
       *ngIf="data.showDeleteButton"
-      class="hover:!bg-[#EDEDED]"
       mat-icon-button
       matTooltip="Delete"
       (click)="onDeleteClick()">

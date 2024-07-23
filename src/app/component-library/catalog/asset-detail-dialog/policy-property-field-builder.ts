@@ -22,6 +22,7 @@ export class PolicyPropertyFieldBuilder {
         label: 'Policy',
         policy: this.policyMapper.buildPolicy(policy.expression!),
         policyErrors: policy.errors || [],
+        additionalContainerClasses: 'col-span-2',
       },
       {
         icon: 'policy',

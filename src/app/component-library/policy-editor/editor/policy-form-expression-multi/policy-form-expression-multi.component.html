@@ -1,9 +1,9 @@
 <div class="flex items-center gap-4 h-[4rem]">
-  <span
-    class="font-bold grow"
-    [matTooltip]="expr.multiExpression!.description"
-    >{{ expr.multiExpression!.title }}</span
-  >
+  <div class="font-medium grow">
+    <span [matTooltip]="expr.multiExpression!.description">{{
+      expr.multiExpression!.title
+    }}</span>
+  </div>
   <policy-form-remove-button [treeNode]="treeNode"></policy-form-remove-button>
 </div>
 <div

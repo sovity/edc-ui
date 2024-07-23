@@ -7,8 +7,8 @@ export class ParticipantIdLocalization {
   participantId = this.mds ? 'Connector ID' : 'Participant ID';
   participantIdPlural = this.participantId + 's';
   participantIdPlaceholder = this.mds
-    ? 'MDSL1234XX.C1234XX, ...'
-    : 'other-connector-participant-id, ...';
+    ? 'MDSL1234XX.C1234XX'
+    : 'other-connector-participant-id';
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig) {}
 }
