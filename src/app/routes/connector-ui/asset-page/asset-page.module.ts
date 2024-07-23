@@ -63,6 +63,5 @@ import {AssetPageComponent} from './asset-page/asset-page.component';
   ],
   declarations: [AssetCardsComponent, AssetPageComponent],
   exports: [AssetPageComponent],
-  providers: [],
 })
 export class AssetPageModule {}

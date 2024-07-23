@@ -11,7 +11,7 @@ export const assetDatasourceFormEnabledCtrls = (
 
   const onRequest = value.datasourceType === 'On-Request';
 
-  const http = value.dataAddressType === 'Http';
+  const http = value.dataAddressType === 'Http' && !onRequest;
   const httpAuth = value.httpAuthHeaderType !== 'None';
   const httpAuthByValue = value.httpAuthHeaderType === 'Value';
   const httpAuthByVault = value.httpAuthHeaderType === 'Vault-Secret';
@@ -30,21 +30,21 @@ export const assetDatasourceFormEnabledCtrls = (
     dataDestination: !onRequest && customDataAddressJson,
 
     // Http Datasource Fields
-    httpUrl: !onRequest && http,
-    httpMethod: !onRequest && http && !value.httpProxyMethod,
+    httpUrl: http,
+    httpMethod: http && !value.httpProxyMethod,
 
-    httpAuthHeaderType: !onRequest && http,
-    httpAuthHeaderName: !onRequest && http && httpAuth,
-    httpAuthHeaderValue: !onRequest && http && httpAuthByValue,
-    httpAuthHeaderSecretName: !onRequest && http && httpAuthByVault,
-    httpQueryParams: !onRequest && http,
+    httpAuthHeaderType: http,
+    httpAuthHeaderName: http && httpAuth,
+    httpAuthHeaderValue: http && httpAuthByValue,
+    httpAuthHeaderSecretName: http && httpAuthByVault,
+    httpQueryParams: http,
 
-    httpDefaultPath: !onRequest && http && proxyPath,
-    httpProxyMethod: !onRequest && http,
-    httpProxyPath: !onRequest && http,
-    httpProxyQueryParams: !onRequest && http,
-    httpProxyBody: !onRequest && http,
+    httpDefaultPath: http && proxyPath,
+    httpProxyMethod: http,
+    httpProxyPath: http,
+    httpProxyQueryParams: http,
+    httpProxyBody: http,
 
-    httpHeaders: !onRequest && http,
+    httpHeaders: http,
   };
 };

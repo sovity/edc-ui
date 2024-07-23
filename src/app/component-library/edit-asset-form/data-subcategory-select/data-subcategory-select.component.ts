@@ -10,19 +10,10 @@ import {DataSubcategorySelectItem} from './data-subcategory-select-item';
 export class DataSubcategorySelectComponent {
   @Input()
   label!: string;
-  id!: string;
-
-  ngOnInit(): void {
-    this.id = this.buildId();
-  }
 
   @Input()
   dataCategory: DataCategorySelectItem | null = null;
 
   @Input()
   control!: FormControl<DataSubcategorySelectItem | null>;
-
-  private buildId(): string {
-    return `asset-create-form-${this.label.toLowerCase().replaceAll(' ', '-')}`;
-  }
 }
