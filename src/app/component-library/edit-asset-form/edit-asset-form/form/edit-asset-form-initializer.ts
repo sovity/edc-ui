@@ -82,13 +82,13 @@ export class EditAssetFormInitializer {
           toInclusive: asset.temporalCoverageToInclusive,
         },
       },
-      datasource: this.emptyEditDatasource(),
+      datasource: this.emptyEditDatasource(asset),
     };
   }
 
   private emptyHttpDatasource(): AssetDatasourceFormValue {
     return {
-      datasourceType: 'On-Request',
+      dataSourceAvailability: 'On-Request',
       contactEmail: '',
       contactPreferredEmailSubject: '',
 
@@ -113,10 +113,13 @@ export class EditAssetFormInitializer {
     };
   }
 
-  private emptyEditDatasource(): AssetDatasourceFormValue {
+  private emptyEditDatasource(asset: UiAssetMapped): AssetDatasourceFormValue {
     return {
       ...this.emptyHttpDatasource(),
-      dataAddressType: 'Unchanged',
+      dataSourceAvailability:
+        asset.dataSourceAvailability === 'LIVE' ? 'Unchanged' : 'On-Request',
+      contactEmail: asset.onRequestContactEmail ?? '',
+      contactPreferredEmailSubject: asset.onRequestContactEmailSubject ?? '',
     };
   }
 }

@@ -10,7 +10,7 @@ import {AssetGeneralFormModel} from './asset-general-form-model';
 export interface EditAssetFormModel {
   mode: FormControl<AssetEditDialogMode>;
   general: FormGroup<AssetGeneralFormModel>;
-  datasource?: FormGroup<AssetDatasourceFormModel>;
+  datasource: FormGroup<AssetDatasourceFormModel>;
   advanced?: FormGroup<AssetAdvancedFormModel>;
 }
 

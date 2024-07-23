@@ -27,7 +27,7 @@ export class AssetDatasourceFormBuilder {
   ): FormGroup<AssetDatasourceFormModel> {
     const datasource: FormGroup<AssetDatasourceFormModel> =
       this.formBuilder.nonNullable.group({
-        datasourceType: initial?.datasourceType!,
+        dataSourceAvailability: initial?.dataSourceAvailability!,
 
         dataAddressType: initial?.dataAddressType!,
         dataDestination: [

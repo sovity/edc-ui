@@ -1,1 +1,1 @@
-export type DatasourceType = 'Datasource' | 'On-Request';
+export type DatasourceType = 'Datasource' | 'On-Request' | 'Unchanged';

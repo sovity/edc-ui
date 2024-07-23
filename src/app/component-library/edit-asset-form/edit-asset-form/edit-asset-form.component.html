@@ -10,23 +10,26 @@
           label="Datasource Type"
           htmlFor="create-asset-form-datasource-type"
           [ctrl]="
-            form.datasource.controls.datasourceType
+            form.datasource.controls.dataSourceAvailability
           "></edit-asset-form-label>
         <mat-radio-group
           class="!flex !flex-col !gap-1 w-full mt-2"
           aria-label="Select an option"
-          [formControl]="form.datasource.controls.datasourceType">
-          <mat-radio-button value="On-Request"
-            >I do not have a data source.</mat-radio-button
-          >
-          <mat-radio-button value="Datasource"
-            >I want to connect to a data source.</mat-radio-button
-          >
+          [formControl]="form.datasource.controls.dataSourceAvailability">
+          <mat-radio-button *ngIf="form.mode === 'EDIT'" value="Unchanged">
+            Keep the datasource unchanged.
+          </mat-radio-button>
+          <mat-radio-button value="On-Request">
+            I do not have a datasource.
+          </mat-radio-button>
+          <mat-radio-button value="Datasource">
+            I want to connect to a datasource.
+          </mat-radio-button>
         </mat-radio-group>
       </div>
 
       <ng-container
-        *ngIf="form.datasource.value.datasourceType === 'On-Request'">
+        *ngIf="form.datasource.value.dataSourceAvailability === 'On-Request'">
         <!-- Contact E-Mail for On Request Assets -->
         <div class="mt-2">
           <edit-asset-form-label
@@ -82,7 +85,9 @@
       </ng-container>
 
       <ng-container
-        *ngIf="this.form.datasource.value.datasourceType === 'Datasource'">
+        *ngIf="
+          form.datasource.controls.dataSourceAvailability.value === 'Datasource'
+        ">
         <!-- Data Address Type -->
         <div class="mt-5">
           <edit-asset-form-data-address-type-select

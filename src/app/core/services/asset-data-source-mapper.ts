@@ -12,14 +12,14 @@ export class AssetDataSourceMapper {
   buildDataSourceOrNull(
     formValue: AssetDatasourceFormValue | undefined,
   ): UiDataSource | null {
-    if (!formValue || formValue.dataAddressType === 'Unchanged') {
+    if (!formValue || formValue.dataSourceAvailability === 'Unchanged') {
       return null;
     }
     return this.buildDataSource(formValue);
   }
 
   buildDataSource(formValue: AssetDatasourceFormValue): UiDataSource {
-    if (formValue.datasourceType === 'On-Request') {
+    if (formValue.dataSourceAvailability === 'On-Request') {
       return this.buildOnRequestDataSource(formValue);
     }
 

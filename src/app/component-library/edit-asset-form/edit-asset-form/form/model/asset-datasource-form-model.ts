@@ -15,7 +15,7 @@ import {HttpDatasourceQueryParamFormModel} from './http-datasource-query-param-f
  * Form Model for Edit Asset Form > Datasource
  */
 export interface AssetDatasourceFormModel {
-  datasourceType: FormControl<DatasourceType>;
+  dataSourceAvailability: FormControl<DatasourceType>;
 
   dataAddressType: FormControl<DataAddress>;
 

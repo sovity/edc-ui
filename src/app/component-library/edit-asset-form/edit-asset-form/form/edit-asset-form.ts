@@ -78,22 +78,20 @@ export class EditAssetForm {
         initial.mode!,
       );
 
+    const datasource: FormGroup<AssetDatasourceFormModel> =
+      this.assetDatasourceFormBuilder.buildFormGroup(initial.datasource!);
+
     const formGroup: FormGroup<EditAssetFormModel> =
       this.formBuilder.nonNullable.group({
         mode: [initial.mode as AssetEditDialogMode],
         general,
+        datasource,
       });
 
     if (this.activeFeatureSet.hasMdsFields()) {
       const advanced: FormGroup<AssetAdvancedFormModel> =
         this.assetAdvancedFormBuilder.buildFormGroup(initial.advanced!);
       formGroup.addControl('advanced', advanced);
-    }
-
-    if (initial.mode !== 'EDIT') {
-      const datasource: FormGroup<AssetDatasourceFormModel> =
-        this.assetDatasourceFormBuilder.buildFormGroup(initial.datasource!);
-      formGroup.addControl('datasource', datasource);
     }
 
     return formGroup;

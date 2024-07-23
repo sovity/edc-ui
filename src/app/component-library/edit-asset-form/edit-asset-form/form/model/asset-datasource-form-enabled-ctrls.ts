@@ -9,7 +9,7 @@ export const assetDatasourceFormEnabledCtrls = (
   const customDataAddressJson =
     value.dataAddressType === 'Custom-Data-Address-Json';
 
-  const onRequest = value.datasourceType === 'On-Request';
+  const onRequest = value.dataSourceAvailability === 'On-Request';
 
   const http = value.dataAddressType === 'Http' && !onRequest;
   const httpAuth = value.httpAuthHeaderType !== 'None';
@@ -18,7 +18,7 @@ export const assetDatasourceFormEnabledCtrls = (
   const proxyPath = !!value.httpProxyPath;
 
   return {
-    datasourceType: true,
+    dataSourceAvailability: true,
 
     // On Request Datasource
     contactEmail: onRequest,

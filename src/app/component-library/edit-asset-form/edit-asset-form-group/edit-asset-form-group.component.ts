@@ -5,6 +5,6 @@ import {Component, Input} from '@angular/core';
   templateUrl: './edit-asset-form-group.component.html',
 })
 export class EditAssetFormGroupComponent {
-  @Input() myTitle!: String;
-  @Input() description!: String;
+  @Input() myTitle!: string;
+  @Input() description!: string;
 }
