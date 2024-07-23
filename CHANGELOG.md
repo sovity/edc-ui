@@ -20,9 +20,11 @@ the detailed section referring to by linking pull requests or issues.
 
 - Both providers and consumers can now terminate contracts.
 - Contracts can be filtered by their termination status.
-- Fixed an issue that caused the auth information to get lost during asset creation.
+- Adjusted data offer card/detail dialog UI to differentiate live and on request assets
 
 #### Patch
+
+- Fixed an issue that caused the auth information to get lost during asset creation.
 
 ### Deployment Migration Notes
 
