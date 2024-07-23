@@ -21,6 +21,7 @@ import {DashboardPageModule} from './dashboard-page/dashboard-page.module';
 import {LocationHistoryUtils} from './logout-page/location-history-utils';
 import {LogoutPageModule} from './logout-page/logout-page.module';
 import {PreviousRouteListener} from './logout-page/previous-route-listener';
+import {PolicyDefinitionCreatePageModule} from './policy-definition-create-page/policy-definition-create-page.module';
 import {PolicyDefinitionPageModule} from './policy-definition-page/policy-definition-page.module';
 import {TransferHistoryPageModule} from './transfer-history-page/transfer-history-page.module';
 
@@ -52,6 +53,7 @@ import {TransferHistoryPageModule} from './transfer-history-page/transfer-histor
     DashboardPageModule,
     LogoutPageModule,
     PolicyDefinitionPageModule,
+    PolicyDefinitionCreatePageModule,
     TransferHistoryPageModule,
 
     // Routing

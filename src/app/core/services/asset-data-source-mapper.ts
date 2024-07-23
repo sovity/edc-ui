@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {UiDataSource} from '@sovity.de/edc-client';
 import {AssetDatasourceFormValue} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/model/asset-datasource-form-model';
 import {HttpDatasourceHeaderFormValue} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/model/http-datasource-header-form-model';
+import {getAuthFields} from '../utils/form-value-utils';
 import {QueryParamsMapper} from './query-params-mapper';
 
 @Injectable({providedIn: 'root'})
@@ -55,12 +56,19 @@ export class AssetDataSourceMapper {
       formValue.httpQueryParams ?? [],
     );
 
+    const authFields = getAuthFields(formValue);
+
     return {
       type: 'HTTP_DATA',
       httpData: {
         method: formValue.httpMethod,
         baseUrl,
         queryString: queryString ?? undefined,
+        authHeaderName: authFields.authHeaderName ?? undefined,
+        authHeaderValue: {
+          secretName: authFields.authHeaderSecretName ?? undefined,
+          rawValue: authFields.authHeaderValue ?? undefined,
+        },
         headers: this.buildHttpHeaders(formValue.httpHeaders ?? []),
         enableMethodParameterization: formValue.httpProxyMethod,
         enablePathParameterization: formValue.httpProxyPath,
