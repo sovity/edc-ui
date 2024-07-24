@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
-  FormGroup,
   ValidationErrors,
 } from '@angular/forms';
 import {Observable, combineLatest, of} from 'rxjs';
@@ -10,7 +9,7 @@ import {catchError, map} from 'rxjs/operators';
 import {IdAvailabilityResponse} from '@sovity.de/edc-client';
 import {EdcApiService} from 'src/app/core/services/api/edc-api.service';
 import {ALWAYS_TRUE_POLICY_ID} from './model/always-true-policy-id';
-import {EditAssetFormModel} from './model/edit-asset-form-model';
+import {EditAssetFormValue} from './model/edit-asset-form-model';
 
 /**
  * Handles AngularForms for Edit Asset Form
@@ -24,9 +23,8 @@ export class EditAssetFormValidators {
    */
   isValidId(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const value = (control.parent!.parent as FormGroup<EditAssetFormModel>)
-        .value;
-      if (value.mode !== 'CREATE') {
+      const value = control?.parent?.parent?.value as EditAssetFormValue | null;
+      if (value?.mode !== 'CREATE') {
         return of(null);
       }
 
