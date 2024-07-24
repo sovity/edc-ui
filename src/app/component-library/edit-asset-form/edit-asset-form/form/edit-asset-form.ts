@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {delay} from 'rxjs/operators';
 import {ExpressionFormControls} from 'src/app/component-library/policy-editor/editor/expression-form-controls';
 import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
 import {switchDisabledControls} from 'src/app/core/utils/form-group-utils';
@@ -7,7 +8,6 @@ import {DataCategorySelectItem} from '../../data-category-select/data-category-s
 import {AssetAdvancedFormBuilder} from './asset-advanced-form-builder';
 import {AssetDatasourceFormBuilder} from './asset-datasource-form-builder';
 import {AssetGeneralFormBuilder} from './asset-general-form-builder';
-import {EditAssetFormValidators} from './edit-asset-form-validators';
 import {AssetAdvancedFormModel} from './model/asset-advanced-form-model';
 import {AssetDatasourceFormModel} from './model/asset-datasource-form-model';
 import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
@@ -67,7 +67,6 @@ export class EditAssetForm {
     private assetAdvancedFormBuilder: AssetAdvancedFormBuilder,
     private activeFeatureSet: ActiveFeatureSet,
     private expressionFormControls: ExpressionFormControls,
-    private editAssetFormValidators: EditAssetFormValidators,
   ) {}
 
   reset(initial: EditAssetFormValue) {
@@ -88,18 +87,17 @@ export class EditAssetForm {
       this.assetDatasourceFormBuilder.buildFormGroup(initial.datasource!);
 
     const formGroup: FormGroup<EditAssetFormModel> =
-      this.formBuilder.nonNullable.group(
-        {
-          mode: [initial.mode as AssetEditDialogMode],
-          publishMode: [initial.publishMode as DataOfferPublishMode],
-          policyControls: this.expressionFormControls.formGroup,
-          general,
-          datasource,
-        },
-        {
-          asyncValidators: [this.editAssetFormValidators.isValidId()],
-        },
-      );
+      this.formBuilder.nonNullable.group({
+        mode: [initial.mode as AssetEditDialogMode],
+        publishMode: [initial.publishMode as DataOfferPublishMode],
+        policyControls: this.expressionFormControls.formGroup,
+        general,
+        datasource,
+      });
+
+    formGroup.controls.publishMode.valueChanges
+      .pipe(delay(0))
+      .subscribe(() => general.controls.id.updateValueAndValidity());
 
     if (this.activeFeatureSet.hasMdsFields()) {
       const advanced: FormGroup<AssetAdvancedFormModel> =

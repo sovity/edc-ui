@@ -9,6 +9,7 @@ import {Observable, combineLatest, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {IdAvailabilityResponse} from '@sovity.de/edc-client';
 import {EdcApiService} from 'src/app/core/services/api/edc-api.service';
+import {ALWAYS_TRUE_POLICY_ID} from './model/always-true-policy-id';
 import {EditAssetFormModel} from './model/edit-asset-form-model';
 
 /**
@@ -18,21 +19,25 @@ import {EditAssetFormModel} from './model/edit-asset-form-model';
 export class EditAssetFormValidators {
   constructor(private edcApiService: EdcApiService) {}
 
+  /**
+   * Use on asset control, reset asset control on publish mode changes, accesses parent form
+   */
   isValidId(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const value = (control as FormGroup<EditAssetFormModel>).value;
+      const value = (control.parent!.parent as FormGroup<EditAssetFormModel>)
+        .value;
       if (value.mode !== 'CREATE') {
         return of(null);
       }
 
-      const assetId = value.general!.id!;
+      const assetId = control.value! as string;
       if (value.publishMode === 'PUBLISH_UNRESTRICTED') {
         return combineLatest([
           this.assetIdExistsErrorMessage(assetId),
           this.contractDefinitionIdErrorMessage(assetId),
-          this.policyIdExistsErrorMessage('always_true').pipe(
+          this.policyIdExistsErrorMessage(ALWAYS_TRUE_POLICY_ID).pipe(
             map((errorMessage) =>
-              // We want to throw an error if always_true was not found
+              // We want to throw an error if always-true was not found
               errorMessage ? null : 'Always True Policy does not exist.',
             ),
           ),
@@ -60,7 +65,7 @@ export class EditAssetFormValidators {
   private assetIdExistsErrorMessage(id: string): Observable<string | null> {
     return this.edcApiService.isAssetIdAvailable(id).pipe(
       catchError(() => of<IdAvailabilityResponse>({id, available: false})),
-      map((it) => (it.available ? 'Asset already exists.' : null)),
+      map((it) => (it.available ? null : 'Asset already exists.')),
     );
   }
 
@@ -70,7 +75,7 @@ export class EditAssetFormValidators {
     return this.edcApiService.isContractDefinitionIdAvailable(id).pipe(
       catchError(() => of<IdAvailabilityResponse>({id, available: false})),
       map((it) =>
-        it.available ? 'Contract Definition already exists.' : null,
+        it.available ? null : 'Contract Definition already exists.',
       ),
     );
   }
@@ -78,7 +83,7 @@ export class EditAssetFormValidators {
   private policyIdExistsErrorMessage(id: string): Observable<string | null> {
     return this.edcApiService.isPolicyIdAvailable(id).pipe(
       catchError(() => of<IdAvailabilityResponse>({id, available: false})),
-      map((it) => (it.available ? 'Policy already exists.' : null)),
+      map((it) => (it.available ? null : 'Policy already exists.')),
     );
   }
 

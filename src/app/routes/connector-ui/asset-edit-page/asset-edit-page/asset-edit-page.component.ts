@@ -7,6 +7,7 @@ import {AssetDatasourceFormBuilder} from 'src/app/component-library/edit-asset-f
 import {AssetGeneralFormBuilder} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/asset-general-form-builder';
 import {EditAssetForm} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/edit-asset-form';
 import {EditAssetFormInitializer} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/edit-asset-form-initializer';
+import {ALWAYS_TRUE_POLICY_ID} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/model/always-true-policy-id';
 import {EditAssetFormValue} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/model/edit-asset-form-model';
 import {ExpressionFormControls} from 'src/app/component-library/policy-editor/editor/expression-form-controls';
 import {ExpressionFormHandler} from 'src/app/component-library/policy-editor/editor/expression-form-handler';
@@ -127,7 +128,7 @@ export class AssetEditPageComponent implements OnInit {
       if (publishMode === 'PUBLISH_UNRESTRICTED') {
         return concat(
           this.edcApiService.createAsset(assetCreateRequest),
-          this.createContractDefinition(assetId, 'always_true'),
+          this.createContractDefinition(assetId, ALWAYS_TRUE_POLICY_ID),
         );
       } else if (publishMode === 'PUBLISH_RESTRICTED') {
         return concat(
