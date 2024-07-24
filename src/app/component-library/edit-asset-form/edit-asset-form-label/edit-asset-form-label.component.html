@@ -1,6 +1,6 @@
 <label
   [ngClass]="
-    ctrl?.invalid && (ctrl?.touched || ctrl?.dirty)
+    (ctrl?.invalid || invalid) && (ctrl?.touched || ctrl?.dirty)
       ? 'text-red-600'
       : 'text-gray-900'
   "

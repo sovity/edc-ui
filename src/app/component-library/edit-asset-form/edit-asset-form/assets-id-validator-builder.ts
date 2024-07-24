@@ -4,7 +4,7 @@ import {
   AsyncValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AssetService} from 'src/app/core/services/asset.service';
 
@@ -13,6 +13,13 @@ import {AssetService} from 'src/app/core/services/asset.service';
 })
 export class AssetsIdValidatorBuilder {
   constructor(private assetServiceMapped: AssetService) {}
+
+  dataOfferIdDoesNotExistValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      // TODO
+      return of({idAlreadyExists: true});
+    };
+  }
 
   assetIdDoesNotExistsValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {

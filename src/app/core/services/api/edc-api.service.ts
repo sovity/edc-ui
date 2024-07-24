@@ -12,6 +12,7 @@ import {
   DashboardPage,
   EdcClient,
   GetContractAgreementPageRequest,
+  IdAvailabilityResponse,
   IdResponseDto,
   InitiateCustomTransferRequest,
   InitiateTransferRequest,
@@ -218,5 +219,23 @@ export class EdcApiService {
 
   getEnterpriseEditionConnectorLimits(): Observable<ConnectorLimits> {
     return from(this.edcClient.enterpriseEditionApi.connectorLimits());
+  }
+
+  isAssetIdAvailable(assetId: string): Observable<IdAvailabilityResponse> {
+    return from(this.edcClient.uiApi.isAssetIdAvailable({assetId}));
+  }
+
+  isPolicyIdAvailable(policyId: string): Observable<IdAvailabilityResponse> {
+    return from(this.edcClient.uiApi.isPolicyIdAvailable({policyId}));
+  }
+
+  isContractDefinitionIdAvailable(
+    contractDefinitionId: string,
+  ): Observable<IdAvailabilityResponse> {
+    return from(
+      this.edcClient.uiApi.isContractDefinitionIdAvailable({
+        contractDefinitionId,
+      }),
+    );
   }
 }

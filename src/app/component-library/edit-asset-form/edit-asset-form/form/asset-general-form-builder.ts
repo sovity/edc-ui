@@ -5,7 +5,6 @@ import {map} from 'rxjs/operators';
 import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
 import {value$} from 'src/app/core/utils/form-group-utils';
 import {noWhitespacesOrColonsValidator} from 'src/app/core/validators/no-whitespaces-or-colons-validator';
-import {AssetsIdValidatorBuilder} from '../assets-id-validator-builder';
 import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
 import {
   AssetGeneralFormModel,
@@ -16,7 +15,6 @@ import {
 export class AssetGeneralFormBuilder {
   constructor(
     private formBuilder: FormBuilder,
-    private assetsIdValidatorBuilder: AssetsIdValidatorBuilder,
     private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
@@ -29,7 +27,6 @@ export class AssetGeneralFormBuilder {
         id: [
           initial.id!,
           [Validators.required, noWhitespacesOrColonsValidator],
-          [this.assetsIdValidatorBuilder.assetIdDoesNotExistsValidator()],
         ],
         name: [initial.name!, Validators.required],
         description: [initial.description!],

@@ -1,15 +1,19 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ExpressionFormControls} from 'src/app/component-library/policy-editor/editor/expression-form-controls';
 import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
+import {switchDisabledControls} from 'src/app/core/utils/form-group-utils';
 import {DataCategorySelectItem} from '../../data-category-select/data-category-select-item';
 import {AssetAdvancedFormBuilder} from './asset-advanced-form-builder';
 import {AssetDatasourceFormBuilder} from './asset-datasource-form-builder';
 import {AssetGeneralFormBuilder} from './asset-general-form-builder';
+import {EditAssetFormValidators} from './edit-asset-form-validators';
 import {AssetAdvancedFormModel} from './model/asset-advanced-form-model';
 import {AssetDatasourceFormModel} from './model/asset-datasource-form-model';
 import {AssetEditDialogMode} from './model/asset-edit-dialog-mode';
 import {AssetGeneralFormModel} from './model/asset-general-form-model';
 import {DataAddress} from './model/data-address';
+import {DataOfferPublishMode} from './model/data-offer-publish-mode';
 import {
   EditAssetFormModel,
   EditAssetFormValue,
@@ -62,6 +66,8 @@ export class EditAssetForm {
     private assetDatasourceFormBuilder: AssetDatasourceFormBuilder,
     private assetAdvancedFormBuilder: AssetAdvancedFormBuilder,
     private activeFeatureSet: ActiveFeatureSet,
+    private expressionFormControls: ExpressionFormControls,
+    private editAssetFormValidators: EditAssetFormValidators,
   ) {}
 
   reset(initial: EditAssetFormValue) {
@@ -82,17 +88,33 @@ export class EditAssetForm {
       this.assetDatasourceFormBuilder.buildFormGroup(initial.datasource!);
 
     const formGroup: FormGroup<EditAssetFormModel> =
-      this.formBuilder.nonNullable.group({
-        mode: [initial.mode as AssetEditDialogMode],
-        general,
-        datasource,
-      });
+      this.formBuilder.nonNullable.group(
+        {
+          mode: [initial.mode as AssetEditDialogMode],
+          publishMode: [initial.publishMode as DataOfferPublishMode],
+          policyControls: this.expressionFormControls.formGroup,
+          general,
+          datasource,
+        },
+        {
+          asyncValidators: [this.editAssetFormValidators.isValidId()],
+        },
+      );
 
     if (this.activeFeatureSet.hasMdsFields()) {
       const advanced: FormGroup<AssetAdvancedFormModel> =
         this.assetAdvancedFormBuilder.buildFormGroup(initial.advanced!);
       formGroup.addControl('advanced', advanced);
     }
+
+    switchDisabledControls<EditAssetFormValue>(formGroup, (value) => ({
+      policyControls: value.publishMode === 'PUBLISH_RESTRICTED',
+      mode: true,
+      publishMode: true,
+      advanced: true,
+      general: true,
+      datasource: true,
+    }));
 
     return formGroup;
   }
