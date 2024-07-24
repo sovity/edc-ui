@@ -9,7 +9,6 @@ export class EditAssetFormLabelComponent {
   @Input() label!: string;
   @Input() htmlFor?: string;
   @Input() ctrl?: AbstractControl<any>;
-  @Input() invalid = false;
 
   isRequired(): boolean {
     return this.ctrl?.hasValidator(Validators.required) || false;
