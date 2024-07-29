@@ -209,13 +209,13 @@
         </button>
       </ng-container>
 
-      <a
+      <button
         *ngIf="isOnRequestDataOffer"
         mat-raised-button
         color="primary"
-        [href]="this.onRequestContactLink">
+        (click)="onContactClick()">
         Contact
-      </a>
+      </button>
 
       <!-- Contact Agreement Buttons -->
       <button
