@@ -401,7 +401,7 @@ export class AssetPropertyGridGroupBuilder {
 
   buildOnRequestContactInformation(
     asset: UiAssetMapped,
-    isMailCensored = false,
+    isMailHidden = false,
   ): PropertyGridGroup[] {
     if (asset.dataSourceAvailability === 'LIVE') {
       return [];
@@ -414,7 +414,7 @@ export class AssetPropertyGridGroupBuilder {
             icon: 'mail',
             label: 'Contact E-Mail Address',
             copyButton: true,
-            censorFieldValue: isMailCensored,
+            hideFieldValue: isMailHidden,
             ...this.propertyGridUtils.guessValue(asset.onRequestContactEmail),
           },
           {

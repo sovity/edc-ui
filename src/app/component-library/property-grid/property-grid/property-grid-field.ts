@@ -46,5 +46,5 @@ export interface PropertyGridField {
   /**
    * Hide text
    */
-  censorFieldValue?: boolean;
+  hideFieldValue?: boolean;
 }
