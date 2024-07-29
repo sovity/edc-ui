@@ -16,5 +16,7 @@ export class PropertyGridComponent {
   @HostBinding('class.gap-[10px]')
   cls = true;
 
+  readonly censoredText = '**********';
+
   trackByIndex: TrackByFunction<any> = (index: number) => index;
 }

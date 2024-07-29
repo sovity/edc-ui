@@ -75,8 +75,8 @@ This is a short description text that should be fully rendered without being **c
 
   export const onRequestAsset: UiAsset = {
     dataSourceAvailability: 'ON_REQUEST',
-    assetId: 'comfee-or',
-    title: 'Comfee OR',
+    assetId: 'on-request-asset',
+    title: 'On Request Asset',
     description: '',
     descriptionShortText: '',
     connectorEndpoint: 'https://my-other-connector/api/dsp',
@@ -84,7 +84,7 @@ This is a short description text that should be fully rendered without being **c
     creatorOrganizationName: 'my-org',
     temporalCoverageFrom: new Date('2024-01-01'),
     onRequestContactEmail: 'mail@mail.mail',
-    onRequestContactEmailSubject: "Request for asset 'comfee-or'",
+    onRequestContactEmailSubject: "Request for asset 'on-request-asset'",
     isOwnConnector: false,
   };
 
