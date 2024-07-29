@@ -75,18 +75,16 @@ This is a short description text that should be fully rendered without being **c
 
   export const onRequestAsset: UiAsset = {
     dataSourceAvailability: 'ON_REQUEST',
-    assetId: 'part-names-july-2024',
-    title: 'Part Names July 2024',
-    description: 'Example "On Request" data Offer',
-    descriptionShortText: 'Example "On Request" data Offer',
+    assetId: 'on-request-asset',
+    title: 'On Request Asset',
+    description: '',
+    descriptionShortText: '',
     connectorEndpoint: 'https://my-other-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     creatorOrganizationName: 'my-org',
     temporalCoverageFrom: new Date('2024-01-01'),
-    onRequestContactEmail: 'contact@my-org.mail',
-    onRequestContactEmailSubject: "Data Offer 'Part Names July 2024'",
-    version: 'July 2024',
-    keywords: ['automotive', 'partnumber', 'part names'],
+    onRequestContactEmail: 'mail@mail.mail',
+    onRequestContactEmailSubject: "Request for asset 'on-request-asset'",
     isOwnConnector: false,
   };
 

@@ -36,7 +36,7 @@
       externalLink
       [ngClass]="prop.additionalClasses"
       [attr.href]="prop.url"
-      >{{ prop.text }}</a
+      >{{ prop.censorFieldValue ? censoredText : prop.text }}</a
     >
 
     <!-- Property Value (OnClick Event) -->
@@ -46,7 +46,7 @@
       href="javascript:void(0)"
       [ngClass]="prop.additionalClasses"
       (click)="prop.onclick()"
-      >{{ prop.text }}</a
+      >{{ prop.censorFieldValue ? censoredText : prop.text }}</a
     >
 
     <!-- Property Value (Text) with tooltip -->
@@ -54,7 +54,7 @@
       *ngIf="!(prop.policy || prop.url || prop.onclick)"
       [matTooltip]="prop.tooltip!"
       [ngClass]="prop.additionalClasses"
-      >{{ prop.text }}
+      >{{ prop.censorFieldValue ? censoredText : prop.text }}
       <mat-icon *ngIf="prop.textIconAfter" class="mat-icon-[12px]">
         {{ prop.textIconAfter }}
       </mat-icon>
