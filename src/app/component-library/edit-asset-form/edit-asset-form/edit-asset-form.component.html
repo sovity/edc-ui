@@ -70,28 +70,16 @@
         </div>
 
         <!-- Data Source Type CUSTOM -->
-        <div
+        <edit-asset-form-textarea
           *ngIf="
             form.dataAddressType === 'Custom-Data-Address-Json' &&
               form.datasource.controls.dataDestination;
             let ctrl
-          ">
-          <edit-asset-form-label
-            label="Custom Datasource Config (JSON)"
-            htmlFor="create-asset-form-custom-datasource-json"
-            [ctrl]="ctrl"></edit-asset-form-label>
-          <mat-form-field class="w-full mt-1">
-            <textarea
-              id="create-asset-form-custom-datasource-json"
-              class="h-36"
-              matInput
-              placeholder='{"https://w3id.org/edc/v0.0.1/ns/type": "HttpData", ...}'
-              [formControl]="ctrl"></textarea>
-            <mat-error *ngIf="ctrl.invalid && ctrl.errors?.jsonInvalid">
-              {{ validationMessages.invalidJsonMessage }}
-            </mat-error>
-          </mat-form-field>
-        </div>
+          "
+          label="Custom Datasource Config (JSON)"
+          fieldId="create-asset-form-custom-datasource-json"
+          placeholder='{"https://w3id.org/edc/v0.0.1/ns/type": "HttpData", ...}'
+          [ctrl]="ctrl"></edit-asset-form-textarea>
 
         <!-- Data Source Type HTTP -->
         <ng-container *ngIf="form.dataAddressType === 'Http'">
@@ -427,31 +415,21 @@
         [ctrl]="ctrl"></edit-asset-form-input>
 
       <!-- Description -->
-      <div>
-        <edit-asset-form-label
-          label="Description"
-          htmlFor="create-asset-form-description"
-          [ctrl]="form.general.controls.description"></edit-asset-form-label>
-        <mat-form-field class="w-full">
-          <textarea
-            id="create-asset-form-description"
-            class="h-36"
-            matInput
-            [formControl]="form.general.controls.description"
-            [placeholder]="
-              '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
-            "></textarea>
-          <mat-hint class="flex flex-row items-center gap-1 mb-1">
-            The description uses
-            <a
-              class="link"
-              externalLink
-              href="https://www.markdownguide.org/basic-syntax/"
-              >Markdown syntax</a
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
+      <edit-asset-form-textarea
+        label="Description"
+        fieldId="create-asset-form-description"
+        [placeholder]="
+          '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
+        "
+        [ctrl]="form.general.controls.description">
+        The description uses
+        <a
+          class="link"
+          externalLink
+          href="https://www.markdownguide.org/basic-syntax/"
+          >Markdown syntax</a
+        >
+      </edit-asset-form-textarea>
 
       <!-- Keywords -->
       <div class="mt-3">
@@ -611,29 +589,16 @@
           </div>
         </div>
         <!-- Reference files description -->
-        <div
+        <edit-asset-form-textarea
           *ngIf="form.advanced.controls.referenceFileUrls.length"
-          class="mt-2">
-          <edit-asset-form-label
-            label="Reference files description"
-            htmlFor="edit-asset-form-reference-files-description"
-            [ctrl]="
-              form.advanced.controls.referenceFilesDescription
-            "></edit-asset-form-label>
-          <mat-form-field class="w-full">
-            <textarea
-              id="edit-asset-form-reference-files-description"
-              class="h-28"
-              matInput
-              placeholder="..."
-              [formControl]="
-                form.advanced.controls.referenceFilesDescription
-              "></textarea>
-            <mat-hint
-              >Additional information regarding the reference files
-            </mat-hint>
-          </mat-form-field>
-        </div>
+          class="mt-2"
+          textareaClasses="h-28"
+          label="Reference files description"
+          fieldId="edit-asset-form-reference-files-description"
+          placeholder="..."
+          [ctrl]="form.advanced.controls.referenceFilesDescription">
+          Additional information regarding the reference files
+        </edit-asset-form-textarea>
       </ng-container>
     </edit-asset-form-group>
 
@@ -759,26 +724,16 @@
         [ctrl]="form.general.controls.standardLicense"></edit-asset-form-input>
 
       <!-- Conditions for use -->
-      <div *ngIf="form.advanced">
-        <edit-asset-form-label
-          label="Conditions for use"
-          htmlFor="create-asset-form-conditions-for-use"
-          [ctrl]="
-            form.advanced.controls.conditionsForUse
-          "></edit-asset-form-label>
-        <mat-form-field class="w-full">
-          <textarea
-            id="create-asset-form-conditions-for-use"
-            class="h-28"
-            matInput
-            placeholder="Please cite the dataset as..."
-            [formControl]="form.advanced.controls.conditionsForUse"></textarea>
-          <mat-hint
-            >Additional not legally relevant usage instructions (e.g. how to
-            cite the dataset)
-          </mat-hint>
-        </mat-form-field>
-      </div>
+      <edit-asset-form-textarea
+        *ngIf="form.advanced"
+        textareaClasses="h-28"
+        label="Conditions for use"
+        fieldId="create-asset-form-conditions-for-use"
+        placeholder="Please cite the dataset as..."
+        [ctrl]="form.advanced.controls.conditionsForUse">
+        Additional not legally relevant usage instructions (e.g. how to cite the
+        dataset)
+      </edit-asset-form-textarea>
     </edit-asset-form-group>
 
     <edit-asset-form-group

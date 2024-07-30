@@ -32,6 +32,7 @@ import {EditAssetFormDataAddressTypeSelectComponent} from './edit-asset-form-dat
 import {EditAssetFormGroupComponent} from './edit-asset-form-group/edit-asset-form-group.component';
 import {EditAssetFormInputComponent} from './edit-asset-form-input/edit-asset-form-input.component';
 import {EditAssetFormLabelComponent} from './edit-asset-form-label/edit-asset-form-label.component';
+import {EditAssetFormTextareaComponent} from './edit-asset-form-textarea/edit-asset-form-textarea.component';
 import {EditAssetFormComponent} from './edit-asset-form/edit-asset-form.component';
 import {KeywordSelectComponent} from './keyword-select/keyword-select.component';
 import {LanguageSelectComponent} from './language-select/language-select.component';
@@ -77,6 +78,7 @@ import {TransportModeSelectComponent} from './transport-mode-select/transport-mo
     EditAssetFormGroupComponent,
     EditAssetFormLabelComponent,
     EditAssetFormInputComponent,
+    EditAssetFormTextareaComponent,
     KeywordSelectComponent,
     DataCategorySelectComponent,
     DataSubcategorySelectComponent,
