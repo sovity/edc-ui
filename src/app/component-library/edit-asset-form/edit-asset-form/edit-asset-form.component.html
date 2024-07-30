@@ -36,24 +36,22 @@
           fieldId="create-asset-form-contact-email"
           label="Contact E-Mail"
           placeholder="contact@my-org.com"
-          hint="This email address will be offered to potential consumers for
-              contacting you. This is done in place of having an actual data
-              source connected."
-          [ctrl]="
-            form.datasource.controls.contactEmail
-          "></edit-asset-form-input>
+          [ctrl]="form.datasource.controls.contactEmail"
+          >This email address will be offered to potential consumers for
+          contacting you. This is done in place of having an actual data source
+          connected.</edit-asset-form-input
+        >
 
         <!-- Contact E-Mail Subject for On Request Assets -->
         <edit-asset-form-input
           class="mt-5"
           fieldId="create-asset-form-contact-subject"
           label="Preferred E-Mail Subject"
-          hint="Will be added to the mailto-link and displayed to potential
-              consumers to use."
           placeholder="Data Offer 'xyz'"
-          [ctrl]="
-            form.datasource.controls.contactPreferredEmailSubject
-          "></edit-asset-form-input>
+          [ctrl]="form.datasource.controls.contactPreferredEmailSubject"
+          >Will be added to the mailto-link and displayed to potential consumers
+          to use.</edit-asset-form-input
+        >
       </ng-container>
 
       <ng-container
@@ -126,14 +124,13 @@
             <edit-asset-form-input
               fieldId="create-asset-form-url"
               placeholder="https://my-data-source.com/api"
-              hint="The consuming side <b>must</b> provide a Custom HTTP Subpath
-                with method parameterization enabled. The Custom HTTP Subpath
-                will be appended to the base path."
-              [hideHint]="!form.datasource.controls.httpProxyPath.value"
+              [hideHint]="!form.proxyPath"
               [ctrl]="ctrl"
-              [label]="
-                form.proxyPath ? 'Base URL' : 'URL'
-              "></edit-asset-form-input>
+              [label]="form.proxyPath ? 'Base URL' : 'URL'"
+              >The consuming side <b>must</b> provide a Custom HTTP Subpath with
+              method parameterization enabled. The Custom HTTP Subpath will be
+              appended to the base path.</edit-asset-form-input
+            >
 
             <!-- Toggle Proxy Path Button -->
             <div
@@ -422,13 +419,15 @@
           '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
         "
         [ctrl]="form.general.controls.description">
-        The description uses
-        <a
-          class="link"
-          externalLink
-          href="https://www.markdownguide.org/basic-syntax/"
-          >Markdown syntax</a
-        >
+        <div class="flex flex-row items-center gap-1 mb-1">
+          The description uses
+          <a
+            class="link"
+            externalLink
+            href="https://www.markdownguide.org/basic-syntax/"
+            >Markdown syntax</a
+          >
+        </div>
       </edit-asset-form-textarea>
 
       <!-- Keywords -->
@@ -703,10 +702,9 @@
         label="Sovereign"
         fieldId="create-asset-form-sovereign"
         placeholder="Data Owning Company GMBH"
-        hint="Legal name of the data owner"
-        [ctrl]="
-          form.advanced.controls.sovereignLegalName
-        "></edit-asset-form-input>
+        [ctrl]="form.advanced.controls.sovereignLegalName"
+        >Legal name of the data owner</edit-asset-form-input
+      >
 
       <!-- Publisher -->
       <edit-asset-form-input

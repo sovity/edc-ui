@@ -13,10 +13,7 @@
   <mat-error *ngIf="ctrl.invalid && ctrl.errors?.jsonInvalid">
     {{ validationMessages.invalidJsonMessage }}
   </mat-error>
-  <mat-error *ngIf="ctrl.errors?.pattern">
-    {{ validationMessages.invalidWhitespacesOrColonsMessage }}
-  </mat-error>
-  <mat-hint *ngIf="!hideHint" class="flex flex-row items-center gap-1 mb-1">
+  <mat-hint *ngIf="!hideHint">
     <ng-content></ng-content>
   </mat-hint>
 </mat-form-field>

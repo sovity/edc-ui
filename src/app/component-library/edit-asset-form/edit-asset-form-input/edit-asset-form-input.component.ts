@@ -11,7 +11,6 @@ export class EditAssetFormInputComponent {
   @Input() fieldId = 'missing-id-' + Math.random().toString(36).substring(7);
   @Input() label!: string;
   @Input() placeholder: string = '...';
-  @Input() hint?: string;
   @Input() hideHint: boolean = false;
 
   constructor(public validationMessages: ValidationMessages) {}

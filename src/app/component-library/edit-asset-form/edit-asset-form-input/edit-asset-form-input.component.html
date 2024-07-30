@@ -25,5 +25,7 @@
   <mat-error *ngIf="ctrl.errors?.exists">
     {{ ctrl.errors?.exists }}
   </mat-error>
-  <mat-hint *ngIf="!hideHint && hint" [innerHtml]="hint"></mat-hint>
+  <mat-hint *ngIf="!hideHint">
+    <ng-content></ng-content>
+  </mat-hint>
 </mat-form-field>
