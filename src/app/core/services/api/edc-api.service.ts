@@ -2,7 +2,6 @@ import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {
   AssetPage,
-  buildEdcClient,
   ConnectorLimits,
   ContractAgreementCard,
   ContractAgreementPage,
@@ -26,6 +25,7 @@ import {
   UiAssetEditRequest,
   UiContractNegotiation,
   UiDataOffer,
+  buildEdcClient,
 } from '@sovity.de/edc-client';
 import {APP_CONFIG, AppConfig} from '../../config/app-config';
 import {toObservable} from '../../utils/rxjs-utils';
