@@ -41,7 +41,6 @@ function patchAsset(assetId: string, patcher: Patcher<UiAsset>): UiAsset {
 }
 
 export const createAsset = (asset: UiAssetCreateRequest): IdResponseDto => {
-  console.log();
   const assetId = asset.id;
   assets.push({
     assetId,
