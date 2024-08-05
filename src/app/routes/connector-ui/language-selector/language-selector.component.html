@@ -1,0 +1,33 @@
+<!--
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
+<div class="container">
+  <mat-form-field>
+    <mat-label>{{ 'general.language' | translate }}</mat-label>
+    <div style="display: flex; align-items: center">
+      <img
+        *ngIf="selectedLanguage"
+        class="flag"
+        src="../../../../assets/images/flags/{{ selectedLanguage }}.svg"
+        alt="Selected Flag"
+        style="margin-right: 8px" />
+      <mat-select
+        [disableOptionCentering]="true"
+        [(value)]="selectedLanguage"
+        (selectionChange)="onLanguageChange()">
+        <mat-option
+          *ngFor="let language of supportedLanguages"
+          [value]="language.code">
+          <img
+            class="flag"
+            src="../../../../assets/images/flags/{{ language.code }}.svg"
+            alt="Custom Icon" />
+          {{ language.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </mat-form-field>
+</div>

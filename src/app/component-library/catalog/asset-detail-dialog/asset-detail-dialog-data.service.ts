@@ -1,4 +1,12 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
+
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {DataOffer} from '../../../core/services/models/data-offer';
 import {UiAssetMapped} from '../../../core/services/models/ui-asset-mapped';
 import {ContractAgreementCardMapped} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
@@ -12,6 +20,7 @@ import {AssetPropertyGridGroupBuilder} from './asset-property-grid-group-builder
 export class AssetDetailDialogDataService {
   constructor(
     private assetPropertyGridGroupBuilder: AssetPropertyGridGroupBuilder,
+    private translateService: TranslateService,
   ) {}
 
   assetDetailsReadonly(asset: UiAssetMapped): AssetDetailDialogData {
@@ -85,7 +94,7 @@ export class AssetDetailDialogDataService {
       ),
       this.assetPropertyGridGroupBuilder.buildAssetPropertiesGroup(
         asset,
-        'Asset',
+        this.translateService.instant('general.asset'),
       ),
       ...this.assetPropertyGridGroupBuilder.buildAdditionalPropertiesGroups(
         asset,

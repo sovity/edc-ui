@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -7,6 +13,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {TranslateModule} from '@ngx-translate/core';
 import {NgxJsonViewerModule} from 'ngx-json-viewer';
 import {ConfirmationDialogModule} from '../confirmation-dialog/confirmation-dialog.module';
 import {PipesAndDirectivesModule} from '../pipes-and-directives/pipes-and-directives.module';
@@ -18,7 +25,7 @@ import {JsonDialogService} from './json-dialog/json-dialog.service';
     // Angular
     CommonModule,
     FormsModule,
-
+    TranslateModule,
     // Angular Material
     MatButtonModule,
     MatCardModule,

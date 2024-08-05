@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
@@ -9,6 +15,7 @@ import {
   sampleTime,
 } from 'rxjs';
 import {filter, map} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
 import {DataOffer} from '../../../../core/services/models/data-offer';
@@ -38,6 +45,7 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
     private catalogBrowserPageService: CatalogBrowserPageService,
     private catalogApiUrlService: CatalogApiUrlService,
     private matDialog: MatDialog,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -76,12 +84,13 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
 
   private buildPresetCatalogUrlsMessage(): string {
     const urls = this.catalogApiUrlService.getPresetProviders();
+    const usage = this.translateService.instant('catalog_browser_page.usage');
     if (!urls.length) {
       return '';
     }
-    return `Already using${
-      urls.length > 1 ? ` (${urls.length})` : ''
-    }: ${urls.join(', ')}`;
+    return `${usage} ${urls.length > 1 ? ` (${urls.length})` : ''}: ${urls.join(
+      ', ',
+    )}`;
   }
 
   private searchText$(): Observable<string> {

@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <div class="flex flex-row justify-between space-x-[10px]">
   <div class="mat-card-header" mat-dialog-title removeClass="mat-dialog-title">
     <mat-icon class="mat-card-avatar-icon">
@@ -18,7 +25,7 @@
   mat-dialog-content
   style="display: block; min-width: 40rem; max-width: 40rem; max-height: 60vh">
   <div *ngIf="data.description">
-    <div class="text-[15px] font-medium">Description</div>
+    <div class="text-[15px] font-medium">{{ 'general.description' | translate }}</div>
     <div>{{ data.description }}</div>
   </div>
 
@@ -34,5 +41,7 @@
 </div>
 
 <div class="w-full justify-end flex flex-row" mat-dialog-actions>
-  <button mat-button color="default" [mat-dialog-close]="null">Close</button>
+  <button mat-button color="default" [mat-dialog-close]="null">
+    {{ 'general.close' | translate }}
+  </button>
 </div>

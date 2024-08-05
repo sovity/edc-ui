@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -20,6 +26,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
+import {TranslateModule} from '@ngx-translate/core';
 import {NgChartsModule} from 'ng2-charts';
 import {NgxJsonViewerModule} from 'ngx-json-viewer';
 import {CatalogModule} from '../../../component-library/catalog/catalog.module';
@@ -38,7 +45,7 @@ import {ContractAgreementTransferDialogComponent} from './contract-agreement-tra
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-
+    TranslateModule,
     // Angular Material
     MatBadgeModule,
     MatButtonModule,

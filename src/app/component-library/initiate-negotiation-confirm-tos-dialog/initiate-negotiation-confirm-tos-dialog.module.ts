@@ -6,6 +6,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {TranslateModule} from '@ngx-translate/core';
 import {PipesAndDirectivesModule} from '../pipes-and-directives/pipes-and-directives.module';
 import {InitiateNegotiationConfirmTosDialogComponent} from './initiate-negotiation-confirm-tos-dialog/initiate-negotiation-confirm-tos-dialog.component';
 
@@ -13,7 +14,7 @@ import {InitiateNegotiationConfirmTosDialogComponent} from './initiate-negotiati
   imports: [
     // Angular
     CommonModule,
-
+    TranslateModule,
     // Angular CDK
     ClipboardModule,
 

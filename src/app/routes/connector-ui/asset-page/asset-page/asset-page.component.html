@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <div id="wrapper">
   <div class="flex flex-row !space-x-[10px] items-start">
     <!-- Search Bar -->
@@ -5,7 +12,7 @@
       class="search-form-field"
       appearance="outline"
       color="primary">
-      <mat-label>Search assets</mat-label>
+      <mat-label>{{ 'asset_page.search_assets' | translate }}</mat-label>
       <input matInput [(ngModel)]="searchText" (input)="onSearch()" />
       <mat-icon matPrefix>search</mat-icon>
       <button
@@ -26,7 +33,7 @@
       (click)="onCreate()">
       <div class="flex justify-center items-center h-full gap-1">
         <mat-icon class="mt-[1px]">add_circle_outline</mat-icon>
-        Create asset
+        {{ 'asset_page.create_assets' | translate }}
       </div>
     </button>
 
@@ -58,7 +65,7 @@
           !assetList.data.filteredAssets.length)
       "
       class="min-h-[35rem]"
-      [emptyMessage]="'No assets found with given filter.'"></empty-state>
+      [emptyMessage]="'asset_page.no_assets' | translate"></empty-state>
   </div>
 
   <div class="flex flex-row flex-wrap">

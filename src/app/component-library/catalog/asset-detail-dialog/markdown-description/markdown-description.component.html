@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <div
   class="overflow-hidden relative"
   [style.height.px]="isCollapsed ? collapsedDescriptionHeight : null">
@@ -8,7 +15,7 @@
       htmlSanitizer.sanitize(markdownConverter.toHtml(description ?? ''))
     "></div>
 
-  <i *ngIf="!description">No description.</i>
+  <i *ngIf="!description">('component_library.no_description' | translate)</i>
 
   <div
     *ngIf="isCollapsed"
@@ -35,6 +42,10 @@
     <mat-icon *ngIf="!isCollapsed" class="mat-icon-[17px] mt-[2px]"
       >keyboard_double_arrow_up</mat-icon
     >
-    {{ isCollapsed ? 'Show more' : 'Show less' }}
+    {{
+      isCollapsed
+        ? ('component_library.show_more' | translate)
+        : ('component_library.show_less' | translate)
+    }}
   </div>
 </button>
