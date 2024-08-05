@@ -22,6 +22,7 @@ the detailed section referring to by linking pull requests or issues.
 
 - Copyable contact email and subject fields on asset and data offer detail dialogs
 - Assets Page search input field is now case insensitive
+- Performance improvement when fetching a single contract agreement
 
 ## [v4.1.0] - 2024-07-24
 
