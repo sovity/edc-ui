@@ -12,7 +12,10 @@ export class AssetDataSourceMapperLegacy {
   buildDataSourceOrNullLegacy(
     formValue: AssetDatasourceFormValue,
   ): UiDataSource | null {
-    if (formValue.dataAddressType === 'Unchanged') {
+    if (
+      !formValue?.dataAddressType ||
+      formValue.dataAddressType === 'Unchanged'
+    ) {
       return null;
     }
     return this.buildDataSourceLegacy(formValue);

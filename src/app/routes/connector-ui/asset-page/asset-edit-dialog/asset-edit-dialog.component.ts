@@ -62,6 +62,7 @@ export class AssetEditDialogComponent implements OnDestroy {
         takeUntil(this.ngOnDestroy$),
         tap(() => {
           this.notificationService.showInfo('Successfully saved asset');
+          console.log('Successfully saved asset', formValue);
         }),
         catchError((error) => {
           console.error('Failed saving asset!', error);

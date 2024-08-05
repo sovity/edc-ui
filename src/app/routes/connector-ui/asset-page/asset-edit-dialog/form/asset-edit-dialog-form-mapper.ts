@@ -101,7 +101,7 @@ export class AssetEditDialogFormMapper {
   private emptyEditDatasource(): AssetDatasourceFormValue {
     return {
       ...this.emptyHttpDatasource(),
-      dataAddressType: 'Http',
+      dataAddressType: 'Unchanged',
     };
   }
 }

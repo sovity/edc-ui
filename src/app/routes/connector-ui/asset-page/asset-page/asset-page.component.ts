@@ -60,7 +60,7 @@ export class AssetPageComponent implements OnInit, OnDestroy {
 
   onAssetClick(asset: UiAssetMapped) {
     const onAssetEditClick: OnAssetEditClickFn = (asset, onAssetUpdated) => {
-      this.onEdit(asset);
+      this.onEdit(asset, onAssetUpdated);
     };
 
     const buildDialogData = (asset: UiAssetMapped) =>
@@ -85,11 +85,24 @@ export class AssetPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  onEdit(asset: UiAssetMapped) {
+  onEdit(
+    asset: UiAssetMapped,
+    onAssetUpdated: (updatedDialogData: any) => void,
+  ) {
     this.assetEditDialogService
       .showEditDialog(asset, this.ngOnDestroy$)
       .subscribe((result) => {
         if (result?.refreshedList) {
+          onAssetUpdated(
+            this.assetDetailDialogDataService.assetDetailsEditable(
+              result.asset,
+              {
+                onAssetEditClick: () => {
+                  this.onEdit(result.asset, onAssetUpdated);
+                },
+              },
+            ),
+          );
           this.refresh();
         }
       });
