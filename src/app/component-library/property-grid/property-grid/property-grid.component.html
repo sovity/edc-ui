@@ -56,15 +56,8 @@
         >{{ prop.text }}</a
       >
       <!-- Property Value (Text) with tooltip -->
-
-      <markdown-description
-        *ngIf="prop.markdown"
-        class="break-all"
-        [description]="prop.text">
-      </markdown-description>
-
       <span
-        *ngIf="!(prop.policy || prop.url || prop.onclick || prop.markdown)"
+        *ngIf="!(prop.policy || prop.url || prop.onclick)"
         [matTooltip]="prop.tooltip!"
         [ngClass]="prop.additionalClasses">
         {{ prop.text }}
