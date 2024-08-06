@@ -43,6 +43,7 @@ export interface PropertyGridField {
   policy?: PolicyExpressionMapped;
   policyErrors?: string[];
 
+  markdown?: boolean;
   /**
    * Hide text
    */

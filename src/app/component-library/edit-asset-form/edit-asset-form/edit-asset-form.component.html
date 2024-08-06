@@ -588,19 +588,6 @@
           </div>
         </div>
 
-        <!-- Reference files description
-        <edit-asset-form-textarea
-          *ngIf="form.advanced.controls.referenceFileUrls.length"
-          class="mt-2"
-          textareaClasses="h-28"
-          label="Reference files description"
-          fieldId="edit-asset-form-reference-files-description"
-          placeholder="..."
-          [ctrl]="form.advanced.controls.referenceFilesDescription"
-          >
-          Additional information regarding the reference files
-        </edit-asset-form-textarea> -->
-
         <!-- Description -->
         <edit-asset-form-textarea
           *ngIf="form.advanced.controls.referenceFileUrls.length"
@@ -742,18 +729,6 @@
         fieldId="create-asset-form-standard-license"
         placeholder="https://"
         [ctrl]="form.general.controls.standardLicense"></edit-asset-form-input>
-
-      <!-- Conditions for use
-      <edit-asset-form-textarea
-        *ngIf="form.advanced"
-        textareaClasses="h-28"
-        label="Conditions for use"
-        fieldId="create-asset-form-conditions-for-use"
-        placeholder="Please cite the dataset as..."
-        [ctrl]="form.advanced.controls.conditionsForUse">
-        Additional not legally relevant usage instructions (e.g. how to cite the
-        dataset)
-      </edit-asset-form-textarea> -->
 
       <!-- Conditions for use -->
       <edit-asset-form-textarea

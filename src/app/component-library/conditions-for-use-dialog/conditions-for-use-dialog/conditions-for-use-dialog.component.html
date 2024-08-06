@@ -22,16 +22,6 @@
     <markdown-description
       [description]="data.description"></markdown-description>
   </div>
-
-  <div class="overflow-x-hidden" [class.mt-6]="data.description">
-    <ol class="p-0 m-0 mx-6">
-      <li *ngFor="let url of data.urls">
-        <a class="link w-fit" externalLink [href]="url"
-          ><span class="text-ellipsis">{{ url }}</span></a
-        >
-      </li>
-    </ol>
-  </div>
 </div>
 
 <div class="w-full justify-end flex flex-row" mat-dialog-actions>
