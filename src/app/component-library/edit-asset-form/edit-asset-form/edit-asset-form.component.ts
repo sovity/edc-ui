@@ -21,4 +21,8 @@ export class EditAssetFormComponent {
     public expressionFormHandler: ExpressionFormHandler,
     public activeFeatureSet: ActiveFeatureSet,
   ) {}
+
+  multipleDataSourceOptionsAvailable(): boolean {
+    return this.form.mode !== 'CREATE' && !this.activeFeatureSet.hasMdsFields();
+  }
 }

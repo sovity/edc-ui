@@ -7,12 +7,14 @@
       <!-- Datasource Type -->
       <div>
         <edit-asset-form-label
+          *ngIf="multipleDataSourceOptionsAvailable()"
           label="Datasource Type"
           htmlFor="create-asset-form-datasource-type"
           [ctrl]="
             form.datasource.controls.dataSourceAvailability
           "></edit-asset-form-label>
         <mat-radio-group
+          *ngIf="multipleDataSourceOptionsAvailable()"
           class="!flex !flex-col !gap-1 w-full mt-2"
           aria-label="Select an option"
           [formControl]="form.datasource.controls.dataSourceAvailability">
@@ -37,7 +39,7 @@
           form.datasource.controls.dataSourceAvailability.value === 'Datasource'
         ">
         <!-- Data Address Type -->
-        <div class="mt-5">
+        <div [ngClass]="{'mt-5': multipleDataSourceOptionsAvailable()}">
           <edit-asset-form-data-address-type-select
             label="Type"
             mode="Datasource-Create"
