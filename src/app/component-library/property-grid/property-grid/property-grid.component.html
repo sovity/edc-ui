@@ -47,7 +47,6 @@
         >{{ prop.text }}</a
       >
       <!-- Property Value (OnClick Event) -->
-      <!-- TO_REMOVE Text + Click -->
       <a
         *ngIf="!prop.policy && !prop.url && prop.onclick"
         class="link break-all"
@@ -57,7 +56,6 @@
         >{{ prop.text }}</a
       >
       <!-- Property Value (Text) with tooltip -->
-      <!-- TO_REMOVE Plain Text -->
 
       <markdown-description
         *ngIf="prop.markdown"
