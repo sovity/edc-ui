@@ -370,7 +370,7 @@ export class AssetPropertyGridGroupBuilder {
       onclick: () =>
         this.conditionsForUseDialogService.showConditionsForUseDialog({
           title: 'Conditions For Use',
-          subtitle: 'Conditions For Use',
+          subtitle: 'Usage Instructions',
           icon: 'description',
           description: conditionsForUse,
         }),

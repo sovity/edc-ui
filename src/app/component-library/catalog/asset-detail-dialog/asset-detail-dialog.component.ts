@@ -96,7 +96,6 @@ export class AssetDetailDialogComponent implements OnDestroy {
   }
 
   setData(data: AssetDetailDialogData) {
-    console.log('setData', data);
     this.data = data;
     this.asset = this.data.asset;
     this.propGroups = this.data.propertyGridGroups;
