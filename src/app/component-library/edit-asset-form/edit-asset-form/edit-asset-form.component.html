@@ -5,16 +5,14 @@
       myTitle="Datasource"
       description="Define the datasource of the asset">
       <!-- Datasource Type -->
-      <div>
+      <div *ngIf="multipleDataSourceOptionsAvailable()">
         <edit-asset-form-label
-          *ngIf="multipleDataSourceOptionsAvailable()"
           label="Datasource Type"
           htmlFor="create-asset-form-datasource-type"
           [ctrl]="
             form.datasource.controls.dataSourceAvailability
           "></edit-asset-form-label>
         <mat-radio-group
-          *ngIf="multipleDataSourceOptionsAvailable()"
           class="!flex !flex-col !gap-1 w-full mt-2"
           aria-label="Select an option"
           [formControl]="form.datasource.controls.dataSourceAvailability">

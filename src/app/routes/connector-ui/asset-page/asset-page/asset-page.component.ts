@@ -59,7 +59,7 @@ export class AssetPageComponent implements OnInit, OnDestroy {
   }
 
   onAssetClick(asset: UiAssetMapped) {
-    const onAssetEditClick: OnAssetEditClickFn = (asset, onAssetUpdated) => {
+    const onAssetEditClick: OnAssetEditClickFn = (asset) => {
       this.router.navigate(['/edit-asset', asset.assetId]);
     };
 

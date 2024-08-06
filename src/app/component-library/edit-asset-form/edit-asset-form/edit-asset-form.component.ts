@@ -23,6 +23,6 @@ export class EditAssetFormComponent {
   ) {}
 
   multipleDataSourceOptionsAvailable(): boolean {
-    return this.form.mode !== 'CREATE' && !this.activeFeatureSet.hasMdsFields();
+    return this.form.mode === 'EDIT' || this.activeFeatureSet.hasMdsFields();
   }
 }
