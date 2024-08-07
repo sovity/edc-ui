@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, switchMap} from 'rxjs/operators';
 import {OnAssetEditClickFn} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data';
@@ -29,6 +30,7 @@ export class AssetPageComponent implements OnInit, OnDestroy {
     private assetDetailDialogDataService: AssetDetailDialogDataService,
     private assetDetailDialogService: AssetDetailDialogService,
     private assetEditDialogService: AssetEditDialogService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -59,8 +61,8 @@ export class AssetPageComponent implements OnInit, OnDestroy {
   }
 
   onAssetClick(asset: UiAssetMapped) {
-    const onAssetEditClick: OnAssetEditClickFn = (asset, onAssetUpdated) => {
-      this.onEdit(asset, onAssetUpdated);
+    const onAssetEditClick: OnAssetEditClickFn = (asset) => {
+      this.router.navigate(['/edit-asset', asset.assetId]);
     };
 
     const buildDialogData = (asset: UiAssetMapped) =>
@@ -80,29 +82,6 @@ export class AssetPageComponent implements OnInit, OnDestroy {
       .showCreateDialog(this.ngOnDestroy$)
       .subscribe((result) => {
         if (result?.refreshedList) {
-          this.refresh();
-        }
-      });
-  }
-
-  onEdit(
-    asset: UiAssetMapped,
-    onAssetUpdated: (updatedDialogData: any) => void,
-  ) {
-    this.assetEditDialogService
-      .showEditDialog(asset, this.ngOnDestroy$)
-      .subscribe((result) => {
-        if (result?.refreshedList) {
-          onAssetUpdated(
-            this.assetDetailDialogDataService.assetDetailsEditable(
-              result.asset,
-              {
-                onAssetEditClick: () => {
-                  this.onEdit(result.asset, onAssetUpdated);
-                },
-              },
-            ),
-          );
           this.refresh();
         }
       });
