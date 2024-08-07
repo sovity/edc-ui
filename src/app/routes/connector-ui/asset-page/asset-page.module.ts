@@ -20,12 +20,19 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
+import {DataAddressLegacyModule} from 'src/app/component-library/legacy/data-address/data-address.module';
 import {CatalogModule} from '../../../component-library/catalog/catalog.module';
-import {DataAddressModule} from '../../../component-library/data-address/data-address.module';
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {AssetCardsComponent} from './asset-cards/asset-cards.component';
+import {AssetCreateDialogComponent} from './asset-create-dialog/asset-create-dialog.component';
 import {AssetPageComponent} from './asset-page/asset-page.component';
+import {DataCategorySelectComponent} from './data-category-select/data-category-select.component';
+import {DataSubcategoryItemsPipe} from './data-subcategory-select/data-subcategory-items.pipe';
+import {DataSubcategorySelectComponent} from './data-subcategory-select/data-subcategory-select.component';
+import {KeywordSelectComponent} from './keyword-select/keyword-select.component';
+import {LanguageSelectComponent} from './language-select/language-select.component';
+import {TransportModeSelectComponent} from './transport-mode-select/transport-mode-select.component';
 
 @NgModule({
   imports: [
@@ -57,11 +64,21 @@ import {AssetPageComponent} from './asset-page/asset-page.component';
 
     // EDC UI Modules
     CatalogModule,
-    DataAddressModule,
+    DataAddressLegacyModule,
     PipesAndDirectivesModule,
     UiElementsModule,
   ],
-  declarations: [AssetCardsComponent, AssetPageComponent],
+  declarations: [
+    AssetCardsComponent,
+    AssetCreateDialogComponent,
+    AssetPageComponent,
+    DataCategorySelectComponent,
+    DataSubcategorySelectComponent,
+    DataSubcategoryItemsPipe,
+    KeywordSelectComponent,
+    LanguageSelectComponent,
+    TransportModeSelectComponent,
+  ],
   exports: [AssetPageComponent],
 })
 export class AssetPageModule {}

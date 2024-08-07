@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, switchMap} from 'rxjs/operators';
@@ -8,6 +9,8 @@ import {AssetDetailDialogService} from '../../../../component-library/catalog/as
 import {AssetService} from '../../../../core/services/asset.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
+import {AssetCreateDialogResult} from '../asset-create-dialog/asset-create-dialog-result';
+import {AssetCreateDialogComponent} from '../asset-create-dialog/asset-create-dialog.component';
 
 export interface AssetList {
   filteredAssets: UiAssetMapped[];
@@ -29,6 +32,7 @@ export class AssetPageComponent implements OnInit, OnDestroy {
     private assetDetailDialogDataService: AssetDetailDialogDataService,
     private assetDetailDialogService: AssetDetailDialogService,
     private router: Router,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -73,6 +77,15 @@ export class AssetPageComponent implements OnInit, OnDestroy {
       .open(data, this.ngOnDestroy$)
       .pipe(filter((it) => !!it?.refreshList))
       .subscribe(() => this.refresh());
+  }
+
+  onCreate() {
+    const ref = this.dialog.open(AssetCreateDialogComponent);
+    ref.afterClosed().subscribe((result: AssetCreateDialogResult) => {
+      if (result?.refreshList) {
+        this.refresh();
+      }
+    });
   }
 
   private refresh() {
