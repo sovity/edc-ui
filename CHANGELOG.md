@@ -23,8 +23,9 @@ the detailed section referring to by linking pull requests or issues.
 - Copyable contact email and subject fields on asset and data offer detail
   dialogs
 - Assets Page search input field is now case insensitive
+- Enchance EDC UI terminologies
 - Performance improvement when fetching a single contract agreement
-- Temporary reimplement the Edit Asset as a Dialog
+- Temporary reimplement the Create Asset as a Dialog
 - Markdown support for Reference files description, Conditions for use fields
 - Fixed wrong date format displayed when creating a new data offer
 
