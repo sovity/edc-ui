@@ -5,7 +5,7 @@
       myTitle="Datasource"
       description="Define the datasource of the asset">
       <!-- Datasource Type -->
-      <div>
+      <div *ngIf="multipleDataSourceOptionsAvailable()">
         <edit-asset-form-label
           label="Datasource Type"
           htmlFor="create-asset-form-datasource-type"
@@ -19,11 +19,13 @@
           <mat-radio-button *ngIf="form.mode === 'EDIT'" value="Unchanged">
             Keep the datasource unchanged.
           </mat-radio-button>
-          <mat-radio-button value="On-Request">
-            I do not have a datasource.
-          </mat-radio-button>
           <mat-radio-button value="Datasource">
-            I want to connect to a datasource.
+            Readily available with a new data source
+          </mat-radio-button>
+          <mat-radio-button
+            *ngIf="this.activeFeatureSet.hasMdsFields()"
+            value="On-Request">
+            On Request
           </mat-radio-button>
         </mat-radio-group>
       </div>
