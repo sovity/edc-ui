@@ -24,6 +24,8 @@ the detailed section referring to by linking pull requests or issues.
   dialogs
 - Assets Page search input field is now case insensitive
 - Temporary reimplement the Edit Asset as a Dialog
+- Added markdown support for Reference files description, Conditions for use
+  fields
 
 ## [v4.1.0] - 2024-07-24
 
