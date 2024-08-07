@@ -1,4 +1,4 @@
-<div class="flex flex-row justify-between space-x-[10px]">
+<div class="flex flex-row justify-between space-x-2">
   <div class="mat-card-header" mat-dialog-title removeClass="mat-dialog-title">
     <mat-icon class="mat-card-avatar-icon">
       {{ data.icon }}
@@ -18,7 +18,6 @@
   mat-dialog-content
   style="display: block; min-width: 40rem; max-width: 40rem; max-height: 60vh">
   <div *ngIf="data.description">
-    <div class="text-[15px] font-medium">Description</div>
     <markdown-description
       [description]="data.description"></markdown-description>
   </div>

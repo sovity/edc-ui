@@ -236,7 +236,9 @@ export class AssetPropertyGridGroupBuilder {
       );
     }
     if (asset.conditionsForUse) {
-      fields.push(this.buildConditionsForUseField(asset.conditionsForUse));
+      fields.push(
+        this.buildConditionsForUseField(asset.conditionsForUse, asset.title),
+      );
     }
     if (asset.dataUpdateFrequency) {
       fields.push({
@@ -362,7 +364,10 @@ export class AssetPropertyGridGroupBuilder {
     };
   }
 
-  buildConditionsForUseField(conditionsForUse: string): PropertyGridField {
+  buildConditionsForUseField(
+    conditionsForUse: string,
+    title: string,
+  ): PropertyGridField {
     return {
       icon: 'description',
       label: 'Conditions For Use',
@@ -370,7 +375,7 @@ export class AssetPropertyGridGroupBuilder {
       onclick: () =>
         this.conditionsForUseDialogService.showConditionsForUseDialog({
           title: 'Conditions For Use',
-          subtitle: 'Usage Instructions',
+          subtitle: title,
           icon: 'description',
           description: conditionsForUse,
         }),
