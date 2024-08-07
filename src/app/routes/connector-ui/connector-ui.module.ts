@@ -1,13 +1,24 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {CommonModule} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {TranslateModule} from '@ngx-translate/core';
 import {PipesAndDirectivesModule} from '../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../component-library/ui-elements/ui-elements.module';
 import {AssetEditPageModule} from './asset-edit-page/asset-edit-page.module';
@@ -18,6 +29,7 @@ import {ConnectorUiComponent} from './connector-ui.component';
 import {ContractAgreementPageModule} from './contract-agreement-page/contract-agreement-page.module';
 import {ContractDefinitionPageModule} from './contract-definition-page/contract-definition-page.module';
 import {DashboardPageModule} from './dashboard-page/dashboard-page.module';
+import {LanguageSelectorComponent} from './language-selector/language-selector.component';
 import {LocationHistoryUtils} from './logout-page/location-history-utils';
 import {LogoutPageModule} from './logout-page/logout-page.module';
 import {PreviousRouteListener} from './logout-page/previous-route-listener';
@@ -39,10 +51,14 @@ import {TransferHistoryPageModule} from './transfer-history-page/transfer-histor
     MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
 
     // Features
     PipesAndDirectivesModule,
     UiElementsModule,
+    TranslateModule,
 
     // Pages
     AssetPageModule,
@@ -59,8 +75,8 @@ import {TransferHistoryPageModule} from './transfer-history-page/transfer-histor
     // Routing
     ConnectorUiRoutingModule,
   ],
-  declarations: [ConnectorUiComponent],
-  providers: [PreviousRouteListener, LocationHistoryUtils],
+  declarations: [ConnectorUiComponent, LanguageSelectorComponent],
+  providers: [PreviousRouteListener, LocationHistoryUtils, HttpClient],
 })
 export class ConnectorUiModule {
   constructor(previousRouteListener: PreviousRouteListener) {

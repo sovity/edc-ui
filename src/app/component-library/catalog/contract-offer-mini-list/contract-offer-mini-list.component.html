@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <ng-container *ngIf="!data.contractOffers.length">
   <div class="flex flex-row flex-wrap property-grid-group-title">
     Contract Offers
@@ -9,7 +16,10 @@
   <div
     class="flex flex-row items-center space-x-[5px] property-grid-group-title">
     <span>
-      Contract Offer {{ data.contractOffers.length >= 2 ? i + 1 : '' }}
+      <span>
+        {{ 'general.offer' | translate }}
+        {{ data.contractOffers.length >= 2 ? i + 1 : '' }}
+      </span>
     </span>
 
     <mat-progress-spinner
@@ -38,20 +48,22 @@
       "
       [ngSwitch]="contractNegotiationService.negotiationState(contractOffer)"
       (click)="negotiateClick.emit(contractOffer)">
-      <ng-container *ngSwitchCase="'ready'">Negotiate</ng-container>
+      <ng-container *ngSwitchCase="'ready'">{{
+        'component_library.negotiate' | translate
+      }}</ng-container>
       <ng-container *ngSwitchCase="'negotiating'">
-        Negotiating...
+        {{ 'component_library.negotiating' | translate }}
       </ng-container>
       <ng-container *ngSwitchCase="'negotiated'">
-        Successfully Negotiated
+        {{ 'component_library.succ_negotiating' | translate }}
       </ng-container>
     </button>
     <button
       *ngIf="data.asset.isOwnConnector"
       disabled
       mat-raised-button
-      matTooltip="Cannot negotiate contracts with your own connector.">
-      Negotiate
+      matTooltip="{{ 'tooltip.negotiate' | translate }}">
+      {{ 'component_library.negotiate' | translate }}
     </button>
   </div>
 </ng-container>

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {DOCUMENT} from '@angular/common';
 import {Component, Inject, OnDestroy} from '@angular/core';
 import {
@@ -7,6 +13,7 @@ import {
 } from '@angular/material/dialog';
 import {Observable, Subject, isObservable} from 'rxjs';
 import {filter, finalize, takeUntil} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {UiContractOffer} from '@sovity.de/edc-client';
 import {MailtoLinkBuilder} from 'src/app/core/services/mailto-link-builder';
 import {EdcApiService} from '../../../core/services/api/edc-api.service';
@@ -85,6 +92,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
     public contractNegotiationService: ContractNegotiationService,
     private mailtoLinkBuilder: MailtoLinkBuilder,
     @Inject(DOCUMENT) private document: Document,
+    private translateService: TranslateService,
   ) {
     if (isObservable(this._data)) {
       this._data
@@ -180,7 +188,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
   }
 
   private confirmDelete(): Observable<boolean> {
-    const dialogData = ConfirmDialogModel.forDelete('asset', this.asset.title);
+    const dialogData = ConfirmDialogModel.forDelete('asset', this.asset.title, this.translateService);
     const ref = this.matDialog.open(ConfirmationDialogComponent, {
       maxWidth: '20%',
       data: dialogData,

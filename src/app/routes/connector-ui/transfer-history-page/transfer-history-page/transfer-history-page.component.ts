@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   EMPTY,
@@ -9,6 +15,7 @@ import {
   switchMap,
 } from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {
   TransferHistoryEntry,
   TransferHistoryPage,
@@ -51,13 +58,16 @@ export class TransferHistoryPageComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private jsonDialogService: JsonDialogService,
     public participantIdLocalization: ParticipantIdLocalization,
+    private translateService: TranslateService,
   ) {}
 
   onTransferHistoryDetailsClick(item: TransferHistoryEntry) {
     this.jsonDialogService.showJsonDetailDialog(
       {
         title: item.assetName ?? item.assetId,
-        subtitle: 'Transfer History Details',
+        subtitle: this.translateService.instant(
+          'transfer_history_page.subtitle',
+        ),
         icon: 'assignment',
         objectForJson: item,
       },
@@ -79,8 +89,9 @@ export class TransferHistoryPageComponent implements OnInit, OnDestroy {
         this.assetDetailDialogService.open(data, this.ngOnDestroy$);
       },
       error: (error) => {
-        console.error('Failed to fetch asset details!', error);
-        this.notificationService.showError('Failed to fetch asset details!');
+        const fai_fet = this.translateService.instant('notification.fai_fet');
+        console.error(fai_fet, error);
+        this.notificationService.showError(fai_fet);
       },
     });
   }

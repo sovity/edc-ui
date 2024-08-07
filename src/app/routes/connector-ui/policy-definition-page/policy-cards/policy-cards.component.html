@@ -1,3 +1,10 @@
+<!--
+  ~ Copyright (c) 2021-2024. sovity GmbH
+  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+  ~ Contributors:
+  ~    - Fraunhofer FIT: Internationalization and German Localization
+  -->
+
 <div class="flex flex-row flex-wrap gap-[16px] justify-start">
   <mat-card
     *ngFor="let policyCard of policyCards"
@@ -12,7 +19,7 @@
           {{ policyCard.id }}
         </a>
       </mat-card-title>
-      <mat-card-subtitle>Policy</mat-card-subtitle>
+      <mat-card-subtitle>{{ 'general.pol' | translate }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="flex flex-col space-y-[16px]">
       <app-policy-renderer

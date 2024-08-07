@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021-2024. sovity GmbH
+ * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
+ * Contributors:
+ *    - Fraunhofer FIT: Internationalization and German Localization
+ */
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AssetEditPageComponent} from './asset-edit-page/asset-edit-page/asset-edit-page.component';
