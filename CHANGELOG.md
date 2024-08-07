@@ -24,6 +24,9 @@ the detailed section referring to by linking pull requests or issues.
   dialogs
 - Assets Page search input field is now case insensitive
 - Enchance EDC UI terminologies
+- Performance improvement when fetching a single contract agreement
+- Temporary reimplement the Edit Asset as a Dialog
+- Fixed wrong date format displayed when creating a new data offer
 
 ## [v4.1.0] - 2024-07-24
 
