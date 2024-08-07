@@ -8,6 +8,7 @@ import {AssetDetailDialogService} from '../../../../component-library/catalog/as
 import {AssetService} from '../../../../core/services/asset.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
+import {AssetEditDialogService} from '../asset-edit-dialog/asset-edit-dialog.service';
 
 export interface AssetList {
   filteredAssets: UiAssetMapped[];
