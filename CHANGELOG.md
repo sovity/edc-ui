@@ -37,6 +37,7 @@ Various UI improvements and bug fixing
 - Assets Page search input field is now case-insensitive
 - Markdown support for Reference files description, Conditions for use fields
 - Fixed wrong date format when creating a new data offer
+- Temporary reimplement the Create Asset as a Dialog
 - Performance improvement when fetching a single contract agreement
 
 ## [v4.1.0] - 2024-07-24
