@@ -57,7 +57,7 @@
               class="!scale-[0.9]"
               mat-icon-button
               matSuffix
-              matTooltip="Asset ID will be auto-generated in URL format, prefixed by urn:artifact:. It can be changed by user even though CaaS uses the Name of Asset as default Asset ID">
+              matTooltip="Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed.">
               <mat-icon>info_outline</mat-icon>
             </button>
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
