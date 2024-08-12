@@ -18,7 +18,7 @@ export class KeywordSelectComponent {
   control!: FormControl<string[]>;
 
   @HostBinding('class.flex')
-  @HostBinding('class.flex-row')
+  @HostBinding('class.flex-col')
   cls = true;
 
   remove(keyword: string) {
