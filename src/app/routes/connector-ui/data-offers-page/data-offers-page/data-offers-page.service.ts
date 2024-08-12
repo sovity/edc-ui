@@ -67,9 +67,9 @@ export class DataOffersPageService {
         }),
       ),
     ]).pipe(
-      map(([contractDefinitions, assets, policyDefinitions]) =>
+      map(([dataOffers, assets, policyDefinitions]) =>
         this.dataOffersCardBuilder.buildDataOffersCards(
-          contractDefinitions,
+          dataOffers,
           assets,
           policyDefinitions,
         ),
