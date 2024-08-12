@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
-  ContractDefinitionRequest,
+  ContractDefinitionRequest as DataOfferRequest,
   UiCriterionLiteralType,
 } from '@sovity.de/edc-client';
 import {DataOfferEditorDialogFormValue} from '../../routes/connector-ui/data-offers-page/data-offer-editor-dialog/data-offer-editor-dialog-form-model';
@@ -9,16 +9,14 @@ import {AssetProperty} from './models/asset-properties';
 @Injectable({
   providedIn: 'root',
 })
-export class ContractDefinitionBuilder {
+export class DataOfferBuilder {
   /**
-   * Build {@link ContractDefinitionDto} from {@link ContractDefinitionEditorDialogFormValue}
+   * Build {@link DataOfferDto} from {@link DataOfferEditorDialogFormValue}
    *
    * @param formValue form value
-   * @return contract definition dto
+   * @return data offer dto
    */
-  buildContractDefinition(
-    formValue: DataOfferEditorDialogFormValue,
-  ): ContractDefinitionRequest {
+  buildDataOffer(formValue: DataOfferEditorDialogFormValue): DataOfferRequest {
     return {
       contractDefinitionId: formValue.id ?? '',
       accessPolicyId: formValue.accessPolicy!.policyDefinitionId,

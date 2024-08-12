@@ -3,9 +3,9 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {finalize, takeUntil} from 'rxjs/operators';
 import {PolicyDefinitionDto} from '@sovity.de/edc-client';
+import {DataOfferBuilder} from 'src/app/core/services/data-offer-builder';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {AssetService} from '../../../../core/services/asset.service';
-import {ContractDefinitionBuilder} from '../../../../core/services/contract-definition-builder';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {ValidationMessages} from '../../../../core/validators/validation-messages';
@@ -27,7 +27,7 @@ export class DataOfferEditorDialog implements OnInit, OnDestroy {
     public form: DataOfferEditorDialogForm,
     private notificationService: NotificationService,
     private edcApiService: EdcApiService,
-    private contractDefinitionBuilder: ContractDefinitionBuilder,
+    private dataOfferBuilder: DataOfferBuilder,
     private dialogRef: MatDialogRef<DataOfferEditorDialog>,
     public validationMessages: ValidationMessages,
   ) {}
@@ -49,8 +49,7 @@ export class DataOfferEditorDialog implements OnInit, OnDestroy {
 
   onCreate() {
     const formValue = this.form.value;
-    const contractDefinition =
-      this.contractDefinitionBuilder.buildContractDefinition(formValue);
+    const contractDefinition = this.dataOfferBuilder.buildDataOffer(formValue);
     this.loading = true;
     this.edcApiService
       .createContractDefinition(contractDefinition)
