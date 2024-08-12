@@ -107,7 +107,7 @@ export class EdcApiService {
     );
   }
 
-  getContractDefinitionPage(): Observable<ContractDefinitionPage> {
+  getDataOffersPage(): Observable<ContractDefinitionPage> {
     return toObservable(() => this.edcClient.uiApi.getContractDefinitionPage());
   }
 

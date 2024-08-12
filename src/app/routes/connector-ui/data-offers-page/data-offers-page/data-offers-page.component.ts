@@ -5,42 +5,42 @@ import {BehaviorSubject, Observable, distinctUntilChanged} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {value$} from '../../../../core/utils/form-group-utils';
-import {ContractDefinitionEditorDialogResult} from '../contract-definition-editor-dialog/contract-definition-editor-dialog-result';
-import {ContractDefinitionEditorDialog} from '../contract-definition-editor-dialog/contract-definition-editor-dialog.component';
-import {ContractDefinitionPageData} from './contract-definition-page.data';
-import {ContractDefinitionPageService} from './contract-definition-page.service';
+import {DataOfferEditorDialogResult} from '../data-offer-editor-dialog/data-offer-editor-dialog-result';
+import {DataOfferEditorDialog} from '../data-offer-editor-dialog/data-offer-editor-dialog.component';
+import {DataOffersPageData} from './data-offers-page.data';
+import {DataOffersPageService} from './data-offers-page.service';
 
 @Component({
-  selector: 'app-contract-definition-page',
-  templateUrl: './contract-definition-page.component.html',
-  styleUrls: ['./contract-definition-page.component.scss'],
+  selector: 'app-data-offers-page',
+  templateUrl: './data-offers-page.component.html',
+  styleUrls: ['./data-offers-page.component.scss'],
 })
-export class ContractDefinitionPageComponent implements OnInit {
-  contractDefinitionList: Fetched<ContractDefinitionPageData> = Fetched.empty();
+export class DataOffersPageComponent implements OnInit {
+  contractDefinitionList: Fetched<DataOffersPageData> = Fetched.empty();
   searchText = new FormControl<string>('');
   deleteBusy = false;
 
   private fetch$ = new BehaviorSubject(null);
 
   constructor(
-    private contractDefinitionPageService: ContractDefinitionPageService,
+    private dataOffersPageService: DataOffersPageService,
     private readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-    this.contractDefinitionPageService
-      .contractDefinitionPageData$(this.fetch$, this.searchText$())
+    this.dataOffersPageService
+      .dataOffersPageData$(this.fetch$, this.searchText$())
       .subscribe((contractDefinitionList) => {
         this.contractDefinitionList = contractDefinitionList;
       });
   }
 
   onCreate() {
-    const dialogRef = this.dialog.open(ContractDefinitionEditorDialog);
+    const dialogRef = this.dialog.open(DataOfferEditorDialog);
     dialogRef
       .afterClosed()
       .pipe(
-        map((it) => it as ContractDefinitionEditorDialogResult | null),
+        map((it) => it as DataOfferEditorDialogResult | null),
         filter((it) => !!it?.refreshList),
       )
       .subscribe(() => this.refresh());

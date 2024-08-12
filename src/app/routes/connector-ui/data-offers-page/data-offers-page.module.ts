@@ -23,9 +23,9 @@ import {JsonDialogModule} from '../../../component-library/json-dialog/json-dial
 import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-directives/pipes-and-directives.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {AssetSelectComponent} from './asset-select/asset-select.component';
-import {ContractDefinitionCardsComponent} from './contract-definition-cards/contract-definition-cards.component';
-import {ContractDefinitionEditorDialog} from './contract-definition-editor-dialog/contract-definition-editor-dialog.component';
-import {ContractDefinitionPageComponent} from './contract-definition-page/contract-definition-page.component';
+import {DataOfferEditorDialog} from './data-offer-editor-dialog/data-offer-editor-dialog.component';
+import {DataOffersCardsComponent} from './data-offers-cards/data-offers-cards.component';
+import {DataOffersPageComponent} from './data-offers-page/data-offers-page.component';
 import {PolicySelectComponent} from './policy-select/policy-select.component';
 
 @NgModule({
@@ -62,11 +62,11 @@ import {PolicySelectComponent} from './policy-select/policy-select.component';
   ],
   declarations: [
     AssetSelectComponent,
-    ContractDefinitionCardsComponent,
-    ContractDefinitionEditorDialog,
-    ContractDefinitionPageComponent,
+    DataOffersCardsComponent,
+    DataOfferEditorDialog,
+    DataOffersPageComponent,
     PolicySelectComponent,
   ],
-  exports: [ContractDefinitionPageComponent],
+  exports: [DataOffersPageComponent],
 })
-export class ContractDefinitionPageModule {}
+export class DataOffersPageModule {}

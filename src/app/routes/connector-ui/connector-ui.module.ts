@@ -16,8 +16,8 @@ import {CatalogBrowserPageModule} from './catalog-browser-page/catalog-browser-p
 import {ConnectorUiRoutingModule} from './connector-ui-routing.module';
 import {ConnectorUiComponent} from './connector-ui.component';
 import {ContractAgreementPageModule} from './contract-agreement-page/contract-agreement-page.module';
-import {ContractDefinitionPageModule} from './contract-definition-page/contract-definition-page.module';
 import {DashboardPageModule} from './dashboard-page/dashboard-page.module';
+import {DataOffersPageModule} from './data-offers-page/data-offers-page.module';
 import {LocationHistoryUtils} from './logout-page/location-history-utils';
 import {LogoutPageModule} from './logout-page/logout-page.module';
 import {PreviousRouteListener} from './logout-page/previous-route-listener';
@@ -49,7 +49,7 @@ import {TransferHistoryPageModule} from './transfer-history-page/transfer-histor
     AssetEditPageModule,
     CatalogBrowserPageModule,
     ContractAgreementPageModule,
-    ContractDefinitionPageModule,
+    DataOffersPageModule,
     DashboardPageModule,
     LogoutPageModule,
     PolicyDefinitionPageModule,

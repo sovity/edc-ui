@@ -9,26 +9,26 @@ import {ContractDefinitionBuilder} from '../../../../core/services/contract-defi
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {ValidationMessages} from '../../../../core/validators/validation-messages';
-import {ContractDefinitionEditorDialogForm} from './contract-definition-editor-dialog-form';
-import {ContractDefinitionEditorDialogResult} from './contract-definition-editor-dialog-result';
+import {DataOfferEditorDialogForm} from './data-offer-editor-dialog-form';
+import {DataOfferEditorDialogResult} from './data-offer-editor-dialog-result';
 
 @Component({
-  selector: 'contract-definition-editor-dialog',
-  templateUrl: './contract-definition-editor-dialog.component.html',
-  providers: [ContractDefinitionEditorDialogForm],
+  selector: 'data-offer-editor-dialog',
+  templateUrl: './data-offer-editor-dialog.component.html',
+  providers: [DataOfferEditorDialogForm],
 })
-export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
+export class DataOfferEditorDialog implements OnInit, OnDestroy {
   policies: PolicyDefinitionDto[] = [];
   assets: UiAssetMapped[] = [];
   loading = false;
 
   constructor(
     private assetServiceMapped: AssetService,
-    public form: ContractDefinitionEditorDialogForm,
+    public form: DataOfferEditorDialogForm,
     private notificationService: NotificationService,
     private edcApiService: EdcApiService,
     private contractDefinitionBuilder: ContractDefinitionBuilder,
-    private dialogRef: MatDialogRef<ContractDefinitionEditorDialog>,
+    private dialogRef: MatDialogRef<DataOfferEditorDialog>,
     public validationMessages: ValidationMessages,
   ) {}
 
@@ -63,28 +63,23 @@ export class ContractDefinitionEditorDialog implements OnInit, OnDestroy {
       )
       .subscribe({
         complete: () => {
-          this.notificationService.showInfo(
-            'Successfully created contract definition.',
-          );
+          this.notificationService.showInfo('Successfully created data offer.');
           this.close({refreshList: true});
         },
         error: (error) => {
           if (error.status == 409) {
-            this.notificationService.showError(
-              'Contract Definition ID already taken.',
-            );
+            this.notificationService.showError('Data Offer ID already taken.');
           } else if (error.status >= 500) {
             this.notificationService.showError(
-              'Error creating contract definition: ' +
-                (error?.error?.message ?? '???'),
+              'Error creating data offer: ' + (error?.error?.message ?? '???'),
             );
           }
-          console.error('Error creating contract definition!', error);
+          console.error('Error creating data offer!', error);
         },
       });
   }
 
-  private close(params: ContractDefinitionEditorDialogResult) {
+  private close(params: DataOfferEditorDialogResult) {
     this.dialogRef.close(params);
   }
   ngOnDestroy$ = new Subject();

@@ -3,7 +3,7 @@ import {
   ContractDefinitionRequest,
   UiCriterionLiteralType,
 } from '@sovity.de/edc-client';
-import {ContractDefinitionEditorDialogFormValue} from '../../routes/connector-ui/contract-definition-page/contract-definition-editor-dialog/contract-definition-editor-dialog-form-model';
+import {DataOfferEditorDialogFormValue} from '../../routes/connector-ui/data-offers-page/data-offer-editor-dialog/data-offer-editor-dialog-form-model';
 import {AssetProperty} from './models/asset-properties';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ContractDefinitionBuilder {
    * @return contract definition dto
    */
   buildContractDefinition(
-    formValue: ContractDefinitionEditorDialogFormValue,
+    formValue: DataOfferEditorDialogFormValue,
   ): ContractDefinitionRequest {
     return {
       contractDefinitionId: formValue.id ?? '',

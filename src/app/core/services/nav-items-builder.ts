@@ -23,7 +23,7 @@ export class NavItemsBuilder {
         {
           path: 'contract-definitions',
           icon: 'rule',
-          title: 'Contract Definitions',
+          title: 'Data Offers',
         },
       ],
     },

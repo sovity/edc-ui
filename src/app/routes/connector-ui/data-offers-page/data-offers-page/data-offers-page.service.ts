@@ -5,26 +5,26 @@ import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {AssetService} from '../../../../core/services/asset.service';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {search} from '../../../../core/utils/search-utils';
-import {ContractDefinitionCard} from '../contract-definition-cards/contract-definition-card';
-import {ContractDefinitionCardBuilder} from '../contract-definition-cards/contract-definition-card-builder';
+import {DataOfferCard} from '../data-offers-cards/data-offer-card';
+import {DataOffersCardBuilder} from '../data-offers-cards/data-offers-card-builder';
 
-export interface ContractDefinitionList {
-  contractDefinitionCards: ContractDefinitionCard[];
+export interface DataOffersList {
+  contractDefinitionCards: DataOfferCard[];
   numTotalContractDefinitions: number;
 }
 
 @Injectable({providedIn: 'root'})
-export class ContractDefinitionPageService {
+export class DataOffersPageService {
   constructor(
     private edcApiService: EdcApiService,
     private assetServiceMapped: AssetService,
-    private contractDefinitionCardBuilder: ContractDefinitionCardBuilder,
+    private dataOffersCardBuilder: DataOffersCardBuilder,
   ) {}
 
-  contractDefinitionPageData$(
+  dataOffersPageData$(
     refresh$: Observable<any>,
     searchText$: Observable<string>,
-  ): Observable<Fetched<ContractDefinitionList>> {
+  ): Observable<Fetched<DataOffersList>> {
     return combineLatest([
       refresh$.pipe(switchMap(() => this.fetchCards())),
       searchText$,
@@ -38,10 +38,7 @@ export class ContractDefinitionPageService {
     );
   }
 
-  filterCards(
-    cards: ContractDefinitionCard[],
-    searchText: string,
-  ): ContractDefinitionCard[] {
+  filterCards(cards: DataOfferCard[], searchText: string): DataOfferCard[] {
     return search(cards, searchText, (card) => [
       card.id,
       card.accessPolicy.policyDefinitionId,
@@ -53,9 +50,9 @@ export class ContractDefinitionPageService {
     ]);
   }
   //ed
-  fetchCards(): Observable<Fetched<ContractDefinitionCard[]>> {
+  fetchCards(): Observable<Fetched<DataOfferCard[]>> {
     return combineLatest([
-      this.edcApiService.getContractDefinitionPage(),
+      this.edcApiService.getDataOffersPage(),
       this.assetServiceMapped.fetchAssets().pipe(
         catchError((err) => {
           console.warn('Failed fetching assets.', err);
@@ -71,13 +68,13 @@ export class ContractDefinitionPageService {
       ),
     ]).pipe(
       map(([contractDefinitions, assets, policyDefinitions]) =>
-        this.contractDefinitionCardBuilder.buildContractDefinitionCards(
+        this.dataOffersCardBuilder.buildDataOffersCards(
           contractDefinitions,
           assets,
           policyDefinitions,
         ),
       ),
-      Fetched.wrap({failureMessage: 'Failed fetching contract definitions'}),
+      Fetched.wrap({failureMessage: 'Failed fetching data offers'}),
     );
   }
 }

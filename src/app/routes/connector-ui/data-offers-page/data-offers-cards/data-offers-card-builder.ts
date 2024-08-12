@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {
   ContractDefinitionEntry,
-  ContractDefinitionPage,
+  ContractDefinitionPage as DataOffersPage,
   PolicyDefinitionDto,
   UiCriterion,
 } from '@sovity.de/edc-client';
@@ -11,39 +11,38 @@ import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {associateBy} from '../../../../core/utils/map-utils';
 import {assetSearchTargets} from '../../../../core/utils/search-utils';
 import {
-  ContractDefinitionCard,
-  ContractDefinitionCardCriterionValue,
-  ContractDefinitionCardPolicy,
-} from './contract-definition-card';
+  DataOfferCard,
+  DataOfferCardCriterionValue,
+  DataOfferCardPolicy,
+} from './data-offer-card';
 
 @Injectable({providedIn: 'root'})
-export class ContractDefinitionCardBuilder {
-  buildContractDefinitionCards(
-    contractDefinitionPage: ContractDefinitionPage,
+export class DataOffersCardBuilder {
+  buildDataOffersCards(
+    dataOffersPage: DataOffersPage,
     assets: UiAssetMapped[],
     policyDefinitions: PolicyDefinitionDto[],
-  ): ContractDefinitionCard[] {
+  ): DataOfferCard[] {
     const assetById = associateBy(assets, (asset) => asset.assetId);
     const policyDefinitionById = associateBy(
       policyDefinitions,
       (policyDefinition) => policyDefinition.policyDefinitionId,
     );
 
-    return contractDefinitionPage.contractDefinitions.map(
-      (contractDefinition) =>
-        this.buildContractDefinitionCard(
-          contractDefinition,
-          assetById,
-          policyDefinitionById,
-        ),
+    return dataOffersPage.contractDefinitions.map((contractDefinition) =>
+      this.buildDataOfferCard(
+        contractDefinition,
+        assetById,
+        policyDefinitionById,
+      ),
     );
   }
 
-  buildContractDefinitionCard(
+  buildDataOfferCard(
     contractDefinition: ContractDefinitionEntry,
     assetById: Map<string, UiAssetMapped>,
     policyDefinitionById: Map<string, PolicyDefinitionDto>,
-  ): ContractDefinitionCard {
+  ): DataOfferCard {
     return {
       id: contractDefinition.contractDefinitionId,
       contractPolicy: this.extractPolicy(
@@ -66,7 +65,7 @@ export class ContractDefinitionCardBuilder {
   private extractPolicy(
     policyDefinitionId: string,
     policyDefinitionsById: Map<string, PolicyDefinitionDto>,
-  ): ContractDefinitionCardPolicy {
+  ): DataOfferCardPolicy {
     return {
       policyDefinitionId: policyDefinitionId,
       policyDefinition: policyDefinitionsById.get(policyDefinitionId) || null,
@@ -89,7 +88,7 @@ export class ContractDefinitionCardBuilder {
   private extractCriterionValues(
     criterion: UiCriterion,
     assetsById: Map<string, UiAssetMapped>,
-  ): ContractDefinitionCardCriterionValue[] {
+  ): DataOfferCardCriterionValue[] {
     const {operandLeft, operandRight} = criterion;
 
     let values: string[] = [];
@@ -100,7 +99,7 @@ export class ContractDefinitionCardBuilder {
     }
 
     return values.map((it) => {
-      const stringType: ContractDefinitionCardCriterionValue = {
+      const stringType: DataOfferCardCriterionValue = {
         type: 'string',
         value: it,
         searchTargets: [it],

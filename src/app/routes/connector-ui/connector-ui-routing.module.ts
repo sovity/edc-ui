@@ -5,8 +5,8 @@ import {AssetPageComponent} from './asset-page/asset-page/asset-page.component';
 import {CatalogBrowserPageComponent} from './catalog-browser-page/catalog-browser-page/catalog-browser-page.component';
 import {ConnectorUiComponent} from './connector-ui.component';
 import {ContractAgreementPageComponent} from './contract-agreement-page/contract-agreement-page/contract-agreement-page.component';
-import {ContractDefinitionPageComponent} from './contract-definition-page/contract-definition-page/contract-definition-page.component';
 import {DashboardPageComponent} from './dashboard-page/dashboard-page/dashboard-page.component';
+import {DataOffersPageComponent} from './data-offers-page/data-offers-page/data-offers-page.component';
 import {LogoutPageComponent} from './logout-page/logout-page.component';
 import {PolicyDefinitionCreatePageComponent} from './policy-definition-create-page/policy-definition-create-page/policy-definition-create-page.component';
 import {PolicyDefinitionPageComponent} from './policy-definition-page/policy-definition-page/policy-definition-page.component';
@@ -65,8 +65,8 @@ export const routes: Routes = [
   },
   {
     path: 'contract-definitions',
-    component: ContractDefinitionPageComponent,
-    data: {title: 'Contract Definitions'},
+    component: DataOffersPageComponent,
+    data: {title: 'Data Offers'},
   },
   {
     path: 'logout',

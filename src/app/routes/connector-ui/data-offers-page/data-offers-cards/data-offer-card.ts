@@ -4,26 +4,26 @@ import {
 } from '@sovity.de/edc-client';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 
-export interface ContractDefinitionCard {
+export interface DataOfferCard {
   id: string;
-  criteria: ContractDefinitionCardCriterion[];
-  contractPolicy: ContractDefinitionCardPolicy;
-  accessPolicy: ContractDefinitionCardPolicy;
+  criteria: DataOfferCardCriterion[];
+  contractPolicy: DataOfferCardPolicy;
+  accessPolicy: DataOfferCardPolicy;
 
   detailJsonObj: ContractDefinitionEntry;
 }
 
-export interface ContractDefinitionCardPolicy {
+export interface DataOfferCardPolicy {
   policyDefinitionId: string;
   policyDefinition: PolicyDefinitionDto | null;
 }
 
-export interface ContractDefinitionCardCriterion {
+export interface DataOfferCardCriterion {
   label: string;
-  values: ContractDefinitionCardCriterionValue[];
+  values: DataOfferCardCriterionValue[];
 }
 
-export interface ContractDefinitionCardCriterionValue {
+export interface DataOfferCardCriterionValue {
   type: 'string' | 'asset' | 'json';
   searchTargets: (string | null)[];
   value?: string;

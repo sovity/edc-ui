@@ -4,27 +4,27 @@ import {PolicyDefinitionDto} from '@sovity.de/edc-client';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {noWhitespacesOrColonsValidator} from '../../../../core/validators/no-whitespaces-or-colons-validator';
 import {
-  ContractDefinitionEditorDialogFormModel,
-  ContractDefinitionEditorDialogFormValue,
-} from './contract-definition-editor-dialog-form-model';
+  DataOfferEditorDialogFormModel,
+  DataOfferEditorDialogFormValue,
+} from './data-offer-editor-dialog-form-model';
 
 /**
- * Handles AngularForms for ContractDefinitionEditorDialog
+ * Handles AngularForms for DataOfferEditorDialog
  */
 @Injectable()
-export class ContractDefinitionEditorDialogForm {
+export class DataOfferEditorDialogForm {
   group = this.buildFormGroup();
 
   /**
    * Quick access to full value
    */
-  get value(): ContractDefinitionEditorDialogFormValue {
+  get value(): DataOfferEditorDialogFormValue {
     return this.group.value;
   }
 
   constructor(private formBuilder: FormBuilder) {}
 
-  buildFormGroup(): FormGroup<ContractDefinitionEditorDialogFormModel> {
+  buildFormGroup(): FormGroup<DataOfferEditorDialogFormModel> {
     return this.formBuilder.nonNullable.group({
       id: ['', [Validators.required, noWhitespacesOrColonsValidator]],
       accessPolicy: [null as PolicyDefinitionDto | null, Validators.required],

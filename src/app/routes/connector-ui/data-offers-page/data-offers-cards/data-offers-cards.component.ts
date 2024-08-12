@@ -18,20 +18,20 @@ import {JsonDialogData} from '../../../../component-library/json-dialog/json-dia
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {NotificationService} from '../../../../core/services/notification.service';
-import {ContractDefinitionCard} from './contract-definition-card';
+import {DataOfferCard} from './data-offer-card';
 
 @Component({
-  selector: 'contract-definition-cards',
-  templateUrl: './contract-definition-cards.component.html',
+  selector: 'data-offers-cards',
+  templateUrl: './data-offers-cards.component.html',
 })
-export class ContractDefinitionCardsComponent implements OnDestroy {
+export class DataOffersCardsComponent implements OnDestroy {
   @HostBinding('class.flex')
   @HostBinding('class.flex-wrap')
   @HostBinding('class.gap-[10px]')
   cls = true;
 
   @Input()
-  contractDefinitionCards: ContractDefinitionCard[] = [];
+  dataOffersCards: DataOfferCard[] = [];
 
   @Input()
   deleteBusy = false;
@@ -65,29 +65,26 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
       .subscribe(() => this.deleteDone.emit());
   }
 
-  onContractDefinitionClick(card: ContractDefinitionCard) {
+  onDataOfferClick(card: DataOfferCard) {
     let dialogRef: MatDialogRef<any>;
     const data: JsonDialogData = {
       title: card.id,
-      subtitle: 'Contract Definition',
+      subtitle: 'Data Offer',
       icon: 'policy',
       objectForJson: card.detailJsonObj,
       toolbarButton: {
         text: 'Delete',
         icon: 'delete',
-        confirmation: ConfirmDialogModel.forDelete(
-          'contract definition',
-          card.id,
-        ),
+        confirmation: ConfirmDialogModel.forDelete('data offer', card.id),
         action: () =>
           this.edcApiService.deleteContractDefinition(card.id).pipe(
             tap(() => {
-              this.notificationService.showInfo('Contract Definition deleted!');
+              this.notificationService.showInfo('Data Offer deleted!');
               this.deleteDone.emit();
               dialogRef?.close();
             }),
             catchError((err) => {
-              const msg = `Failed deleting contract definition with id ${card.id}`;
+              const msg = `Failed deleting data offer with id ${card.id}`;
               console.error(msg, err);
               this.notificationService.showError(msg);
               return EMPTY;
