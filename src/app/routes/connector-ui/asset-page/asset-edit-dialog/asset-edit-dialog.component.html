@@ -16,6 +16,13 @@
                 matInput
                 autocomplete="new-name"
                 [formControl]="form.metadata.controls.title" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="The main name of your asset. It will also be the name of the data offering displayed in the catalog.">
+                <mat-icon>info_outline</mat-icon>
+              </button>
             </mat-form-field>
 
             <!-- Version -->
@@ -26,6 +33,13 @@
                 autocomplete="new-id"
                 [formControl]="form.metadata.controls.version"
                 [placeholder]="'1.0'" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="The version of your asset">
+                <mat-icon>info_outline</mat-icon>
+              </button>
             </mat-form-field>
           </div>
 
@@ -39,6 +53,13 @@
               matInput
               autocomplete="new-id"
               [formControl]="ctrl" />
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed.">
+              <mat-icon>info_outline</mat-icon>
+            </button>
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
               {{ validationMessages.invalidWhitespacesOrColonsMessage }}
             </mat-error>
@@ -82,17 +103,26 @@
           <!-- Language -->
           <language-select
             class="grow"
-            label="Language"
+            label="Language of the content"
             [control]="form.metadata.controls.language"></language-select>
 
           <div class="flex flex-row space-x-[10px]">
             <!-- Content Type -->
-            <mat-form-field class="grow">
+            <mat-form-field class="grow mb-2">
               <mat-label>Content Type</mat-label>
               <input
                 matInput
                 [formControl]="form.metadata.controls.contentType"
                 [placeholder]="'text/plain'" />
+              <mat-hint class="flex flex-row items-center gap-1 mb-1">
+                Describes the content type of the data as a MIME type, see
+                <a
+                  class="link"
+                  externalLink
+                  href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types"
+                  >common types</a
+                >
+              </mat-hint>
             </mat-form-field>
           </div>
 
@@ -102,6 +132,13 @@
             class="grow">
             <mat-label>Endpoint Documentation</mat-label>
             <input placeholder="https://" matInput [formControl]="ctrl" />
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="URL to the technical documentation about the data to be received.">
+              <mat-icon>info_outline</mat-icon>
+            </button>
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
               {{ validationMessages.invalidUrlMessage }}
             </mat-error>
@@ -114,6 +151,13 @@
               class="grow">
               <mat-label>Publisher</mat-label>
               <input placeholder="https://" matInput [formControl]="ctrl" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="URL of the original publisher of the data.">
+                <mat-icon>info_outline</mat-icon>
+              </button>
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
                 {{ validationMessages.invalidUrlMessage }}
               </mat-error>
@@ -124,7 +168,17 @@
               *ngIf="form.metadata.controls.standardLicense; let ctrl"
               class="grow">
               <mat-label>Standard License</mat-label>
-              <input placeholder="https://" matInput [formControl]="ctrl" />
+              <input
+                placeholder="https://creativecommons.org/licenses/by/4.0/deed.en"
+                matInput
+                [formControl]="ctrl" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="URL of the license under which the data is offered">
+                <mat-icon>info_outline</mat-icon>
+              </button>
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
                 {{ validationMessages.invalidUrlMessage }}
               </mat-error>
@@ -162,8 +216,15 @@
             <mat-label>Data Model</mat-label>
             <input
               matInput
-              placeholder="unspecified"
+              placeholder="proprietary"
               [formControl]="form.advanced.controls.dataModel" />
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="Model for data exchange, e.g. DATEX II, TPEG for traffic and travel information">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-form-field>
 
           <div class="flex flex-row space-x-[10px]">
@@ -182,6 +243,13 @@
                 matInput
                 placeholder="Lat/Lon"
                 [formControl]="form.advanced.controls.geoReferenceMethod" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="The method used for representing of geographical data, e.g GeoJSON, OpenLR">
+                <mat-icon>info_outline</mat-icon>
+              </button>
             </mat-form-field>
           </div>
 
@@ -192,17 +260,30 @@
               matInput
               placeholder="Data Owning Company GMBH"
               [formControl]="form.advanced.controls.sovereignLegalName" />
-            <mat-hint>Legal name of the data owner</mat-hint>
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="Legal name of the data owner">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-form-field>
 
           <!-- Data update frequency -->
-          <div class="flex flex-row space-x-[10px] mt-[15px]">
+          <div class="flex flex-row space-x-[10px]">
             <mat-form-field class="grow">
               <mat-label>Data update frequency</mat-label>
               <input
                 matInput
                 placeholder="every month"
                 [formControl]="form.advanced.controls.dataUpdateFrequency" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="How often is the dataset updated, e.g	'Every 5 min.'">
+                <mat-icon>info_outline</mat-icon>
+              </button>
             </mat-form-field>
 
             <!-- Geo location -->
@@ -212,11 +293,27 @@
                 matInput
                 placeholder="40.741895,-73.989308"
                 [formControl]="form.advanced.controls.geoLocation" />
+              <button
+                class="!scale-[0.9]"
+                mat-icon-button
+                matSuffix
+                matTooltip="Simple description of the relevant geolocation, e.g. Hamburg and vicinity">
+                <mat-icon>info_outline</mat-icon>
+              </button>
             </mat-form-field>
           </div>
 
           <!-- NUTS locations -->
-          <div class="form-section-title">NUTS locations</div>
+          <div class="flex flex-row justify-start items-center">
+            <div class="form-section-title">NUTS locations</div>
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="NUTS codes are regional identifiers in Germany used for statistical and administrative purposes, covering states, districts, and municipalities. (e.g DE60)">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </div>
           <div
             *ngFor="
               let location of form.advanced.controls.nutsLocations.controls;
@@ -247,7 +344,16 @@
           </div>
 
           <!-- Data sample URLs -->
-          <div class="form-section-title">Data samples</div>
+          <div class="flex flex-row justify-start items-center">
+            <div class="form-section-title">Data samples</div>
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="URLs of Dataset samples if available">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </div>
           <div
             *ngFor="
               let sample of form.advanced.controls.dataSampleUrls.controls;
@@ -281,7 +387,17 @@
           </div>
 
           <!-- Reference file URLs -->
-          <div class="form-section-title">Reference files</div>
+          <div class="flex flex-row justify-start items-center">
+            <div class="form-section-title">Reference files</div>
+
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltip="URLs of Dataset schemas or other references">
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </div>
           <div
             *ngFor="
               let file of form.advanced.controls.referenceFileUrls.controls;
@@ -326,7 +442,16 @@
                 form.advanced.controls.referenceFilesDescription
               "></textarea>
             <mat-hint
-              >Additional information regarding the reference files
+              >Additional information regarding the reference files.
+              <span class="flex flex-row items-center gap-1"
+                >Supports
+                <a
+                  class="link"
+                  externalLink
+                  href="https://www.markdownguide.org/basic-syntax/"
+                  >Markdown syntax</a
+                >
+              </span>
             </mat-hint>
           </mat-form-field>
 
@@ -346,7 +471,10 @@
                 formControlName="toInclusive"
                 placeholder="End date (inclusive)" />
             </mat-date-range-input>
-            <mat-hint>DD/MM/YYYY (optional) – DD/MM/YYYY (optional)</mat-hint>
+            <mat-hint
+              >Start and/or end date when the dataset is available for
+              consumption. DD/MM/YYYY (optional) – DD/MM/YYYY (optional)
+            </mat-hint>
             <mat-datepicker-toggle
               matSuffix
               [for]="picker"></mat-datepicker-toggle>
@@ -368,7 +496,16 @@
               "></textarea>
             <mat-hint
               >Additional not legally relevant usage instructions (e.g. how to
-              cite the dataset)
+              cite the dataset). <br />
+              <span class="flex flex-row items-center gap-1"
+                >Supports
+                <a
+                  class="link"
+                  externalLink
+                  href="https://www.markdownguide.org/basic-syntax/"
+                  >Markdown syntax</a
+                >
+              </span>
             </mat-hint>
           </mat-form-field>
         </div>
