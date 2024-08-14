@@ -84,8 +84,10 @@ This is a short description text that should be fully rendered without being **c
     creatorOrganizationName: 'My Org',
     isOwnConnector: true,
     customJsonLdAsString: '{"http://custom.json.test/LD":"https://google.com"}',
-    customJsonAsString:
-      '{"http://custom.json.test/non-LD":"https://google.com"}',
+    customJsonAsString: '{"testKey":"testValue"}',
+    privateCustomJsonLdAsString:
+      '{"http://custom.json.test/LD/private":"https://google.com/private"}',
+    privateCustomJsonAsString: '{"privateTestKey":"testValue"}',
   };
 
   export const onRequestAsset: UiAsset = {
