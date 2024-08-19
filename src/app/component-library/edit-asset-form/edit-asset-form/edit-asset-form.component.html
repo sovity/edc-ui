@@ -424,7 +424,7 @@
         "
         [ctrl]="form.general.controls.description">
         <div class="flex flex-row items-center gap-1 mb-1">
-          The description uses
+          The description supports
           <a
             class="link"
             externalLink
@@ -497,7 +497,8 @@
         <edit-asset-form-input
           fieldId="create-asset-form-data-model"
           label="Data Model"
-          placeholder="unspecified"
+          placeholder="proprietary"
+          tooltip="Model for data exchange, e.g. DATEX II, TPEG for traffic and travel information"
           [ctrl]="form.advanced.controls.dataModel"></edit-asset-form-input>
       </ng-container>
     </edit-asset-form-group>
@@ -528,6 +529,14 @@
         <!-- Data sample URLs -->
         <div class="mt-4">
           <edit-asset-form-label label="Data samples"></edit-asset-form-label>
+          <button
+            class="!scale-[0.9]"
+            mat-icon-button
+            matSuffix
+            matTooltipPosition="right"
+            matTooltip="URLs of Dataset samples if available">
+            <mat-icon>info_outline</mat-icon>
+          </button>
           <div class="mt-6"></div>
           <div
             *ngFor="
@@ -563,6 +572,14 @@
         <div class="mt-4">
           <edit-asset-form-label
             label="Reference files"></edit-asset-form-label>
+          <button
+            class="!scale-[0.9]"
+            mat-icon-button
+            matSuffix
+            matTooltipPosition="right"
+            matTooltip="URLs of Dataset schemas or other references">
+            <mat-icon>info_outline</mat-icon>
+          </button>
           <div class="mt-6"></div>
           <div
             *ngFor="
@@ -605,7 +622,7 @@
             '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
           ">
           <div class="flex flex-row items-center gap-1 mb-1">
-            Additional information regarding the reference files. The field uses
+            Additional information regarding the reference files. Supports
             <a
               class="link"
               externalLink
@@ -638,7 +655,10 @@
               formControlName="toInclusive"
               placeholder="End date (inclusive)" />
           </mat-date-range-input>
-          <mat-hint>DD/MM/YYYY (optional) – DD/MM/YYYY (optional)</mat-hint>
+          <mat-hint
+            >Start and/or end date when the dataset is available for
+            consumption. DD/MM/YYYY (optional) – DD/MM/YYYY (optional)
+          </mat-hint>
           <mat-datepicker-toggle
             matSuffix
             [for]="picker"></mat-datepicker-toggle>
@@ -655,6 +675,7 @@
         fieldId="create-asset-form-data-update-frequency"
         label="Data update frequency"
         placeholder="every month"
+        tooltip="How often is the dataset updated, e.g	'Every 5 min."
         [ctrl]="
           form.advanced.controls.dataUpdateFrequency
         "></edit-asset-form-input>
@@ -664,6 +685,7 @@
         fieldId="create-asset-form-geo-ref-method"
         label="Geo reference method"
         placeholder="Lat/Lon"
+        tooltip="The method used for representing of geographical data, e.g GeoJSON, OpenLR"
         [ctrl]="
           form.advanced.controls.geoReferenceMethod
         "></edit-asset-form-input>
@@ -673,11 +695,20 @@
         fieldId="create-asset-form-geo-location"
         label="Geo location"
         placeholder="40.741895,-73.989308"
+        tooltip="Simple description of the relevant geolocation, e.g. Hamburg and vicinity"
         [ctrl]="form.advanced.controls.geoLocation"></edit-asset-form-input>
 
       <!-- NUTS locations -->
       <div>
         <edit-asset-form-label label="NUTS locations"></edit-asset-form-label>
+        <button
+          class="!scale-[0.9]"
+          mat-icon-button
+          matSuffix
+          matTooltipPosition="right"
+          matTooltip="NUTS codes are regional identifiers in Germany used for statistical and administrative purposes, covering states, districts, and municipalities. (e.g DE60)">
+          <mat-icon>info_outline</mat-icon>
+        </button>
         <div class="mt-6"></div>
         <div
           *ngFor="
@@ -718,9 +749,10 @@
         label="Sovereign"
         fieldId="create-asset-form-sovereign"
         placeholder="Data Owning Company GMBH"
-        [ctrl]="form.advanced.controls.sovereignLegalName"
-        >Legal name of the data owner</edit-asset-form-input
-      >
+        tooltip="Legal name of the data owner"
+        [ctrl]="
+          form.advanced.controls.sovereignLegalName
+        "></edit-asset-form-input>
 
       <!-- Publisher -->
       <edit-asset-form-input
@@ -728,7 +760,7 @@
         label="Publisher"
         fieldId="create-asset-form-publisher"
         placeholder="https://"
-        tooltip="URL of the original publisher of the data."
+        tooltip="URL of the original publisher of the data"
         [ctrl]="form.general.controls.publisher"></edit-asset-form-input>
 
       <!-- Standard License -->
@@ -751,7 +783,7 @@
         ">
         <div class="flex flex-row items-center gap-1 mb-1">
           Additional not legally relevant usage instructions (e.g. how to cite
-          the dataset) The field uses
+          the dataset). The field supports
           <a
             class="link"
             externalLink
@@ -805,7 +837,7 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="Create but do not publish your data offer. You can do it later">
+              matTooltip="Create but do not publish your data offer. You can do it later.">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-radio-button>
