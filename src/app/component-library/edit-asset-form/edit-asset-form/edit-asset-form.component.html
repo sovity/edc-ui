@@ -51,8 +51,8 @@
           label="Preferred E-Mail Subject"
           placeholder="Data Offer 'xyz'"
           [ctrl]="form.datasource.controls.contactPreferredEmailSubject"
-          >Will be added to the mailto-link and displayed to potential consumers
-          to use.</edit-asset-form-input
+          >When potential customers reach out to you via email, you’ll receive
+          messages with this subject line.</edit-asset-form-input
         >
       </ng-container>
 
@@ -406,12 +406,12 @@
         tooltip="The main name of your asset. It will also be the name of the data offering displayed in the catalog."
         [ctrl]="form.general.controls.name"></edit-asset-form-input>
 
-      <!-- ID -->
+      <!-- Asset ID -->
       <edit-asset-form-input
         *ngIf="form.general.controls.id; let ctrl"
         fieldId="create-asset-form-id"
         placeholder="my-asset"
-        label="ID"
+        label="Asset ID"
         tooltip="Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed."
         [ctrl]="ctrl"></edit-asset-form-input>
 
@@ -831,13 +831,13 @@
             </button>
           </mat-radio-button>
           <mat-radio-button value="DO_NOT_PUBLISH">
-            Do not publish
+            Create asset only (without data offer)
             <button
               class="!scale-[0.9]"
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="Create but do not publish your data offer. You can do it later.">
+              matTooltip="Create the asset but do not publish your data offer. You can do it later.">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-radio-button>
