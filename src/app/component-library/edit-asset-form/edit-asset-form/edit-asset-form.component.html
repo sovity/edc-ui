@@ -403,6 +403,7 @@
         fieldId="create-asset-form-name"
         label="Name"
         placeholder="My Asset"
+        tooltip="The main name of your asset. It will also be the name of the data offering displayed in the catalog."
         [ctrl]="form.general.controls.name"></edit-asset-form-input>
 
       <!-- ID -->
@@ -411,6 +412,7 @@
         fieldId="create-asset-form-id"
         placeholder="my-asset"
         label="ID"
+        tooltip="Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed."
         [ctrl]="ctrl"></edit-asset-form-input>
 
       <!-- Description -->
@@ -451,11 +453,12 @@
           label="Version"
           fieldId="create-asset-form-version"
           placeholder="1.0.0"
+          tooltip="The version of your asset"
           [ctrl]="form.general.controls.version"></edit-asset-form-input>
 
         <!-- Language -->
         <language-select
-          label="Language"
+          label="Language of the content"
           [control]="form.general.controls.language"></language-select>
       </ng-container>
     </edit-asset-form-group>
@@ -508,6 +511,7 @@
         label="Endpoint Documentation"
         fieldId="create-asset-form-endpoint-documentation"
         placeholder="https://"
+        tooltip="URL to the technical documentation about the data to be received."
         [ctrl]="
           form.general.controls.endpointDocumentation
         "></edit-asset-form-input>
@@ -517,6 +521,7 @@
         label="Content Type"
         fieldId="create-asset-form-content-type"
         placeholder="application/json"
+        [contentTypeHint]="true"
         [ctrl]="form.general.controls.contentType"></edit-asset-form-input>
 
       <ng-container *ngIf="form.advanced">
@@ -723,6 +728,7 @@
         label="Publisher"
         fieldId="create-asset-form-publisher"
         placeholder="https://"
+        tooltip="URL of the original publisher of the data."
         [ctrl]="form.general.controls.publisher"></edit-asset-form-input>
 
       <!-- Standard License -->
@@ -730,6 +736,7 @@
         label="Standard License"
         fieldId="create-asset-form-standard-license"
         placeholder="https://"
+        tooltip="URL of the license under which the data is offered"
         [ctrl]="form.general.controls.standardLicense"></edit-asset-form-input>
 
       <!-- Conditions for use -->
@@ -771,12 +778,36 @@
           [formControl]="ctrl">
           <mat-radio-button value="PUBLISH_UNRESTRICTED">
             Publish unrestricted
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltipPosition="right"
+              matTooltip="The data offer is published and can be accessed by everyone">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-radio-button>
           <mat-radio-button value="PUBLISH_RESTRICTED">
             Publish restricted
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltipPosition="right"
+              matTooltip="The data offer is published with restrictions of your choice">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-radio-button>
           <mat-radio-button value="DO_NOT_PUBLISH">
             Do not publish
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltipPosition="right"
+              matTooltip="Create but do not publish your data offer. You can do it later">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-radio-button>
         </mat-radio-group>
       </div>
