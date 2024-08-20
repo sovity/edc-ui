@@ -21,17 +21,6 @@ export interface PolicyVerbConfig {
 
 export const SUPPORTED_POLICY_VERBS: PolicyVerbConfig[] = [
   {
-    operandLeftId: policyLeftExpressions.policyEvaluationTime,
-    operandLeftTitle: 'Time Restriction',
-    operandLeftDescription:
-      'Time at which the policy is evaluated. This can be used to restrict the data offer to certain time periods',
-    supportedOperators: ['GEQ', 'LEQ', 'GT', 'LT'],
-    operandRightType: 'DATE',
-    operandRightPlaceholder: 'DD/MM/YYYY',
-    operandRightHint: 'DD/MM/YYYY',
-    adapter: localDateAdapter,
-  },
-  {
     operandLeftId: policyLeftExpressions.referringConnector,
     operandLeftTitle: "Consumer's Participant ID",
     operandLeftDescription:
@@ -41,6 +30,17 @@ export const SUPPORTED_POLICY_VERBS: PolicyVerbConfig[] = [
     operandRightPlaceholder: 'MDSL1234XX.C1234YY',
     operandRightHint: 'Multiple values can be joined by comma',
     adapter: stringArrayOrCommaJoinedAdapter,
+  },
+  {
+    operandLeftId: policyLeftExpressions.policyEvaluationTime,
+    operandLeftTitle: 'Time Restriction',
+    operandLeftDescription:
+      'Time at which the policy is evaluated. This can be used to restrict the data offer to certain time periods',
+    supportedOperators: ['GEQ', 'LEQ', 'GT', 'LT'],
+    operandRightType: 'DATE',
+    operandRightPlaceholder: 'DD/MM/YYYY',
+    operandRightHint: 'DD/MM/YYYY',
+    adapter: localDateAdapter,
   },
 ];
 
