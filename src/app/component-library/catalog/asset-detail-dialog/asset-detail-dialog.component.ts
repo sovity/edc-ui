@@ -5,9 +5,10 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import {Observable, Subject, isObservable} from 'rxjs';
+import {Observable, Subject, isObservable, of} from 'rxjs';
 import {filter, finalize, takeUntil} from 'rxjs/operators';
-import {UiContractOffer} from '@sovity.de/edc-client';
+import {ConnectorLimits, UiContractOffer} from '@sovity.de/edc-client';
+import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
 import {MailtoLinkBuilder} from 'src/app/core/services/mailto-link-builder';
 import {EdcApiService} from '../../../core/services/api/edc-api.service';
 import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
@@ -44,6 +45,9 @@ export class AssetDetailDialogComponent implements OnDestroy {
   asset!: UiAssetMapped;
   propGroups!: PropertyGridGroup[];
 
+  maxActiveConsumingContractAgreements: number | null | undefined = null;
+  numActiveConsumingContractAgreements: number = 0;
+
   loading = false;
 
   get isProgressBarVisible(): boolean {
@@ -75,6 +79,20 @@ export class AssetDetailDialogComponent implements OnDestroy {
     );
   }
 
+  get withinLimits(): boolean {
+    if (
+      this.maxActiveConsumingContractAgreements === null ||
+      this.maxActiveConsumingContractAgreements === undefined
+    ) {
+      return true;
+    } else {
+      return (
+        this.numActiveConsumingContractAgreements <
+        this.maxActiveConsumingContractAgreements
+      );
+    }
+  }
+
   constructor(
     private edcApiService: EdcApiService,
     private notificationService: NotificationService,
@@ -84,6 +102,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
     private _data: AssetDetailDialogData | Observable<AssetDetailDialogData>,
     public contractNegotiationService: ContractNegotiationService,
     private mailtoLinkBuilder: MailtoLinkBuilder,
+    private activeFeatureSet: ActiveFeatureSet,
     @Inject(DOCUMENT) private document: Document,
   ) {
     if (isObservable(this._data)) {
@@ -93,12 +112,35 @@ export class AssetDetailDialogComponent implements OnDestroy {
     } else {
       this.setData(this._data);
     }
+    this.fetchLimits();
   }
 
   setData(data: AssetDetailDialogData) {
     this.data = data;
     this.asset = this.data.asset;
     this.propGroups = this.data.propertyGridGroups;
+  }
+
+  fetchLimits(): void {
+    if (this.activeFeatureSet.hasConnectorLimits()) {
+      this.edcApiService
+        .getEnterpriseEditionConnectorLimits()
+        .pipe(takeUntil(this.ngOnDestroy$))
+        .subscribe({
+          complete: () => {
+            return of(null);
+          },
+          error: (err) => {
+            console.error('Failed to fetch connector limits', err);
+          },
+          next: (value: ConnectorLimits) => {
+            this.maxActiveConsumingContractAgreements =
+              value.maxActiveConsumingContractAgreements;
+            this.numActiveConsumingContractAgreements =
+              value.numActiveConsumingContractAgreements;
+          },
+        });
+    }
   }
 
   onContactClick() {

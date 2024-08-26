@@ -187,8 +187,14 @@
         <button
           *ngIf="!data.asset.isOwnConnector"
           mat-raised-button
+          matTooltip="{{
+            withinLimits
+              ? 'Start a negotiation process'
+              : 'You have reached the maximum number of contracts. Please terminate one of the existing contracts to negotiate a new one.'
+          }}"
           color="primary"
           [disabled]="
+            !withinLimits ||
             contractNegotiationService.negotiationState(
               data.dataOffer!.contractOffers[0]
             ) != 'ready'

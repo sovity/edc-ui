@@ -65,28 +65,11 @@ export class ContractAgreementCardMappedService {
         isConsumingLimitsEnforced: true,
         showStatus: true,
         statusText:
-          activeContractCounter < maxConsumingContracts ? 'Active' : 'Inactive',
-        statusTooltipText: this.getConsumingContractsInfoText(
-          activeContractCounter,
-          maxConsumingContracts,
-        ),
+          activeContractCounter < maxConsumingContracts ? 'Active' : '',
         canTransfer: activeContractCounter < maxConsumingContracts,
       };
       activeContractCounter++;
       return modifiedAgreement;
     });
-  }
-
-  private getConsumingContractsInfoText(
-    index: number,
-    maxConsumingContracts: number,
-  ): string {
-    if (index >= maxConsumingContracts) {
-      return `This connector is licensed for a maximum number of ${maxConsumingContracts} consuming contract${
-        maxConsumingContracts == 1 ? '' : 's'
-      }. When negotiating new contracts, older contracts will be deactivated.`;
-    } else {
-      return '';
-    }
   }
 }

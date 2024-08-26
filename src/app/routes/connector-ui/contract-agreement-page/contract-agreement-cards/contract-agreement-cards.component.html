@@ -68,7 +68,7 @@
         </div>
         <!-- Status -->
         <div
-          *ngIf="card.showStatus"
+          *ngIf="card.showStatus && card.statusText"
           class="flex flex-col"
           [matTooltip]="card.statusTooltipText">
           <div class="text-slate text-sm uppercase tracking-wider text-right">
