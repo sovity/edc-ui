@@ -1,55 +1,46 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {ConnectorLimits} from '@sovity.de/edc-client';
+import {ActiveFeatureSet} from '../config/active-feature-set';
 import {EdcApiService} from './api/edc-api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConnectorLimitsService {
-  private currentSubject = new BehaviorSubject<number | undefined>(undefined);
-  private maxSubject = new BehaviorSubject<number | null | undefined>(
-    undefined,
-  );
-
-  current$ = this.currentSubject.asObservable();
-  max$ = this.maxSubject.asObservable();
-
-  constructor(private edcApiService: EdcApiService) {
-    this.fetchLimits().subscribe();
-  }
+  constructor(
+    private edcApiService: EdcApiService,
+    private activeFeatureSet: ActiveFeatureSet,
+  ) {}
 
   fetchLimits(): Observable<ConnectorLimits> {
-    console.log('fetchLimits');
-    return this.edcApiService.getEnterpriseEditionConnectorLimits().pipe(
-      tap((limits) => {
-        this.currentSubject.next(limits.numActiveConsumingContractAgreements);
-        this.maxSubject.next(limits.maxActiveConsumingContractAgreements);
+    return this.edcApiService.getEnterpriseEditionConnectorLimits();
+  }
+
+  limitExceeded(): Observable<boolean> {
+    return this.fetchLimits().pipe(
+      map((limits) => {
+        if (
+          limits.maxActiveConsumingContractAgreements === null ||
+          limits.maxActiveConsumingContractAgreements === undefined
+        ) {
+          return false;
+        }
+        return (
+          limits.numActiveConsumingContractAgreements >=
+          limits.maxActiveConsumingContractAgreements
+        );
       }),
     );
   }
 
-  limitsExceeded(): Observable<boolean> {
-    return this.fetchLimits().pipe(
-      switchMap(() => this.current$),
-      switchMap((current) =>
-        this.max$.pipe(
-          map((max) => {
-            if (max === null || max === undefined) {
-              return false;
-            } else {
-              return current !== undefined && current >= max;
-            }
-          }),
-        ),
-      ),
-    );
-  }
-
   canNegotiate(): Observable<boolean> {
-    console.log('canNegotiate');
-    return this.limitsExceeded().pipe(
+    if (!this.activeFeatureSet.hasConnectorLimits()) {
+      return of(true);
+    }
+
+    return this.limitExceeded().pipe(
       map((exceeded) => {
         return !exceeded;
       }),

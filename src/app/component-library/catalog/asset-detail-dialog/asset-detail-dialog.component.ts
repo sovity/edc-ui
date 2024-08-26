@@ -8,7 +8,6 @@ import {
 import {Observable, Subject, isObservable} from 'rxjs';
 import {filter, finalize, takeUntil} from 'rxjs/operators';
 import {UiContractOffer} from '@sovity.de/edc-client';
-import {ActiveFeatureSet} from 'src/app/core/config/active-feature-set';
 import {MailtoLinkBuilder} from 'src/app/core/services/mailto-link-builder';
 import {EdcApiService} from '../../../core/services/api/edc-api.service';
 import {ConnectorLimitsService} from '../../../core/services/connector-limits.service';
@@ -85,7 +84,6 @@ export class AssetDetailDialogComponent implements OnDestroy {
     private edcApiService: EdcApiService,
     private notificationService: NotificationService,
     private ConnectorLimitsService: ConnectorLimitsService,
-    private activeFeatureSet: ActiveFeatureSet,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<AssetDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -94,11 +92,9 @@ export class AssetDetailDialogComponent implements OnDestroy {
     private mailtoLinkBuilder: MailtoLinkBuilder,
     @Inject(DOCUMENT) private document: Document,
   ) {
-    if (this.activeFeatureSet.hasConnectorLimits()) {
-      this.ConnectorLimitsService.canNegotiate().subscribe((canNegotiate) => {
-        this.canNegotiate = canNegotiate;
-      });
-    }
+    this.ConnectorLimitsService.canNegotiate().subscribe((canNegotiate) => {
+      this.canNegotiate = canNegotiate;
+    });
 
     if (isObservable(this._data)) {
       this._data
@@ -146,26 +142,19 @@ export class AssetDetailDialogComponent implements OnDestroy {
   }
 
   onNegotiateClick(contractOffer: UiContractOffer) {
-    if (this.activeFeatureSet.hasConnectorLimits()) {
-      this.ConnectorLimitsService.canNegotiate().subscribe((canNegotiate) => {
-        if (canNegotiate) {
-          this.contractNegotiationService.negotiate(
-            this.data.dataOffer!,
-            contractOffer,
-          );
-        } else {
-          this.canNegotiate = false;
-          this.notificationService.showError(
-            'Cannot negotiate. Maximum number of active consuming contracts reached.',
-          );
-        }
-      });
-    } else {
-      this.contractNegotiationService.negotiate(
-        this.data.dataOffer!,
-        contractOffer,
-      );
-    }
+    this.ConnectorLimitsService.canNegotiate().subscribe((canNegotiate) => {
+      if (canNegotiate) {
+        this.contractNegotiationService.negotiate(
+          this.data.dataOffer!,
+          contractOffer,
+        );
+      } else {
+        this.canNegotiate = false;
+        this.notificationService.showError(
+          'Cannot negotiate. Maximum number of active consuming contracts reached.',
+        );
+      }
+    });
   }
 
   onTransferClick() {
