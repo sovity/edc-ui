@@ -11,7 +11,7 @@ export type ContractAgreementCardMapped = Omit<
   isTerminated: boolean;
   showStatus: boolean;
   statusText: string;
-  statusTooltipText: string;
+  statusTooltipText: string; // TO_REMOVE
   canTransfer: boolean;
   searchTargets: (string | null)[];
 };
