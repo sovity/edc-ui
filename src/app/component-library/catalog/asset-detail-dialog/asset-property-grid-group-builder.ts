@@ -301,7 +301,7 @@ export class AssetPropertyGridGroupBuilder {
 
     if (contractAgreement.isConsumingLimitsEnforced) {
       properties.push({
-        icon: !contractAgreement.isTerminated ? 'sync' : 'sync_disabled',
+        icon: contractAgreement.isTerminated ? 'sync_disabled' : 'sync',
         label: 'Status',
         additionalClasses: contractAgreement.isTerminated ? 'text-warn' : '',
       });
