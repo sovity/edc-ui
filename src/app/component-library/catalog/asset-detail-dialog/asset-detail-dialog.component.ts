@@ -44,10 +44,8 @@ export class AssetDetailDialogComponent implements OnDestroy {
   data!: AssetDetailDialogData;
   asset!: UiAssetMapped;
   propGroups!: PropertyGridGroup[];
-  canNegotiate = false;
 
-  maxActiveConsumingContractAgreements: number | null | undefined = null;
-  numActiveConsumingContractAgreements: number = 0;
+  canNegotiate = false;
 
   loading = false;
 
@@ -83,7 +81,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
   constructor(
     private edcApiService: EdcApiService,
     private notificationService: NotificationService,
-    private ConnectorLimitsService: ConnectorLimitsService,
+    private connectorLimitsService: ConnectorLimitsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<AssetDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -92,9 +90,11 @@ export class AssetDetailDialogComponent implements OnDestroy {
     private mailtoLinkBuilder: MailtoLinkBuilder,
     @Inject(DOCUMENT) private document: Document,
   ) {
-    this.ConnectorLimitsService.canNegotiate().subscribe((canNegotiate) => {
-      this.canNegotiate = canNegotiate;
-    });
+    this.connectorLimitsService
+      .isConsumingAgreementLimitExceeded()
+      .subscribe((limitExceeded) => {
+        this.canNegotiate = !limitExceeded;
+      });
 
     if (isObservable(this._data)) {
       this._data
@@ -142,19 +142,22 @@ export class AssetDetailDialogComponent implements OnDestroy {
   }
 
   onNegotiateClick(contractOffer: UiContractOffer) {
-    this.ConnectorLimitsService.canNegotiate().subscribe((canNegotiate) => {
-      if (canNegotiate) {
-        this.contractNegotiationService.negotiate(
-          this.data.dataOffer!,
-          contractOffer,
-        );
-      } else {
-        this.canNegotiate = false;
-        this.notificationService.showError(
-          'Cannot negotiate. Maximum number of active consuming contracts reached.',
-        );
-      }
-    });
+    this.connectorLimitsService
+      .isConsumingAgreementLimitExceeded()
+      .subscribe((limitExceeded) => {
+        if (!limitExceeded) {
+          this.canNegotiate = true;
+          this.contractNegotiationService.negotiate(
+            this.data.dataOffer!,
+            contractOffer,
+          );
+        } else {
+          this.canNegotiate = false;
+          this.notificationService.showError(
+            'Cannot negotiate. Maximum number of active consuming contracts reached.',
+          );
+        }
+      });
   }
 
   onTransferClick() {

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ConnectorLimits} from '@sovity.de/edc-client';
 import {ActiveFeatureSet} from '../config/active-feature-set';
 import {EdcApiService} from './api/edc-api.service';
 
@@ -14,36 +13,22 @@ export class ConnectorLimitsService {
     private activeFeatureSet: ActiveFeatureSet,
   ) {}
 
-  fetchLimits(): Observable<ConnectorLimits> {
-    return this.edcApiService.getEnterpriseEditionConnectorLimits();
-  }
-
-  limitExceeded(): Observable<boolean> {
-    return this.fetchLimits().pipe(
-      map((limits) => {
-        if (
-          limits.maxActiveConsumingContractAgreements === null ||
-          limits.maxActiveConsumingContractAgreements === undefined
-        ) {
-          return false;
-        }
-        return (
-          limits.numActiveConsumingContractAgreements >=
-          limits.maxActiveConsumingContractAgreements
-        );
-      }),
-    );
-  }
-
-  canNegotiate(): Observable<boolean> {
-    if (!this.activeFeatureSet.hasConnectorLimits()) {
-      return of(true);
-    }
-
-    return this.limitExceeded().pipe(
-      map((exceeded) => {
-        return !exceeded;
-      }),
-    );
+  isConsumingAgreementLimitExceeded(): Observable<boolean> {
+    return this.activeFeatureSet.hasConnectorLimits()
+      ? this.edcApiService.getEnterpriseEditionConnectorLimits().pipe(
+          map((limits) => {
+            if (
+              limits.maxActiveConsumingContractAgreements === null ||
+              limits.maxActiveConsumingContractAgreements === undefined
+            ) {
+              return false;
+            }
+            return (
+              limits.numActiveConsumingContractAgreements >=
+              limits.maxActiveConsumingContractAgreements
+            );
+          }),
+        )
+      : of(false);
   }
 }
