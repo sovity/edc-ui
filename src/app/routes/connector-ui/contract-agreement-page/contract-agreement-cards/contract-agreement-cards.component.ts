@@ -26,4 +26,8 @@ export class ContractAgreementCardsComponent {
   onContractAgreementClick(contractAgreement: ContractAgreementCardMapped) {
     this.contractAgreementClick.emit(contractAgreement);
   }
+
+  isContractTermianted(contractAgreement: ContractAgreementCardMapped) {
+    return contractAgreement.isTerminated;
+  }
 }

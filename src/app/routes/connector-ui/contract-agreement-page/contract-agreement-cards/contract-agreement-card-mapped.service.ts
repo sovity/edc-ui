@@ -29,10 +29,6 @@ export class ContractAgreementCardMappedService {
       ),
       isConsumingLimitsEnforced: false,
       isTerminated: isTerminated,
-      showStatus: isTerminated,
-      statusText: isTerminated ? 'Terminated' : '',
-      statusTooltipText: '',
-      canTransfer: !isTerminated,
       searchTargets: [
         contractAgreement.contractAgreementId,
         contractAgreement.counterPartyId,
@@ -53,8 +49,6 @@ export class ContractAgreementCardMappedService {
     maxConsumingContracts: number,
     agreements: ContractAgreementCardMapped[],
   ): ContractAgreementCardMapped[] {
-    let activeContractCounter = 0;
-
     return agreements.map((it) => {
       if (it.isTerminated) {
         return it;
@@ -63,12 +57,7 @@ export class ContractAgreementCardMappedService {
       const modifiedAgreement = {
         ...it,
         isConsumingLimitsEnforced: true,
-        showStatus: true,
-        statusText:
-          activeContractCounter < maxConsumingContracts ? 'Active' : '',
-        canTransfer: activeContractCounter < maxConsumingContracts,
       };
-      activeContractCounter++;
       return modifiedAgreement;
     });
   }
