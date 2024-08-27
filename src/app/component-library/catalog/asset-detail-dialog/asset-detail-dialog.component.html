@@ -232,7 +232,7 @@
         "
         mat-raised-button
         color="primary"
-        [disabled]="!data.contractAgreement?.isTerminated"
+        [disabled]="data.contractAgreement?.isTerminated"
         (click)="onTransferClick()">
         Transfer
       </button>
