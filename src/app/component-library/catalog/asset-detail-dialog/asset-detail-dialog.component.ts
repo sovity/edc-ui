@@ -108,7 +108,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
       this.connectorLimitsService
         .isConsumingAgreementLimitExceeded()
         .subscribe((limitsExceeded) => {
-          this.limitsExceeded = !limitsExceeded;
+          this.limitsExceeded = limitsExceeded;
         });
     }
   }
@@ -148,13 +148,13 @@ export class AssetDetailDialogComponent implements OnDestroy {
       .isConsumingAgreementLimitExceeded()
       .subscribe((limitExceeded) => {
         if (!limitExceeded) {
-          this.limitsExceeded = true;
+          this.limitsExceeded = false;
           this.contractNegotiationService.negotiate(
             this.data.dataOffer!,
             contractOffer,
           );
         } else {
-          this.limitsExceeded = false;
+          this.limitsExceeded = true;
           this.notificationService.showError(
             'Cannot negotiate. Maximum number of active consuming contracts reached.',
           );
