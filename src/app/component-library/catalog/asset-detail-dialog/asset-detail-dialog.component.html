@@ -189,12 +189,12 @@
           mat-raised-button
           color="primary"
           [matTooltip]="
-            canNegotiate
+            limitsExceeded
               ? ''
               : 'You have reached the maximum number of consuming contracts. Please terminate one of the existing contracts to negotiate a new one.'
           "
           [disabled]="
-            !canNegotiate ||
+            !limitsExceeded ||
             contractNegotiationService.negotiationState(
               data.dataOffer!.contractOffers[0]
             ) != 'ready'

@@ -45,7 +45,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
   asset!: UiAssetMapped;
   propGroups!: PropertyGridGroup[];
 
-  canNegotiate = false;
+  limitsExceeded: boolean | null = null;
 
   loading = false;
 
@@ -90,12 +90,6 @@ export class AssetDetailDialogComponent implements OnDestroy {
     private mailtoLinkBuilder: MailtoLinkBuilder,
     @Inject(DOCUMENT) private document: Document,
   ) {
-    this.connectorLimitsService
-      .isConsumingAgreementLimitExceeded()
-      .subscribe((limitExceeded) => {
-        this.canNegotiate = !limitExceeded;
-      });
-
     if (isObservable(this._data)) {
       this._data
         .pipe(takeUntil(this.ngOnDestroy$))
@@ -109,6 +103,14 @@ export class AssetDetailDialogComponent implements OnDestroy {
     this.data = data;
     this.asset = this.data.asset;
     this.propGroups = this.data.propertyGridGroups;
+
+    if (this.limitsExceeded === null && this.data.type === 'data-offer') {
+      this.connectorLimitsService
+        .isConsumingAgreementLimitExceeded()
+        .subscribe((limitsExceeded) => {
+          this.limitsExceeded = !limitsExceeded;
+        });
+    }
   }
 
   onContactClick() {
@@ -146,13 +148,13 @@ export class AssetDetailDialogComponent implements OnDestroy {
       .isConsumingAgreementLimitExceeded()
       .subscribe((limitExceeded) => {
         if (!limitExceeded) {
-          this.canNegotiate = true;
+          this.limitsExceeded = true;
           this.contractNegotiationService.negotiate(
             this.data.dataOffer!,
             contractOffer,
           );
         } else {
-          this.canNegotiate = false;
+          this.limitsExceeded = false;
           this.notificationService.showError(
             'Cannot negotiate. Maximum number of active consuming contracts reached.',
           );
