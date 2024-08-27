@@ -104,7 +104,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
     this.asset = this.data.asset;
     this.propGroups = this.data.propertyGridGroups;
 
-    if (this.limitsExceeded === null && this.data.type === 'data-offer') {
+    if (this.limitsExceeded == null && this.data.type === 'data-offer') {
       this.connectorLimitsService
         .isConsumingAgreementLimitExceeded()
         .subscribe((limitsExceeded) => {
