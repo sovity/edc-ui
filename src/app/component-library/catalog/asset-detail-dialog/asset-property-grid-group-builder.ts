@@ -303,6 +303,7 @@ export class AssetPropertyGridGroupBuilder {
       properties.push({
         icon: !contractAgreement.isTerminated ? 'sync' : 'sync_disabled',
         label: 'Status',
+        additionalClasses: contractAgreement.isTerminated ? 'text-warn' : '',
       });
     }
 

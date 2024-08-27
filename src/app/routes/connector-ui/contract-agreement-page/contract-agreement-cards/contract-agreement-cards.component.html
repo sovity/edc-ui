@@ -71,7 +71,7 @@
           <div class="text-slate text-sm uppercase tracking-wider text-right">
             Status
           </div>
-          <div class="text-right">
+          <div class="text-right" [class.text-warn]="card.isTerminated">
             {{ card.isTerminated ? 'Terminated' : 'Active' }}
           </div>
         </div>
