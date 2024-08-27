@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {ConnectorLimits} from '@sovity.de/edc-client';
 import {ActiveFeatureSet} from '../config/active-feature-set';
 import {EdcApiService} from './api/edc-api.service';
 
@@ -15,20 +16,16 @@ export class ConnectorLimitsService {
 
   isConsumingAgreementLimitExceeded(): Observable<boolean> {
     return this.activeFeatureSet.hasConnectorLimits()
-      ? this.edcApiService.getEnterpriseEditionConnectorLimits().pipe(
-          map((limits) => {
-            if (
-              limits.maxActiveConsumingContractAgreements === null ||
-              limits.maxActiveConsumingContractAgreements === undefined
-            ) {
-              return false;
-            }
-            return (
-              limits.numActiveConsumingContractAgreements >=
-              limits.maxActiveConsumingContractAgreements
-            );
-          }),
-        )
+      ? this.edcApiService
+          .getEnterpriseEditionConnectorLimits()
+          .pipe(map(this.limitsExceeded))
       : of(false);
   }
+
+  private limitsExceeded = (limits: ConnectorLimits) => {
+    const max = limits.maxActiveConsumingContractAgreements;
+    const current = limits.numActiveConsumingContractAgreements;
+
+    return max != null && current >= max;
+  };
 }
