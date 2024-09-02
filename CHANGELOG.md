@@ -21,7 +21,8 @@ the detailed section referring to by linking pull requests or issues.
 #### Patch
 
 - Check contract limits before negotiating a new one.
-- Enhance EDC UI terminologies for create data offer tab
+- Enhanced EDC UI terminologies for create data offer tab
+- Changed title of contract definitions to data offers
 
 ## [v4.1.2] - 2024-08-20
 
