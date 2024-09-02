@@ -13,6 +13,7 @@
   <button
     *ngFor="let recipe of policyExpressionRecipeService.recipes"
     mat-menu-item
+    [matTooltip]="recipe.tooltip"
     (click)="onAddRecipe(recipe)">
     <span>{{ recipe.title }}</span>
   </button>
