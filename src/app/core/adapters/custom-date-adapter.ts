@@ -1,6 +1,6 @@
 import {NativeDateAdapter} from '@angular/material/core';
 import {isValid, parse as parseDate} from 'date-fns';
-import {format} from 'date-fns-tz';
+import {format as formateDate} from 'date-fns-tz';
 
 export class CustomDateAdapter extends NativeDateAdapter {
   parse(value: any): Date | null {
@@ -14,7 +14,7 @@ export class CustomDateAdapter extends NativeDateAdapter {
   }
 
   format(date: Date, displayFormat: Object): string {
-    return format(date, 'dd/MM/yyyy', {
+    return formateDate(date, 'dd/MM/yyyy', {
       timeZone: 'UTC',
     });
   }
