@@ -1,3 +1,4 @@
+import {formatDate} from '@angular/common';
 import {Injectable} from '@angular/core';
 import {
   OperatorDto,
@@ -114,11 +115,19 @@ export class PolicyMapper {
     if (value == null) {
       return '';
     }
-
     return verbConfig.adapter.displayText(value);
   }
 
   private formatJson(value: UiPolicyLiteral): string {
+    if (value.value && this.isDateString(value.value)) {
+      return `${formatDate(
+        new Date(value.value),
+        'dd/MM/yyyy HH:mm:ss',
+        'en',
+        'GMT',
+      )} GMT`;
+    }
+
     if (value.type === 'STRING_LIST') {
       return JSON.stringify(value.valueList);
     }
@@ -128,5 +137,10 @@ export class PolicyMapper {
     }
 
     return JSON.stringify(value.value);
+  }
+
+  private isDateString(value: string): boolean {
+    const date = new Date(value);
+    return !isNaN(date.getTime());
   }
 }

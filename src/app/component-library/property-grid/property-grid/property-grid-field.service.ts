@@ -29,7 +29,6 @@ export class PropertyGridFieldService {
     if (!date) {
       return '';
     }
-
-    return formatDate(date, 'dd/MM/yyyy', 'en');
+    return formatDate(date, 'dd/MM/yyyy', this.locale);
   }
 }
