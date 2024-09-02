@@ -30,6 +30,6 @@ export class PropertyGridFieldService {
       return '';
     }
 
-    return formatDate(date, 'dd/MM/yyyy', 'en');
+    return formatDate(date, 'dd/MM/yyyy', this.locale);
   }
 }
