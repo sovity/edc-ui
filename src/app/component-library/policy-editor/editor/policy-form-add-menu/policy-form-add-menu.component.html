@@ -9,6 +9,7 @@
     (click)="onAddConstraint(constraint)">
     <span>{{ constraint.operandLeftTitle }}</span>
   </button>
+  <mat-divider class="!ml-0" [inset]="true"></mat-divider>
   <button
     *ngFor="let recipe of policyExpressionRecipeService.recipes"
     mat-menu-item
