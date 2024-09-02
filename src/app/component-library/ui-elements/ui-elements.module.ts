@@ -5,6 +5,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AgoComponent} from './ago/ago.component';
 import {AgoPipe} from './ago/ago.pipe';
+import {DateDisplayComponent} from './date-display/date-display.component';
 import {DateComponent} from './date/date.component';
 import {EmptyStateComponent} from './empty-state/empty-state.component';
 import {ErrorStateComponent} from './error-state/error-state.component';
@@ -25,6 +26,7 @@ import {LoadingStateComponent} from './loading-state/loading-state.component';
     AgoComponent,
     AgoPipe,
     DateComponent,
+    DateDisplayComponent,
     EmptyStateComponent,
     ErrorStateComponent,
     HorizontalSectionDividerComponent,
@@ -34,6 +36,7 @@ import {LoadingStateComponent} from './loading-state/loading-state.component';
     AgoComponent,
     AgoPipe,
     DateComponent,
+    DateDisplayComponent,
     EmptyStateComponent,
     ErrorStateComponent,
     HorizontalSectionDividerComponent,
