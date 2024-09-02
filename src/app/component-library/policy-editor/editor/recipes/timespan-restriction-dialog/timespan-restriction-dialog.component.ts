@@ -1,10 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {DateAdapter} from '@angular/material/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {UiPolicyExpression} from '@sovity.de/edc-client';
-import {CustomDateAdapter} from 'src/app/core/adapters/custom-date-adapter';
 import {validDateRange} from '../../../../../core/validators/valid-date-range-optional-end';
 import {ValidationMessages} from '../../../../../core/validators/validation-messages';
 import {buildTimespanRestriction} from './timespan-restriction-expression';
@@ -12,7 +10,6 @@ import {buildTimespanRestriction} from './timespan-restriction-expression';
 @Component({
   selector: 'timespan-restriction-dialog',
   templateUrl: './timespan-restriction-dialog.component.html',
-  providers: [{provide: DateAdapter, useClass: CustomDateAdapter}],
 })
 export class TimespanRestrictionDialogComponent implements OnDestroy {
   group = this.formBuilder.nonNullable.group({
