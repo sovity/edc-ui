@@ -29,7 +29,7 @@ Bug fixes
 #### Patch
 
 - Check the contract limits before negotiating a new one.
-- Changed the title of contract definitions to data offers.
+- Changed the title of Contract Definitions to Data Offers.
 - Enhanced EDC UI terminologies for the Create Data Offer tab.
 - Date and time display fixes, unified date format.
 
