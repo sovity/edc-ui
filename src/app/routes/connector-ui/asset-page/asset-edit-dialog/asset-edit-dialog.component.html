@@ -168,10 +168,7 @@
               *ngIf="form.metadata.controls.standardLicense; let ctrl"
               class="grow">
               <mat-label>Standard License</mat-label>
-              <input
-                placeholder="https://creativecommons.org/licenses/by/4.0/deed.en"
-                matInput
-                [formControl]="ctrl" />
+              <input placeholder="https://" matInput [formControl]="ctrl" />
               <button
                 class="!scale-[0.9]"
                 mat-icon-button
