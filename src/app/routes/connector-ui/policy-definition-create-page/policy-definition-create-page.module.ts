@@ -23,6 +23,7 @@ import {PipesAndDirectivesModule} from '../../../component-library/pipes-and-dir
 import {PolicyEditorModule} from '../../../component-library/policy-editor/policy-editor.module';
 import {UiElementsModule} from '../../../component-library/ui-elements/ui-elements.module';
 import {PolicyDefinitionCreatePageComponent} from './policy-definition-create-page/policy-definition-create-page.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import {PolicyDefinitionCreatePageComponent} from './policy-definition-create-pa
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    TranslateModule,
 
     // Angular Material
     MatBadgeModule,

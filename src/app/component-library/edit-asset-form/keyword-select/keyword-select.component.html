@@ -12,12 +12,12 @@
       (removed)="remove(keyword)">
       {{ keyword }}
       <button matChipRemove>
-        <mat-icon>cancel</mat-icon>
+        <mat-icon>{{ 'general.cancel' | translate }}</mat-icon>
       </button>
     </mat-chip>
     <input
       id="create-asset-form-keywords"
-      placeholder="Add keyword..."
+      placeholder="{{ 'asset_page.add_keyword' | translate }}"
       [matChipInputAddOnBlur]="true"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"

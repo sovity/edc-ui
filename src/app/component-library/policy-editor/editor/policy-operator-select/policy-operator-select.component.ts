@@ -1,6 +1,7 @@
 import {Component, HostBinding, Input} from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {PolicyOperatorConfig} from '../../model/policy-operators';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'policy-operator-select',
@@ -17,5 +18,8 @@ export class PolicyOperatorSelectComponent {
   @HostBinding('class.flex-row')
   cls = true;
 
-  label = 'Operator';
+  constructor(public translationService: TranslateService) {}
+  
+  label = this.translationService.instant('general.operator');
+  
 }

@@ -1,5 +1,5 @@
 <edit-asset-form-label
-  label="Language"
+  label="{{ 'general.language' | translate }}"
   [ctrl]="control"></edit-asset-form-label>
 <mat-form-field class="w-full mt-1" color="accent">
   <mat-select [formControl]="control" [compareWith]="'id' | compareByField">

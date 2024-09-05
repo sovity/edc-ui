@@ -28,6 +28,7 @@
     "value": "Value",
     "method": "Method",
     "method_para": "Method Parameterization",
+    "type": "Type",
     "path": "Path",
     "params": "Query Params",
     "add_properties": "Additional Properties",
@@ -65,6 +66,7 @@
     "consuming": "Consuming",
     "providing": "Providing",
     "endpoint": "Connector Endpoint",
+    "doc": "Documentation",
     "endpoint_doc": "Endpoint Documentation",
     "content": "Content Type",
     "publisher": "Publisher",
@@ -84,7 +86,16 @@
     "add_header": "Additional Headers",
     "header_name": "Header Name",
     "header_value": "Header Value",
-    "add_add_header": "Add Additional Header"
+    "add_add_header": "Add Additional Header",
+	"operator": "Operator",
+	"show_adv_fields": "Show Advanced Fields",
+	"publishing": "Publishing",
+	"publish": "Publish" ,
+	"pub_desc": "Publish data offer to other data space participants",
+	"pub_unrestr": "Publish unrestricted",
+	"pub_restr": "Publish restricted",
+	"pub_no": "Do not publish",
+	"pub_mode": "Publishing Mode"
   },
   "tooltip": {
     "negotiate": "Cannot negotiate contracts with your own connector.",
@@ -139,10 +150,25 @@
     "maintainer": "Maintainer Organization Name",
     "main_url": "Maintainer URL"
   },
+  "create_data_offer": {
+    "def_datasrc": "Define the datasource of the asset",
+	"data_type": "Datasource Type",
+	"contact_email": "Contact E-Mail",
+	"contact_email_placeholder": "contact@my-org.com",
+	"contact_email_descr": "This email address will be offered to potential consumers for contacting you. This is done in place of having an actual data source connected.",
+	"pref_email_sub": "Preferred E-Mail Subject",
+	"pref_email_descr": "Will be added to the mailto-link and displayed to potential consumers to use.",
+	"keep_datasrc": "Keep the datasource unchanged.",
+	"no_datasrc": "I do not have a datasource.",
+	"con_datasrc": "I want to connect to a datasource."
+  },
   "asset_page": {
     "information": "General Information",
+	"information_desc": "Fill out general information about the asset.",
+	"my_asset": "My Asset",
     "asset_id": "Asset ID",
     "keywords": "Keywords",
+    "add_keyword": "Add keyword...",
     "legal_name": "Legal name of the data owner",
     "add_file": "Add reference file",
     "file_des": "Reference files description",
@@ -154,7 +180,9 @@
     "provide": "The consuming side must provide a Custom HTTP Method with method parameterization enabled.",
     "http_subpath": "The consuming side must provide a Custom HTTP Subpath with method parameterization is enabled. The Custom HTTP Subpath will be appended to the base path.",
     "path_para": "Path Parameterization",
+    "method_para": "Method Parameterization",
     "query_para": "Query Params",
+    "query_para_single": "Query Param",
     "query_name": "Query Param Name",
     "default_query": "With query param parameterization enabled, the default query params and the query params provided by the consumer will be merged.",
     "query_parameter": " Query Param Parameterization",
@@ -168,7 +196,9 @@
     "no_assets": "No assets found with given filter.",
     "descrip": "The description uses",
     "add_loc": "Add location",
-    "add_sample": "Add data sample"
+    "add_sample": "Add data sample",
+    "name": "Name",
+    "version": "Version"
   },
   "catalog_browser_page": {
     "fetch": "Fetch Status",
@@ -268,6 +298,8 @@
   },
   "policy_definition_page": {
     "create_pol": "Create New Policy",
+    "metadata": "Policy Metadata",
+    "expression": "Policy Expression",
     "time_res": "Time-Period-Restricted",
     "conn_res": "Connector-Restricted-Usage",
     "date_range": "Date Range",

@@ -2,12 +2,12 @@
   <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.all">
     <edit-asset-form-group
       *ngIf="form.datasource"
-      myTitle="Datasource"
-      description="Define the datasource of the asset">
+      myTitle="{{ 'asset_page.datasource' | translate }}"
+      description="{{ 'create_data_offer.def_datasrc' | translate }}">
       <!-- Datasource Type -->
       <div>
         <edit-asset-form-label
-          label="Datasource Type"
+          label="{{ 'create_data_offer.data_type' | translate }}"
           htmlFor="create-asset-form-datasource-type"
           [ctrl]="
             form.datasource.controls.dataSourceAvailability
@@ -17,13 +17,13 @@
           aria-label="Select an option"
           [formControl]="form.datasource.controls.dataSourceAvailability">
           <mat-radio-button *ngIf="form.mode === 'EDIT'" value="Unchanged">
-            Keep the datasource unchanged.
+            {{ 'create_data_offer.keep_datasrc' | translate }}
           </mat-radio-button>
           <mat-radio-button value="On-Request">
-            I do not have a datasource.
+            {{ 'create_data_offer.no_datasrc' | translate }}
           </mat-radio-button>
           <mat-radio-button value="Datasource">
-            I want to connect to a datasource.
+            {{ 'create_data_offer.con_datasrc' | translate }}
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -34,23 +34,20 @@
         <edit-asset-form-input
           class="mt-2"
           fieldId="create-asset-form-contact-email"
-          label="Contact E-Mail"
-          placeholder="contact@my-org.com"
+          label="{{ 'create_data_offer.contact_email' | translate }}"
+          placeholder="{{ 'create_data_offer.contact_email_placeholder' | translate }}"
           [ctrl]="form.datasource.controls.contactEmail"
-          >This email address will be offered to potential consumers for
-          contacting you. This is done in place of having an actual data source
-          connected.</edit-asset-form-input
+          >{{ 'create_data_offer.contact_email_descr' | translate }}</edit-asset-form-input
         >
 
         <!-- Contact E-Mail Subject for On Request Assets -->
         <edit-asset-form-input
           class="mt-5"
           fieldId="create-asset-form-contact-subject"
-          label="Preferred E-Mail Subject"
+          label="{{ 'create_data_offer.pref_email_sub' | translate }}"
           placeholder="Data Offer 'xyz'"
           [ctrl]="form.datasource.controls.contactPreferredEmailSubject"
-          >Will be added to the mailto-link and displayed to potential consumers
-          to use.</edit-asset-form-input
+          >{{ 'create_data_offer.pref_email_descr' | translate }}</edit-asset-form-input
         >
       </ng-container>
 
@@ -61,7 +58,7 @@
         <!-- Data Address Type -->
         <div class="mt-5">
           <edit-asset-form-data-address-type-select
-            label="Type"
+            label="{{ 'general.type' | translate}}"
             mode="Datasource-Create"
             [control]="form.datasource.controls.dataAddressType">
           </edit-asset-form-data-address-type-select>
@@ -84,7 +81,7 @@
           <!-- Method (Rest-Api) -->
           <div>
             <edit-asset-form-label
-              label="Http Method"
+              label="{{ 'general.method' | translate}}"
               htmlFor="create-asset-form-http-method"
               [ctrl]="
                 form.datasource.controls.httpMethod
@@ -100,8 +97,8 @@
                 </mat-option>
               </mat-select>
               <mat-hint class="mat-hint">
-                The consuming side <b>must</b> provide a Custom HTTP Method with
-                method parameterization enabled.</mat-hint
+  			    {{ 'asset_page.provide' | translate}}
+			  </mat-hint
               >
             </mat-form-field>
             <!-- Toggle Method Parametrization Button -->
@@ -113,8 +110,8 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }}
-                Method Parameterization
+                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} 
+				{{ 'asset_page.method_para' | translate }}
               </button>
             </div>
           </div>
@@ -127,9 +124,8 @@
               [hideHint]="!form.proxyPath"
               [ctrl]="ctrl"
               [label]="form.proxyPath ? 'Base URL' : 'URL'"
-              >The consuming side <b>must</b> provide a Custom HTTP Subpath with
-              method parameterization enabled. The Custom HTTP Subpath will be
-              appended to the base path.</edit-asset-form-input
+              >{{ 'asset_page.http_subpath' | translate }}
+			  </edit-asset-form-input
             >
 
             <!-- Toggle Proxy Path Button -->
@@ -140,7 +136,7 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
+                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} {{ 'asset_page.method_para' | translate }}
               </button>
             </div>
           </div>
@@ -148,7 +144,7 @@
           <div class="mt-3">
             <edit-asset-form-label
               [label]="
-                (form.proxyQueryParams ? 'Default' : '') + ' Query Params'
+                (form.proxyQueryParams ? 'Default' : '') + ( 'asset_page.query_para' | translate )
               "></edit-asset-form-label>
             <div class="mt-6"></div>
             <div
@@ -198,7 +194,7 @@
                 color="warn"
                 style="height: 42px; margin-top: 4px; margin-left: 8px"
                 (click)="form.onHttpQueryParamsRemoveClick($event, i)">
-                Remove
+                {{ 'general.remove' | translate }}
               </button>
             </div>
             <mat-hint *ngIf="form.proxyQueryParams" class="mat-hint">
@@ -212,7 +208,7 @@
                 mat-button
                 color="accent"
                 (click)="form.onHttpQueryParamsAddClick($event)">
-                Add {{ form.proxyQueryParams ? 'Default' : '' }} Query Param
+                {{ 'general.add' | translate }} {{ form.proxyQueryParams ? 'Default' : '' }} {{ 'asset_page.query_para_single' | translate }}
               </button>
               <!-- Toggle Proxy Query Param Parameterization Button -->
               <button
@@ -220,17 +216,15 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param
-                Parameterization
+                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} {{ 'asset_page.query_parameter' | translate }}
               </button>
             </div>
           </div>
 
           <div class="flex flex-col gap-1 mt-3">
-            <edit-asset-form-label label="Request Body"></edit-asset-form-label>
+            <edit-asset-form-label label="{{ 'asset_page.request_body' | translate}}"></edit-asset-form-label>
             <mat-hint class="mat-hint">
-              The request body can only be set from the consumer side, if
-              parameterization is enabled.
+			  {{ 'asset_page.info_body' | translate }}
             </mat-hint>
             <!-- Toggle Proxy Body Button -->
             <div
@@ -240,15 +234,14 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
-                Parameterization
+                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} {{ 'asset_page.request_para' | translate }}
               </button>
             </div>
           </div>
 
           <div class="flex flex-col gap-1 mt-3">
             <edit-asset-form-label
-              label="Authentication"></edit-asset-form-label>
+              label="{{ 'general.auth' | translate }}"></edit-asset-form-label>
             <!-- Add Authentication Button -->
             <div
               *ngIf="
@@ -263,7 +256,7 @@
                     'Vault-Secret'
                   )
                 ">
-                Add Authentication
+                {{ 'general.add' | translate }} {{ 'general.auth' | translate }}
               </button>
             </div>
             <!-- Auth Header Value Type -->
@@ -272,13 +265,13 @@
                 form.datasource.controls.httpAuthHeaderType.value !== 'None'
               "
               class="grow mt-4">
-              <mat-label>Type</mat-label>
+              <mat-label>{{ 'general.type' | translate }}</mat-label>
               <mat-select
                 [formControl]="form.datasource.controls.httpAuthHeaderType">
                 <mat-option value="Vault-Secret">
-                  Header with Vault Secret
+                  {{ 'general.header_sec' | translate }}
                 </mat-option>
-                <mat-option value="Value">Header with Value</mat-option>
+                <mat-option value="Value">{{ 'general.header_val' | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div
@@ -288,7 +281,7 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Auth Header Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>Auth Header Name</mat-label>
+                <mat-label>{{ 'general.auth_header' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="Authorization"
@@ -301,7 +294,7 @@
                   form.datasource.controls.httpAuthHeaderType.value === 'Value'
                 "
                 class="grow">
-                <mat-label>Auth Header Value</mat-label>
+                <mat-label>{{ 'general.auth_value' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="Bearer ..."
@@ -316,7 +309,7 @@
                   'Vault-Secret'
                 "
                 class="grow">
-                <mat-label>Vault Secret Name</mat-label>
+                <mat-label>{{ 'general.vault_secret' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="MySecret123"
@@ -337,14 +330,14 @@
                 (click)="
                   form.datasource.controls.httpAuthHeaderType.setValue('None')
                 ">
-                Remove Authentication
+                {{ 'general.remove' | translate }} {{ 'general.auth' | translate }}
               </button>
             </div>
           </div>
 
           <div class="mt-4">
             <edit-asset-form-label
-              label="Additional Headers"></edit-asset-form-label>
+              label="{{ 'general.add_header' | translate }}"></edit-asset-form-label>
             <div class="mt-8"></div>
             <div
               *ngFor="
@@ -354,7 +347,7 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Header Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>Header Name</mat-label>
+                <mat-label>{{ 'general.header_name' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="Header"
@@ -363,7 +356,7 @@
               </mat-form-field>
               <!-- Header Value -->
               <mat-form-field class="grow">
-                <mat-label>Header Value</mat-label>
+                <mat-label>{{ 'general.header_value' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="..."
@@ -376,7 +369,7 @@
                 color="warn"
                 style="height: 42px; margin-top: 4px; margin-left: 8px"
                 (click)="form.onHttpHeadersRemoveClick($event, i)">
-                Remove
+                {{ 'general.remove' | translate }}
               </button>
             </div>
             <!-- Add Header Button -->
@@ -385,7 +378,7 @@
                 mat-button
                 color="accent"
                 (click)="form.onHttpHeadersAddClick($event)">
-                Add Additional Header
+                {{ 'general.add' | translate }} {{ 'general.add_header' | translate }}
               </button>
             </div>
           </div>
@@ -394,13 +387,13 @@
     </edit-asset-form-group>
 
     <edit-asset-form-group
-      myTitle="General Information"
-      description="Fill out general information about the asset">
+      myTitle="{{ 'asset_page.information' | translate }}"
+      description="{{ 'asset_page.information_desc' | translate }}">
       <!-- Name -->
       <edit-asset-form-input
         fieldId="create-asset-form-name"
-        label="Name"
-        placeholder="My Asset"
+        label="{{ 'asset_page.name' | translate }}"
+        placeholder="{{ 'asset_page.my_asset' | translate }}"
         [ctrl]="form.general.controls.name"></edit-asset-form-input>
 
       <!-- ID -->
@@ -408,19 +401,19 @@
         *ngIf="form.general.controls.id; let ctrl"
         fieldId="create-asset-form-id"
         placeholder="my-asset"
-        label="ID"
+        label="{{ 'asset_page.asset_id' | translate}}"
         [ctrl]="ctrl"></edit-asset-form-input>
 
       <!-- Description -->
       <edit-asset-form-textarea
-        label="Description"
+        label="{{ 'asset_page.file_des' | translate }}"
         fieldId="create-asset-form-description"
         [placeholder]="
           '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
         "
         [ctrl]="form.general.controls.description">
         <div class="flex flex-row items-center gap-1 mb-1">
-          The description uses
+          {{ 'asset_page.descrip' | translate }}
           <a
             class="link"
             externalLink
@@ -433,27 +426,27 @@
       <!-- Keywords -->
       <div class="mt-3">
         <keyword-select
-          label="Keywords"
+          label="{{ 'asset_page.keywords' | translate }}"
           [control]="form.general.controls.keywords"></keyword-select>
       </div>
 
       <!-- Show Advanced Fields -->
       <mat-checkbox [formControl]="form.general.controls.showAdvancedFields"
-        >Show Advanced Fields</mat-checkbox
+        >{{ 'general.show_adv_fields' | translate }}</mat-checkbox
       >
 
       <ng-container *ngIf="form.general.value.showAdvancedFields">
         <!-- Version -->
         <edit-asset-form-input
           class="mt-4"
-          label="Version"
+          label="{{ 'asset_page.version' | translate }}"
           fieldId="create-asset-form-version"
           placeholder="1.0.0"
           [ctrl]="form.general.controls.version"></edit-asset-form-input>
 
         <!-- Language -->
         <language-select
-          label="Language"
+          label="{{ 'general.language' | translate }}"
           [control]="form.general.controls.language"></language-select>
       </ng-container>
     </edit-asset-form-group>
@@ -499,7 +492,7 @@
 
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields"
-      myTitle="Documentation"
+      myTitle="{{ 'general.doc' | translate }}"
       description="Provide context information about the datasource">
       <!-- Endpoint Documentation -->
       <edit-asset-form-input
@@ -736,12 +729,12 @@
 
     <edit-asset-form-group
       *ngIf="form.mode === 'CREATE'"
-      myTitle="Publishing"
-      description="Publish data offer to other data space participants">
+      myTitle="{{ 'general.publishing' | translate }}"
+      description="{{ 'general.pub_desc' | translate }}">
       <!-- Publish Mode -->
       <div *ngIf="form.all.controls.publishMode; let ctrl">
         <edit-asset-form-label
-          label="Publishing Mode"
+          label="{{ 'general.pub_mode' | translate }}"
           htmlFor="create-asset-form-publish-type"
           [ctrl]="ctrl"></edit-asset-form-label>
         <mat-radio-group
@@ -749,13 +742,13 @@
           aria-label="Select an option"
           [formControl]="ctrl">
           <mat-radio-button value="PUBLISH_UNRESTRICTED">
-            Publish unrestricted
+            {{ 'general.pub_unrestr' | translate }}
           </mat-radio-button>
           <mat-radio-button value="PUBLISH_RESTRICTED">
-            Publish restricted
+            {{ 'general.pub_restr' | translate }}
           </mat-radio-button>
           <mat-radio-button value="DO_NOT_PUBLISH">
-            Do not publish
+            {{ 'general.pub_no' | translate }}
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -763,7 +756,7 @@
       <!-- Policy Expression -->
       <div *ngIf="form.all.controls.publishMode.value === 'PUBLISH_RESTRICTED'">
         <edit-asset-form-label
-          label="Policy Expression"
+          label="{{ 'policy_definition_page.expression' | translate }}"
           [ctrl]="form.all.controls.policyControls"></edit-asset-form-label>
         <policy-form-expression
           [treeNode]="expressionFormHandler.tree.root"></policy-form-expression>

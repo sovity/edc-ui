@@ -37,6 +37,8 @@ import {EditAssetFormComponent} from './edit-asset-form/edit-asset-form.componen
 import {KeywordSelectComponent} from './keyword-select/keyword-select.component';
 import {LanguageSelectComponent} from './language-select/language-select.component';
 import {TransportModeSelectComponent} from './transport-mode-select/transport-mode-select.component';
+import {TranslateModule} from '@ngx-translate/core';
+
 
 @NgModule({
   imports: [
@@ -45,6 +47,7 @@ import {TransportModeSelectComponent} from './transport-mode-select/transport-mo
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+	TranslateModule,
 
     // Angular Material
     MatBadgeModule,
