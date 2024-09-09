@@ -20,6 +20,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
+- Renamed 'Name' to 'Title' in the Create Data Offer and Create Asset.
+
 ## [v4.1.3] - 2024-09-03
 
 ### Overview
