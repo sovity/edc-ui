@@ -22,6 +22,14 @@
   </div>
 
   <property-grid
+    [columns]="1"
+    [props]="
+      contractOfferIdGroup(contractOffer.contractOfferId)
+    "></property-grid>
+
+  <br />
+
+  <property-grid
     [columns]="3"
     [props]="contractOffer.properties"></property-grid>
 
