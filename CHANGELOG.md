@@ -20,6 +20,8 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
+- Added Contract Offer Id Element back to the Catalog Browser Detail Dialog
+
 ## [v4.1.3] - 2024-09-03
 
 ### Overview
