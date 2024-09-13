@@ -28,7 +28,7 @@
     "@angular/router": "^14.3.0",
     "@ng-apimock/core": "^3.11.0",
     "@ngxs/store": "^3.8.1",
-    "@sovity.de/edc-client": "0.20240912.74124-main-0ae66c2d",
+    "@sovity.de/edc-client": "^0.20240912.74124-main-0ae66c2d",
     "clean-deep": "^3.4.0",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
@@ -69,7 +69,6 @@
   },
   "resolutions": {
     "@angular-devkit/build-angular": "14.2.12",
-    "@angular-devkit/core": "14.3.0",
-    "typescript": "4.8.4"
+    "@angular-devkit/core": "14.3.0"
   }
 }
