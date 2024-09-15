@@ -60,16 +60,6 @@ export class EditAssetFormValidators {
     };
   }
 
-  isValidDataOfferId(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const assetId = control.value! as string;
-
-      return this.contractDefinitionIdErrorMessage(assetId).pipe(
-        map((result) => this.buildValidationErrors([result])),
-      );
-    };
-  }
-
   private assetIdExistsErrorMessage(id: string): Observable<string | null> {
     return this.edcApiService.isAssetIdAvailable(id).pipe(
       catchError(() => of<IdAvailabilityResponse>({id, available: false})),
