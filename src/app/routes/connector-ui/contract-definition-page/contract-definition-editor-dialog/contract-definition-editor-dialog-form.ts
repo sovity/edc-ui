@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PolicyDefinitionDto} from '@sovity.de/edc-client';
-import {EditAssetFormValidators} from 'src/app/component-library/edit-asset-form/edit-asset-form/form/edit-asset-form-validators';
+import {DataOfferFormValidators} from 'src/app/core/validators/data-offer-form-validators';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {noWhitespacesOrColonsValidator} from '../../../../core/validators/no-whitespaces-or-colons-validator';
 import {
@@ -25,7 +25,7 @@ export class ContractDefinitionEditorDialogForm {
 
   constructor(
     private formBuilder: FormBuilder,
-    private validators: EditAssetFormValidators,
+    private validators: DataOfferFormValidators,
   ) {}
 
   buildFormGroup(): FormGroup<ContractDefinitionEditorDialogFormModel> {
@@ -33,7 +33,7 @@ export class ContractDefinitionEditorDialogForm {
       id: [
         '',
         [Validators.required, noWhitespacesOrColonsValidator],
-        [this.validators.isValidDataOfferId()],
+        [this.validators.contractDefinitionIdExistsValidator],
       ],
       accessPolicy: [null as PolicyDefinitionDto | null, Validators.required],
       contractPolicy: [null as PolicyDefinitionDto | null, Validators.required],
