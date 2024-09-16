@@ -1,20 +1,9 @@
-<!--
-  ~ Copyright (c) 2021-2024. sovity GmbH
-  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
-  ~ Contributors:
-  ~    - Fraunhofer FIT: Internationalization and German Localization
-  -->
-
 <div class="flex flex-row gap-[16px]" style="margin: 24px">
   <div class="grow flex flex-col gap-[16px]">
     <div class="flex flex-row gap-[16px]">
       <mat-card style="width: calc(50% - 8px)">
-        <mat-card-title>{{
-          'dashboard_page.inc_data' | translate
-        }}</mat-card-title>
-        <mat-card-subtitle>{{
-          'dashboard_page.trans_pro' | translate
-        }}</mat-card-subtitle>
+        <mat-card-title>Incoming Data</mat-card-title>
+        <mat-card-subtitle>Transfer Processes</mat-card-subtitle>
         <div class="flex flex-row justify-center items-center">
           <dashboard-donut-chart
             [data]="data.incomingTransfersChart"></dashboard-donut-chart>
@@ -22,12 +11,8 @@
       </mat-card>
 
       <mat-card style="width: calc(50% - 8px)">
-        <mat-card-title>{{
-          'dashboard_page.out_data' | translate
-        }}</mat-card-title>
-        <mat-card-subtitle>{{
-          'dashboard_page.trans_pro' | translate
-        }}</mat-card-subtitle>
+        <mat-card-title>Outgoing Data</mat-card-title>
+        <mat-card-subtitle>Transfer Processes</mat-card-subtitle>
         <div class="flex flex-row justify-center items-center">
           <dashboard-donut-chart
             [data]="data.outgoingTransfersChart"></dashboard-donut-chart>
@@ -38,37 +23,33 @@
     <div class="flex flex-row flex-wrap gap-[16px]">
       <dashboard-kpi-card
         class="flex-even-sized"
-        [label]="'dashboard_page.your_def' | translate"
+        label="Your Contract Definitions"
         [kpi]="data.numContractDefinitions"></dashboard-kpi-card>
 
       <dashboard-kpi-card
         class="flex-even-sized"
-        [label]="'dashboard_page.your_assets' | translate"
+        label="Your Assets"
         [kpi]="data.numAssets"></dashboard-kpi-card>
 
       <dashboard-kpi-card
         class="flex-even-sized"
-        [label]="'dashboard_page.your_pol' | translate"
+        label="Your Policies"
         [kpi]="data.numPolicies"></dashboard-kpi-card>
 
       <dashboard-kpi-card
         class="flex-even-sized"
-        [label]="'dashboard_page.pre_cat' | translate"
+        label="Preconfigured Catalogs"
         [kpi]="data.numCatalogs"></dashboard-kpi-card>
 
       <dashboard-kpi-card
         class="flex-even-sized"
-        [label]="'dashboard_page.con_agree' | translate"
+        label="Contract Agreements"
         [kpi]="data.numContractAgreements"></dashboard-kpi-card>
     </div>
 
     <mat-card>
-      <mat-card-title>{{
-        'dashboard_page.conn_prop' | translate
-      }}</mat-card-title>
-      <mat-card-subtitle>{{
-        'dashboard_page.add_prop' | translate
-      }}</mat-card-subtitle>
+      <mat-card-title>Connector Properties</mat-card-title>
+      <mat-card-subtitle>Additional Properties</mat-card-subtitle>
       <property-grid-group
         class="mt-[15px]"
         [propGroups]="data.connectorProperties">
@@ -78,9 +59,7 @@
 
   <div class="shrink-0 flex flex-col gap-[16px]" style="width: 420px">
     <mat-card>
-      <mat-card-title>{{
-        'dashboard_page.edc_conn' | translate
-      }}</mat-card-title>
+      <mat-card-title>EDC Connector</mat-card-title>
       <mat-card-subtitle>
         {{ data.title }}
       </mat-card-subtitle>
@@ -88,10 +67,12 @@
         {{ data.description }}
       </p>
       <p class="text-justify">
-        {{ 'dashboard_page.descrip' | translate }}
+        Share the following Connector Endpoint to let others access your EDC
+        Connector's catalog. This is especially useful when using
+        connector-restricted data offers which won't show up in brokers.
       </p>
       <mat-form-field class="w-full" style="margin-bottom: -10px">
-        <mat-label>{{ 'dashboard_page.conn_end' | translate }}</mat-label>
+        <mat-label>Connector Endpoint</mat-label>
         <input
           #input
           matInput
@@ -103,13 +84,13 @@
         <button
           mat-icon-button
           matSuffix
-          matTooltip="{{ 'tooltip.clipboard' | translate }}"
+          matTooltip="Copy to clipboard"
           [cdkCopyToClipboard]="data.connectorEndpoint">
           <mat-icon>content_copy</mat-icon>
         </button>
       </mat-form-field>
       <mat-form-field class="w-full" style="margin-bottom: -10px">
-        <mat-label>{{ 'dashboard_page.api_url' | translate }}</mat-label>
+        <mat-label>Management API URL</mat-label>
         <input
           #endpointInput
           matInput
@@ -121,7 +102,7 @@
         <button
           mat-icon-button
           matSuffix
-          matTooltip="{{ 'tooltip.clipboard' | translate }}"
+          matTooltip="Copy to clipboard"
           [cdkCopyToClipboard]="config.shownManagementApiUrl">
           <mat-icon>content_copy</mat-icon>
         </button>
@@ -140,17 +121,17 @@
             src="/assets/images/sovity_logo.svg"
             alt="sovity logo" /></span
       ></mat-card-title>
-      <mat-card-subtitle>{{
-        'dashboard_page.edition_edc' | translate
-      }}</mat-card-subtitle>
+      <mat-card-subtitle>Basic Edition EDC</mat-card-subtitle>
 
       <div class="flex flex-row h-fit">
         <div>
           <p class="text-justify mx-2">
-            {{ 'dashboard_page.descrip2' | translate }}
+            This EDC Connector on the subscription level "Basic" is provided by
+            sovity to enable your first steps in the Mobility Data Space (MDS).
           </p>
           <p class="text-justify mx-2">
-            {{ 'dashboard_page.descrip3' | translate }}
+            For additional features and advanced capacities, please feel free to
+            contact us.
           </p>
         </div>
       </div>
@@ -160,23 +141,21 @@
           href="https://sovity.de/en/contact/"
           mat-stroked-button
           target="_blank">
-          {{ 'dashboard_page.contact' | translate }}
+          Contact us
         </a>
       </div>
     </mat-card>
 
     <mat-card *ngIf="'open-source-marketing' | isActiveFeature">
-      <mat-card-title>{{
-        'dashboard_page.managed_edc' | translate
-      }}</mat-card-title>
-      <mat-card-subtitle>{{
-        'dashboard_page.conn_service' | translate
-      }}</mat-card-subtitle>
+      <mat-card-title>Get Managed EDC</mat-card-title>
+      <mat-card-subtitle>Connector-as-a-Service</mat-card-subtitle>
       <div>
         <p class="text-justify">
-          {{ 'dashboard_page.descrip4' | translate }}
+          To join data spaces like <b>Mobility Data Space</b> or
+          <b>Catena-X</b> within minutes, consider the managed solution by
           <a class="link" href="https://sovity.de" target="_blank">sovity</a>
-          {{ 'dashboard_page.descrip5' | translate }}
+          - the <b>Connector-as-a-Service (CaaS)</b> based on open-source
+          software enriched with <b>key enterprise features</b>.
         </p>
         <div class="flex flex-row !space-x-[10px]">
           <a
@@ -184,7 +163,7 @@
             href="mailto:contact@sovity.de"
             mat-flat-button
             target="_blank">
-            {{ 'dashboard_page.contact' | translate }}
+            Contact
           </a>
           <a
             color="secondary"
@@ -197,19 +176,20 @@
       </div>
     </mat-card>
     <mat-card>
-      <mat-card-title>{{ 'dashboard_page.about' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{
-        'dashboard_page.eclipse' | translate
-      }}</mat-card-subtitle>
+      <mat-card-title>About EDC</mat-card-title>
+      <mat-card-subtitle>Eclipse Dataspace Components</mat-card-subtitle>
       <div>
         <p class="text-justify">
-          {{ 'dashboard_page.descrip6' | translate }}
+          The <b>Eclipse Dataspace Components</b> framework facilitates
+          sovereign, inter-organizational data exchange.
         </p>
         <p class="text-justify">
-          {{ 'dashboard_page.descrip7' | translate }}
+          It implements the <b>International Data Spaces</b> standard (IDS) as
+          well as relevant protocols associated with <b>GAIA-X</b>.
         </p>
         <p class="text-justify">
-          {{ 'dashboard_page.descrip8' | translate }}
+          The framework is designed as extensible as possible to encourage
+          integrations into various data ecosystems.
         </p>
         <div class="flex flex-row !space-x-[10px]">
           <a
@@ -223,95 +203,53 @@
       </div>
     </mat-card>
     <mat-card>
-      <mat-card-title>{{
-        'dashboard_page.about_ui' | translate
-      }}</mat-card-title>
-      <mat-card-subtitle>{{
-        'dashboard_page.data_dashboard' | translate
-      }}</mat-card-subtitle>
+      <mat-card-title>About EDC UI</mat-card-title>
+      <mat-card-subtitle>Data Dashboard</mat-card-subtitle>
       <div>
         <p class="text-justify">
-          {{ 'dashboard_page.descrip9' | translate }}
+          Example use cases, that you can try out with this application, are:
         </p>
         <ul class="list-style-material-icons-check">
           <li>
-            {{ 'dashboard_page.descrip10' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/catalog-browser']">
-              {{ 'dashboard_page.catalog' | translate }}</a
+            View the asset catalog available to you in your Dataspace using the
+            <a class="link" [routerLink]="['/catalog-browser']"
+              >Catalog Browser</a
             >
           </li>
           <li>
-            {{ 'dashboard_page.descrip11' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/catalog-browser']"
-              >{{ 'dashboard_page.catalog' | translate }}</a
+            Negotiate a contract for data sharing in your Dataspace using the
+            <a class="link" [routerLink]="['/catalog-browser']"
+              >Catalog Browser</a
             >
           </li>
           <li>
-            {{ 'dashboard_page.descrip17' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/contracts']"
-              >{{ 'dashboard_page.contracts' | translate }}</a
-            >
-            {{ 'dashboard_page.page' | translate }}
+            View your existing contracts in the
+            <a class="link" [routerLink]="['/contracts']">Contracts</a> page
           </li>
           <li>
-            {{ 'dashboard_page.descrip12' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/contracts']"
-              >{{ 'dashboard_page.contracts' | translate }}</a
-            >
-            {{ 'dashboard_page.page' | translate }}
+            Transfer an asset in your Dataspace using the
+            <a class="link" [routerLink]="['/contracts']">Contracts</a> page
           </li>
           <li>
-            {{ 'dashboard_page.descrip13' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/transfer-history']"
-              >{{ 'dashboard_page.transfer' | translate }}</a
+            View which assets have been transferred in your Dataspace in the
+            <a class="link" [routerLink]="['/transfer-history']"
+              >Transfer History</a
             >
-            {{ 'dashboard_page.page' | translate }}
+            page
           </li>
           <li>
-            {{ 'dashboard_page.descrip14' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/my-assets']"
-              >{{ 'general.assets' | translate }}</a
-            >
-            {{ 'dashboard_page.page' | translate }}
-          </li>
-
-          <li>
-            {{ 'dashboard_page.descrip15' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/policies']"
-              >{{ 'general.policies' | translate }}</a
-            >
-            {{ 'dashboard_page.page' | translate }}
+            View and create assets using the
+            <a class="link" [routerLink]="['/my-assets']">Assets</a> page
           </li>
           <li>
-            {{ 'dashboard_page.descrip16' | translate }}
-            <a
-              class="link"
-              style="display: inline"
-              [routerLink]="['/contract-definitions']"
-              >{{ 'dashboard_page.con_def' | translate }}</a
-            >
-            {{ 'dashboard_page.page' | translate }}
+            View and create policies and apply these to assets in your Dataspace
+            using the
+            <a class="link" [routerLink]="['/policies']">Policies</a> page
+          </li>
+          <li>
+            Publish a new asset into your Dataspace using the
+            <a class="link" [routerLink]="['/data-offers']">Data Offers</a>
+            page
           </li>
         </ul>
       </div>

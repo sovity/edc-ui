@@ -17,6 +17,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {UiContractOffer} from '@sovity.de/edc-client';
 import {MailtoLinkBuilder} from 'src/app/core/services/mailto-link-builder';
 import {EdcApiService} from '../../../core/services/api/edc-api.service';
+import {ConnectorLimitsService} from '../../../core/services/connector-limits.service';
 import {ContractNegotiationService} from '../../../core/services/contract-negotiation.service';
 import {UiAssetMapped} from '../../../core/services/models/ui-asset-mapped';
 import {NotificationService} from '../../../core/services/notification.service';
@@ -50,6 +51,8 @@ export class AssetDetailDialogComponent implements OnDestroy {
   data!: AssetDetailDialogData;
   asset!: UiAssetMapped;
   propGroups!: PropertyGridGroup[];
+
+  limitsExceeded: boolean | null = null;
 
   loading = false;
 
@@ -85,6 +88,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
   constructor(
     private edcApiService: EdcApiService,
     private notificationService: NotificationService,
+    private connectorLimitsService: ConnectorLimitsService,
     private matDialog: MatDialog,
     private matDialogRef: MatDialogRef<AssetDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -105,6 +109,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
 
   setData(data: AssetDetailDialogData) {
     this.data = data;
+    this.limitsExceeded = data.consumingLimitsExceeded ?? null;
     this.asset = this.data.asset;
     this.propGroups = this.data.propertyGridGroups;
   }
@@ -140,10 +145,22 @@ export class AssetDetailDialogComponent implements OnDestroy {
   }
 
   onNegotiateClick(contractOffer: UiContractOffer) {
-    this.contractNegotiationService.negotiate(
-      this.data.dataOffer!,
-      contractOffer,
-    );
+    this.connectorLimitsService
+      .isConsumingAgreementLimitExceeded()
+      .subscribe((limitExceeded) => {
+        if (!limitExceeded) {
+          this.limitsExceeded = false;
+          this.contractNegotiationService.negotiate(
+            this.data.dataOffer!,
+            contractOffer,
+          );
+        } else {
+          this.limitsExceeded = true;
+          this.notificationService.showError(
+            'Cannot negotiate. Maximum number of active consuming contracts reached.',
+          );
+        }
+      });
   }
 
   onTransferClick() {

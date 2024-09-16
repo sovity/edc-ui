@@ -1,11 +1,4 @@
-<!--
-  ~ Copyright (c) 2021-2024. sovity GmbH
-  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
-  ~ Contributors:
-  ~    - Fraunhofer FIT: Internationalization and German Localization
-  -->
-
-<div class="flex flex-row justify-between space-x-[10px]">
+<div class="flex flex-row justify-between space-x-2">
   <div class="mat-card-header" mat-dialog-title removeClass="mat-dialog-title">
     <mat-icon
       *ngIf="data.type === 'asset-details'"
@@ -46,14 +39,14 @@
     <button
       *ngIf="data.showEditButton"
       mat-icon-button
-      matTooltip="{{ 'general.edit' | translate }}"
+      matTooltip="Edit"
       (click)="onEditClick()">
       <mat-icon class="mat-icon-[22px]">edit</mat-icon>
     </button>
     <button
       *ngIf="data.showDeleteButton"
       mat-icon-button
-      matTooltip="{{ 'general.delete' | translate }}"
+      matTooltip="Delete"
       (click)="onDeleteClick()">
       <mat-icon class="mat-icon-[22px]">delete</mat-icon>
     </button>
@@ -129,7 +122,7 @@
     <div
       class="flex flex-row flex-wrap property-grid-group-title"
       [style.margin-top.px]="30">
-      {{ 'component_library.t_history' | translate }}
+      Transfer History
     </div>
     <transfer-history-mini-list [contractAgreement]="data.contractAgreement!!">
     </transfer-history-mini-list>
@@ -178,7 +171,7 @@
 
     <div class="flex gap-1 items-center">
       <button mat-stroked-button [mat-dialog-close]="null" [disabled]="loading">
-        {{ 'general.close' | translate }}
+        Close
       </button>
 
       <ng-container
@@ -187,15 +180,21 @@
           *ngIf="data.asset.isOwnConnector"
           disabled
           mat-raised-button
-          matTooltip="{{ 'tooltip.negotiate' | translate }}">
-          {{ 'component_library.negotiate' | translate }}
+          matTooltip="Cannot negotiate contracts with your own connector.">
+          Negotiate
         </button>
 
         <button
           *ngIf="!data.asset.isOwnConnector"
           mat-raised-button
           color="primary"
+          [matTooltip]="
+            limitsExceeded
+              ? 'You have reached the maximum number of consuming contracts. Please terminate one of the existing contracts to negotiate a new one.'
+              : ''
+          "
           [disabled]="
+            limitsExceeded ||
             contractNegotiationService.negotiationState(
               data.dataOffer!.contractOffers[0]
             ) != 'ready'
@@ -206,14 +205,12 @@
             )
           "
           (click)="onNegotiateClick(data.dataOffer!.contractOffers[0])">
-          <ng-container *ngSwitchCase="'ready'">{{
-            'component_library.negotiate' | translate
-          }}</ng-container>
+          <ng-container *ngSwitchCase="'ready'">Negotiate</ng-container>
           <ng-container *ngSwitchCase="'negotiating'">
-            {{ 'component_library.negotiating' | translate }}
+            Negotiating...
           </ng-container>
           <ng-container *ngSwitchCase="'negotiated'">
-            {{ 'component_library.succ_negotiating' | translate }}
+            Successfully Negotiated
           </ng-container>
         </button>
       </ng-container>
@@ -235,10 +232,9 @@
         "
         mat-raised-button
         color="primary"
-        [matTooltip]="data.contractAgreement?.statusTooltipText ?? ''"
-        [disabled]="!data.contractAgreement?.canTransfer"
+        [disabled]="data.contractAgreement?.isTerminated"
         (click)="onTransferClick()">
-        {{ 'component_library.transfer' | translate }}
+        Transfer
       </button>
     </div>
   </div>

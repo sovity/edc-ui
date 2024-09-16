@@ -22,10 +22,55 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
+- Changed wording on the data offer creation page
+- Data Offer details now display the contract ID for each contract offer
+
+## [v4.1.3] - 2024-09-03
+
+### Overview
+
+Bug fixes
+
+#### Patch
+
+- Check the contract limits before negotiating a new one.
+- Changed the title of Contract Definitions to Data Offers.
+- Enhanced EDC UI terminologies for the Create Data Offer tab.
+- Date and time display fixes, unified date format.
+
+## [v4.1.2] - 2024-08-20
+
+### Overview
+
+Bug fixes
+
+### Detailed Changes
+
+#### Patch
+
+- Added description for fields in asset creation mask
+- Added description for fields in Create Data Offer page
+- Added proper handling of custom JSON properties in edit asset process
+
+## [v4.1.1] - 2024-08-09
+
+### Overview
+
+MDS 2.2 patch release
+
+### Detailed Changes
+
+Various UI improvements and bug fixing
+
+#### Patch
+
 - Copyable contact email and subject fields on asset and data offer detail
   dialogs
-- Assets Page search input field is now case insensitive
-- Temporary reimplement the Edit Asset as a Dialog
+- Assets Page search input field is now case-insensitive
+- Markdown support for Reference files description, Conditions for use fields
+- Fixed wrong date format when creating a new data offer
+- Temporarily re-implemented the Create Asset Dialog
+- Performance improvement when fetching a single contract agreement
 
 ## [v4.1.0] - 2024-07-24
 

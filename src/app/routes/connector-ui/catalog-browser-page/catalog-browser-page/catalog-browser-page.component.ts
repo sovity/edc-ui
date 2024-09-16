@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
@@ -13,11 +7,12 @@ import {
   Subject,
   distinctUntilChanged,
   sampleTime,
+  switchMap,
 } from 'rxjs';
 import {filter, map} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
 import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
+import {ConnectorLimitsService} from '../../../../core/services/connector-limits.service';
 import {DataOffer} from '../../../../core/services/models/data-offer';
 import {value$} from '../../../../core/utils/form-group-utils';
 import {CatalogBrowserFetchDetailDialogComponent} from '../catalog-browser-fetch-detail-dialog/catalog-browser-fetch-detail-dialog.component';
@@ -45,7 +40,7 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
     private catalogBrowserPageService: CatalogBrowserPageService,
     private catalogApiUrlService: CatalogApiUrlService,
     private matDialog: MatDialog,
-    private translateService: TranslateService,
+    private connectorLimitsService: ConnectorLimitsService,
   ) {}
 
   ngOnInit(): void {
@@ -62,10 +57,18 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
   }
 
   onDataOfferClick(dataOffer: DataOffer) {
-    const data = this.assetDetailDialogDataService.dataOfferDetails(dataOffer);
-    this.assetDetailDialogService
-      .open(data, this.ngOnDestroy$)
-      .pipe(filter((it) => !!it?.refreshList))
+    this.connectorLimitsService
+      .isConsumingAgreementLimitExceeded()
+      .pipe(
+        switchMap((isConsumingLimitsExceeded) => {
+          const data = this.assetDetailDialogDataService.dataOfferDetails(
+            dataOffer,
+            isConsumingLimitsExceeded,
+          );
+          return this.assetDetailDialogService.open(data, this.ngOnDestroy$);
+        }),
+        filter((it) => !!it?.refreshList),
+      )
       .subscribe(() => this.fetch$.next(null));
   }
 
@@ -84,13 +87,12 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
 
   private buildPresetCatalogUrlsMessage(): string {
     const urls = this.catalogApiUrlService.getPresetProviders();
-    const usage = this.translateService.instant('catalog_browser_page.usage');
     if (!urls.length) {
       return '';
     }
-    return `${usage} ${urls.length > 1 ? ` (${urls.length})` : ''}: ${urls.join(
-      ', ',
-    )}`;
+    return `Already using${
+      urls.length > 1 ? ` (${urls.length})` : ''
+    }: ${urls.join(', ')}`;
   }
 
   private searchText$(): Observable<string> {

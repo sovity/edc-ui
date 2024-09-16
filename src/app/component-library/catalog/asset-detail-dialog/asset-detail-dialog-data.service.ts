@@ -57,7 +57,10 @@ export class AssetDetailDialogDataService {
     };
   }
 
-  dataOfferDetails(dataOffer: DataOffer): AssetDetailDialogData {
+  dataOfferDetails(
+    dataOffer: DataOffer,
+    consumingLimitsExceeded: boolean,
+  ): AssetDetailDialogData {
     const asset = dataOffer.asset;
     const propertyGridGroups = [
       this.assetPropertyGridGroupBuilder.buildAssetPropertiesGroup(asset, null),
@@ -75,6 +78,7 @@ export class AssetDetailDialogDataService {
       asset: asset,
       dataOffer,
       propertyGridGroups,
+      consumingLimitsExceeded,
     };
   }
 

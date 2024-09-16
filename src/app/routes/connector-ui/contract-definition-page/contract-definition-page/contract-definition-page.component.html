@@ -1,10 +1,3 @@
-<!--
-  ~ Copyright (c) 2021-2024. sovity GmbH
-  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
-  ~ Contributors:
-  ~    - Fraunhofer FIT: Internationalization and German Localization
-  -->
-
 <div id="wrapper">
   <div class="flex flex-row">
     <!-- Search -->
@@ -12,9 +5,7 @@
       class="search-form-field"
       appearance="outline"
       color="accent">
-      <mat-label>{{
-        'contract_agreement_page.search_def' | translate
-      }}</mat-label>
+      <mat-label>Search data offers</mat-label>
       <input matInput [formControl]="searchText" />
       <mat-icon matPrefix>search</mat-icon>
       <button
@@ -34,7 +25,7 @@
       style="margin-top: 8px; height: 44px"
       (click)="onCreate()">
       <mat-icon>add_circle_outline</mat-icon>
-      {{ 'contract_agreement_page.create_def' | translate }}
+      Publish Data Offer
     </button>
 
     <!-- Spacer -->
@@ -67,7 +58,7 @@
       "
       class="min-h-[35rem]"
       [emptyMessage]="
-        'contract_agreement_page.con_def' | translate
+        'No contract definition found with given filter.'
       "></empty-state>
   </div>
   <contract-definition-cards

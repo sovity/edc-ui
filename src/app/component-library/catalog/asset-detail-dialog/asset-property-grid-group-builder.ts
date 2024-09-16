@@ -1,16 +1,10 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Injectable} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 import {UiPolicy} from '@sovity.de/edc-client';
 import {ActiveFeatureSet} from '../../../core/config/active-feature-set';
 import {UiAssetMapped} from '../../../core/services/models/ui-asset-mapped';
 import {ParticipantIdLocalization} from '../../../core/services/participant-id-localization';
 import {ContractAgreementCardMapped} from '../../../routes/connector-ui/contract-agreement-page/contract-agreement-cards/contract-agreement-card-mapped';
+import {ConditionsForUseDialogService} from '../../conditions-for-use-dialog/conditions-for-use-dialog/conditions-for-use-dialog.service';
 import {PropertyGridGroup} from '../../property-grid/property-grid-group/property-grid-group';
 import {PropertyGridField} from '../../property-grid/property-grid/property-grid-field';
 import {PropertyGridFieldService} from '../../property-grid/property-grid/property-grid-field.service';
@@ -20,12 +14,12 @@ import {PolicyPropertyFieldBuilder} from './policy-property-field-builder';
 @Injectable()
 export class AssetPropertyGridGroupBuilder {
   constructor(
+    private participantIdLocalization: ParticipantIdLocalization,
     private activeFeatureSet: ActiveFeatureSet,
     private propertyGridUtils: PropertyGridFieldService,
     private urlListDialogService: UrlListDialogService,
+    private conditionsForUseDialogService: ConditionsForUseDialogService,
     private policyPropertyFieldBuilder: PolicyPropertyFieldBuilder,
-    private translateService: TranslateService,
-    private participantIdLocalization: ParticipantIdLocalization,
   ) {}
 
   buildAssetPropertiesGroup(
@@ -45,34 +39,32 @@ export class AssetPropertyGridGroupBuilder {
       },
       {
         icon: 'language',
-        label: this.translateService.instant('general.language'),
+        label: 'Language',
         ...this.propertyGridUtils.guessValue(asset.language?.label),
       },
       {
         icon: 'apartment',
-        label: this.translateService.instant('general.publisher'),
+        label: 'Publisher',
         ...this.propertyGridUtils.guessValue(asset.publisherHomepage),
       },
       {
         icon: 'bookmarks',
-        label: this.translateService.instant('general.endpoint_doc'),
+        label: 'Endpoint Documentation',
         ...this.propertyGridUtils.guessValue(asset.landingPageUrl),
       },
       {
         icon: 'gavel',
-        label: this.translateService.instant('general.st_license'),
+        label: 'Standard License',
         ...this.propertyGridUtils.guessValue(asset.licenseUrl),
       },
       {
         icon: 'category',
-        label: this.translateService.instant(
-          'component_library.participant_id',
-        ),
+        label: this.participantIdLocalization.participantId,
         ...this.propertyGridUtils.guessValue(asset.participantId),
       },
       {
         icon: 'account_circle',
-        label: this.translateService.instant('component_library.organization'),
+        label: 'Organization',
         ...this.propertyGridUtils.guessValue(asset.creatorOrganizationName),
       },
       this.buildConnectorEndpointField(asset.connectorEndpoint),
@@ -93,22 +85,10 @@ export class AssetPropertyGridGroupBuilder {
     const fields: PropertyGridField[] = [];
 
     const hints: {label: string; value: boolean | undefined}[] = [
-      {
-        label: this.translateService.instant('general.method'),
-        value: asset.httpDatasourceHintsProxyMethod,
-      },
-      {
-        label: this.translateService.instant('general.path'),
-        value: asset.httpDatasourceHintsProxyPath,
-      },
-      {
-        label: this.translateService.instant('general.params'),
-        value: asset.httpDatasourceHintsProxyQueryParams,
-      },
-      {
-        label: this.translateService.instant('general.body'),
-        value: asset.httpDatasourceHintsProxyBody,
-      },
+      {label: 'Method', value: asset.httpDatasourceHintsProxyMethod},
+      {label: 'Path', value: asset.httpDatasourceHintsProxyPath},
+      {label: 'Query Params', value: asset.httpDatasourceHintsProxyQueryParams},
+      {label: 'Body', value: asset.httpDatasourceHintsProxyBody},
     ];
 
     if (hints.some((hint) => hint.value != null)) {
@@ -121,7 +101,7 @@ export class AssetPropertyGridGroupBuilder {
 
       fields.push({
         icon: 'api',
-        label: this.translateService.instant('component_library.http_param'),
+        label: 'HTTP Data Source Parameterization',
         text,
       });
     }
@@ -129,7 +109,7 @@ export class AssetPropertyGridGroupBuilder {
     if (asset.mediaType) {
       fields.push({
         icon: 'category',
-        label: this.translateService.instant('general.content'),
+        label: 'Content Type',
         ...this.propertyGridUtils.guessValue(asset.mediaType),
       });
     }
@@ -173,7 +153,7 @@ export class AssetPropertyGridGroupBuilder {
 
     return [
       {
-        groupLabel: this.translateService.instant('general.add_properties'),
+        groupLabel: 'Additional Properties',
         properties: additionalProperties,
       },
       {
@@ -192,42 +172,42 @@ export class AssetPropertyGridGroupBuilder {
     if (asset.transportMode) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.transport'),
+        label: 'Transport Mode',
         ...this.propertyGridUtils.guessValue(asset.transportMode?.label),
       });
     }
     if (asset.dataCategory) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.category'),
+        label: 'Data Category',
         ...this.propertyGridUtils.guessValue(asset.dataCategory?.label),
       });
     }
     if (asset.dataSubcategory) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.subcategory'),
+        label: 'Data Subcategory',
         ...this.propertyGridUtils.guessValue(asset.dataSubcategory?.label),
       });
     }
     if (asset.dataModel) {
       fields.push({
         icon: 'category',
-        label: this.translateService.instant('general.model'),
+        label: 'Data Model',
         ...this.propertyGridUtils.guessValue(asset.dataModel),
       });
     }
     if (asset.geoReferenceMethod) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.geo_method'),
+        label: 'Geo Reference Method',
         ...this.propertyGridUtils.guessValue(asset.geoReferenceMethod),
       });
     }
     if (asset.geoLocation) {
       fields.push({
         icon: 'location_on',
-        label: this.translateService.instant('general.geo_location'),
+        label: 'Geo Location',
         ...this.propertyGridUtils.guessValue(asset.geoLocation),
       });
     }
@@ -237,7 +217,7 @@ export class AssetPropertyGridGroupBuilder {
     if (asset.sovereignLegalName) {
       fields.push({
         icon: 'account_balance',
-        label: this.translateService.instant('general.sovereign'),
+        label: 'Sovereign',
         ...this.propertyGridUtils.guessValue(asset.sovereignLegalName),
       });
     }
@@ -256,23 +236,21 @@ export class AssetPropertyGridGroupBuilder {
       );
     }
     if (asset.conditionsForUse) {
-      fields.push({
-        icon: 'description',
-        label: this.translateService.instant('general.conditions'),
-        ...this.propertyGridUtils.guessValue(asset.conditionsForUse),
-      });
+      fields.push(
+        this.buildConditionsForUseField(asset.conditionsForUse, asset.title),
+      );
     }
     if (asset.dataUpdateFrequency) {
       fields.push({
         icon: 'timelapse',
-        label: this.translateService.instant('general.frequency'),
+        label: 'Data Update Frequency',
         ...this.propertyGridUtils.guessValue(asset.dataUpdateFrequency),
       });
     }
     if (asset.temporalCoverageFrom || asset.temporalCoverageToInclusive) {
       fields.push({
         icon: 'today',
-        label: this.translateService.instant('general.coverage'),
+        label: 'Temporal Coverage',
         ...this.propertyGridUtils.guessValue(
           this.buildTemporalCoverageString(
             asset.temporalCoverageFrom,
@@ -288,41 +266,33 @@ export class AssetPropertyGridGroupBuilder {
     const properties: PropertyGridField[] = [
       {
         icon: 'category',
-        label: this.translateService.instant('general.signed'),
+        label: 'Signed',
         ...this.propertyGridUtils.guessValue(
-          this.propertyGridUtils.formatDate(
+          this.propertyGridUtils.formatDateWithTime(
             contractAgreement.contractSigningDate,
           ),
         ),
       },
       {
         icon: 'policy',
-        label: this.translateService.instant('general.direction'),
-        ...this.propertyGridUtils.guessValue(
-          contractAgreement.direction === 'CONSUMING'
-            ? this.translateService.instant('general.consuming')
-            : this.translateService.instant('general.providing'),
-        ),
+        label: 'Direction',
+        ...this.propertyGridUtils.guessValue(contractAgreement.direction),
       },
       {
         icon: 'category',
-        label: this.translateService.instant('general.contract') + ' ID',
+        label: 'Contract Agreement ID',
         ...this.propertyGridUtils.guessValue(
           contractAgreement.contractAgreementId,
         ),
       },
       {
         icon: 'link',
-        label: `${this.translateService.instant('general.oth_connector')} ${
-          this.participantIdLocalization.participantId
-        }`,
+        label: `Counter-Party ${this.participantIdLocalization.participantId}`,
         ...this.propertyGridUtils.guessValue(contractAgreement.counterPartyId),
       },
       {
         icon: 'link',
-        label: this.translateService.instant(
-          'transfer_history_page.counter_endpoint',
-        ),
+        label: 'Counter-Party Connector Endpoint',
         ...this.propertyGridUtils.guessValue(
           contractAgreement.counterPartyAddress,
         ),
@@ -331,17 +301,14 @@ export class AssetPropertyGridGroupBuilder {
 
     if (contractAgreement.isConsumingLimitsEnforced) {
       properties.push({
-        icon: contractAgreement.canTransfer ? 'sync' : 'sync_disabled',
+        icon: contractAgreement.isTerminated ? 'sync_disabled' : 'sync',
         label: 'Status',
-        tooltip: contractAgreement.statusTooltipText,
-        textIconAfter: contractAgreement.statusTooltipText ? 'help' : null,
-        text: contractAgreement.statusText,
-        additionalClasses: contractAgreement.canTransfer ? '' : 'text-warn',
+        additionalClasses: contractAgreement.isTerminated ? 'text-warn' : '',
       });
     }
 
     return {
-      groupLabel: this.translateService.instant('general.contract'),
+      groupLabel: 'Contract Agreement',
       properties,
     };
   }
@@ -351,10 +318,10 @@ export class AssetPropertyGridGroupBuilder {
     subtitle: string,
   ): PropertyGridGroup {
     return {
-      groupLabel: this.translateService.instant('general.policy'),
+      groupLabel: 'Contract Policy',
       properties: this.policyPropertyFieldBuilder.buildPolicyPropertyFields(
         contractPolicy,
-        this.translateService.instant('general.policy') + ' JSON-LD',
+        'Contract Policy JSON-LD',
         subtitle,
       ),
     };
@@ -363,7 +330,7 @@ export class AssetPropertyGridGroupBuilder {
   buildConnectorEndpointField(endpoint: string): PropertyGridField {
     return {
       icon: 'link',
-      label: this.translateService.instant('general.endpoint'),
+      label: 'Connector Endpoint',
       ...this.propertyGridUtils.guessValue(endpoint),
     };
   }
@@ -371,7 +338,7 @@ export class AssetPropertyGridGroupBuilder {
   buildNutsLocationsField(locations: string[]): PropertyGridField {
     return {
       icon: 'location_on',
-      label: this.translateService.instant('general.nuts'),
+      label: 'NUTS Locations',
       text: locations.join(', '),
     };
   }
@@ -382,14 +349,32 @@ export class AssetPropertyGridGroupBuilder {
   ): PropertyGridField {
     return {
       icon: 'attachment',
-      label: this.translateService.instant('general.data'),
-      text: this.translateService.instant('general.show_data'),
+      label: 'Data Samples',
+      text: 'Show Data Samples',
       onclick: () =>
         this.urlListDialogService.showUrlListDialog({
-          title: this.translateService.instant('general.data'),
+          title: `Data Samples`,
           subtitle: title,
           icon: 'attachment',
           urls: dataSampleUrls,
+        }),
+    };
+  }
+
+  buildConditionsForUseField(
+    conditionsForUse: string,
+    title: string,
+  ): PropertyGridField {
+    return {
+      icon: 'description',
+      label: 'Conditions For Use',
+      text: 'Show Conditions For Use',
+      onclick: () =>
+        this.conditionsForUseDialogService.showConditionsForUseDialog({
+          title: 'Conditions For Use',
+          subtitle: title,
+          icon: 'description',
+          description: conditionsForUse,
         }),
     };
   }
@@ -401,11 +386,11 @@ export class AssetPropertyGridGroupBuilder {
   ): PropertyGridField {
     return {
       icon: 'receipt',
-      label: this.translateService.instant('general.files'),
-      text: this.translateService.instant('general.show_files'),
+      label: 'Reference Files',
+      text: 'Show Reference Files',
       onclick: () =>
         this.urlListDialogService.showUrlListDialog({
-          title: this.translateService.instant('general.show_files'),
+          title: `Reference Files`,
           subtitle: title,
           icon: 'receipt',
           urls: referenceFileUrls,
@@ -419,14 +404,16 @@ export class AssetPropertyGridGroupBuilder {
     end: Date | undefined,
   ): string {
     if (!end) {
-      return `Start: ${start!.toLocaleDateString()}`;
+      return `Start: ${this.propertyGridUtils.formatDate(start)}`;
     }
 
     if (!start) {
-      return `End: ${end.toLocaleDateString()}`;
+      return `End: ${this.propertyGridUtils.formatDate(end)}`;
     }
 
-    return `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`;
+    return `${this.propertyGridUtils.formatDate(
+      start,
+    )} - ${this.propertyGridUtils.formatDate(end)}`;
   }
 
   buildOnRequestContactInformation(

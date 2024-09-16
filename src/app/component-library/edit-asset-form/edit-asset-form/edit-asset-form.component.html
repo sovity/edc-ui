@@ -2,12 +2,12 @@
   <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.all">
     <edit-asset-form-group
       *ngIf="form.datasource"
-      myTitle="{{ 'asset_page.datasource' | translate }}"
-      description="{{ 'create_data_offer.def_datasrc' | translate }}">
+      myTitle="Datasource"
+      description="Define the datasource of the asset">
       <!-- Datasource Type -->
-      <div>
+      <div *ngIf="multipleDataSourceOptionsAvailable()">
         <edit-asset-form-label
-          label="{{ 'create_data_offer.data_type' | translate }}"
+          label="Datasource Type"
           htmlFor="create-asset-form-datasource-type"
           [ctrl]="
             form.datasource.controls.dataSourceAvailability
@@ -17,13 +17,15 @@
           aria-label="Select an option"
           [formControl]="form.datasource.controls.dataSourceAvailability">
           <mat-radio-button *ngIf="form.mode === 'EDIT'" value="Unchanged">
-            {{ 'create_data_offer.keep_datasrc' | translate }}
-          </mat-radio-button>
-          <mat-radio-button value="On-Request">
-            {{ 'create_data_offer.no_datasrc' | translate }}
+            Keep the datasource unchanged.
           </mat-radio-button>
           <mat-radio-button value="Datasource">
-            {{ 'create_data_offer.con_datasrc' | translate }}
+            Readily available with a new data source
+          </mat-radio-button>
+          <mat-radio-button
+            *ngIf="this.activeFeatureSet.hasMdsFields()"
+            value="On-Request">
+            On Request
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -34,20 +36,23 @@
         <edit-asset-form-input
           class="mt-2"
           fieldId="create-asset-form-contact-email"
-          label="{{ 'create_data_offer.contact_email' | translate }}"
-          placeholder="{{ 'create_data_offer.contact_email_placeholder' | translate }}"
+          label="Contact E-Mail"
+          placeholder="contact@my-org.com"
           [ctrl]="form.datasource.controls.contactEmail"
-          >{{ 'create_data_offer.contact_email_descr' | translate }}</edit-asset-form-input
+          >This email address will be offered to potential consumers for
+          contacting you. This is done in place of having an actual data source
+          connected.</edit-asset-form-input
         >
 
         <!-- Contact E-Mail Subject for On Request Assets -->
         <edit-asset-form-input
           class="mt-5"
           fieldId="create-asset-form-contact-subject"
-          label="{{ 'create_data_offer.pref_email_sub' | translate }}"
+          label="Preferred E-Mail Subject"
           placeholder="Data Offer 'xyz'"
           [ctrl]="form.datasource.controls.contactPreferredEmailSubject"
-          >{{ 'create_data_offer.pref_email_descr' | translate }}</edit-asset-form-input
+          >When potential customers reach out to you via email, you’ll receive
+          messages with this subject line.</edit-asset-form-input
         >
       </ng-container>
 
@@ -58,7 +63,7 @@
         <!-- Data Address Type -->
         <div class="mt-5">
           <edit-asset-form-data-address-type-select
-            label="{{ 'general.type' | translate}}"
+            label="Type"
             mode="Datasource-Create"
             [control]="form.datasource.controls.dataAddressType">
           </edit-asset-form-data-address-type-select>
@@ -81,7 +86,7 @@
           <!-- Method (Rest-Api) -->
           <div>
             <edit-asset-form-label
-              label="{{ 'general.method' | translate}}"
+              label="Http Method"
               htmlFor="create-asset-form-http-method"
               [ctrl]="
                 form.datasource.controls.httpMethod
@@ -97,8 +102,8 @@
                 </mat-option>
               </mat-select>
               <mat-hint class="mat-hint">
-  			    {{ 'asset_page.provide' | translate}}
-			  </mat-hint
+                The consuming side <b>must</b> provide a Custom HTTP Method with
+                method parameterization enabled.</mat-hint
               >
             </mat-form-field>
             <!-- Toggle Method Parametrization Button -->
@@ -110,8 +115,8 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} 
-				{{ 'asset_page.method_para' | translate }}
+                {{ ctrl.value ? 'Disable' : 'Enable' }}
+                Method Parameterization
               </button>
             </div>
           </div>
@@ -124,8 +129,9 @@
               [hideHint]="!form.proxyPath"
               [ctrl]="ctrl"
               [label]="form.proxyPath ? 'Base URL' : 'URL'"
-              >{{ 'asset_page.http_subpath' | translate }}
-			  </edit-asset-form-input
+              >The consuming side <b>must</b> provide a Custom HTTP Subpath with
+              method parameterization enabled. The Custom HTTP Subpath will be
+              appended to the base path.</edit-asset-form-input
             >
 
             <!-- Toggle Proxy Path Button -->
@@ -136,7 +142,7 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} {{ 'asset_page.method_para' | translate }}
+                {{ ctrl.value ? 'Disable' : 'Enable' }} Path Parameterization
               </button>
             </div>
           </div>
@@ -144,7 +150,7 @@
           <div class="mt-3">
             <edit-asset-form-label
               [label]="
-                (form.proxyQueryParams ? 'Default' : '') + ( 'asset_page.query_para' | translate )
+                (form.proxyQueryParams ? 'Default' : '') + ' Query Params'
               "></edit-asset-form-label>
             <div class="mt-6"></div>
             <div
@@ -194,7 +200,7 @@
                 color="warn"
                 style="height: 42px; margin-top: 4px; margin-left: 8px"
                 (click)="form.onHttpQueryParamsRemoveClick($event, i)">
-                {{ 'general.remove' | translate }}
+                Remove
               </button>
             </div>
             <mat-hint *ngIf="form.proxyQueryParams" class="mat-hint">
@@ -208,7 +214,7 @@
                 mat-button
                 color="accent"
                 (click)="form.onHttpQueryParamsAddClick($event)">
-                {{ 'general.add' | translate }} {{ form.proxyQueryParams ? 'Default' : '' }} {{ 'asset_page.query_para_single' | translate }}
+                Add {{ form.proxyQueryParams ? 'Default' : '' }} Query Param
               </button>
               <!-- Toggle Proxy Query Param Parameterization Button -->
               <button
@@ -216,15 +222,17 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} {{ 'asset_page.query_parameter' | translate }}
+                {{ ctrl.value ? 'Disable' : 'Enable' }} Query Param
+                Parameterization
               </button>
             </div>
           </div>
 
           <div class="flex flex-col gap-1 mt-3">
-            <edit-asset-form-label label="{{ 'asset_page.request_body' | translate}}"></edit-asset-form-label>
+            <edit-asset-form-label label="Request Body"></edit-asset-form-label>
             <mat-hint class="mat-hint">
-			  {{ 'asset_page.info_body' | translate }}
+              The request body can only be set from the consumer side, if
+              parameterization is enabled.
             </mat-hint>
             <!-- Toggle Proxy Body Button -->
             <div
@@ -234,14 +242,15 @@
                 mat-button
                 [color]="ctrl.value ? 'warn' : 'accent'"
                 (click)="$event.preventDefault(); ctrl.setValue(!ctrl.value)">
-                {{ ctrl.value ? ( 'general.disable' | translate ) : ( 'general.enable' | translate ) }} {{ 'asset_page.request_para' | translate }}
+                {{ ctrl.value ? 'Disable' : 'Enable' }} Request Body
+                Parameterization
               </button>
             </div>
           </div>
 
           <div class="flex flex-col gap-1 mt-3">
             <edit-asset-form-label
-              label="{{ 'general.auth' | translate }}"></edit-asset-form-label>
+              label="Authentication"></edit-asset-form-label>
             <!-- Add Authentication Button -->
             <div
               *ngIf="
@@ -256,7 +265,7 @@
                     'Vault-Secret'
                   )
                 ">
-                {{ 'general.add' | translate }} {{ 'general.auth' | translate }}
+                Add Authentication
               </button>
             </div>
             <!-- Auth Header Value Type -->
@@ -265,13 +274,13 @@
                 form.datasource.controls.httpAuthHeaderType.value !== 'None'
               "
               class="grow mt-4">
-              <mat-label>{{ 'general.type' | translate }}</mat-label>
+              <mat-label>Type</mat-label>
               <mat-select
                 [formControl]="form.datasource.controls.httpAuthHeaderType">
                 <mat-option value="Vault-Secret">
-                  {{ 'general.header_sec' | translate }}
+                  Header with Vault Secret
                 </mat-option>
-                <mat-option value="Value">{{ 'general.header_val' | translate }}</mat-option>
+                <mat-option value="Value">Header with Value</mat-option>
               </mat-select>
             </mat-form-field>
             <div
@@ -281,7 +290,7 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Auth Header Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>{{ 'general.auth_header' | translate }}</mat-label>
+                <mat-label>Auth Header Name</mat-label>
                 <input
                   matInput
                   placeholder="Authorization"
@@ -294,7 +303,7 @@
                   form.datasource.controls.httpAuthHeaderType.value === 'Value'
                 "
                 class="grow">
-                <mat-label>{{ 'general.auth_value' | translate }}</mat-label>
+                <mat-label>Auth Header Value</mat-label>
                 <input
                   matInput
                   placeholder="Bearer ..."
@@ -309,7 +318,7 @@
                   'Vault-Secret'
                 "
                 class="grow">
-                <mat-label>{{ 'general.vault_secret' | translate }}</mat-label>
+                <mat-label>Vault Secret Name</mat-label>
                 <input
                   matInput
                   placeholder="MySecret123"
@@ -330,14 +339,14 @@
                 (click)="
                   form.datasource.controls.httpAuthHeaderType.setValue('None')
                 ">
-                {{ 'general.remove' | translate }} {{ 'general.auth' | translate }}
+                Remove Authentication
               </button>
             </div>
           </div>
 
           <div class="mt-4">
             <edit-asset-form-label
-              label="{{ 'general.add_header' | translate }}"></edit-asset-form-label>
+              label="Additional Headers"></edit-asset-form-label>
             <div class="mt-8"></div>
             <div
               *ngFor="
@@ -347,7 +356,7 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Header Name -->
               <mat-form-field class="w-1/3">
-                <mat-label>{{ 'general.header_name' | translate }}</mat-label>
+                <mat-label>Header Name</mat-label>
                 <input
                   matInput
                   placeholder="Header"
@@ -356,7 +365,7 @@
               </mat-form-field>
               <!-- Header Value -->
               <mat-form-field class="grow">
-                <mat-label>{{ 'general.header_value' | translate }}</mat-label>
+                <mat-label>Header Value</mat-label>
                 <input
                   matInput
                   placeholder="..."
@@ -369,7 +378,7 @@
                 color="warn"
                 style="height: 42px; margin-top: 4px; margin-left: 8px"
                 (click)="form.onHttpHeadersRemoveClick($event, i)">
-                {{ 'general.remove' | translate }}
+                Remove
               </button>
             </div>
             <!-- Add Header Button -->
@@ -378,7 +387,7 @@
                 mat-button
                 color="accent"
                 (click)="form.onHttpHeadersAddClick($event)">
-                {{ 'general.add' | translate }} {{ 'general.add_header' | translate }}
+                Add Additional Header
               </button>
             </div>
           </div>
@@ -387,33 +396,35 @@
     </edit-asset-form-group>
 
     <edit-asset-form-group
-      myTitle="{{ 'asset_page.information' | translate }}"
-      description="{{ 'asset_page.information_desc' | translate }}">
-      <!-- Name -->
+      myTitle="General Information"
+      description="Fill out general information about the asset">
+      <!-- Title -->
       <edit-asset-form-input
         fieldId="create-asset-form-name"
-        label="{{ 'asset_page.name' | translate }}"
-        placeholder="{{ 'asset_page.my_asset' | translate }}"
+        label="Title"
+        placeholder="My Asset"
+        tooltip="The main title of your asset. It will also be the title of the data offering displayed in the catalog."
         [ctrl]="form.general.controls.name"></edit-asset-form-input>
 
-      <!-- ID -->
+      <!-- Asset ID -->
       <edit-asset-form-input
         *ngIf="form.general.controls.id; let ctrl"
         fieldId="create-asset-form-id"
-        placeholder="my-asset"
-        label="{{ 'asset_page.asset_id' | translate}}"
+        placeholder="Asset ID"
+        label="Asset ID"
+        tooltip="Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed."
         [ctrl]="ctrl"></edit-asset-form-input>
 
       <!-- Description -->
       <edit-asset-form-textarea
-        label="{{ 'asset_page.file_des' | translate }}"
+        label="Description"
         fieldId="create-asset-form-description"
         [placeholder]="
           '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
         "
         [ctrl]="form.general.controls.description">
         <div class="flex flex-row items-center gap-1 mb-1">
-          {{ 'asset_page.descrip' | translate }}
+          The description supports
           <a
             class="link"
             externalLink
@@ -426,27 +437,28 @@
       <!-- Keywords -->
       <div class="mt-3">
         <keyword-select
-          label="{{ 'asset_page.keywords' | translate }}"
+          label="Keywords"
           [control]="form.general.controls.keywords"></keyword-select>
       </div>
 
       <!-- Show Advanced Fields -->
       <mat-checkbox [formControl]="form.general.controls.showAdvancedFields"
-        >{{ 'general.show_adv_fields' | translate }}</mat-checkbox
+        >Show Advanced Fields</mat-checkbox
       >
 
       <ng-container *ngIf="form.general.value.showAdvancedFields">
         <!-- Version -->
         <edit-asset-form-input
           class="mt-4"
-          label="{{ 'asset_page.version' | translate }}"
+          label="Version"
           fieldId="create-asset-form-version"
           placeholder="1.0.0"
+          tooltip="The version of your asset. Especially useful if you have iterations of the same asset."
           [ctrl]="form.general.controls.version"></edit-asset-form-input>
 
         <!-- Language -->
         <language-select
-          label="{{ 'general.language' | translate }}"
+          label="Language of the content"
           [control]="form.general.controls.language"></language-select>
       </ng-container>
     </edit-asset-form-group>
@@ -485,20 +497,22 @@
         <edit-asset-form-input
           fieldId="create-asset-form-data-model"
           label="Data Model"
-          placeholder="unspecified"
+          placeholder="proprietary"
+          tooltip="Model for data exchange, e.g. DATEX II, TPEG for traffic and travel information, etc."
           [ctrl]="form.advanced.controls.dataModel"></edit-asset-form-input>
       </ng-container>
     </edit-asset-form-group>
 
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields"
-      myTitle="{{ 'general.doc' | translate }}"
+      myTitle="Documentation"
       description="Provide context information about the datasource">
       <!-- Endpoint Documentation -->
       <edit-asset-form-input
         label="Endpoint Documentation"
         fieldId="create-asset-form-endpoint-documentation"
         placeholder="https://"
+        tooltip="URL to the technical documentation about the data to be received."
         [ctrl]="
           form.general.controls.endpointDocumentation
         "></edit-asset-form-input>
@@ -508,12 +522,21 @@
         label="Content Type"
         fieldId="create-asset-form-content-type"
         placeholder="application/json"
+        [contentTypeHint]="true"
         [ctrl]="form.general.controls.contentType"></edit-asset-form-input>
 
       <ng-container *ngIf="form.advanced">
         <!-- Data sample URLs -->
         <div class="mt-4">
           <edit-asset-form-label label="Data samples"></edit-asset-form-label>
+          <button
+            class="!scale-[0.9]"
+            mat-icon-button
+            matSuffix
+            matTooltipPosition="right"
+            matTooltip="URLs of Dataset samples if available">
+            <mat-icon>info_outline</mat-icon>
+          </button>
           <div class="mt-6"></div>
           <div
             *ngFor="
@@ -549,6 +572,14 @@
         <div class="mt-4">
           <edit-asset-form-label
             label="Reference files"></edit-asset-form-label>
+          <button
+            class="!scale-[0.9]"
+            mat-icon-button
+            matSuffix
+            matTooltipPosition="right"
+            matTooltip="URLs of Dataset schemas or other references">
+            <mat-icon>info_outline</mat-icon>
+          </button>
           <div class="mt-6"></div>
           <div
             *ngFor="
@@ -580,16 +611,25 @@
             </button>
           </div>
         </div>
-        <!-- Reference files description -->
+
+        <!-- Description -->
         <edit-asset-form-textarea
           *ngIf="form.advanced.controls.referenceFileUrls.length"
-          class="mt-2"
-          textareaClasses="h-28"
           label="Reference files description"
           fieldId="edit-asset-form-reference-files-description"
-          placeholder="..."
-          [ctrl]="form.advanced.controls.referenceFilesDescription">
-          Additional information regarding the reference files
+          [ctrl]="form.advanced.controls.referenceFilesDescription"
+          [placeholder]="
+            '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
+          ">
+          <div class="flex flex-row items-center gap-1 mb-1">
+            Additional information regarding the reference files. Supports
+            <a
+              class="link"
+              externalLink
+              href="https://www.markdownguide.org/basic-syntax/"
+              >Markdown syntax</a
+            >
+          </div>
         </edit-asset-form-textarea>
       </ng-container>
     </edit-asset-form-group>
@@ -615,7 +655,10 @@
               formControlName="toInclusive"
               placeholder="End date (inclusive)" />
           </mat-date-range-input>
-          <mat-hint>DD/MM/YYYY (optional) – DD/MM/YYYY (optional)</mat-hint>
+          <mat-hint
+            >Start and/or end date when the dataset is available for
+            consumption. DD/MM/YYYY (optional) – DD/MM/YYYY (optional)
+          </mat-hint>
           <mat-datepicker-toggle
             matSuffix
             [for]="picker"></mat-datepicker-toggle>
@@ -632,6 +675,7 @@
         fieldId="create-asset-form-data-update-frequency"
         label="Data update frequency"
         placeholder="every month"
+        tooltip="How often is the dataset updated, e.g	'Every 5 min."
         [ctrl]="
           form.advanced.controls.dataUpdateFrequency
         "></edit-asset-form-input>
@@ -641,6 +685,7 @@
         fieldId="create-asset-form-geo-ref-method"
         label="Geo reference method"
         placeholder="Lat/Lon"
+        tooltip="The method used for representing of geographical data, e.g GeoJSON, OpenLR, etc."
         [ctrl]="
           form.advanced.controls.geoReferenceMethod
         "></edit-asset-form-input>
@@ -650,11 +695,20 @@
         fieldId="create-asset-form-geo-location"
         label="Geo location"
         placeholder="40.741895,-73.989308"
+        tooltip="Simple description of the relevant geolocation, e.g. Hamburg and vicinity."
         [ctrl]="form.advanced.controls.geoLocation"></edit-asset-form-input>
 
       <!-- NUTS locations -->
       <div>
         <edit-asset-form-label label="NUTS locations"></edit-asset-form-label>
+        <button
+          class="!scale-[0.9]"
+          mat-icon-button
+          matSuffix
+          matTooltipPosition="right"
+          matTooltip="NUTS codes are regional identifiers in Germany used for statistical and administrative purposes, covering states, districts, and municipalities. (e.g DE60)">
+          <mat-icon>info_outline</mat-icon>
+        </button>
         <div class="mt-6"></div>
         <div
           *ngFor="
@@ -695,9 +749,10 @@
         label="Sovereign"
         fieldId="create-asset-form-sovereign"
         placeholder="Data Owning Company GMBH"
-        [ctrl]="form.advanced.controls.sovereignLegalName"
-        >Legal name of the data owner</edit-asset-form-input
-      >
+        tooltip="Legal name of the data owner"
+        [ctrl]="
+          form.advanced.controls.sovereignLegalName
+        "></edit-asset-form-input>
 
       <!-- Publisher -->
       <edit-asset-form-input
@@ -705,6 +760,7 @@
         label="Publisher"
         fieldId="create-asset-form-publisher"
         placeholder="https://"
+        tooltip="URL of the original publisher of the data"
         [ctrl]="form.general.controls.publisher"></edit-asset-form-input>
 
       <!-- Standard License -->
@@ -712,6 +768,7 @@
         label="Standard License"
         fieldId="create-asset-form-standard-license"
         placeholder="https://"
+        tooltip="URL of the license under which the data is offered."
         [ctrl]="form.general.controls.standardLicense"></edit-asset-form-input>
 
       <!-- Conditions for use -->
@@ -720,21 +777,31 @@
         textareaClasses="h-28"
         label="Conditions for use"
         fieldId="create-asset-form-conditions-for-use"
-        placeholder="Please cite the dataset as..."
-        [ctrl]="form.advanced.controls.conditionsForUse">
-        Additional not legally relevant usage instructions (e.g. how to cite the
-        dataset)
+        [ctrl]="form.advanced.controls.conditionsForUse"
+        [placeholder]="
+          '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
+        ">
+        <div class="flex flex-row items-center gap-1 mb-1">
+          Additional not legally relevant usage instructions (e.g. how to cite
+          the dataset). The field supports
+          <a
+            class="link"
+            externalLink
+            href="https://www.markdownguide.org/basic-syntax/"
+            >Markdown syntax</a
+          >
+        </div>
       </edit-asset-form-textarea>
     </edit-asset-form-group>
 
     <edit-asset-form-group
       *ngIf="form.mode === 'CREATE'"
-      myTitle="{{ 'general.publishing' | translate }}"
-      description="{{ 'general.pub_desc' | translate }}">
+      myTitle="Publishing"
+      description="Publish data offer to other data space participants">
       <!-- Publish Mode -->
       <div *ngIf="form.all.controls.publishMode; let ctrl">
         <edit-asset-form-label
-          label="{{ 'general.pub_mode' | translate }}"
+          label="Publishing Mode"
           htmlFor="create-asset-form-publish-type"
           [ctrl]="ctrl"></edit-asset-form-label>
         <mat-radio-group
@@ -742,13 +809,37 @@
           aria-label="Select an option"
           [formControl]="ctrl">
           <mat-radio-button value="PUBLISH_UNRESTRICTED">
-            {{ 'general.pub_unrestr' | translate }}
+            Publish unrestricted
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltipPosition="right"
+              matTooltip="Your data offer is published and can be accessed by everyone.">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-radio-button>
           <mat-radio-button value="PUBLISH_RESTRICTED">
-            {{ 'general.pub_restr' | translate }}
+            Publish restricted
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltipPosition="right"
+              matTooltip="Your data offer is published with restrictions of your choice.">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-radio-button>
           <mat-radio-button value="DO_NOT_PUBLISH">
-            {{ 'general.pub_no' | translate }}
+            Create asset only (without data offer)
+            <button
+              class="!scale-[0.9]"
+              mat-icon-button
+              matSuffix
+              matTooltipPosition="right"
+              matTooltip="Create the asset but do not publish your data offer. You can do it later.">
+              <mat-icon>info_outline</mat-icon>
+            </button>
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -756,7 +847,7 @@
       <!-- Policy Expression -->
       <div *ngIf="form.all.controls.publishMode.value === 'PUBLISH_RESTRICTED'">
         <edit-asset-form-label
-          label="{{ 'policy_definition_page.expression' | translate }}"
+          label="Policy Expression"
           [ctrl]="form.all.controls.policyControls"></edit-asset-form-label>
         <policy-form-expression
           [treeNode]="expressionFormHandler.tree.root"></policy-form-expression>

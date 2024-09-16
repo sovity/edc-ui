@@ -1,11 +1,4 @@
-<!--
-  ~ Copyright (c) 2021-2024. sovity GmbH
-  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
-  ~ Contributors:
-  ~    - Fraunhofer FIT: Internationalization and German Localization
-  -->
-
-<h1 mat-dialog-title>{{ 'contract_agreement_page.new_def' | translate }}</h1>
+<h1 mat-dialog-title>Publish New Data Offer</h1>
 
 <mat-dialog-content class="w-[800px]">
   <div class="flex flex-col mt-[10px]">
@@ -23,20 +16,20 @@
 
     <!-- Access Policy -->
     <policy-select
-      label="{{ 'general.access_pol' | translate }}"
+      label="Access Policy"
       [control]="form.group.controls.accessPolicy"
       [policies]="policies"></policy-select>
 
     <!-- Contract Policy -->
     <policy-select
-      label="{{ 'general.policy' | translate }}"
+      label="Contract Policy"
       [control]="form.group.controls.contractPolicy"
       [policies]="policies"></policy-select>
 
     <!-- Assets -->
     <asset-select
       *ngIf="form.group.controls.assets; let ctrl"
-      label="{{ 'general.assets' | translate }}"
+      label="Assets"
       [control]="form.group.controls.assets"
       [assets]="assets"></asset-select>
   </div>
@@ -44,7 +37,7 @@
 
 <mat-dialog-actions class="flex flex-row justify-end">
   <button mat-button [mat-dialog-close]="null" [disabled]="loading">
-    {{ 'general.cancel' | translate }}
+    Cancel
   </button>
 
   <button
@@ -52,6 +45,6 @@
     mat-raised-button
     [disabled]="loading || !form.group.valid"
     (click)="onCreate()">
-    {{ 'general.create' | translate }}
+    Create
   </button>
 </mat-dialog-actions>
