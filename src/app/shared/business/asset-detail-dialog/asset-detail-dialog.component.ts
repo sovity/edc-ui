@@ -200,7 +200,7 @@ export class AssetDetailDialogComponent implements OnDestroy {
 
   private confirmDelete(): Observable<boolean> {
     const dialogData = ConfirmDialogModel.forDelete(
-      'asset',
+      'general.asset',
       this.asset.title,
       this.translateService,
     );

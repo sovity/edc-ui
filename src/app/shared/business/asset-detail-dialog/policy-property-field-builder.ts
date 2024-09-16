@@ -21,14 +21,15 @@ export class PolicyPropertyFieldBuilder {
     return [
       {
         icon: 'policy',
-        label: this.translateService.instant('general.policy'),
+        label: this.translateService.instant('general.contract_policy'),
         policy: this.policyMapper.buildPolicy(policy.expression!),
         policyErrors: policy.errors || [],
         additionalContainerClasses: 'col-span-2',
       },
       {
         icon: 'policy',
-        label: this.translateService.instant('general.policy') + ' JSON-LD',
+        label:
+          this.translateService.instant('general.contract_policy') + ' JSON-LD',
         text: this.translateService.instant('component_library.json_ld'),
         onclick: () =>
           this.jsonDialogService.showJsonDetailDialog({

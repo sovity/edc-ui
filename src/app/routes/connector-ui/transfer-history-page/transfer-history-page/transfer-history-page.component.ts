@@ -83,9 +83,11 @@ export class TransferHistoryPageComponent implements OnInit, OnDestroy {
         this.assetDetailDialogService.open(data, this.ngOnDestroy$);
       },
       error: (error) => {
-        const fai_fet = this.translateService.instant('notification.fai_fet');
-        console.error(fai_fet, error);
-        this.notificationService.showError(fai_fet);
+        const message = this.translateService.instant(
+          'notification.failed_transfer_detail_fetch',
+        );
+        console.error(message, error);
+        this.notificationService.showError(message);
       },
     });
   }

@@ -56,7 +56,7 @@ export class AssetPropertyGridGroupBuilder {
       },
       {
         icon: 'gavel',
-        label: this.translateService.instant('general.st_license'),
+        label: this.translateService.instant('general.standard_license'),
         ...this.propertyGridUtils.guessValue(asset.licenseUrl),
       },
       {
@@ -125,7 +125,7 @@ export class AssetPropertyGridGroupBuilder {
     if (asset.mediaType) {
       fields.push({
         icon: 'category',
-        label: this.translateService.instant('general.content'),
+        label: this.translateService.instant('general.content_type'),
         ...this.propertyGridUtils.guessValue(asset.mediaType),
       });
     }
@@ -169,7 +169,9 @@ export class AssetPropertyGridGroupBuilder {
 
     return [
       {
-        groupLabel: this.translateService.instant('general.add_properties'),
+        groupLabel: this.translateService.instant(
+          'general.additional_properties',
+        ),
         properties: additionalProperties,
       },
       {
@@ -188,35 +190,35 @@ export class AssetPropertyGridGroupBuilder {
     if (asset.transportMode) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.transport'),
+        label: this.translateService.instant('general.transport_mode'),
         ...this.propertyGridUtils.guessValue(asset.transportMode?.label),
       });
     }
     if (asset.dataCategory) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.category'),
+        label: this.translateService.instant('general.data_category'),
         ...this.propertyGridUtils.guessValue(asset.dataCategory?.label),
       });
     }
     if (asset.dataSubcategory) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.subcategory'),
+        label: this.translateService.instant('general.data_subcategory'),
         ...this.propertyGridUtils.guessValue(asset.dataSubcategory?.label),
       });
     }
     if (asset.dataModel) {
       fields.push({
         icon: 'category',
-        label: this.translateService.instant('general.model'),
+        label: this.translateService.instant('general.data_model'),
         ...this.propertyGridUtils.guessValue(asset.dataModel),
       });
     }
     if (asset.geoReferenceMethod) {
       fields.push({
         icon: 'commute',
-        label: this.translateService.instant('general.geo_method'),
+        label: this.translateService.instant('general.geo_reference_method'),
         ...this.propertyGridUtils.guessValue(asset.geoReferenceMethod),
       });
     }
@@ -342,10 +344,10 @@ export class AssetPropertyGridGroupBuilder {
     subtitle: string,
   ): PropertyGridGroup {
     return {
-      groupLabel: this.translateService.instant('general.policy'),
+      groupLabel: this.translateService.instant('general.contract_policy'),
       properties: this.policyPropertyFieldBuilder.buildPolicyPropertyFields(
         contractPolicy,
-        this.translateService.instant('general.policy') + ' JSON-LD',
+        this.translateService.instant('general.contract_policy') + ' JSON-LD',
         subtitle,
       ),
     };

@@ -107,7 +107,7 @@ export class DashboardPageDataService {
       totalLabel: this.translateService.instant('general.total'),
       totalValue: total,
       isEmpty: !total,
-      emptyMessage: emptyMessage,
+      emptyMessage,
       labels: amounts.map((it) => it.label),
       datasets: [
         {

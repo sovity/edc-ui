@@ -65,7 +65,7 @@ export class ConfirmDialogModel {
   }
 
   public static forDelete(
-    type: string,
+    typeKey: string,
     identifier: string,
     translateService: TranslateService,
   ): ConfirmDialogModel {
@@ -73,7 +73,9 @@ export class ConfirmDialogModel {
       `${translateService.instant('component_library.delete_title')}`,
       `${translateService.instant(
         'component_library.delete_one',
-      )} ${type} ${identifier}. ${translateService.instant(
+      )} ${translateService.instant(
+        typeKey,
+      )} ${identifier}. ${translateService.instant(
         'component_library.delete_two',
       )}`,
     );

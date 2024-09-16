@@ -46,14 +46,14 @@ export class PolicyCardsComponent {
     let dialogRef: MatDialogRef<any>;
     const data: JsonDialogData = {
       title: policyCard.id,
-      subtitle: this.translateService.instant('general.pol'),
+      subtitle: this.translateService.instant('general.policy'),
       icon: 'policy',
       objectForJson: policyCard.objectForJson,
       toolbarButton: {
         text: this.translateService.instant('general.delete'),
         icon: 'delete',
         confirmation: ConfirmDialogModel.forDelete(
-          'policy',
+          'general.policy',
           policyCard.id,
           this.translateService,
         ),

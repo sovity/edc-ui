@@ -78,7 +78,7 @@ export class ContractDefinitionCardsComponent implements OnDestroy {
         text: 'Delete',
         icon: 'delete',
         confirmation: ConfirmDialogModel.forDelete(
-          'data offer', // TODO
+          'general.con_def',
           card.id,
           this.translateService,
         ),

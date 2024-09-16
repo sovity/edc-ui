@@ -53,9 +53,11 @@ export class PolicyDefinitionCreatePageComponent implements OnDestroy {
           this.router.navigate(['/policies']);
         },
         error: (error) => {
-          const fai_pol = this.translateService.instant('notification.fai_pol');
-          console.error(fai_pol, error);
-          this.notificationService.showError(fai_pol);
+          const message = this.translateService.instant(
+            'notification.failed_create_policy',
+          );
+          console.error(message, error);
+          this.notificationService.showError(message);
         },
       });
   }
