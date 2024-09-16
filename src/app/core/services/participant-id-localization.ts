@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Inject, Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {APP_CONFIG, AppConfig} from '../config/app-config';

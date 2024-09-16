@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {
   Component,
   EventEmitter,
@@ -15,11 +9,11 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {EMPTY} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {ConfirmDialogModel} from '../../../../component-library/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
-import {JsonDialogComponent} from '../../../../component-library/json-dialog/json-dialog/json-dialog.component';
-import {JsonDialogData} from '../../../../component-library/json-dialog/json-dialog/json-dialog.data';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {NotificationService} from '../../../../core/services/notification.service';
+import {ConfirmDialogModel} from '../../../../shared/common/confirmation-dialog/confirmation-dialog.component';
+import {JsonDialogComponent} from '../../../../shared/common/json-dialog/json-dialog.component';
+import {JsonDialogData} from '../../../../shared/common/json-dialog/json-dialog.data';
 import {PolicyCard} from './policy-card';
 
 @Component({

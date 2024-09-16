@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   EMPTY,
@@ -21,15 +15,15 @@ import {
   TransferHistoryPage,
   UiAsset,
 } from '@sovity.de/edc-client';
-import {AssetDetailDialogDataService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog-data.service';
-import {AssetDetailDialogService} from '../../../../component-library/catalog/asset-detail-dialog/asset-detail-dialog.service';
-import {JsonDialogService} from '../../../../component-library/json-dialog/json-dialog/json-dialog.service';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {AssetBuilder} from '../../../../core/services/asset-builder';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {ParticipantIdLocalization} from '../../../../core/services/participant-id-localization';
+import {AssetDetailDialogDataService} from '../../../../shared/business/asset-detail-dialog/asset-detail-dialog-data.service';
+import {AssetDetailDialogService} from '../../../../shared/business/asset-detail-dialog/asset-detail-dialog.service';
+import {JsonDialogService} from '../../../../shared/common/json-dialog/json-dialog.service';
 
 @Component({
   selector: 'transfer-history-page',

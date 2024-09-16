@@ -194,8 +194,10 @@ export const EDC_FAKE_BACKEND: FetchAPI = async (
     .url('ui/pages/contract-agreement-page/*')
     .on('GET', (contractAgreementId: String) => {
       return ok(
-        contractAgreementPage().contractAgreements
-          .find( (contractAgreement) => contractAgreement.contractAgreementId === contractAgreementId)
+        contractAgreementPage().contractAgreements.find(
+          (contractAgreement) =>
+            contractAgreement.contractAgreementId === contractAgreementId,
+        ),
       );
     })
 

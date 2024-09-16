@@ -1,5 +1,7 @@
 <div class="p-10 flex flex-col">
-  <div class="form-section-title">{{ 'policy_definition_page.metadata' | translate }}</div>
+  <div class="form-section-title">
+    {{ 'policy_definition_page.metadata' | translate }}
+  </div>
   <!--  ID -->
   <mat-form-field
     *ngIf="form.group.controls.id; let ctrl"
@@ -12,7 +14,9 @@
     }}</mat-error>
   </mat-form-field>
 
-  <div class="form-section-title">{{ 'policy_definition_page.expression' | translate }}</div>
+  <div class="form-section-title">
+    {{ 'policy_definition_page.expression' | translate }}
+  </div>
 
   <policy-form-expression
     [treeNode]="expressionFormHandler.tree.root"></policy-form-expression>

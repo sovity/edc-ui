@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Injectable} from '@angular/core';
 import {Observable, combineLatest, merge, of, sampleTime, scan} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';

@@ -1,17 +1,11 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {UiContractOffer, UiDataOffer} from '@sovity.de/edc-client';
-import {PolicyPropertyFieldBuilder} from '../../../../component-library/catalog/asset-detail-dialog/policy-property-field-builder';
 import {AssetBuilder} from '../../../../core/services/asset-builder';
 import {ContractOffer} from '../../../../core/services/models/contract-offer';
 import {DataOffer} from '../../../../core/services/models/data-offer';
 import {UiAssetMapped} from '../../../../core/services/models/ui-asset-mapped';
+import {PolicyPropertyFieldBuilder} from '../../../../shared/business/asset-detail-dialog/policy-property-field-builder';
 
 @Injectable()
 export class DataOfferBuilder {

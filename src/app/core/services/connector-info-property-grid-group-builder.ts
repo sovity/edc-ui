@@ -1,18 +1,12 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
 import {DashboardPage} from '@sovity.de/edc-client';
-import {JsonDialogComponent} from '../../component-library/json-dialog/json-dialog/json-dialog.component';
-import {JsonDialogData} from '../../component-library/json-dialog/json-dialog/json-dialog.data';
-import {PropertyGridGroup} from '../../component-library/property-grid/property-grid-group/property-grid-group';
-import {PropertyGridField} from '../../component-library/property-grid/property-grid/property-grid-field';
-import {PropertyGridFieldService} from '../../component-library/property-grid/property-grid/property-grid-field.service';
+import {JsonDialogComponent} from '../../shared/common/json-dialog/json-dialog.component';
+import {JsonDialogData} from '../../shared/common/json-dialog/json-dialog.data';
+import {PropertyGridGroup} from '../../shared/common/property-grid-group/property-grid-group';
+import {PropertyGridField} from '../../shared/common/property-grid/property-grid-field';
+import {PropertyGridFieldService} from '../../shared/common/property-grid/property-grid-field.service';
 import {LastCommitInfo} from './api/model/last-commit-info';
 import {Fetched} from './models/fetched';
 import {ParticipantIdLocalization} from './participant-id-localization';
@@ -101,7 +95,7 @@ export class ConnectorInfoPropertyGridGroupBuilder {
                 ifOk: (uiCommitdata) => uiCommitdata,
                 ifError: (error) => error.failureMessage,
                 ifLoading: () =>
-                  this.translateService.instant('general.loading2'),
+                  this.translateService.instant('general.still_loading'),
               }),
             }),
         },
@@ -134,11 +128,13 @@ export class ConnectorInfoPropertyGridGroupBuilder {
     const fields: PropertyGridField[] = dashboardData.match<
       PropertyGridField[]
     >({
-      ifLoading: () => [{
-        icon: 'info',
-        label: this.translateService.instant('general.loading1'),
-        text: this.translateService.instant('general.loading')
-      }],
+      ifLoading: () => [
+        {
+          icon: 'info',
+          label: this.translateService.instant('general.loading1'),
+          text: this.translateService.instant('general.loading'),
+        },
+      ],
       ifError: () => [
         {
           icon: 'error',

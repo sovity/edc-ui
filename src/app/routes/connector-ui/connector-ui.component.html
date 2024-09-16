@@ -1,16 +1,8 @@
-<!--
-  ~ Copyright (c) 2021-2024. sovity GmbH
-  ~ Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
-  ~ Contributors:
-  ~    - Fraunhofer FIT: Internationalization and German Localization
-  -->
-
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     class="sidenav"
     #drawer
     fixedInViewport
-    [disableClose]="true"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
@@ -34,13 +26,12 @@
             [routerLink]="[navItem.path]">
             <mat-list-item [routerLinkActive]="['is-active']">
               <mat-icon mat-list-icon>{{ navItem.icon }}</mat-icon>
-              <span matLine>{{ navItem.title }}</span>
+              <span matLine>{{ navItem.title | translate }}</span>
             </mat-list-item>
           </a>
         </mat-nav-list>
       </div>
     </div>
-    <app-language-selector style="display: flex;" class="language"></app-language-selector>
     <div
       *ngIf="'sovity-zammad-integration' | isActiveFeature"
       id="contact-form"
@@ -73,7 +64,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="flex items-center" color="primary">
       <button
         *ngIf="isHandset$ | async"
         type="button"
@@ -82,7 +73,10 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ titleService.getTitle() || '' | translate }}</span>
+      <span class="flex-grow">{{
+        titleService.getTitle() || '' | translate
+      }}</span>
+      <app-language-selector></app-language-selector>
     </mat-toolbar>
     <main class="container">
       <router-outlet></router-outlet>

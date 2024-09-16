@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EMPTY, Observable, interval} from 'rxjs';
@@ -14,8 +8,8 @@ import {
   UiContractNegotiation,
   UiContractOffer,
 } from '@sovity.de/edc-client';
-import {InitiateNegotiationConfirmTosDialogComponent} from 'src/app/component-library/initiate-negotiation-confirm-tos-dialog/initiate-negotiation-confirm-tos-dialog/initiate-negotiation-confirm-tos-dialog.component';
 import {environment} from '../../../environments/environment';
+import {InitiateNegotiationConfirmTosDialogComponent} from '../../shared/business/initiate-negotiation-confirm-tos-dialog/initiate-negotiation-confirm-tos-dialog.component';
 import {EdcApiService} from './api/edc-api.service';
 import {DataOffer} from './models/data-offer';
 import {NotificationService} from './notification.service';

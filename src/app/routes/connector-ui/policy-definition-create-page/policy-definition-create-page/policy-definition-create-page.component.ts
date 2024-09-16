@@ -1,28 +1,21 @@
-/*
- * Copyright (c) 2021-2024. sovity GmbH
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Component, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {finalize, takeUntil} from 'rxjs/operators';
-import {PolicyDefinitionCreateDto} from '@sovity.de/edc-client';
-import {ExpressionFormControls} from '../../../../component-library/policy-editor/editor/expression-form-controls';
-import {ExpressionFormHandler} from '../../../../component-library/policy-editor/editor/expression-form-handler';
 import {TranslateService} from '@ngx-translate/core';
+import {PolicyDefinitionCreateDto} from '@sovity.de/edc-client';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {NotificationService} from '../../../../core/services/notification.service';
 import {ValidationMessages} from '../../../../core/validators/validation-messages';
+import {ExpressionFormHandler} from '../../../../shared/business/policy-editor/editor/expression-form-handler';
+import {policyFormRequiredViewProviders} from '../../../../shared/business/policy-editor/editor/policy-form-required-providers';
 import {PolicyDefinitionCreatePageForm} from './policy-definition-create-page-form';
 
 @Component({
   selector: 'policy-definition-create-page',
   templateUrl: './policy-definition-create-page.component.html',
   viewProviders: [
-    ExpressionFormHandler,
-    ExpressionFormControls,
+    ...policyFormRequiredViewProviders,
     PolicyDefinitionCreatePageForm,
   ],
 })
@@ -54,7 +47,9 @@ export class PolicyDefinitionCreatePageComponent implements OnDestroy {
       )
       .subscribe({
         complete: () => {
-          this.notificationService.showInfo(this.translateService.instant('notification.succ_pol'));
+          this.notificationService.showInfo(
+            this.translateService.instant('notification.succ_pol'),
+          );
           this.router.navigate(['/policies']);
         },
         error: (error) => {

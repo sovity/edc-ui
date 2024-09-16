@@ -13,7 +13,6 @@
     "refresh": "Refresh",
     "total": "Total",
     "details": "Show Details",
-    "detail": "Details",
     "warn": "Warn",
     "title": "Title",
     "disable": "Disable",
@@ -23,12 +22,11 @@
     "description": "Description",
     "loading": "Loading...",
     "loading1": "Loading",
-    "loading2": " Still Loading...",
+    "still_loading": "Still Loading...",
     "language": "Language",
     "value": "Value",
     "method": "Method",
     "method_para": "Method Parameterization",
-    "type": "Type",
     "path": "Path",
     "params": "Query Params",
     "add_properties": "Additional Properties",
@@ -52,7 +50,7 @@
     "irr_pol": "Irregular Policy",
     "policy": "Contract Policy",
     "offer": "Contract Offer",
-    "con_def": "Contract Definition",
+    "con_def": "Data Offer",
     "cons": "Constraints",
     "body": "Body",
     "type": "Type",
@@ -66,7 +64,6 @@
     "consuming": "Consuming",
     "providing": "Providing",
     "endpoint": "Connector Endpoint",
-    "doc": "Documentation",
     "endpoint_doc": "Endpoint Documentation",
     "content": "Content Type",
     "publisher": "Publisher",
@@ -87,15 +84,7 @@
     "header_name": "Header Name",
     "header_value": "Header Value",
     "add_add_header": "Add Additional Header",
-	"operator": "Operator",
-	"show_adv_fields": "Show Advanced Fields",
-	"publishing": "Publishing",
-	"publish": "Publish" ,
-	"pub_desc": "Publish data offer to other data space participants",
-	"pub_unrestr": "Publish unrestricted",
-	"pub_restr": "Publish restricted",
-	"pub_no": "Do not publish",
-	"pub_mode": "Publishing Mode"
+    "page": "Page"
   },
   "tooltip": {
     "negotiate": "Cannot negotiate contracts with your own connector.",
@@ -117,7 +106,7 @@
   "component_library": {
     "delete_title": "Deletion confirmation",
     "delete_one": "Please confirm you want to delete",
-    "delete_two": ". This action cannot be undone.",
+    "delete_two": "This action cannot be undone.",
     "t_history": "Transfer History",
     "negotiate": "Negotiate",
     "negotiating": "Negotiating...",
@@ -150,22 +139,12 @@
     "maintainer": "Maintainer Organization Name",
     "main_url": "Maintainer URL"
   },
-  "create_data_offer": {
-    "def_datasrc": "Define the datasource of the asset",
-	"data_type": "Datasource Type",
-	"contact_email": "Contact E-Mail",
-	"contact_email_placeholder": "contact@my-org.com",
-	"contact_email_descr": "This email address will be offered to potential consumers for contacting you. This is done in place of having an actual data source connected.",
-	"pref_email_sub": "Preferred E-Mail Subject",
-	"pref_email_descr": "Will be added to the mailto-link and displayed to potential consumers to use.",
-	"keep_datasrc": "Keep the datasource unchanged.",
-	"no_datasrc": "I do not have a datasource.",
-	"con_datasrc": "I want to connect to a datasource."
-  },
-  "asset_page": {
+  "asset_list_page": {
+    "title": "Assets",
+    "page": "Asset Page",
     "information": "General Information",
-	"information_desc": "Fill out general information about the asset.",
-	"my_asset": "My Asset",
+    "information_desc": "Fill out general information about the asset.",
+    "my_asset": "My Asset",
     "asset_id": "Asset ID",
     "keywords": "Keywords",
     "add_keyword": "Add keyword...",
@@ -190,17 +169,18 @@
     "request_body": "Request Body",
     "request_para": "Request Body Parameterization",
     "search_assets": "Search assets",
-    "create_assets": "Create assets",
     "create_asset": " Create New Asset",
     "edit_asset": "Edit Asset",
     "no_assets": "No assets found with given filter.",
     "descrip": "The description uses",
     "add_loc": "Add location",
     "add_sample": "Add data sample",
-    "name": "Name",
+    "name": "Title",
     "version": "Version"
   },
   "catalog_browser_page": {
+    "title": "Catalog Browser",
+    "page": "Catalog Browser",
     "fetch": "Fetch Status",
     "endpoint_catalogs": "Other Connector Endpoint Catalogs",
     "search": "Search catalog",
@@ -211,6 +191,8 @@
     "usage": "Already using"
   },
   "contract_agreement_page": {
+    "title": "Contracts",
+    "page": "Contract Page",
     "search_agree": "Search contract agreements...",
     "no_agree": "No contract agreements yet.",
     "no_agree_found": "No contract agreements found with given filter.",
@@ -235,12 +217,24 @@
     "req_cont": "Custom Request Body Content Type",
     "req_body": "Custom Request Body",
     "cus_sub": "Custom Subpath",
-    "new_def": "Create New Contract Definition",
-    "search_def": "Search contract definitions",
-    "create_def": "Create Contract Definition",
-    "con_def": "No contract definition found with given filter."
+    "new_def": "Publish New Data Offer",
+    "search_def": "Search data offer",
+    "create_def": "Publish Data Offer",
+    "con_def": "No data offer found with given filter."
+  },
+  "contract_definition_page": {
+    "title": "Data Offers",
+    "page": "Data Offer Page"
+  },
+  "create_data_offer_page": {
+    "title": "Create Data Offer"
+  },
+  "edit_asset_page": {
+    "title": "Edit Asset"
   },
   "dashboard_page": {
+    "title": "Dashboard",
+    "page": "Dashboard Page",
     "error": "Error",
     "completed": "Completed",
     "progress": "In Progress",
@@ -262,23 +256,22 @@
     "conn_end": "Connector Endpoint",
     "api_url": "Management API URL",
     "edition_edc": "Basic Edition EDC",
-    "page": "Page",
-    "descrip2": "This EDC Connector on the subscription level Basic is provided by sovity to enable your first steps in the Mobility Data Space (MDS).",
-    "descrip3": "For additional features and advanced capacities, please feel free to contact us.",
-    "descrip4": "To join data spaces like Mobility Data Space or Catena-X within minutes, consider the managed solution by",
-    "descrip5": "- the Connector-as-a-Service (CaaS) based on open-source software enriched with key enterprise features.",
-    "descrip6": "The Eclipse Dataspace Components framework facilitates sovereign, inter-organizational data exchange.",
-    "descrip7": "It implements the International Data Spaces standard (IDS) as well as relevant protocols associated with GAIA-X.",
-    "descrip8": "The framework is designed as extensible as possible to encourage integrations into various data ecosystems.",
-    "descrip9": "Example use cases, that you can try out with this application, are:",
-    "descrip10": "View the asset catalog available to you in your Dataspace using the",
-    "descrip11": "Negotiate a contract for data sharing in your Dataspace using the",
-    "descrip12": "Transfer an asset in your Dataspace using the",
-    "descrip13": "View which assets have been transferred in your Dataspace in the",
-    "descrip14": "View and create assets using the",
-    "descrip15": "View and create policies and apply these to assets in your Dataspace using the",
-    "descrip16": "Publish a new asset into your Dataspace using the",
-    "descrip17": "View your existing contracts in the",
+    "marketing_mds_basic_intro": "This EDC Connector on the subscription level Basic is provided by sovity to enable your first steps in the Mobility Data Space (MDS).",
+    "marketing_mds_basic_intro2": "For additional features and advanced capacities, please feel free to contact us.",
+    "marketing_ce_intro": "To join data spaces like Mobility Data Space or Catena-X within minutes, consider the managed solution by",
+    "marketing_ce_intro2": "- the Connector-as-a-Service (CaaS) based on open-source software enriched with key enterprise features.",
+    "marketing_about": "The Eclipse Dataspace Components framework facilitates sovereign, inter-organizational data exchange.",
+    "marketing_about2": "It implements the International Data Spaces standard (IDS) as well as relevant protocols associated with GAIA-X.",
+    "marketing_about3": "The framework is designed as extensible as possible to encourage integrations into various data ecosystems.",
+    "marketing_about_ui": "Example use cases, that you can try out with this application, are:",
+    "marketing_about_ui_catalog_view_offers": "View the asset catalog available to you in your Dataspace using the {}",
+    "marketing_about_ui_catalog_negotiate": "Negotiate a contract for data sharing in your Dataspace using the {}",
+    "marketing_about_ui_contracts_transfer": "Transfer an asset in your Dataspace using the {}",
+    "marketing_about_ui_transfer_history_view": "View which assets have been transferred in your Dataspace in the {}",
+    "marketing_about_ui_assets_view_and_create": "View and create assets using the {}",
+    "marketing_about_ui_policies_view_and_create": "View and create policies and apply these to assets in your Dataspace using the {}",
+    "marketing_about_ui_contract_definitions_view_and_create": "Publish an asset into your Dataspace using the {}",
+    "marketing_about_ui_contracts_view_existing": "View your existing contracts in the {}",
     "contact": "Contact us",
     "managed_edc": "Get Managed EDC",
     "conn_service": "Connector-as-a-Service",
@@ -297,9 +290,9 @@
     "con_agree": "Contract Agreements"
   },
   "policy_definition_page": {
+    "title": "Policies",
+    "page": "Policy Page",
     "create_pol": "Create New Policy",
-    "metadata": "Policy Metadata",
-    "expression": "Policy Expression",
     "time_res": "Time-Period-Restricted",
     "conn_res": "Connector-Restricted-Usage",
     "date_range": "Date Range",
@@ -307,11 +300,19 @@
     "create_policy": "Create Policy",
     "no_pol": "No policy found with given filter."
   },
+  "create_policy_page": {
+    "title": "Create Policy"
+  },
   "transfer_history_page": {
+    "title": "Transfer History",
+    "page": "Transfer History Page",
     "subtitle": "Transfer History Details",
     "no_trans": "No transfer history found.",
     "counter_endpoint": "Counterparty Connector Endpoint",
     "counter_id": "Counterparty Participant ID"
+  },
+  "logout_page": {
+    "title": "Logout"
   },
   "connector_ui": {
     "dashboard": "Dashboard",

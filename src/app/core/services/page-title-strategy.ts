@@ -1,30 +1,42 @@
-/*
- * Copyright (c) 2024. Fraunhofer Institute for Applied Information Technology FIT
- * Contributors:
- *    - Fraunhofer FIT: Internationalization and German Localization
- */
 import {Injectable} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {RouterStateSnapshot, TitleStrategy} from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  TitleStrategy,
+} from '@angular/router';
+import {Subject, switchMap} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class CustomPageTitleStrategy extends TitleStrategy {
+  rawTitle$ = new Subject<string>();
+
   constructor(
     private translateService: TranslateService,
-    private readonly title: Title,
+    private title: Title,
   ) {
     super();
+    this.rawTitle$
+      .pipe(switchMap((title) => this.translateService.get(title)))
+      .subscribe((title) => this.title.setTitle(title));
   }
 
   override updateTitle(snapshot: RouterStateSnapshot): void {
-    const title = this.buildTitle(snapshot);
-    if (title) {
-      this.translateService.get(title).subscribe((translatedTitle) => {
-        this.title.setTitle(translatedTitle);
-      });
-    } else {
-      this.title.setTitle('DEFAULT_TITLE');
+    const data = this.getRouteDataRecursively(snapshot);
+    const titleUntranslated = data.title ?? 'EDC Connector';
+    this.rawTitle$.next(titleUntranslated);
+  }
+
+  private getRouteDataRecursively(
+    routerStateSnapshot: RouterStateSnapshot,
+  ): any {
+    let snapshot: ActivatedRouteSnapshot | null = routerStateSnapshot.root;
+    let data = {};
+    while (snapshot) {
+      data = {...data, ...snapshot.data};
+      snapshot = snapshot.firstChild;
     }
+    return data;
   }
 }
