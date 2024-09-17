@@ -96,21 +96,6 @@ export const localDateAdapter: PolicyFormAdapter<Date | null> = {
   }),
 };
 
-export const stringAdapter: PolicyFormAdapter<string> = {
-  displayText: (literal): string | null =>
-    readSingleStringLiteral(literal) ?? '',
-  fromControlFactory: () => new UntypedFormControl('', Validators.required),
-  buildFormValueFn: (literal): string => readSingleStringLiteral(literal) ?? '',
-  buildValueFn: (value) => stringLiteral(value),
-  emptyConstraintValue: () => ({
-    operator: 'EQ',
-    right: {
-      type: 'STRING',
-      value: '',
-    },
-  }),
-};
-
 export const stringArrayOrCommaJoinedAdapter: PolicyFormAdapter<string[]> = {
   displayText: (literal): string | null => readArrayLiteral(literal).join(', '),
   fromControlFactory: () => new UntypedFormControl([], Validators.required),
