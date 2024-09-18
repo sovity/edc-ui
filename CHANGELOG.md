@@ -54,8 +54,6 @@ Various bugfixes.
 
 _No special deployment migration steps required_
 
-> > > > > > > origin/main
-
 ## [v4.1.3] - 2024-09-03
 
 ### Overview
