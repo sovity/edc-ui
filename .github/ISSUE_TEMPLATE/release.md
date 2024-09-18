@@ -15,7 +15,7 @@ Feel free to edit this release checklist in-progress depending on what tasks nee
 - [ ] Update this issue's title to the new version
 - [ ] `release-prep` PR:
   - [ ] Update the CHANGELOG.md.
-    - [ ] Add links from the changelog entry to their GitHub issue
+    - [ ] Check that all the entries have a link to an issue or a pull request.
     - [ ] Add a clean `Unreleased` version.
     - [ ] Add the version to the old section.
     - [ ] Add the current date to the old version.
