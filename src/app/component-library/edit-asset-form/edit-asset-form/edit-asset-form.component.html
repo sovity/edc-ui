@@ -38,11 +38,12 @@
           fieldId="create-asset-form-contact-email"
           label="Contact E-Mail"
           placeholder="contact@my-org.com"
-          [ctrl]="form.datasource.controls.contactEmail"
-          >This email address will be offered to potential consumers for
+          tooltip="This email address will be offered to potential consumers for
           contacting you. This is done in place of having an actual data source
-          connected.</edit-asset-form-input
-        >
+          connected."
+          [ctrl]="
+            form.datasource.controls.contactEmail
+          "></edit-asset-form-input>
 
         <!-- Contact E-Mail Subject for On Request Assets -->
         <edit-asset-form-input
@@ -50,10 +51,10 @@
           fieldId="create-asset-form-contact-subject"
           label="Preferred E-Mail Subject"
           placeholder="Data Offer 'xyz'"
-          [ctrl]="form.datasource.controls.contactPreferredEmailSubject"
-          >When potential customers reach out to you via email, you’ll receive
-          messages with this subject line.</edit-asset-form-input
-        >
+          tooltip="When potential customers reach out to you via email, you’ll receive
+          messages with this subject line."
+          [ctrl]="form.datasource.controls.contactPreferredEmailSubject">
+        </edit-asset-form-input>
       </ng-container>
 
       <ng-container
