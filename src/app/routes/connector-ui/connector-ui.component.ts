@@ -6,6 +6,7 @@ import {map, shareReplay} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
 import {NavItemGroup} from 'src/app/core/services/models/nav-item-group';
 import {NavItemsBuilder} from 'src/app/core/services/nav-items-builder';
+import {TitleUtilsService} from 'src/app/core/services/title-utils.service';
 import {APP_CONFIG, AppConfig} from '../../core/config/app-config';
 import {LoginPollingService} from '../../core/services/login-polling.service';
 
@@ -27,6 +28,7 @@ export class ConnectorUiComponent implements OnInit {
   constructor(
     @Inject(APP_CONFIG) public config: AppConfig,
     public titleService: Title,
+    private titleUtilsService: TitleUtilsService,
     private breakpointObserver: BreakpointObserver,
     private loginPollingService: LoginPollingService,
     private navItemsBuilder: NavItemsBuilder,
@@ -39,6 +41,7 @@ export class ConnectorUiComponent implements OnInit {
 
   ngOnInit() {
     this.startLoginPolling();
+    this.titleUtilsService.startUpdatingTitleFromRouteData('EDC Connector');
   }
 
   private startLoginPolling() {

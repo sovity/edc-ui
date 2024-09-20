@@ -3,6 +3,7 @@
     class="sidenav"
     #drawer
     fixedInViewport
+    [disableClose]="true"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
@@ -64,7 +65,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar class="flex items-center" color="primary">
+    <mat-toolbar color="primary">
       <button
         *ngIf="isHandset$ | async"
         type="button"

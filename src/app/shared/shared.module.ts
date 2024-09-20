@@ -49,6 +49,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {NgChartsModule} from 'ng2-charts';
 import {NgxJsonViewerModule} from 'ngx-json-viewer';
 import {CustomDateAdapter} from '../core/adapters/custom-date-adapter';
+import {TitleUtilsService} from '../core/services/title-utils.service';
 import {AssetCardTagListComponent} from './business/asset-card-tag-list/asset-card-tag-list.component';
 import {AssetDetailDialogDataService} from './business/asset-detail-dialog/asset-detail-dialog-data.service';
 import {AssetDetailDialogComponent} from './business/asset-detail-dialog/asset-detail-dialog.component';
@@ -260,6 +261,7 @@ const MODULES = [
     JsonDialogService,
     PolicyExpressionRecipeService,
     UrlListDialogService,
+    TitleUtilsService,
     PolicyMultiExpressionService,
     PolicyOperatorService,
     PolicyVerbService,
