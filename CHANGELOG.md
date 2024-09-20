@@ -22,6 +22,7 @@ the detailed section referring to by linking pull requests or issues.
 
 - Used createDataOffer endpoint to create an asset, policies and a contract
   definition in a single call
+  ([#841](https://github.com/sovity/edc-ui/issues/841))
 
 ### Deployment Migration Notes
 
