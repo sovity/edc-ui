@@ -22,6 +22,9 @@ the detailed section referring to by linking pull requests or issues.
 
 - Fixed cropping of Contract Offer Ids on catalog browser page
   ([#795](https://github.com/sovity/edc-ui/issues/795))
+- Used createDataOffer endpoint to create an asset, policies and a contract
+  definition in a single call
+  ([#841](https://github.com/sovity/edc-ui/issues/841))
 
 ### Deployment Migration Notes
 
