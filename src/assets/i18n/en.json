@@ -84,7 +84,15 @@
     "header_name": "Header Name",
     "header_value": "Header Value",
     "add_add_header": "Add Additional Header",
-    "page": "Page"
+    "page": "Page",
+    "show_adv_fields": "Show Advanced Fields",
+    "publishing": "Publishing",
+    "pub_desc": "Publish data offer to other data space participants",
+    "pub_unrestr": "Publish unrestricted",
+    "pub_restr": "Publish restricted",
+    "pub_asset_only": "Create asset only (without data offer)",
+    "pub_mode": "Publishing Mode",
+    "doc": "Documentation"
   },
   "tooltip": {
     "negotiate": "Cannot negotiate contracts with your own connector.",
@@ -228,6 +236,12 @@
     "title": "Data Offers",
     "page": "Data Offer Page"
   },
+  "create_data_offer": {
+    "def_datasrc": "Define the datasource of the asset",
+    "data_type": "Datasource Type",
+    "contact_email_placeholder": "contact@my-org.com",
+    "contact_email": "Contact E-Mail"
+  },
   "create_data_offer_page": {
     "title": "Create Data Offer"
   },
@@ -300,7 +314,8 @@
     "date_range": "Date Range",
     "search_pol": "Search policies",
     "create_policy": "Create Policy",
-    "no_pol": "No policy found with given filter."
+    "no_pol": "No policy found with given filter.",
+    "expression": "Policy Expression"
   },
   "create_policy_page": {
     "title": "Create Policy"
