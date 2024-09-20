@@ -22,9 +22,10 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
-
 - Fixed gaps in renaming to "Data Offer"
   ([#831](https://github.com/sovity/edc-ui/issues/831))
+- Replaced hints with info boxes in On Request data source
+  ([#820](https://github.com/sovity/edc-ui/issues/820))
 - Fixed cropping of Contract Offer Ids on catalog browser page
   ([#795](https://github.com/sovity/edc-ui/issues/795))
 - Used createDataOffer endpoint to create an asset, policies and a contract
