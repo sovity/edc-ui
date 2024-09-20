@@ -16,12 +16,17 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Major
 
+- Internationalize the UI and add a German localization
+
 #### Minor
 
 #### Patch
 
+
 - Fixed gaps in renaming to "Data Offer"
   ([#831](https://github.com/sovity/edc-ui/issues/831))
+- Fixed cropping of Contract Offer Ids on catalog browser page
+  ([#795](https://github.com/sovity/edc-ui/issues/795))
 - Used createDataOffer endpoint to create an asset, policies and a contract
   definition in a single call
   ([#841](https://github.com/sovity/edc-ui/issues/841))
