@@ -241,7 +241,8 @@
     "data_type": "Datasource Type",
     "contact_email_placeholder": "contact@my-org.com",
     "contact_email": "Contact E-Mail",
-    "contact_email_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line."
+    "contact_email_tooltip": "This email address will be offered to potential consumers for contacting you. This is done in place of having an actual data source connected.",
+    "contact_subject_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line."
   },
   "create_data_offer_page": {
     "title": "Create Data Offer"

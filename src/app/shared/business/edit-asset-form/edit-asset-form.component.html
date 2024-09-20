@@ -39,7 +39,7 @@
           placeholder="{{
             'create_data_offer.contact_email_placeholder' | translate
           }}"
-          tooltip="'contact_email_tooltip' | translate"
+          tooltip="'contact_form.contact_email_tooltip' | translate"
           [label]="'create_data_offer.contact_email' | translate"
           [ctrl]="
             form.datasource.controls.contactEmail
@@ -51,8 +51,7 @@
           fieldId="create-asset-form-contact-subject"
           label="Preferred E-Mail Subject"
           placeholder="Data Offer 'xyz'"
-          tooltip="When potential customers reach out to you via email, you’ll receive
-          messages with this subject line."
+          tooltip="'contact_form.contact_subject_tooltip' | translate"
           [ctrl]="form.datasource.controls.contactPreferredEmailSubject">
         </edit-asset-form-input>
       </ng-container>
