@@ -92,7 +92,20 @@
     "pub_restr": "Publish restricted",
     "pub_asset_only": "Create asset only (without data offer)",
     "pub_mode": "Publishing Mode",
-    "doc": "Documentation"
+    "doc": "Documentation",
+    "select_an_option": "Select an option",
+    "pub_unrestr_tooltip": "Your data offer is published and can be accessed by everyone.",
+    "pub_restr_tooltip": "Your data offer is published with restrictions of your choice.",
+    "pub_asset_only_tooltip": "Create the asset but do not publish your data offer. You can do it later.",
+    "publish": "Publish",
+    "terminated_by": "terminated by",
+    "tags": "Tags",
+    "terminate": "Terminate",
+    "limit_reached": "You have reached the maximum number of consuming contracts. Please terminate one of the existing contracts to negotiate a new one.",
+    "contact": "Contact",
+    "ad_inf": "Advanced Information",
+    "geo_reference_method_tooltip": "The method used for representing of geographical data, e.g GeoJSON, OpenLR, etc.",
+    "parametrization": "Parameterization"
   },
   "tooltip": {
     "negotiate": "Cannot negotiate contracts with your own connector.",
@@ -186,7 +199,9 @@
     "add_loc": "Add location",
     "add_sample": "Add data sample",
     "name": "Title",
-    "version": "Version"
+    "version": "Version",
+    "file_des_hint1": "Additional information regarding the reference files.",
+    "file_des_hint2": "Supports"
   },
   "catalog_browser_page": {
     "title": "Catalog Browser",
@@ -242,7 +257,58 @@
     "contact_email_placeholder": "contact@my-org.com",
     "contact_email": "Contact E-Mail",
     "contact_email_tooltip": "This email address will be offered to potential consumers for contacting you. This is done in place of having an actual data source connected.",
-    "contact_subject_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line."
+    "contact_subject_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line.",
+    "unchanged": "Keep the datasource unchanged.",
+    "readily_available": "Readily available with a new data source",
+    "on_request": "On Request",
+    "query_param_enabled_hint": "With query param parameterization enabled, the default query params and the query params provided by the consumer will be merged.",
+    "data_offer_email_subject_placeholder": "Data Offer 'xyz",
+    "custom_datasource_config_json_label": "Custom Datasource Config (JSON)",
+    "authorization_header_placeholder": "Authorization",
+    "bearer_placeholder": "Bearer ...",
+    "accept_placeholder": "Accept",
+    "asset_id_tooltip": "Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed.",
+    "title_tooltip": "The main title of your asset. It will also be the title of the data offering displayed in the catalog.",
+    "ref_files_description_placeholder": "# My Asset\\n\\nAt vero eos et accusam et justo duo dolores et ea rebum.\\n\\n## Details\\n\\nAt vero eos et accusam et justo duo dolores et ea **rebum**.",
+    "data_model_tooltip": "Model for data exchange, e.g. DATEX II, TPEG for traffic and travel information, etc.",
+    "data_model_placeholder": "proprietary",
+    "mobility_information_myTitle": "Mobility Information",
+    "mobility_information_description": "Fill out the asset's mobility information",
+    "version_tooltip": "The version of your asset. Especially useful if you have iterations of the same asset.",
+    "context_information_description": "Provide context information about the datasource",
+    "endpoint_documentation_tooltip": "URL to the technical documentation about the data to be received.",
+    "data_samples": "Data samples",
+    "data_samples_tooltip": "URLs of Dataset samples if available",
+    "reference_files": "Reference files",
+    "reference_files_tooltip": "URLs of Dataset schemas or other references",
+    "reference_files_description": "Additional information regarding the reference files. Supports",
+    "location_time_title": "Location / Time",
+    "location_time_description": "Fill out location and time information about the asset",
+    "temporal_coverage": "Temporal coverage",
+    "start_date": "Start date",
+    "end-date-inclusive": "End date (inclusive)",
+    "temporal_coverage_hint": "Start and/or end date when the dataset is available for consumption. DD/MM/YYYY (optional) – DD/MM/YYYY (optional)",
+    "data_update_frequency_label": "Data update frequency",
+    "data_update_frequency_placeholder": "every month",
+    "data_update_frequency_tooltip": "How often is the dataset updated, e.g\t'Every 5 min.",
+    "geo_reference_placeholder": "Lat/Lon",
+    "geo_reference_tooltip": "The method used for representing of geographical data, e.g GeoJSON, OpenLR, etc.",
+    "geo_location_label": "Geo location",
+    "geo_location_description": "Simple description of the relevant geolocation, e.g. Hamburg and vicinity.",
+    "nuts_locations_label": "NUTS locations",
+    "nuts_locations_tooltip": "NUTS codes are regional identifiers in Germany used for statistical and administrative purposes, covering states, districts, and municipalities. (e.g DE60)",
+    "nuts_location": "NUTS location",
+    "legal_information_title": "Legal Information",
+    "legal_information_description": "Provide legal information and define the conditions for use",
+    "sovereign_placeholder": "Data Owning Company GMBH",
+    "sovereign_tooltip": "Legal name of the data owner",
+    "publisher_tooltip": "URL of the original publisher of the data",
+    "standard-license-tooltip": "URL of the license under which the data is offered.",
+    "conditions_for_use_label": "Conditions for use",
+    "conditions_for_use_description_hint": "Additional not legally relevant usage instructions (e.g. how to cite the dataset). The field supports",
+    "geo_location_tooltip": "Simple description of the relevant geolocation, e.g. Hamburg and vicinity.",
+    "add_location": "Add location",
+    "conditions_for_use_placeholder": "Please cite the dataset as..."
   },
   "create_data_offer_page": {
     "title": "Create Data Offer"
@@ -305,7 +371,8 @@
     "your_assets": "Your Assets",
     "your_pol": "Your Policies",
     "pre_cat": "Preconfigured Catalogs",
-    "con_agree": "Contract Agreements"
+    "con_agree": "Contract Agreements",
+    "provided": "Provided by"
   },
   "policy_definition_page": {
     "title": "Policies",
@@ -342,5 +409,25 @@
     "policies": "Policies",
     "contract": "Contract Definitions",
     "logout": "Logout"
+  },
+  "asset_detail_dialog": {
+    "on_request_data_offer_title": "On Request Data Offer",
+    "on_request_data_offer_description1": "This data offer is not available for immediate consumption. However, the creator left an email address to contact them if interested.",
+    "on_request_data_offer_description2": "Click",
+    "on_request_data_offer_description3": "Contact",
+    "on_request_data_offer_description4": "to email the data offer provider. Alternatively, you can also copy the contact email address from the Contact Information",
+    "on_request_data_offer_description5": "section above"
+  },
+  "create_asset": {
+    "title_tooltip": "The main title of your asset. It will also be the title of the data offering displayed in the catalog.",
+    "version_tooltip": "The version of your asset. Especially useful if you have iterations of the same asset.",
+    "asset_id_tooltip": "Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed.",
+    "content_type_hint": "Describes the content type of the data as a MIME type, see",
+    "endpoint_documentation_tooltip": "URL to the technical documentation about the data to be received.",
+    "standard_license_tooltip": "URL of the license under which the data is offered",
+    "data_model_tooltip": "Model for data exchange, e.g. DATEX II, TPEG for traffic and travel information, etc.",
+    "email_tooltip": "This email address will be offered to potential consumers for contacting you. This is done in place of having an actual data source connected.",
+    "prefered_email_subject": "Preferred E-Mail Subject",
+    "prefered_email_subject_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line."
   }
 }

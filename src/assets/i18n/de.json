@@ -264,7 +264,8 @@
     "your_assets": "Deine Datenbestände",
     "your_pol": "Deine Richtlinien",
     "pre_cat": "Vorkonfigurierte Kataloge",
-    "con_agree": "Vertragliche Vereinbarungen"
+    "con_agree": "Vertragliche Vereinbarungen",
+    "provided": "Provided by"
   },
   "policy_definition_page": {
     "create_pol": "Erstelle eine neue Richtlinie",
@@ -290,5 +291,6 @@
     "policies": "Richtlinien",
     "contract": "Vertragsdefinition",
     "logout": "Ausloggen"
-  }
+  },
+  "dashboard_page.marketing_about_ui": ""
 }

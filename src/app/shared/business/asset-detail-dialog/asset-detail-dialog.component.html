@@ -89,7 +89,7 @@
             [date]="
               data.contractAgreement!.terminationInformation!.terminatedAt
             "></ago>
-          · terminated by
+          · {{ 'general.terminated_by' | translate }}
           {{
             data.contractAgreement!.terminationInformation?.terminatedBy ===
             'SELF'
@@ -140,15 +140,21 @@
   </contract-offer-mini-list>
 
   <div *ngIf="isOnRequestDataOffer">
-    <div class="property-grid-group-title">On Request Data Offer</div>
-    <div>
-      This data offer is not available for immediate consumption. However, the
-      creator left an email address to contact them if interested.
+    <div class="property-grid-group-title">
+      {{ 'asset_detail_dialog.on_request_data_offer_title' | translate }}
     </div>
     <div>
-      Click <span class="!font-medium">Contact</span> to email the data offer
-      provider. Alternatively, you can also copy the contact email address from
-      the Contact Information<br />section above.
+      {{ 'asset_detail_dialog.on_request_data_offer_description1' | translate }}
+    </div>
+    <div>
+      {{ 'asset_detail_dialog.on_request_data_offer_description2' | translate
+      }}<span class="!font-medium">{{
+        'asset_detail_dialog.on_request_data_offer_description3' | translate
+      }}</span
+      >{{ 'asset_detail_dialog.on_request_data_offer_description4' | translate
+      }}<br />{{
+        'asset_detail_dialog.on_request_data_offer_description5' | translate
+      }}.
     </div>
   </div>
 </div>
@@ -165,7 +171,7 @@
         color="warn"
         [disabled]="data.contractAgreement?.isTerminated ?? false"
         (click)="onTerminateClick()">
-        Terminate
+        {{ 'general.terminate' | translate }}
       </button>
     </div>
 
@@ -190,7 +196,8 @@
           color="primary"
           [matTooltip]="
             limitsExceeded
-              ? 'You have reached the maximum number of consuming contracts. Please terminate one of the existing contracts to negotiate a new one.'
+              ? ('You have reached the maximum number of consuming contracts. Please terminate one of the existing contracts to negotiate a new one.'
+                | translate)
               : ''
           "
           [disabled]="
@@ -222,7 +229,7 @@
         mat-raised-button
         color="primary"
         (click)="onContactClick()">
-        Contact
+        {{ 'general.contact' | translate }}
       </button>
 
       <!-- Contact Agreement Buttons -->

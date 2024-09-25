@@ -17,15 +17,15 @@
           aria-label="Select an option"
           [formControl]="form.datasource.controls.dataSourceAvailability">
           <mat-radio-button *ngIf="form.mode === 'EDIT'" value="Unchanged">
-            Keep the datasource unchanged.
+            {{ 'create_data_offer.unchanged' | translate }}
           </mat-radio-button>
           <mat-radio-button value="Datasource">
-            Readily available with a new data source
+            {{ 'create_data_offer.readily_available' | translate }}
           </mat-radio-button>
           <mat-radio-button
             *ngIf="this.activeFeatureSet.hasMdsFields()"
             value="On-Request">
-            On Request
+            {{ 'create_data_offer.on_request' | translate }}
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -39,7 +39,7 @@
           placeholder="{{
             'create_data_offer.contact_email_placeholder' | translate
           }}"
-          tooltip="'contact_form.contact_email_tooltip' | translate"
+          [tooltip]="'create_data_offer.contact_email_tooltip' | translate"
           [label]="'create_data_offer.contact_email' | translate"
           [ctrl]="
             form.datasource.controls.contactEmail
@@ -50,8 +50,10 @@
           class="mt-5"
           fieldId="create-asset-form-contact-subject"
           label="Preferred E-Mail Subject"
-          placeholder="Data Offer 'xyz'"
-          tooltip="'contact_form.contact_subject_tooltip' | translate"
+          placeholder="{{
+            'create_data_offer.data_offer_email_subject_placeholder' | translate
+          }}"
+          [tooltip]="'create_data_offer.contact_subject_tooltip' | translate"
           [ctrl]="form.datasource.controls.contactPreferredEmailSubject">
         </edit-asset-form-input>
       </ng-container>
@@ -76,7 +78,9 @@
               form.datasource.controls.dataDestination;
             let ctrl
           "
-          label="Custom Datasource Config (JSON)"
+          label="{{
+            'create_data_offer.custom_datasource_config_json_label' | translate
+          }}"
           fieldId="create-asset-form-custom-datasource-json"
           placeholder='{"https://w3id.org/edc/v0.0.1/ns/type": "HttpData", ...}'
           [ctrl]="ctrl"></edit-asset-form-textarea>
@@ -209,9 +213,7 @@
               </button>
             </div>
             <mat-hint *ngIf="form.proxyQueryParams" class="mat-hint">
-              With query param parameterization enabled, the default query
-              params and the query params provided by the consumer will be
-              merged.
+              {{ 'create_data_offer.query_param_enabled_hint' | translate }}
             </mat-hint>
             <div class="flex flex-row mb-[10px] space-x-[10px] mt-2">
               <!-- Add Query Param Button -->
@@ -311,7 +313,10 @@
               <mat-form-field class="w-1/3">
                 <input
                   matInput
-                  placeholder="Authorization"
+                  placeholder="{{
+                    'create_data_offer.authorization_header_placeholder'
+                      | translate
+                  }}"
                   autocomplete="new-auth-header-name"
                   [formControl]="form.datasource.controls.httpAuthHeaderName" />
               </mat-form-field>
@@ -323,7 +328,9 @@
                 class="grow">
                 <input
                   matInput
-                  placeholder="Bearer ..."
+                  placeholder="{{
+                    'create_data_offer.bearer_placeholder' | translate
+                  }}"
                   [formControl]="
                     form.datasource.controls.httpAuthHeaderValue
                   " />
@@ -378,7 +385,9 @@
               <mat-form-field class="w-1/3">
                 <input
                   matInput
-                  placeholder="Accept"
+                  placeholder="{{
+                    'create_data_offer.accept_placeholder' | translate
+                  }}"
                   autocomplete="new-header-name"
                   [formControl]="header.controls.headerName" />
               </mat-form-field>
@@ -420,7 +429,7 @@
       <!-- Title -->
       <edit-asset-form-input
         fieldId="create-asset-form-name"
-        tooltip="The main title of your asset. It will also be the title of the data offering displayed in the catalog."
+        tooltip="{{ 'create_data_offer.title_tooltip' | translate }}"
         [label]="'asset_list_page.name' | translate"
         [placeholder]="'asset_list_page.my_asset' | translate"
         [ctrl]="form.general.controls.name"></edit-asset-form-input>
@@ -429,7 +438,7 @@
       <edit-asset-form-input
         *ngIf="form.general.controls.id; let ctrl"
         fieldId="create-asset-form-id"
-        tooltip="Asset ID, used internally, is an auto-generated string in a URL-compatible format, combining the asset name and version with a urn:artifact: prefix. You can customize it if needed."
+        tooltip="{{ 'create_data_offer.asset_id_tooltip' | translate }}"
         [placeholder]="'asset_list_page.asset_id' | translate"
         [label]="'asset_list_page.asset_id' | translate"
         [ctrl]="ctrl"></edit-asset-form-input>
@@ -471,7 +480,7 @@
           class="mt-4"
           fieldId="create-asset-form-version"
           placeholder="1.0.0"
-          tooltip="The version of your asset. Especially useful if you have iterations of the same asset."
+          tooltip="{{ 'create_data_offer.version_tooltip' | translate }}"
           [label]="'asset_list_page.version' | translate"
           [ctrl]="form.general.controls.version"></edit-asset-form-input>
 
@@ -484,20 +493,24 @@
 
     <edit-asset-form-group
       *ngIf="form.general.controls.dataCategory"
-      myTitle="Mobility Information"
-      description="Fill out the asset's mobility information">
+      myTitle="{{
+        'create_data_offer.mobility_information_myTitle' | translate
+      }}"
+      description="{{
+        'create_data_offer.mobility_information_description' | translate
+      }}">
       <!-- Data Category -->
       <data-category-select
         *ngIf="form.general.controls.dataCategory"
         class="grow"
-        label="Data Category"
+        label="{{ 'general.data_category' | translate }}"
         [control]="form.general.controls.dataCategory"></data-category-select>
 
       <!-- Data Subcategory -->
       <data-subcategory-select
         *ngIf="form.general.controls.dataSubcategory"
         class="grow"
-        label="Data Subcategory"
+        label="{{ 'general.data_subcategory' | translate }}"
         [dataCategory]="form.dataCategory"
         [control]="
           form.general.controls.dataSubcategory
@@ -507,7 +520,7 @@
         *ngIf="form.general.value.showAdvancedFields && form.advanced">
         <!-- Transport Mode -->
         <transport-mode-select
-          label="Transport Mode"
+          label="{{ 'general.transport_mode' | translate }}"
           [control]="
             form.advanced.controls.transportMode
           "></transport-mode-select>
@@ -515,30 +528,36 @@
         <!-- Data Model -->
         <edit-asset-form-input
           fieldId="create-asset-form-data-model"
-          label="Data Model"
-          placeholder="proprietary"
-          tooltip="Model for data exchange, e.g. DATEX II, TPEG for traffic and travel information, etc."
+          label="{{ 'general.data_model' | translate }}"
+          placeholder="{{
+            'create_data_offer.data_model_placeholder' | translate
+          }}"
+          tooltip="{{ 'create_data_offer.data_model_tooltip' | translate }}"
           [ctrl]="form.advanced.controls.dataModel"></edit-asset-form-input>
       </ng-container>
     </edit-asset-form-group>
 
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields"
-      description="Provide context information about the datasource"
+      description="{{
+        'create_data_offer.context_information_description' | translate
+      }}"
       [myTitle]="'general.doc' | translate">
       <!-- Endpoint Documentation -->
       <edit-asset-form-input
-        label="Endpoint Documentation"
+        label="{{ 'general.endpoint_doc' | translate }}"
         fieldId="create-asset-form-endpoint-documentation"
         placeholder="https://"
-        tooltip="URL to the technical documentation about the data to be received."
+        tooltip="{{
+          'create_data_offer.endpoint_documentation_tooltip' | translate
+        }}"
         [ctrl]="
           form.general.controls.endpointDocumentation
         "></edit-asset-form-input>
 
       <!-- Content Type -->
       <edit-asset-form-input
-        label="Content Type"
+        label="{{ 'general.content_type' | translate }}"
         fieldId="create-asset-form-content-type"
         placeholder="application/json"
         [contentTypeHint]="true"
@@ -547,13 +566,18 @@
       <ng-container *ngIf="form.advanced">
         <!-- Data sample URLs -->
         <div class="mt-4">
-          <edit-asset-form-label label="Data samples"></edit-asset-form-label>
+          <edit-asset-form-label
+            label="{{
+              'create_data_offer.data_samples' | translate
+            }}"></edit-asset-form-label>
           <button
             class="!scale-[0.9]"
             mat-icon-button
             matSuffix
             matTooltipPosition="right"
-            matTooltip="URLs of Dataset samples if available">
+            matTooltip="{{
+              'create_data_offer.data_samples_tooltip' | translate
+            }}">
             <mat-icon>info_outline</mat-icon>
           </button>
           <div class="mt-6"></div>
@@ -575,7 +599,7 @@
               color="warn"
               style="height: 42px; margin-top: 4px; margin-left: 8px"
               (click)="form.onDataSampleUrlsRemoveClick($event, i)">
-              Remove
+              {{ 'general.remove' | translate }}
             </button>
           </div>
           <div class="-mt-2">
@@ -583,20 +607,24 @@
               mat-button
               color="accent"
               (click)="form.onDataSampleUrlsAddClick($event)">
-              Add data sample
+              {{ 'asset_list_page.add_sample' | translate }}
             </button>
           </div>
         </div>
         <!-- Reference file URLs -->
         <div class="mt-4">
           <edit-asset-form-label
-            label="Reference files"></edit-asset-form-label>
+            label="{{
+              'create_data_offer.reference_files' | translate
+            }}"></edit-asset-form-label>
           <button
             class="!scale-[0.9]"
             mat-icon-button
             matSuffix
             matTooltipPosition="right"
-            matTooltip="URLs of Dataset schemas or other references">
+            matTooltip="{{
+              'create_data_offer.reference_files_tooltip' | translate
+            }}">
             <mat-icon>info_outline</mat-icon>
           </button>
           <div class="mt-6"></div>
@@ -618,7 +646,7 @@
               color="warn"
               style="height: 42px; margin-top: 4px; margin-left: 8px"
               (click)="form.onReferenceFileUrlsRemoveClick($event, i)">
-              Remove
+              {{ 'general.remove' | translate }}
             </button>
           </div>
           <div class="-mt-2">
@@ -626,7 +654,7 @@
               mat-button
               color="accent"
               (click)="form.onReferenceFileUrlsAddClick($event)">
-              Add reference file
+              {{ 'asset_list_page.add_file' | translate }}
             </button>
           </div>
         </div>
@@ -634,14 +662,14 @@
         <!-- Description -->
         <edit-asset-form-textarea
           *ngIf="form.advanced.controls.referenceFileUrls.length"
-          label="Reference files description"
+          label="{{ 'asset_list_page.file_des' | translate }}"
           fieldId="edit-asset-form-reference-files-description"
           [ctrl]="form.advanced.controls.referenceFilesDescription"
           [placeholder]="
             '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
           ">
           <div class="flex flex-row items-center gap-1 mb-1">
-            Additional information regarding the reference files. Supports
+            {{ 'create_data_offer.reference_files_description' | translate }}
             <a
               class="link"
               externalLink
@@ -655,28 +683,33 @@
 
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields && form.advanced"
-      myTitle="Location / Time"
-      description="Fill out location and time information about the asset">
+      myTitle="{{ 'create_data_offer.location_time_title' | translate }}"
+      description="{{
+        'create_data_offer.location_time_description' | translate
+      }}">
       <!-- Temporal coverage -->
       <div
         *ngIf="form.advanced.controls.temporalCoverage; let ctrl"
         class="mt-4">
         <edit-asset-form-label
-          label="Temporal coverage"></edit-asset-form-label>
+          label="{{
+            'create_data_offer.temporal_coverage' | translate
+          }}"></edit-asset-form-label>
         <mat-form-field class="w-full" color="accent">
           <mat-date-range-input [formGroup]="ctrl" [rangePicker]="picker">
             <input
               matStartDate
               formControlName="from"
-              placeholder="Start date" />
+              placeholder="{{ 'create_data_offer.start_date' | translate }}" />
             <input
               matEndDate
               formControlName="toInclusive"
-              placeholder="End date (inclusive)" />
+              placeholder="{{
+                'create_data_offer.end-date-inclusive' | translate
+              }}" />
           </mat-date-range-input>
           <mat-hint
-            >Start and/or end date when the dataset is available for
-            consumption. DD/MM/YYYY (optional) – DD/MM/YYYY (optional)
+            >{{ 'create_data_offer.temporal_coverage_hint' | translate }}
           </mat-hint>
           <mat-datepicker-toggle
             matSuffix
@@ -692,9 +725,15 @@
       <edit-asset-form-input
         class="mt-3"
         fieldId="create-asset-form-data-update-frequency"
-        label="Data update frequency"
-        placeholder="every month"
-        tooltip="How often is the dataset updated, e.g	'Every 5 min."
+        label="{{
+          'create_data_offer.data_update_frequency_label' | translate
+        }}"
+        placeholder="{{
+          'create_data_offer.data_update_frequency_placeholder' | translate
+        }}"
+        tooltip="{{
+          'create_data_offer.data_update_frequency_tooltip' | translate
+        }}"
         [ctrl]="
           form.advanced.controls.dataUpdateFrequency
         "></edit-asset-form-input>
@@ -702,9 +741,11 @@
       <!-- Geo reference method -->
       <edit-asset-form-input
         fieldId="create-asset-form-geo-ref-method"
-        label="Geo reference method"
-        placeholder="Lat/Lon"
-        tooltip="The method used for representing of geographical data, e.g GeoJSON, OpenLR, etc."
+        label="{{ 'general.geo_reference_method' | translate }}"
+        placeholder="{{
+          'create_data_offer.geo_reference_placeholder' | translate
+        }}"
+        tooltip="{{ 'create_data_offer.geo_reference_tooltip' | translate }}"
         [ctrl]="
           form.advanced.controls.geoReferenceMethod
         "></edit-asset-form-input>
@@ -712,20 +753,25 @@
       <!-- Geo location -->
       <edit-asset-form-input
         fieldId="create-asset-form-geo-location"
-        label="Geo location"
+        label="{{ 'create_data_offer.geo_location_label' | translate }}"
         placeholder="40.741895,-73.989308"
-        tooltip="Simple description of the relevant geolocation, e.g. Hamburg and vicinity."
+        tooltip="{{ 'create_data_offer.geo_location_description' | translate }}"
         [ctrl]="form.advanced.controls.geoLocation"></edit-asset-form-input>
 
       <!-- NUTS locations -->
       <div>
-        <edit-asset-form-label label="NUTS locations"></edit-asset-form-label>
+        <edit-asset-form-label
+          label="{{
+            'create_data_offer.nuts_locations_label' | translate
+          }}"></edit-asset-form-label>
         <button
           class="!scale-[0.9]"
           mat-icon-button
           matSuffix
           matTooltipPosition="right"
-          matTooltip="NUTS codes are regional identifiers in Germany used for statistical and administrative purposes, covering states, districts, and municipalities. (e.g DE60)">
+          matTooltip="{{
+            'create_data_offer.nuts_locations_tooltip' | translate
+          }}">
           <mat-icon>info_outline</mat-icon>
         </button>
         <div class="mt-6"></div>
@@ -736,7 +782,9 @@
           "
           class="flex flex-row space-x-2 -mt-2">
           <mat-form-field class="grow">
-            <mat-label>NUTS location</mat-label>
+            <mat-label>{{
+              'create_data_offer.nuts_location' | translate
+            }}</mat-label>
             <input matInput placeholder="DE929" [formControl]="location" />
           </mat-form-field>
           <button
@@ -744,7 +792,7 @@
             color="warn"
             style="height: 42px; margin-top: 4px; margin-left: 8px"
             (click)="form.onNutsLocationsRemoveClick($event, i)">
-            Remove
+            {{ 'general.remove' | translate }}
           </button>
         </div>
         <div class="-mt-2">
@@ -752,7 +800,7 @@
             mat-button
             color="accent"
             (click)="form.onNutsLocationsAddClick($event)">
-            Add location
+            {{ 'asset_list_page.add_loc' | translate }}
           </button>
         </div>
       </div>
@@ -760,15 +808,19 @@
 
     <edit-asset-form-group
       *ngIf="form.general.value.showAdvancedFields"
-      myTitle="Legal Information"
-      description="Provide legal information and define the conditions for use">
+      myTitle="{{ 'create_data_offer.legal_information_title' | translate }}"
+      description="{{
+        'create_data_offer.legal_information_description' | translate
+      }}">
       <!-- Sovereign legal name -->
       <edit-asset-form-input
         *ngIf="form.advanced"
-        label="Sovereign"
+        label="{{ 'general.sovereign' | translate }}"
         fieldId="create-asset-form-sovereign"
-        placeholder="Data Owning Company GMBH"
-        tooltip="Legal name of the data owner"
+        placeholder="{{
+          'create_data_offer.sovereign_placeholder' | translate
+        }}"
+        tooltip="{{ 'create_data_offer.sovereign_tooltip' | translate }}"
         [ctrl]="
           form.advanced.controls.sovereignLegalName
         "></edit-asset-form-input>
@@ -776,33 +828,34 @@
       <!-- Publisher -->
       <edit-asset-form-input
         class="mt-3"
-        label="Publisher"
+        label="{{ 'general.publisher' | translate }}"
         fieldId="create-asset-form-publisher"
         placeholder="https://"
-        tooltip="URL of the original publisher of the data"
+        tooltip="{{ 'create_data_offer.publisher_tooltip' | translate }}"
         [ctrl]="form.general.controls.publisher"></edit-asset-form-input>
 
       <!-- Standard License -->
       <edit-asset-form-input
-        label="Standard License"
+        label="{{ 'general.standard_license' | translate }}"
         fieldId="create-asset-form-standard-license"
         placeholder="https://"
-        tooltip="URL of the license under which the data is offered."
+        tooltip="{{ 'create_data_offer.standard-license-tooltip' | translate }}"
         [ctrl]="form.general.controls.standardLicense"></edit-asset-form-input>
 
       <!-- Conditions for use -->
       <edit-asset-form-textarea
         *ngIf="form.advanced"
         textareaClasses="h-28"
-        label="Conditions for use"
+        label="{{ 'create_data_offer.conditions_for_use_label' | translate }}"
         fieldId="create-asset-form-conditions-for-use"
         [ctrl]="form.advanced.controls.conditionsForUse"
         [placeholder]="
           '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
         ">
         <div class="flex flex-row items-center gap-1 mb-1">
-          Additional not legally relevant usage instructions (e.g. how to cite
-          the dataset). The field supports
+          {{
+            'create_data_offer.conditions_for_use_description_hint' | translate
+          }}
           <a
             class="link"
             externalLink
@@ -825,7 +878,6 @@
           [ctrl]="ctrl"></edit-asset-form-label>
         <mat-radio-group
           class="!flex !flex-col !gap-1 w-full mt-2"
-          aria-label="Select an option"
           [formControl]="ctrl">
           <mat-radio-button value="PUBLISH_UNRESTRICTED">
             {{ 'general.pub_unrestr' | translate }}
@@ -834,7 +886,7 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="Your data offer is published and can be accessed by everyone.">
+              matTooltip="{{ 'general.pub_unrestr_tooltip' | translate }}">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-radio-button>
@@ -845,7 +897,7 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="Your data offer is published with restrictions of your choice.">
+              matTooltip="{{ 'general.pub_restr_tooltip' | translate }}">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-radio-button>
@@ -856,7 +908,7 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="Create the asset but do not publish your data offer. You can do it later.">
+              matTooltip="{{ 'general.pub_asset_only_tooltip' | translate }}">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-radio-button>
