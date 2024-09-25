@@ -105,7 +105,12 @@
     "contact": "Contact",
     "ad_inf": "Advanced Information",
     "geo_reference_method_tooltip": "The method used for representing of geographical data, e.g GeoJSON, OpenLR, etc.",
-    "parametrization": "Parameterization"
+    "parametrization": "Parameterization",
+    "combine": "Combine",
+    "start_date": "Start date",
+    "end_date": "End date",
+    "date": "Date",
+    "copy_to_clipboard_tooltip": "Copy to clipboard"
   },
   "tooltip": {
     "negotiate": "Cannot negotiate contracts with your own connector.",
@@ -245,7 +250,10 @@
     "new_def": "Publish New Data Offer",
     "search_def": "Search data offer",
     "create_def": "Publish Data Offer",
-    "con_def": "No data offer found with given filter."
+    "con_def": "No data offer found with given filter.",
+    "active_contracts": "Active Contracts",
+    "terminated_contracts": "Terminated Contracts",
+    "all_contracts": "All Contracts"
   },
   "contract_definition_page": {
     "title": "Data Offers",
@@ -372,7 +380,8 @@
     "your_pol": "Your Policies",
     "pre_cat": "Preconfigured Catalogs",
     "con_agree": "Contract Agreements",
-    "provided": "Provided by"
+    "provided": "Provided by",
+    "catalog_browser": "Catalog Browser"
   },
   "policy_definition_page": {
     "title": "Policies",
@@ -384,7 +393,8 @@
     "search_pol": "Search policies",
     "create_policy": "Create Policy",
     "no_pol": "No policy found with given filter.",
-    "expression": "Policy Expression"
+    "expression": "Policy Expression",
+    "metadata": "Policy Metadata"
   },
   "create_policy_page": {
     "title": "Create Policy"
@@ -429,5 +439,17 @@
     "email_tooltip": "This email address will be offered to potential consumers for contacting you. This is done in place of having an actual data source connected.",
     "prefered_email_subject": "Preferred E-Mail Subject",
     "prefered_email_subject_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line."
+  },
+  "policy_expression": {
+    "timespan_restriction_title": "Timespan Restriction",
+    "timespan_restriction_tooltip": "Timespan at which the policy is evaluated. This can be used to restrict the data offer to certain time periods",
+    "participant_id_title": "Consumer's Participant ID",
+    "participant_id_description": "Consumer's Participant ID, also called Connector ID, of the counter-party connector.",
+    "participant_id_hint": "Multiple values can be joined by comma",
+    "time_restriction_title": "Time Restriction",
+    "time_restriction_description": "Time at which the policy is evaluated. This can be used to restrict the data offer to certain time periods",
+    "add_tooltip": "Conjunction of several expressions. Evaluates to true if and only if all child expressions are true",
+    "or_tooltip": "Disjunction of several expressions. Evaluates to true if and only if at least one child expression is true",
+    "xone_tooltip": "XONE operation. Evaluates to true if and only if exactly one child expression is true"
   }
 }
