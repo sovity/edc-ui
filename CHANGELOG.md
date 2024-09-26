@@ -16,8 +16,6 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Major
 
-- Add Support for the UI internationalization
-
 #### Minor
 
 #### Patch
@@ -32,6 +30,7 @@ the detailed section referring to by linking pull requests or issues.
   definition in a single call
   ([#841](https://github.com/sovity/edc-ui/issues/841))
 - Fixed config not being applied properly after a version upgrade
+- Added initial support for UI internationalization
 
 ### Deployment Migration Notes
 
