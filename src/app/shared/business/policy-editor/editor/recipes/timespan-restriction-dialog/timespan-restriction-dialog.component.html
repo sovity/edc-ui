@@ -15,11 +15,11 @@
         <input
           matStartDate
           formControlName="start"
-          placeholder="{{ 'general.start_date' | translate }}" />
+          [placeholder]="'general.start_date' | translate" />
         <input
           matEndDate
           formControlName="end"
-          placeholder="{{ 'general.end_date' | translate }}" />
+          [placeholder]="'general.end_date' | translate" />
       </mat-date-range-input>
       <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
