@@ -17,6 +17,9 @@
               <input
                 matInput
                 autocomplete="new-name"
+                placeholder="{{
+                  'create_data_offer_page.title_placeholder' | translate
+                }}"
                 [formControl]="form.metadata.controls.title" />
               <button
                 class="!scale-[0.9]"
@@ -87,8 +90,7 @@
 
           <mat-form-field>
             <mat-label>{{
-              'create_data_offer_page.reference_files_description_title'
-                | translate
+              'create_data_offer_page.description' | translate
             }}</mat-label>
             <textarea
               class="h-36"
@@ -98,7 +100,7 @@
                 '# My Asset\n\nAt vero eos et accusam et justo duo dolores et ea rebum.\n\n## Details\n\nAt vero eos et accusam et justo duo dolores et ea **rebum**.'
               "></textarea>
             <mat-hint class="flex flex-row items-center gap-1 mb-1">
-              {{ 'create_data_offer_page.description_uses' | translate }}
+              {{ 'create_data_offer_page.description_supports' | translate }}
               <a
                 class="link"
                 externalLink
