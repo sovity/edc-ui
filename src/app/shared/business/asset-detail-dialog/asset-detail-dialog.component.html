@@ -187,8 +187,7 @@
           color="primary"
           [matTooltip]="
             limitsExceeded
-              ? ('You have reached the maximum number of consuming contracts. Please terminate one of the existing contracts to negotiate a new one.'
-                | translate)
+              ? ('asset_detail_dialog.limit_exceeded_tooltip' | translate)
               : ''
           "
           [disabled]="
