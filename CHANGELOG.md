@@ -32,7 +32,9 @@ the detailed section referring to by linking pull requests or issues.
 - Fixed config not being applied properly after a version upgrade
 - Fixed Date to DateTime conversion issues when using operators `LT` and `GT`
   ([#846](https://github.com/sovity/edc-ui/issues/846))
-- Added initial support for UI internationalization ([#680](https://github.com/sovity/edc-ui/issues/680))
+- Added initial support for UI internationalization
+  ([#680](https://github.com/sovity/edc-ui/issues/680))
+- Implemented Data Offer wizard wording change request by MDS
 
 ### Deployment Migration Notes
 
