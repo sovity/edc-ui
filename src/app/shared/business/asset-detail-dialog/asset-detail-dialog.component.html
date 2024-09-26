@@ -139,24 +139,15 @@
     (negotiateClick)="onNegotiateClick($event)">
   </contract-offer-mini-list>
 
-  <div *ngIf="isOnRequestDataOffer">
+  <ng-container *ngIf="isOnRequestDataOffer">
     <div class="property-grid-group-title">
       {{ 'asset_detail_dialog.on_request_data_offer_title' | translate }}
     </div>
-    <div>
-      {{ 'asset_detail_dialog.on_request_data_offer_description1' | translate }}
-    </div>
-    <div>
-      {{ 'asset_detail_dialog.on_request_data_offer_description2' | translate
-      }}<span class="!font-medium">{{
-        'asset_detail_dialog.on_request_data_offer_description3' | translate
-      }}</span
-      >{{ 'asset_detail_dialog.on_request_data_offer_description4' | translate
-      }}<br />{{
-        'asset_detail_dialog.on_request_data_offer_description5' | translate
-      }}.
-    </div>
-  </div>
+    <div
+      [innerHTML]="
+        'asset_detail_dialog.on_request_data_offer_description_html' | translate
+      "></div>
+  </ng-container>
 </div>
 
 <mat-dialog-actions>
