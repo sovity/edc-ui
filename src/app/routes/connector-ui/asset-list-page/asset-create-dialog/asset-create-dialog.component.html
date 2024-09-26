@@ -17,17 +17,17 @@
               <input
                 matInput
                 autocomplete="new-name"
-                placeholder="{{
+                [placeholder]="
                   'create_data_offer_page.title_placeholder' | translate
-                }}"
+                "
                 [formControl]="form.metadata.controls.title" />
               <button
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.title_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
             </mat-form-field>
@@ -46,9 +46,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.version_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
             </mat-form-field>
@@ -70,9 +70,9 @@
               class="!scale-[0.9]"
               mat-icon-button
               matSuffix
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.asset_id_tooltip' | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
@@ -157,10 +157,10 @@
               class="!scale-[0.9]"
               mat-icon-button
               matSuffix
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.endpoint_documentation_tooltip'
                   | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
             <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
@@ -181,9 +181,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.publisher_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
@@ -203,9 +203,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.standard_license_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.pattern">
@@ -255,9 +255,9 @@
               class="!scale-[0.9]"
               mat-icon-button
               matSuffix
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.data_model_tooltip' | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-form-field>
@@ -266,7 +266,7 @@
             <!-- Transport Mode -->
             <transport-mode-select
               class="grow"
-              label="{{ 'create_data_offer_page.transport_mode' | translate }}"
+              [label]="'create_data_offer_page.transport_mode' | translate"
               [control]="
                 form.advanced.controls.transportMode
               "></transport-mode-select>
@@ -284,9 +284,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.geo_reference_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
             </mat-form-field>
@@ -299,17 +299,17 @@
             }}</mat-label>
             <input
               matInput
-              placeholder="{{
+              [placeholder]="
                 'create_data_offer_page.sovereign_placeholder' | translate
-              }}"
+              "
               [formControl]="form.advanced.controls.sovereignLegalName" />
             <button
               class="!scale-[0.9]"
               mat-icon-button
               matSuffix
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.sovereign_tooltip' | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
           </mat-form-field>
@@ -322,19 +322,19 @@
               }}</mat-label>
               <input
                 matInput
-                placeholder="{{
+                [placeholder]="
                   'create_data_offer_page.data_update_frequency_placeholder'
                     | translate
-                }}"
+                "
                 [formControl]="form.advanced.controls.dataUpdateFrequency" />
               <button
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.data_update_frequency_tooltip'
                     | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
             </mat-form-field>
@@ -352,9 +352,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.geo_location_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
             </mat-form-field>
@@ -370,9 +370,9 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.nuts_locations_tooltip' | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
           </div>
@@ -417,9 +417,9 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.data_samples_tooltip' | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
           </div>
@@ -466,9 +466,9 @@
               mat-icon-button
               matSuffix
               matTooltipPosition="right"
-              matTooltip="{{
+              [matTooltip]="
                 'create_data_offer_page.reference_files_tooltip' | translate
-              }}">
+              ">
               <mat-icon>info_outline</mat-icon>
             </button>
           </div>
@@ -544,15 +544,15 @@
               <input
                 matStartDate
                 formControlName="from"
-                placeholder="{{
+                [placeholder]="
                   'create_data_offer_page.start_date' | translate
-                }}" />
+                " />
               <input
                 matEndDate
                 formControlName="toInclusive"
-                placeholder="{{
-                  'create_data_offer_page.end-date-inclusive' | translate
-                }}" />
+                [placeholder]="
+                  'create_data_offer_page.end_date_inclusive' | translate
+                " />
             </mat-date-range-input>
             <mat-hint
               >{{ 'create_data_offer_page.temporal_coverage_hint' | translate }}
@@ -574,10 +574,10 @@
             <textarea
               class="h-28"
               matInput
-              placeholder="{{
+              [placeholder]="
                 'create_data_offer_page.conditions_for_use_placeholder'
                   | translate
-              }}"
+              "
               [formControl]="
                 form.advanced.controls.conditionsForUse
               "></textarea>
@@ -656,9 +656,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.contact_email_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
               <mat-error *ngIf="ctrl.invalid && ctrl.errors?.email">
@@ -688,9 +688,9 @@
                 class="!scale-[0.9]"
                 mat-icon-button
                 matSuffix
-                matTooltip="{{
+                [matTooltip]="
                   'create_data_offer_page.email_subject_tooltip' | translate
-                }}">
+                ">
                 <mat-icon>info_outline</mat-icon>
               </button>
             </mat-form-field>
@@ -952,11 +952,11 @@
                 }}</mat-label>
                 <input
                   matInput
-                  placeholder="{{
+                  autocomplete="new-auth-header-name"
+                  [placeholder]="
                     'create_data_offer_page.authorization_header_placeholder'
                       | translate
-                  }}"
-                  autocomplete="new-auth-header-name"
+                  "
                   [formControl]="form.datasource.controls.httpAuthHeaderName" />
               </mat-form-field>
 
@@ -969,9 +969,9 @@
                 <mat-label>{{ 'general.auth_value' | translate }}</mat-label>
                 <input
                   matInput
-                  placeholder="{{
+                  [placeholder]="
                     'create_data_offer_page.bearer_placeholder' | translate
-                  }}"
+                  "
                   [formControl]="
                     form.datasource.controls.httpAuthHeaderValue
                   " />
