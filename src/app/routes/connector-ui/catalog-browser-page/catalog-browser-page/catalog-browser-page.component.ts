@@ -55,7 +55,7 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
         this.data = data;
         this.data$.next(data);
       });
-    this.buildPresetCatalogUrlsMessage();
+    this.startBuildingPresetCatalogUrlsMessage();
   }
 
   onDataOfferClick(dataOffer: DataOffer) {
@@ -87,7 +87,7 @@ export class CatalogBrowserPageComponent implements OnInit, OnDestroy {
     this.fetch$.next(null);
   }
 
-  private buildPresetCatalogUrlsMessage() {
+  private startBuildingPresetCatalogUrlsMessage() {
     this.translateService
       .get(['catalog_browser_page.usage'])
       .pipe(takeUntil(this.ngOnDestroy$))
