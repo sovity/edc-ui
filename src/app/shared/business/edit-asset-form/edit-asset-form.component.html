@@ -2,15 +2,13 @@
   <form class="flex flex-col gap-y-12 mt-4" [formGroup]="form.all">
     <edit-asset-form-group
       *ngIf="form.datasource"
-      [myTitle]="'create_data_offer_page.datasource' | translate"
-      [description]="
-        'create_data_offer_page.data_source_description' | translate
-      ">
-      <!-- Datasource Type -->
+      [myTitle]="'create_data_offer_page.data_offer_type' | translate"
+      [description]="'create_data_offer_page.define_data_offer' | translate">
+      <!-- Data offer Type -->
       <div *ngIf="multipleDataSourceOptionsAvailable()">
         <edit-asset-form-label
           htmlFor="create-asset-form-datasource-type"
-          [label]="'create_data_offer_page.data_type' | translate"
+          [label]="'create_data_offer_page.offer_type' | translate"
           [ctrl]="
             form.datasource.controls.dataSourceAvailability
           "></edit-asset-form-label>

@@ -260,7 +260,7 @@
             </button>
           </mat-form-field>
 
-          <div class="flex flex-row space-x-[10px]">
+          <div class="flex flex-row items-end space-x-[10px]">
             <!-- Transport Mode -->
             <transport-mode-select
               class="grow"
@@ -270,7 +270,7 @@
               "></transport-mode-select>
 
             <!-- Geo reference method -->
-            <mat-form-field class="grow">
+            <mat-form-field class="grow align-middle">
               <mat-label>{{
                 'create_data_offer_page.geo_reference_method' | translate
               }}</mat-label>
@@ -506,7 +506,8 @@
           <mat-form-field
             *ngIf="form.advanced.controls.referenceFileUrls.length > 0">
             <mat-label>{{
-              'create_data_offer_page.reference_files_description' | translate
+              'create_data_offer_page.reference_files_description_label'
+                | translate
             }}</mat-label>
             <textarea
               class="h-28"
