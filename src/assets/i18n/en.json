@@ -305,7 +305,7 @@
     "description_uses": "The description uses",
     "description_supports": "The description supports",
     "documentation": "Documentation",
-    "email_subject_placeholder": "Data Offer 'xyz",
+    "email_subject_placeholder": "Data Offer 'xyz'",
     "email_subject_tooltip": "When potential customers reach out to you via email, you’ll receive messages with this subject line.",
     "email_subject": "Preferred E-Mail Subject",
     "end-date-inclusive": "End date (inclusive)",
