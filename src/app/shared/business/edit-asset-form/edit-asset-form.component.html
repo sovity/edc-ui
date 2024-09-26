@@ -181,6 +181,7 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Query Param Name -->
               <mat-form-field class="w-1/3">
+                <mat-label>{{ 'general.name' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="q"
@@ -198,6 +199,7 @@
               </mat-form-field>
               <!-- Query Param Value -->
               <mat-form-field class="grow">
+                <mat-label>{{ 'general.value' | translate }}</mat-label>
                 <input
                   matInput
                   placeholder="..."
@@ -331,6 +333,9 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Auth Header Name -->
               <mat-form-field class="w-1/3">
+                <mat-label>{{
+                  'create_data_offer_page.auth_header_name' | translate
+                }}</mat-label>
                 <input
                   matInput
                   placeholder="{{
@@ -346,6 +351,9 @@
                   form.datasource.controls.httpAuthHeaderType.value === 'Value'
                 "
                 class="grow">
+                <mat-label>{{
+                  'create_data_offer_page.auth_header_value' | translate
+                }}</mat-label>
                 <input
                   matInput
                   placeholder="{{
@@ -405,14 +413,22 @@
               class="flex flex-row space-x-[10px] -mt-3">
               <!-- Header Name -->
               <mat-form-field class="w-1/3">
+                <mat-label>{{
+                  'create_data_offer_page.header_name' | translate
+                }}</mat-label>
                 <input
                   matInput
-                  placeholder="{{ 'general.accept' | translate }}"
+                  placeholder="{{
+                    'create_data_offer_page.header' | translate
+                  }}"
                   autocomplete="new-header-name"
                   [formControl]="header.controls.headerName" />
               </mat-form-field>
               <!-- Header Value -->
               <mat-form-field class="grow">
+                <mat-label>{{
+                  'create_data_offer_page.header_value' | translate
+                }}</mat-label>
                 <input
                   matInput
                   placeholder="..."
