@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Subject, switchMap} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
@@ -8,7 +8,9 @@ import {SimpleChangesTyped} from '../../../core/utils/angular-utils';
   selector: 'translate-with-slot',
   templateUrl: './translate-with-slot.component.html',
 })
-export class TranslateWithSlotComponent implements OnChanges, OnDestroy {
+export class TranslateWithSlotComponent
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input()
   key!: string;
 
@@ -22,6 +24,14 @@ export class TranslateWithSlotComponent implements OnChanges, OnDestroy {
   textAfter = '';
 
   constructor(private translationService: TranslateService) {
+    this.splitText();
+  }
+
+  ngOnInit() {
+    this.splitText();
+  }
+
+  splitText() {
     this.key$
       .pipe(
         switchMap(() => this.translationService.get(this.key)),

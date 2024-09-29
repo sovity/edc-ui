@@ -34,7 +34,12 @@ export class ConnectorUiComponent implements OnInit {
   ) {
     this.navItemGroups = this.navItemsBuilder.buildNavItemGroups();
     this.translateService.setDefaultLang('en');
-    this.translateService.use(localStorage.getItem('selectedLanguage') || 'en');
+    let selectedLanguage = localStorage.getItem('selectedLanguage');
+    if (!selectedLanguage) {
+      selectedLanguage = 'en';
+      localStorage.setItem('selectedLanguage', selectedLanguage);
+    }
+    this.translateService.use(JSON.parse(selectedLanguage));
   }
 
   ngOnInit() {
