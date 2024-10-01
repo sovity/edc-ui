@@ -58,23 +58,12 @@ export class ContractAgreementTransferDialogForm {
         showAllHttpParameterizationFields: [false],
 
         httpProxiedPath: [''],
-        httpProxiedMethod: [''],
+        httpProxiedMethod: ['', Validators.required],
         httpProxiedQueryParams: this.formBuilder.array(
           new Array<FormGroup<HttpDatasourceQueryParamFormModel>>(),
         ),
         httpProxiedBody: [''],
         httpProxiedBodyContentType: [''],
-      });
-
-    all
-      .get('showAllHttpParameterizationFields')!
-      .valueChanges.subscribe((value) => {
-        if (value) {
-          all.get('httpProxiedMethod')!.setValidators([Validators.required]);
-        } else {
-          all.get('httpProxiedMethod')!.clearValidators();
-        }
-        all.get('httpProxiedMethod')!.updateValueAndValidity();
       });
 
     switchDisabledControls<ContractAgreementTransferDialogFormValue>(
@@ -90,6 +79,10 @@ export class ContractAgreementTransferDialogForm {
         const httpAuth = value.httpAuthHeaderType !== 'None';
         const httpAuthByValue = value.httpAuthHeaderType === 'Value';
         const httpAuthByVault = value.httpAuthHeaderType === 'Vault-Secret';
+
+        const httpProxiedMethod = value.showAllHttpParameterizationFields
+          ? true
+          : false;
 
         return {
           dataAddressType: true,
@@ -112,7 +105,7 @@ export class ContractAgreementTransferDialogForm {
           showAllHttpParameterizationFields: !customTransferProcessRequest,
 
           httpProxiedPath: !customTransferProcessRequest,
-          httpProxiedMethod: !customTransferProcessRequest,
+          httpProxiedMethod: !customTransferProcessRequest && httpProxiedMethod,
           httpProxiedQueryParams: !customTransferProcessRequest,
           httpProxiedBody: !customTransferProcessRequest,
           httpProxiedBodyContentType: !customTransferProcessRequest,
