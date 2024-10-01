@@ -69,7 +69,6 @@ export class ContractAgreementTransferDialogForm {
     all
       .get('showAllHttpParameterizationFields')!
       .valueChanges.subscribe((value) => {
-        console.log('showAllHttpParameterizationFields', value);
         if (value) {
           all.get('httpProxiedMethod')!.setValidators([Validators.required]);
         } else {
