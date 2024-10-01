@@ -386,6 +386,11 @@
             {{ 'contract_agreement_page.http_fields' | translate }}
           </button>
         </div>
+        show all methods:
+        {{ form.all.controls.showAllHttpParameterizationFields.value }}
+        proxy method:
+        {{ isRequiredField('httpProxiedMethod') }}
+        <br />
       </ng-container>
     </div>
   </form>

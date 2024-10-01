@@ -58,12 +58,24 @@ export class ContractAgreementTransferDialogForm {
         showAllHttpParameterizationFields: [false],
 
         httpProxiedPath: [''],
-        httpProxiedMethod: ['', Validators.required],
+        httpProxiedMethod: [''],
         httpProxiedQueryParams: this.formBuilder.array(
           new Array<FormGroup<HttpDatasourceQueryParamFormModel>>(),
         ),
         httpProxiedBody: [''],
         httpProxiedBodyContentType: [''],
+      });
+
+    all
+      .get('showAllHttpParameterizationFields')!
+      .valueChanges.subscribe((value) => {
+        console.log('showAllHttpParameterizationFields', value);
+        if (value) {
+          all.get('httpProxiedMethod')!.setValidators([Validators.required]);
+        } else {
+          all.get('httpProxiedMethod')!.clearValidators();
+        }
+        all.get('httpProxiedMethod')!.updateValueAndValidity();
       });
 
     switchDisabledControls<ContractAgreementTransferDialogFormValue>(

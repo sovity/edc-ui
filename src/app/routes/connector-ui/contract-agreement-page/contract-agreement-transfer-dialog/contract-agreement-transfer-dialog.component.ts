@@ -1,4 +1,5 @@
 import {Component, Inject, OnDestroy} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -163,5 +164,15 @@ export class ContractAgreementTransferDialogComponent implements OnDestroy {
       contractAgreementId: this.data.contractId,
       transferProcessRequestJsonLd: value.transferProcessRequest!,
     };
+  }
+
+  isRequiredField(field: string) {
+    const form_field = this.form.all.get(field);
+    if (!form_field || !form_field.validator) {
+      return false;
+    }
+
+    const validator = form_field.validator({} as AbstractControl);
+    return validator && validator.required;
   }
 }
