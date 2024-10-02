@@ -19,7 +19,12 @@ export class LocalStorageUtils {
     const storedItem = localStorage.getItem(key);
 
     try {
-      return storedItem == null ? defaultValue : JSON.parse(storedItem);
+      if (storedItem == null) {
+        this.saveData(key, defaultValue);
+        return defaultValue;
+      } else {
+        return JSON.parse(storedItem);
+      }
     } catch (e) {
       console.warn('Error parsing local storage value', key, storedItem);
       return defaultValue;
