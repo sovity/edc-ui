@@ -21,7 +21,7 @@ export class EditAssetFormValidators {
   /**
    * Use on asset control, reset asset control on publish mode changes, accesses parent form
    */
-  isValidId(): AsyncValidatorFn {
+isValidId(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       const value = control?.parent?.parent?.value as EditAssetFormValue | null;
       if (value?.mode !== 'CREATE') {
@@ -29,20 +29,7 @@ export class EditAssetFormValidators {
       }
 
       const assetId = control.value! as string;
-      if (value.publishMode === 'PUBLISH_UNRESTRICTED') {
-        return combineLatest([
-          this.assetIdExistsErrorMessage(assetId),
-          this.contractDefinitionIdErrorMessage(assetId),
-          this.policyIdExistsErrorMessage(ALWAYS_TRUE_POLICY_ID).pipe(
-            map((errorMessage) =>
-              // We want to throw an error if always-true was not found
-              errorMessage ? null : 'Always True Policy does not exist.',
-            ),
-          ),
-        ]).pipe(
-          map((errorMessages) => this.buildValidationErrors(errorMessages)),
-        );
-      } else if (value.publishMode === 'PUBLISH_RESTRICTED') {
+      if (value.publishMode !== 'DO_NOT_PUBLISH') {
         return combineLatest([
           this.assetIdExistsErrorMessage(assetId),
           this.contractDefinitionIdErrorMessage(assetId),
@@ -55,7 +42,6 @@ export class EditAssetFormValidators {
           map((result) => this.buildValidationErrors([result])),
         );
       }
-
       return of(null);
     };
   }
