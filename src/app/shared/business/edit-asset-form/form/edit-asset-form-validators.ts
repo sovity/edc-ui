@@ -8,7 +8,6 @@ import {Observable, combineLatest, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {IdAvailabilityResponse} from '@sovity.de/edc-client';
 import {EdcApiService} from 'src/app/core/services/api/edc-api.service';
-import {ALWAYS_TRUE_POLICY_ID} from './model/always-true-policy-id';
 import {EditAssetFormValue} from './model/edit-asset-form-model';
 
 /**
