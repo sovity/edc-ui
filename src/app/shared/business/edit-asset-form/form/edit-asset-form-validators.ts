@@ -21,7 +21,7 @@ export class EditAssetFormValidators {
   /**
    * Use on asset control, reset asset control on publish mode changes, accesses parent form
    */
-isValidId(): AsyncValidatorFn {
+  isValidId(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       const value = control?.parent?.parent?.value as EditAssetFormValue | null;
       if (value?.mode !== 'CREATE') {
