@@ -28,7 +28,7 @@ _No special deployment migration steps required_
 
 ### Overview
 
-MDS Path release
+MDS Patch release
 
 ### Detailed Changes
 
