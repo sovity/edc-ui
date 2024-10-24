@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   TitleStrategy,
 } from '@angular/router';
-import {Subject, switchMap} from 'rxjs';
+import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
@@ -17,9 +17,9 @@ export class CustomPageTitleStrategy extends TitleStrategy {
     private title: Title,
   ) {
     super();
-    this.rawTitle$
-      .pipe(switchMap((title) => this.translateService.get(title)))
-      .subscribe((title) => this.title.setTitle(title));
+    this.rawTitle$.subscribe((title) =>
+      this.title.setTitle(this.translateService.instant(title)),
+    );
   }
 
   override updateTitle(snapshot: RouterStateSnapshot): void {
