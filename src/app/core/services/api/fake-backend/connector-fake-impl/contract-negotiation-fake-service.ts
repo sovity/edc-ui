@@ -63,7 +63,7 @@ export const initiateContractNegotiation = (
       direction: 'CONSUMING',
       counterPartyAddress: request.counterPartyAddress,
       transferProcesses: [],
-      counterPartyId: request.counterPartyParticipantId,
+      counterPartyId: request.counterPartyId,
       asset: getAssetById(request.assetId)!,
       contractSigningDate: new Date(),
       contractPolicy: getPolicyDefinitionByJsonLd(request.policyJsonLd)!,

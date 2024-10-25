@@ -4,7 +4,7 @@ import {TestPolicies} from './data/test-policies';
 
 let dataOffers: UiDataOffer[] = [
   {
-    endpoint: 'http://existing-other-connector/api/dsp',
+    endpoint: 'https://existing-other-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     asset: TestAssets.full,
     contractOffers: [
@@ -21,7 +21,7 @@ let dataOffers: UiDataOffer[] = [
     ],
   },
   {
-    endpoint: 'http://existing-other-connector/api/dsp',
+    endpoint: 'https://existing-other-connector/api/dsp',
     participantId: 'MDSL1234XX.C1234XX',
     asset: TestAssets.onRequestAsset,
     contractOffers: [
@@ -32,7 +32,7 @@ let dataOffers: UiDataOffer[] = [
     ],
   },
   {
-    endpoint: 'http://existing-other-connector/api/dsp',
+    endpoint: 'https://existing-other-connector/api/dsp',
     asset: TestAssets.boring,
     participantId: 'MDSL1234XX.C1234XX',
     contractOffers: [
@@ -43,7 +43,7 @@ let dataOffers: UiDataOffer[] = [
     ],
   },
   {
-    endpoint: 'http://existing-other-connector/api/dsp',
+    endpoint: 'https://existing-other-connector/api/dsp',
     asset: TestAssets.short,
     participantId: 'MDSL1234XX.C1234XX',
     contractOffers: [
