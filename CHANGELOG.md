@@ -16,6 +16,11 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Major
 
+- Remove parameterization from transferring `HttpData-PUSH` type transfers as
+  the EDC does not support them anymore.
+- Temporarily removed the "Terminate Contract" button from the UI until the
+  migration has been finished.
+
 #### Minor
 
 #### Patch
