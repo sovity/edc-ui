@@ -140,9 +140,13 @@ export class EdcApiService {
 
   getCatalogPageDataOffers(
     connectorEndpoint: string,
+    participantId: string,
   ): Observable<UiDataOffer[]> {
     return toObservable(() =>
-      this.edcClient.uiApi.getCatalogPageDataOffers({connectorEndpoint}),
+      this.edcClient.uiApi.getCatalogPageDataOffers({
+        connectorEndpoint,
+        participantId,
+      }),
     );
   }
 

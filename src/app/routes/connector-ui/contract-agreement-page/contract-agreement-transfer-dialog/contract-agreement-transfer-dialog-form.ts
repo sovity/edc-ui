@@ -54,16 +54,6 @@ export class ContractAgreementTransferDialogForm {
         httpHeaders: this.formBuilder.array(
           new Array<FormGroup<HttpDatasinkHeaderFormModel>>(),
         ),
-
-        showAllHttpParameterizationFields: [false],
-
-        httpProxiedPath: [''],
-        httpProxiedMethod: ['', Validators.required],
-        httpProxiedQueryParams: this.formBuilder.array(
-          new Array<FormGroup<HttpDatasourceQueryParamFormModel>>(),
-        ),
-        httpProxiedBody: [''],
-        httpProxiedBodyContentType: [''],
       });
 
     switchDisabledControls<ContractAgreementTransferDialogFormValue>(
@@ -79,8 +69,6 @@ export class ContractAgreementTransferDialogForm {
         const httpAuth = value.httpAuthHeaderType !== 'None';
         const httpAuthByValue = value.httpAuthHeaderType === 'Value';
         const httpAuthByVault = value.httpAuthHeaderType === 'Vault-Secret';
-
-        const httpProxiedMethod = !!value.showAllHttpParameterizationFields;
 
         return {
           dataAddressType: true,
@@ -99,14 +87,6 @@ export class ContractAgreementTransferDialogForm {
           httpAuthHeaderSecretName: http && httpAuthByVault,
 
           httpHeaders: http,
-
-          showAllHttpParameterizationFields: !customTransferProcessRequest,
-
-          httpProxiedPath: !customTransferProcessRequest,
-          httpProxiedMethod: !customTransferProcessRequest && httpProxiedMethod,
-          httpProxiedQueryParams: !customTransferProcessRequest,
-          httpProxiedBody: !customTransferProcessRequest,
-          httpProxiedBodyContentType: !customTransferProcessRequest,
         };
       },
     );
@@ -133,15 +113,5 @@ export class ContractAgreementTransferDialogForm {
 
   onHttpHeadersRemoveClick(index: number) {
     this.all.controls.httpHeaders.removeAt(index);
-  }
-
-  onHttpQueryParamsAddClick() {
-    this.all.controls.httpProxiedQueryParams.push(
-      this.buildQueryParamFormGroup(),
-    );
-  }
-
-  onHttpQueryParamsRemoveClick(index: number) {
-    this.all.controls.httpProxiedQueryParams.removeAt(index);
   }
 }
