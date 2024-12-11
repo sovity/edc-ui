@@ -151,21 +151,7 @@
 </div>
 
 <mat-dialog-actions>
-  <div class="w-full flex flex-row justify-between">
-    <div class="flex gap-1 items-center">
-      <button
-        *ngIf="
-          data.type === 'contract-agreement' &&
-          !data.contractAgreement?.isTerminated
-        "
-        mat-raised-button
-        color="warn"
-        [disabled]="data.contractAgreement?.isTerminated ?? false"
-        (click)="onTerminateClick()">
-        {{ 'general.terminate' | translate }}
-      </button>
-    </div>
-
+  <div class="w-full flex flex-row justify-end">
     <div class="flex gap-1 items-center">
       <button mat-stroked-button [mat-dialog-close]="null" [disabled]="loading">
         {{ 'general.close' | translate }}

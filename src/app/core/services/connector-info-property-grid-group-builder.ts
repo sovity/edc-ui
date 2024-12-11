@@ -214,25 +214,39 @@ export class ConnectorInfoPropertyGridGroupBuilder {
       );
     }
 
-    if (data.connectorMiwConfig != null) {
+    if (data.connectorCxDidConfig != null) {
       fields.push(
         {
           icon: 'category',
-          label: 'MIW Authority ID',
+          label: 'Your DID',
+          ...this.propertyGridUtils.guessValue(data.connectorCxDidConfig.myDid),
+        },
+        {
+          icon: 'vpn_key',
+          label: 'Wallet Token URL',
           ...this.propertyGridUtils.guessValue(
-            data.connectorMiwConfig.authorityId,
+            data.connectorCxDidConfig.walletTokenUrl,
+          ),
+        },
+        {
+          icon: 'category',
+          label: 'Trusted VC Issuer',
+          ...this.propertyGridUtils.guessValue(
+            data.connectorCxDidConfig.trustedVcIssuer,
           ),
         },
         {
           icon: 'link',
-          label: 'MIW URL',
-          ...this.propertyGridUtils.guessValue(data.connectorMiwConfig.url),
+          label: 'BDRS URL',
+          ...this.propertyGridUtils.guessValue(
+            data.connectorCxDidConfig.bdrsUrl,
+          ),
         },
         {
-          icon: 'vpn_key',
-          label: 'MIW Token URL',
+          icon: 'link',
+          label: 'DIM URL',
           ...this.propertyGridUtils.guessValue(
-            data.connectorMiwConfig.tokenUrl,
+            data.connectorCxDidConfig.dimUrl,
           ),
         },
       );

@@ -5,7 +5,6 @@ import {getAuthFields} from '../utils/form-value-utils';
 import {mapKeys, removeNullValues} from '../utils/record-utils';
 import {DataAddressProperty} from './models/data-address-properties';
 import {HttpDataAddressParams} from './models/http-data-address-params';
-import {UiAssetMapped} from './models/ui-asset-mapped';
 import {QueryParamsMapper} from './query-params-mapper';
 
 @Injectable({providedIn: 'root'})
@@ -18,45 +17,6 @@ export class TransferDataSinkMapper {
     const params = this.buildHttpRequestParams(formValue);
     return this.encodeHttpRequestParams(params);
   }
-
-  encodeHttpProxyTransferRequestProperties(
-    asset: UiAssetMapped,
-    value: ContractAgreementTransferDialogFormValue,
-  ): Record<string, string> {
-    const method = value.httpProxiedMethod?.trim() ?? '';
-    const pathSegments = this.queryParamsMapper.getBaseUrlWithoutQueryParams(
-      value.httpProxiedPath!!,
-    );
-    const queryParams = this.queryParamsMapper.getFullQueryString(
-      value.httpProxiedPath!!,
-      value.httpProxiedQueryParams ?? [],
-    );
-    const body = value.httpProxiedBody?.trim() || null;
-    const contentType = value.httpProxiedBodyContentType?.trim() || null;
-
-    const proxyMethod =
-      value.showAllHttpParameterizationFields ||
-      asset.httpDatasourceHintsProxyMethod;
-    const proxyPath =
-      value.showAllHttpParameterizationFields ||
-      asset.httpDatasourceHintsProxyPath;
-    const proxyQueryParams =
-      value.showAllHttpParameterizationFields ||
-      asset.httpDatasourceHintsProxyQueryParams;
-    const proxyBody =
-      value.showAllHttpParameterizationFields ||
-      asset.httpDatasourceHintsProxyBody;
-
-    return removeNullValues({
-      [DataAddressProperty.method]: proxyMethod && method ? method : null,
-      [DataAddressProperty.pathSegments]: proxyPath ? pathSegments : null,
-      [DataAddressProperty.queryParams]: proxyQueryParams ? queryParams : null,
-      [DataAddressProperty.body]: proxyBody ? body : null,
-      [DataAddressProperty.contentType]: proxyBody ? contentType : null,
-      [DataAddressProperty.mediaType]: proxyBody ? contentType : null,
-    });
-  }
-
   encodeHttpRequestParams(
     httpRequestParams: HttpDataAddressParams,
   ): Record<string, string> {

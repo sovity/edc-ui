@@ -4,7 +4,6 @@ import {
   FormGroup,
   ɵFormGroupValue,
 } from '@angular/forms';
-import {HttpDatasourceQueryParamFormModel} from '../../../../shared/business/edit-asset-form/form/model/http-datasource-query-param-form-model';
 import {DataAddressType} from '../../../../shared/form-elements/data-address-type-select/data-address-type';
 import {HttpDatasinkAuthHeaderType} from './http-datasink-auth-header-type';
 import {HttpDatasinkHeaderFormModel} from './http-datasink-header-form-model';
@@ -31,20 +30,9 @@ export interface ContractAgreementTransferDialogFormModel {
   httpUrl: FormControl<string>;
   httpMethod: FormControl<string>;
 
-  showAllHttpParameterizationFields: FormControl<boolean>;
-
   httpAuthHeaderType: FormControl<HttpDatasinkAuthHeaderType>;
   httpAuthHeaderName: FormControl<string>;
   httpAuthHeaderValue: FormControl<string>;
   httpAuthHeaderSecretName: FormControl<string>;
   httpHeaders: FormArray<FormGroup<HttpDatasinkHeaderFormModel>>;
-
-  // Http Datasource Parameterization
-  httpProxiedPath: FormControl<string>;
-  httpProxiedMethod: FormControl<string>;
-  httpProxiedQueryParams: FormArray<
-    FormGroup<HttpDatasourceQueryParamFormModel>
-  >;
-  httpProxiedBody: FormControl<string>;
-  httpProxiedBodyContentType: FormControl<string>;
 }

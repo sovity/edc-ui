@@ -12,7 +12,7 @@ export interface DashboardPageData {
   numPolicies: Fetched<number>;
   numCatalogs: Fetched<number>;
   connectorProperties: PropertyGridGroup[];
-  connectorEndpoint: string;
+  connectorEndpointAndParticipantId: string;
   title: string;
   description: string;
 }
@@ -28,7 +28,7 @@ export function defaultDashboardData(): DashboardPageData {
     numContractDefinitions: Fetched.empty(),
     numCatalogs: Fetched.empty(),
     connectorProperties: [],
-    connectorEndpoint: 'Loading...',
+    connectorEndpointAndParticipantId: 'Loading...',
     title: 'Loading...',
     description: 'Loading...',
   };
