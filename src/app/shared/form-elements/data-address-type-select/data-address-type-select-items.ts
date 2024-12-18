@@ -15,22 +15,29 @@ export const dataAddressTypeSelectItems = (
     });
   }
 
-  items.push(
-    {
-      id: 'Http',
-      label: 'REST-API Endpoint',
-    },
-    {
+  items.push({
+    id: 'Http',
+    label: 'REST-API Endpoint',
+  });
+
+  if (type === 'Datasource-Create') {
+    items.push({
       id: 'Custom-Data-Address-Json',
-      label: `Custom ${type} Config (JSON)`,
-    },
-  );
+      label: `Custom Datasource Config (JSON)`,
+    });
+  }
 
   if (type === 'Datasink') {
-    items.push({
-      id: 'Custom-Transfer-Process-Request',
-      label: 'Custom Transfer Process Request (JSON)',
-    });
+    items.push(
+      {
+        id: 'Custom-Data-Address-Json',
+        label: `Custom Datasink Config (JSON) for Transfer Type 'HttpData-PUSH'`,
+      },
+      {
+        id: 'Custom-Transfer-Process-Request',
+        label: 'Custom Transfer Process Request (JSON)',
+      },
+    );
   }
 
   return items;

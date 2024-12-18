@@ -5,6 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {DashboardTransferAmounts, UiDataOffer} from '@sovity.de/edc-client';
 import {EdcApiService} from '../../../../core/services/api/edc-api.service';
 import {LastCommitInfoService} from '../../../../core/services/api/last-commit-info.service';
+import {ConnectorEndpointUrlMapper} from '../../../../core/services/connector-endpoint-url-mapper';
 import {ConnectorInfoPropertyGridGroupBuilder} from '../../../../core/services/connector-info-property-grid-group-builder';
 import {Fetched} from '../../../../core/services/models/fetched';
 import {CatalogApiUrlService} from '../../catalog-browser-page/catalog-browser-page/catalog-api-url.service';
@@ -19,6 +20,7 @@ export class DashboardPageDataService {
     private lastCommitInfoService: LastCommitInfoService,
     private connectorInfoPropertyGridGroupBuilder: ConnectorInfoPropertyGridGroupBuilder,
     private translateService: TranslateService,
+    private connectorEndpointUrlMapper: ConnectorEndpointUrlMapper,
   ) {}
 
   /**
@@ -56,11 +58,17 @@ export class DashboardPageDataService {
   private getAllDataOffers(): Observable<UiDataOffer[]> {
     const catalogUrls = this.catalogApiUrlService.getAllProviders();
 
-    const dataOffers = catalogUrls.map((it) =>
-      this.edcApiService
-        .getCatalogPageDataOffers(it)
-        .pipe(catchError(() => of([]))),
-    );
+    const dataOffers = catalogUrls
+      .map((it) =>
+        this.connectorEndpointUrlMapper.extractConnectorEndpointAndParticipantId(
+          it,
+        ),
+      )
+      .map((it) =>
+        this.edcApiService
+          .getCatalogPageDataOffers(it.connectorEndpoint, it.participantId)
+          .pipe(catchError(() => of([]))),
+      );
 
     return merge(...dataOffers).pipe(
       sampleTime(50),
@@ -165,9 +173,11 @@ export class DashboardPageDataService {
             it.numContractAgreementsConsuming +
             it.numContractAgreementsProviding,
         ),
-        connectorEndpoint: this.extractString(
-          fetched,
-          (it) => it.connectorEndpoint,
+        connectorEndpointAndParticipantId: this.extractString(fetched, (it) =>
+          this.connectorEndpointUrlMapper.mergeConnectorEndpointAndParticipantId(
+            it.connectorEndpoint,
+            it.connectorParticipantId,
+          ),
         ),
         incomingTransfersChart: fetched.map((it) =>
           this.buildTransferChart(it.transferProcessesConsuming, 'CONSUMING'),

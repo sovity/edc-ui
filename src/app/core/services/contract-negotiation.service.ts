@@ -58,7 +58,7 @@ export class ContractNegotiationService {
   negotiate(dataOffer: DataOffer, contractOffer: UiContractOffer) {
     const contractOfferId = contractOffer.contractOfferId;
     const initiateRequest: ContractNegotiationRequest = {
-      counterPartyParticipantId: dataOffer.participantId,
+      counterPartyId: dataOffer.participantId,
       counterPartyAddress: dataOffer.endpoint!,
       assetId: dataOffer.asset.assetId,
       contractOfferId,
