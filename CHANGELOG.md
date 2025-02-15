@@ -38,6 +38,8 @@ MDS Patch release
   ([#878](https://github.com/sovity/edc-ui/issues/878))
 - Rearrange Sidebar Navigation Groups
   ([#836](https://github.com/sovity/edc-ui/issues/836))
+- Improve the UX of the contract's transfer initiation dialog
+  ([#709](https://github.com/sovity/edc-ui/issues/709))
 
 ### Deployment Migration Notes
 
