@@ -20,6 +20,9 @@ the detailed section referring to by linking pull requests or issues.
 
 #### Patch
 
+- Fix broken title after i18n
+  ([#844](https://github.com/sovity/edc-ui/issues/844))
+
 ### Deployment Migration Notes
 
 _No special deployment migration steps required_
